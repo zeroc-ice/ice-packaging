@@ -71,8 +71,10 @@ The ```db53*``` and ```mcpp-devel``` RPMs are provided by ZeroC. You can determi
 Follow these steps to create the Ice source RPM:
 
 1. Copy all desired source files and patches into the directory ```pkgdir/SOURCES```
-1. Comment out the ```%dist``` setting in ```~/.rpmmacros```
-1. Run rpmbuild:
+
+2. Comment out the ```%dist``` setting in ```~/.rpmmacros```
+
+3. Run rpmbuild:
 
         $ rpmbuild -bs --sign ice.spec
 
@@ -127,7 +129,7 @@ Upon completion, the binary RPMs can be found in ```pkgdir/RPMS```.
 Follow these steps to create a new set of RPMs that incorporates one or more source patches:
 
 - Install the Ice source RPM
-- Edit ice.spec:
+- Edit ```ice.spec```:
    - Modify the Release setting, for example:
 
              # Second build by ACME, Inc.:
@@ -148,6 +150,6 @@ Follow these steps to create a new set of RPMs that incorporates one or more sou
              %patch2 -p0 -b .orig2
              %endif
 
-- Copy the patch(es) to pkgdir/SOURCES
+- Copy the patch(es) to ```pkgdir/SOURCES```
 
 - Finally, create the source and binary RPM packages as described above.
