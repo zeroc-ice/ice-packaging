@@ -1,20 +1,16 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
-export DEB_BUILD_OPTIONS = nocheck notest -j4
+DEB_BUILD_OPTIONS += nocheck notest
 
 #export DH_VERBOSE=1
 
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
 
-export OPTIMIZE=yes
-export prefix=/usr
 export CLASSPATH=/usr/share/java/proguard.jar
-export DESTDIR=$(CURDIR)/debian/tmp
 export GRADLE_HOME=$(HOME)/.gradle
 export GRADLE = ./gradlew -g $(GRADLE_HOME)
-export CLOSURE_COMPILER=/usr/share/java/closure-compiler.jar
 
 PACKAGE_NAMES = zeroc-ice \
 	zeroc-ice-dev \
@@ -67,36 +63,56 @@ else
 ICEBOX = icebox
 endif
 
+DESTDIR=$(CURDIR)/debian/tmp
+ifeq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+	OPTIMIZE=yes
+endif
+
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+	MAKEFLAGS += -j$(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+else
+	PROCESSORS := $(shell cat /proc/cpuinfo | grep processor | wc -l)
+	ifneq ($(PROCESSORS),0)
+	    MAKEFLAGS += -j$(PROCESSORS)
+	endif
+endif
+
+MAKEOPTS = prefix=/usr OPTIMIZE=$(OPTIMIZE)
+
 icebox_install:
 	@echo usr/bin/$(ICEBOX) > $(CURDIR)/debian/zeroc-icebox.install
 	@echo usr/bin/$(ICEBOX)++11 >> $(CURDIR)/debian/zeroc-icebox.install
 	@echo usr/share/man/man1/icebox.1 >> $(CURDIR)/debian/zeroc-icebox.install
 
 %:
-	dh $@ --with php5 --with javahelper
+	dh $@ --parallel --with php5 --with javahelper
 
-override_dh_auto_build:
-	cp -r cpp cpp11
-	cd cpp11/src && CPP11=yes $(MAKE) -j4
-	$(MAKE) -j4 embedded_runpath_prefix=""
+override_dh_auto_build-arch:
+	if [ ! -d cpp11 ]; then cp -r cpp cpp11; fi
+	$(MAKE) $(MAKEOPTS) -C cpp/src
+	$(MAKE) $(MAKEOPTS) -C php/src
+	$(MAKE) $(MAKEOPTS) -C cpp11/src CPP11=yes LD_LIBRARY_PATH=$(CURDIR)/cpp11/lib/$(DEB_HOST_MULTIARCH)
 
-override_dh_auto_install:
-	cd cpp11 && DESTDIR=$(CPP11_DESTDIR) CPP11=yes $(MAKE) install
-	#
-	# Continue with regular dh_auto_install
-	#
-	dh_auto_install
+override_dh_auto_build-indep:
+	$(MAKE) $(MAKEOPTS) -C java dist
+
+override_dh_auto_install-arch:
+	$(MAKE) $(MAKEOPTS) -C cpp DESTDIR=$(DESTDIR) install
+	$(MAKE) $(MAKEOPTS) -C php DESTDIR=$(DESTDIR) install
+	$(MAKE) $(MAKEOPTS) -C cpp11 DESTDIR=$(CPP11_DESTDIR) CPP11=yes install
+
+override_dh_auto_install-indep:
+	$(MAKE) $(MAKEOPTS) -C java DESTDIR=$(DESTDIR) install
+
+override_dh_auto_clean-arch:
+	$(MAKE) $(MAKEOPTS) -C cpp/src clean
+	$(MAKE) $(MAKEOPTS) -C php/src clean
+	if [ -d cpp11 ]; then $(MAKE) $(MAKEOPTS) -C cpp11/src CPP11=yes clean; fi
+
+override_dh_auto_clean-indep:
+	$(MAKE) $(MAKEOPTS) -C java clean
 
 override_dh_install: icebox_install
-	#
-	# Sign JAR files
-	#
-	@if test "$(SIGNJARS)" = "yes" ; \
-        then \
-		echo "signing jar file: $(DESTDIR)/usr/share/java/icegridgui.jar" ; \
-		jarsigner -keystore $(JARSIGNER_KEYSTORE) -storepass "$(JARSIGNER_KEYSTORE_PASSWORD)" \
-			$(DESTDIR)/usr/share/java/icegridgui.jar zeroc.com -tsa http://timestamp.digicert.com > /dev/null ; \
-        fi
 
 	#
 	# Install Maven artifact
