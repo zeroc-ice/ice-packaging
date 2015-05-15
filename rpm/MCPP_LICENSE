@@ -1,10 +1,10 @@
 The Slice compilers use mcpp as their preprocessor:
 
   http://mcpp.sourceforge.net
-
+  https://github.com/zeroc-ice/mcpp
 
 License Agreement for mcpp:
----------_-----------------
+---------------------------
 
 /*-
  * Copyright (c) 1998, 2002-2007 Kiyoshi Matsui <kmatsui@t3.rim.or.jp>
