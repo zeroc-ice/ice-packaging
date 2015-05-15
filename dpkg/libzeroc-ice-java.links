@@ -1,9 +1,3 @@
-usr/share/java/ant-ice-3.6.0.jar usr/share/java/ant-ice.jar
-usr/share/java/ant-ice-3.6.0-source.jar usr/share/java/ant-ice-source.jar
-
-usr/share/java/ice-gradle-plugin-3.6.0.jar usr/share/java/ice-gradle-plugin.jar
-usr/share/java/ice-gradle-plugin-3.6.0-source.jar usr/share/java/ice-gradle-plugin-source.jar
-
 usr/share/java/freeze-3.6.0.jar usr/share/java/freeze.jar
 usr/share/java/freeze-3.6.0-source.jar usr/share/java/freeze-source.jar
 

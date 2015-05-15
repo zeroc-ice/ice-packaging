@@ -53,9 +53,7 @@ ARTIFACT_NAMES = freeze \
 	icegrid \
 	icelocatordiscovery \
 	icepatch2 \
-	icestorm \
-	ant-ice \
-	ice-gradle-plugin
+	icestorm
 
 ifeq ($(DEB_HOST_MULTIARCH),i386-linux-gnu)
 ICEBOX = icebox32
@@ -77,7 +75,8 @@ else
 	endif
 endif
 
-MAKEOPTS = prefix=/usr OPTIMIZE=$(OPTIMIZE)
+prefix = /usr
+MAKEOPTS = prefix=$(prefix) OPTIMIZE=$(OPTIMIZE)
 
 icebox_install:
 	@echo usr/bin/$(ICEBOX) > $(CURDIR)/debian/zeroc-icebox.install
@@ -112,6 +111,8 @@ override_dh_auto_clean-arch:
 override_dh_auto_clean-indep:
 	$(MAKE) $(MAKEOPTS) -C java clean
 
+override_dh_auto_test:
+
 override_dh_install: icebox_install
 
 	#
@@ -120,10 +121,10 @@ override_dh_install: icebox_install
 	for name in $(ARTIFACT_NAMES) ; \
 	do \
 		cd $(CURDIR) ; \
-		mkdir -p $(DESTDIR)/$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) ; \
-		mv $(DESTDIR)/$(prefix)/share/java/$$name-$(VERSION).pom $(DESTDIR)/$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) ; \
-		cd $(DESTDIR)/$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) && ln -s ../../../../../java/$$name-$(VERSION).jar . ; \
-		cd $(DESTDIR)/$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) && ln -s ../../../../../java/$$name-$(VERSION)-source.jar . ; \
+		mkdir -p $(DESTDIR)$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) ; \
+		mv $(DESTDIR)$(prefix)/share/java/$$name-$(VERSION).pom $(DESTDIR)$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) ; \
+		cd $(DESTDIR)$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) && ln -s ../../../../../java/$$name-$(VERSION).jar . ; \
+		cd $(DESTDIR)$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) && ln -s ../../../../../java/$$name-$(VERSION)-source.jar . ; \
 	done ;
 
 	mkdir -p $(DESTDIR)$(prefix)/lib/$(DEB_HOST_MULTIARCH)/c++11
@@ -174,7 +175,7 @@ override_dh_install: icebox_install
 	for name in $(PACKAGE_NAMES) ; \
 	do \
 		mkdir -p $(DESTDIR)$(prefix)/share/doc/$$name ; \
-		cp debian/README.Linux $(DESTDIR)$(prefix)/share/doc/$$name/README ; \
+		cp debian/README $(DESTDIR)$(prefix)/share/doc/$$name/README ; \
 	done ;
 
 	cp debian/JGOODIES_LICENSE $(DESTDIR)$(prefix)/share/doc/zeroc-ice-utils-java/JGOODIES_LICENSE
@@ -182,12 +183,5 @@ override_dh_install: icebox_install
 override_dh_clean:
 	dh_clean
 	rm -rf cpp11
-	rm -rf java/lib/ice-gradle-plugin-3.6.0.jar
-	rm -rf java/lib/ice-gradle-plugin-3.6.0.pom
-	rm -rf java/lib/ice-gradle-plugin-3.6.0-source.jar
-	rm -rf java/buildSrc/build
-	rm -rf java/buildSrc/.gradle
-	rm -rf java/buildSrc/buildSrc.pom
-	rm -rf java/.gradle/2.1/taskArtifacts/cache.properties.lock
-	rm -rf java/.gradle/2.1/taskArtifacts/*
+	rm -rf java/.gradle
 	rm -rf debian/tmp-cpp11

@@ -4,12 +4,6 @@ usr/share/man/man1/slice2java.1
 usr/bin/slice2freezej
 usr/share/man/man1/slice2freezej.1
 
-usr/share/java/ant-ice-3.6.0.jar
-usr/share/java/ant-ice-3.6.0-source.jar
-
-usr/share/java/ice-gradle-plugin-3.6.0.jar
-usr/share/java/ice-gradle-plugin-3.6.0-source.jar
-
 usr/share/java/freeze-3.6.0.jar
 usr/share/java/freeze-3.6.0-source.jar
 
@@ -33,14 +27,6 @@ usr/share/java/icepatch2-3.6.0-source.jar
 
 usr/share/java/icestorm-3.6.0.jar
 usr/share/java/icestorm-3.6.0-source.jar
-
-usr/share/maven-repo/com/zeroc/ant-ice/3.6.0/ant-ice-3.6.0.jar
-usr/share/maven-repo/com/zeroc/ant-ice/3.6.0/ant-ice-3.6.0-source.jar
-usr/share/maven-repo/com/zeroc/ant-ice/3.6.0/ant-ice-3.6.0.pom
-
-usr/share/maven-repo/com/zeroc/ice-gradle-plugin/3.6.0/ice-gradle-plugin-3.6.0.jar
-usr/share/maven-repo/com/zeroc/ice-gradle-plugin/3.6.0/ice-gradle-plugin-3.6.0-source.jar
-usr/share/maven-repo/com/zeroc/ice-gradle-plugin/3.6.0/ice-gradle-plugin-3.6.0.pom
 
 usr/share/maven-repo/com/zeroc/freeze/3.6.0/freeze-3.6.0.jar
 usr/share/maven-repo/com/zeroc/freeze/3.6.0/freeze-3.6.0-source.jar
