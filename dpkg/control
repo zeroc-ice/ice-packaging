@@ -22,7 +22,6 @@ Depends: zeroc-ice-slice (=${binary:Version}),
  libzeroc-ice3.6 (=${binary:Version}),
  libzeroc-freeze3.6 (=${binary:Version}),
  php5-zeroc-ice (=${binary:Version}),
- ruby-zeroc-ice (=${binary:Version}),
  zeroc-glacier2 (=${binary:Version}),
  zeroc-icebox (=${binary:Version}),
  zeroc-icegrid (=${binary:Version}),
@@ -197,7 +196,7 @@ Package: zeroc-ice-utils-java
 Architecture: all
 Section: admin
 Replaces:ice-utils, icegrid-gui
-Depends: ${java:Depends}, ${misc:Depends}, ${python:Depends},
+Depends: ${java:Depends}, ${misc:Depends}
  zeroc-ice-utils (=${binary:Version}),
  openjdk-7-jdk | openjdk-8-jdk | oracle-java7-installer | oracle-java8-installer |
  openjdk-7-jre | openjdk-8-jre
