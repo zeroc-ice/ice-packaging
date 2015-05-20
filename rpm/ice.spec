@@ -46,7 +46,6 @@ ExcludeArch: %{ix86}
 %endif
 
 %define buildall 1
-%define makeopts -j1
 %define runpath embedded_runpath=no
 
 %define core_arches %{ix86} x86_64
@@ -394,9 +393,9 @@ rmdir tmp
 
 cd $RPM_BUILD_DIR/Ice-%{version}/cpp/src
 %if %{cppx86}
-make %{makeopts} CXXARCHFLAGS="-m32 -march=i686" LP64=no OPTIMIZE=yes %{runpath}
+make %{?_smp_mflags} CXXARCHFLAGS="-m32 -march=i686" LP64=no OPTIMIZE=yes %{runpath}
 %else
-make %{makeopts} OPTIMIZE=yes %{runpath}
+make %{?_smp_mflags} OPTIMIZE=yes %{runpath}
 %endif
 
 %if %{cpp11}
@@ -405,9 +404,9 @@ mv cpp cpp.sav
 mv cpp11 cpp
 cd cpp/src
 %if %{cppx86}
-make %{makeopts} CXXARCHFLAGS="-m32 -march=i686" LP64=no CPP11=yes OPTIMIZE=yes %{runpath}
+make %{?_smp_mflags} CXXARCHFLAGS="-m32 -march=i686" LP64=no CPP11=yes OPTIMIZE=yes %{runpath}
 %else
-make %{makeopts} CPP11=yes OPTIMIZE=yes %{runpath}
+make %{?_smp_mflags} CPP11=yes OPTIMIZE=yes %{runpath}
 %endif
 cd $RPM_BUILD_DIR/Ice-%{version}
 mv cpp cpp11
@@ -417,7 +416,7 @@ mv cpp.sav cpp
 %if ! %{cppx86}
 
 cd $RPM_BUILD_DIR/Ice-%{version}/php
-make %{makeopts} OPTIMIZE=yes %{runpath}
+make %{?_smp_mflags} OPTIMIZE=yes %{runpath}
 
 cd $RPM_BUILD_DIR/Ice-%{version}/java
 make dist
@@ -430,16 +429,16 @@ make dist
 # Build only what we need in C++.
 #
 cd $RPM_BUILD_DIR/Ice-%{version}/cpp/src/IceUtil
-make %{makeopts} OPTIMIZE=yes %{runpath}
+make %{?_smp_mflags} OPTIMIZE=yes %{runpath}
 
 cd $RPM_BUILD_DIR/Ice-%{version}/cpp/src/Slice
-make %{makeopts} OPTIMIZE=yes %{runpath}
+make %{?_smp_mflags} OPTIMIZE=yes %{runpath}
 
 cd $RPM_BUILD_DIR/Ice-%{version}/cpp/src/slice2java
-make %{makeopts} OPTIMIZE=yes %{runpath}
+make %{?_smp_mflags} OPTIMIZE=yes %{runpath}
 
 cd $RPM_BUILD_DIR/Ice-%{version}/cpp/src/slice2freezej
-make %{makeopts} OPTIMIZE=yes %{runpath}
+make %{?_smp_mflags} OPTIMIZE=yes %{runpath}
 
 cd $RPM_BUILD_DIR/Ice-%{version}/java
 make dist
