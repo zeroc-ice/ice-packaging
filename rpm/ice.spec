@@ -760,6 +760,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, root, -)
 %dir %{_datadir}/Ice-%{version}
 %{_datadir}/Ice-%{version}/slice
+%{_datadir}/slice
 %{_defaultdocdir}/ice-slice-%{version}
 
 %files -n ice-utils-java
