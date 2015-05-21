@@ -20,7 +20,7 @@ The GPG settings are only needed if you want to sign your RPMs. Replace
 The value for `%dist` should be one of
 
     .sles12
-    .sles11
+    .sles11.3
     .el7
     .el6
     .amzn1
@@ -61,18 +61,18 @@ your system in order to build the RPM packages. These dependencies are listed be
 | Package | Platform |
 |----------|-------------|
 | libdb-cxx-devel | el7 |
-| db53-devel | amzn1, el6, sles11, sles12 |
+| db53-devel | amzn1, el6, sles11.3, sles12 |
 | libdb-java | el7 |
-| db53-java | amzn1, el6, sles11, sles12 |
+| db53-java | amzn1, el6, sles11.3, sles12 |
 | mcpp-devel | All |
 | openssl-devel | All |
 | javapackages-tools | el7 |
-| jpackage-utils | amzn1, el6, sles11 |
+| jpackage-utils | amzn1, el6, sles11.3 |
 | bzip2-devel | All |
 | expat-devel | All |
 | php-devel | el7, el6, amzn1 |
 | php5-devel | sles12 |
-| php53-devel | sles11 |
+| php53-devel | sles11.3 |
 
 The `db53*` and `mcpp-devel` RPMs are provided by ZeroC. You can determine the
 version requirements for all other prerequisites by examining the `BuildRequires`
