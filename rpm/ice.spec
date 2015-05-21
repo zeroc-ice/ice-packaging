@@ -745,7 +745,7 @@ jarsigner -keystore $JARSIGNER_KEYSTORE -storepass "$JARSIGNER_KEYSTORE_PASSWORD
 #
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}
 cp -rp $RPM_BUILD_DIR/Ice-%{version}/slice $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}
-
+ln -s $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}/slice $RPM_BUILD_ROOT%{_datadir}/slice
 %endif
 
 %clean
