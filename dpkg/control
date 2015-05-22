@@ -98,6 +98,7 @@ Replaces:libice-java-dev, ice35-translators, libzeroc-ice3.6-java
 Depends: ${shlibs:Depends}, ${misc:Depends},
  zeroc-ice-slice (=${binary:Version}),
  libzeroc-ice3.6 (=${binary:Version}),
+ libdb5.3-java (>=5.3.28),
  openjdk-7-jdk | openjdk-8-jdk | oracle-java7-installer | oracle-java8-installer
 Description: Tools for developing Ice applications in Java
  Tools for developing Ice applications in Java.
