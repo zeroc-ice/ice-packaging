@@ -19,6 +19,9 @@ usr/share/java/icebox-3.6.0-source.jar
 usr/share/java/icediscovery-3.6.0.jar
 usr/share/java/icediscovery-3.6.0-source.jar
 
+usr/share/java/icelocatordiscovery-3.6.0.jar
+usr/share/java/icelocatordiscovery-3.6.0-source.jar
+
 usr/share/java/icegrid-3.6.0.jar
 usr/share/java/icegrid-3.6.0-source.jar
 
@@ -47,6 +50,10 @@ usr/share/maven-repo/com/zeroc/icebox/3.6.0/icebox-3.6.0.pom
 usr/share/maven-repo/com/zeroc/icediscovery/3.6.0/icediscovery-3.6.0.jar
 usr/share/maven-repo/com/zeroc/icediscovery/3.6.0/icediscovery-3.6.0-source.jar
 usr/share/maven-repo/com/zeroc/icediscovery/3.6.0/icediscovery-3.6.0.pom
+
+usr/share/maven-repo/com/zeroc/icelocatordiscovery/3.6.0/icelocatordiscovery-3.6.0.jar
+usr/share/maven-repo/com/zeroc/icelocatordiscovery/3.6.0/icelocatordiscovery-3.6.0-source.jar
+usr/share/maven-repo/com/zeroc/icelocatordiscovery/3.6.0/icelocatordiscovery-3.6.0.pom
 
 usr/share/maven-repo/com/zeroc/icegrid/3.6.0/icegrid-3.6.0.jar
 usr/share/maven-repo/com/zeroc/icegrid/3.6.0/icegrid-3.6.0-source.jar
