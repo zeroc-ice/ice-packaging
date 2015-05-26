@@ -62,7 +62,7 @@ if RUBY_PLATFORM =~ /mswin|mingw/
 elsif RUBY_PLATFORM =~ /darwin/
 	$LOCAL_LIBS << ' -framework Security -framework CoreFoundation'
 elsif RUBY_PLATFORM =~ /linux/
-	$LOCAL_LIBS << ' -lssl -lcrypto'
+	$LOCAL_LIBS << ' -lssl -lcrypto -lbz2'
 end
 $CPPFLAGS << ' -w'
 
