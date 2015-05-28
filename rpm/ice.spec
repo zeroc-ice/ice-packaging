@@ -330,6 +330,9 @@ Summary: Tools, libraries and headers for developing Ice applications in C++.
 Group: Development/Tools
 Obsoletes: ice-c++-devel < 3.6
 Requires: libice3.6-c++%{?_isa} = %{version}-%{release}, ice-slice = %{version}-%{release}
+%if %{cppx86}
+Requires: libice-c++-devel(x86-64) = %{version}-%{release}
+%endif
 %if %{biarch}
 Requires: glibc-devel%{?_isa}
 %endif
@@ -393,7 +396,7 @@ rmdir tmp
 
 cd $RPM_BUILD_DIR/Ice-%{version}/cpp/src
 %if %{cppx86}
-make %{?_smp_mflags} CXXARCHFLAGS="-m32 -march=i686" LP64=no OPTIMIZE=yes %{runpath}
+make %{?_smp_mflags} CXXARCHFLAGS="-m32" LP64=no OPTIMIZE=yes %{runpath}
 %else
 make %{?_smp_mflags} OPTIMIZE=yes %{runpath}
 %endif
@@ -404,7 +407,7 @@ mv cpp cpp.sav
 mv cpp11 cpp
 cd cpp/src
 %if %{cppx86}
-make %{?_smp_mflags} CXXARCHFLAGS="-m32 -march=i686" LP64=no CPP11=yes OPTIMIZE=yes %{runpath}
+make %{?_smp_mflags} CXXARCHFLAGS="-m32" LP64=no CPP11=yes OPTIMIZE=yes %{runpath}
 %else
 make %{?_smp_mflags} CPP11=yes OPTIMIZE=yes %{runpath}
 %endif
