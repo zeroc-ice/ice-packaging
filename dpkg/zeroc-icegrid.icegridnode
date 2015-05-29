@@ -91,7 +91,7 @@ do_stop()
         #   other if a failure occurred
         start-stop-daemon --stop --quiet --retry=TERM/60 --pidfile $PIDFILE --exec $DAEMON
         RETVAL="$?"
-        rm -f $pidfile
+        rm -f $PIDFILE
         return "$RETVAL"
 }
 
