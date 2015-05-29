@@ -50,7 +50,7 @@ elif platform == 'linux2':
 
     extra_compile_args.append('-w')
     extra_link_args = []
-    libraries=['ssl', 'crypto', 'bz2']
+    libraries=['ssl', 'crypto', 'bz2', 'rt', 'dl']
     # Don't compile the bzip2 source under darwin or linux.
     def filterName(path):
         d = os.path.dirname(path)
