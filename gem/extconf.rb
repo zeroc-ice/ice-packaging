@@ -62,7 +62,13 @@ if RUBY_PLATFORM =~ /mswin|mingw/
 elsif RUBY_PLATFORM =~ /darwin/
 	$LOCAL_LIBS << ' -framework Security -framework CoreFoundation'
 elsif RUBY_PLATFORM =~ /linux/
-	$LOCAL_LIBS << ' -lssl -lcrypto -lbz2'
+	$LOCAL_LIBS << ' -lssl -lcrypto -lbz2 -lrt'
+        if RUBY_VERSION =~ /1.8/
+            $CPPFLAGS << ' -o$@'
+            if File.exist?('/usr/include/regex.h') && !File.exist?('regex.h')
+                FileUtils.ln_s '/usr/include/regex.h', 'regex.h'
+            end
+        end
 end
 $CPPFLAGS << ' -w'
 
