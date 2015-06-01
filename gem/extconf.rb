@@ -64,7 +64,12 @@ elsif RUBY_PLATFORM =~ /darwin/
 elsif RUBY_PLATFORM =~ /linux/
 	$LOCAL_LIBS << ' -lssl -lcrypto -lbz2 -lrt'
         if RUBY_VERSION =~ /1.8/
+            # With 1.8 we need to link with C++ runtime, as gcc is used to link the extension
+            $LOCAL_LIBS << ' -lstdc++'
+            # With 1.8 we need to fix the objects output directory
             $CPPFLAGS << ' -o$@'
+            # With 1.8 /usr/lib/ruby/1.8/regex.h conflicts with /usr/include/regex.h
+            # we add a symbolic link to workaround the problem
             if File.exist?('/usr/include/regex.h') && !File.exist?('regex.h')
                 FileUtils.ln_s '/usr/include/regex.h', 'regex.h'
             end
