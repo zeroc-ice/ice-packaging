@@ -203,9 +203,9 @@ Summary: The Freeze library for C++.
 Group: System Environment/Libraries
 Requires: libice3.6-c++%{?_isa} = %{version}-%{release}
 %if "%{dist}" == ".el7"
-Requires: libdb%{?_isa}
+Requires: libdb%{?_isa} >= %{dbversion}
 %else
-Requires: db53%{?_isa}
+Requires: db53%{?_isa} >= %{dbversion}
 %endif
 %description -n libfreeze3.6-c++
 The Freeze library for C++.
@@ -238,9 +238,9 @@ Summary: Ice for Java run-time libraries and development tools.
 Group: System Environment/Libraries
 Obsoletes: ice-java-devel < 3.6, ice-java < 3.6
 %if "%{dist}" == ".el7"
-Requires: libdb-java%{?_isa}
+Requires: libdb-java%{?_isa} >= %{dbversion}
 %else
-Requires: db53-java%{?_isa}
+Requires: db53-java%{?_isa} >= %{dbversion}
 %endif
 %description -n libice-java
 Ice for Java run-time libraries and development tools.
