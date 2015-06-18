@@ -43,7 +43,7 @@ First install ZeroC's key to avoid warnings with unsigned packages:
     $ wget https://zeroc.com/download/GPG-KEY-zeroc-release
     $ sudo rpm --import GPG-KEY-zeroc-release
 
-Then add the Ice repositories and install the source RPM: 
+Then add the Ice repository for you system and install the source RPM:
 
 * Red Hat Enterprise Linux 6:
     $ cd /etc/yum.repos.d
@@ -69,7 +69,7 @@ Now download and install the source rpm:
 
     $ yumdownloader --source ice
     $ rpm -i ice-3.6.0-1.el6.src.rpm
-    
+
 You can find the `ice.spec` file in the `pkgdir/SPECS` directory, while the archive
 file is in the `pkgdir/SOURCES` directory.
 
@@ -153,7 +153,7 @@ On SuSE Linux Enterprise Server 11:
 
     $ cd pkgdir/SPECS
     $ rpmbuild -bb --sign --target noarch,i586 ice.spec
-    
+
 Replace i586 with x86_64 on 64-bit platforms.
 
 On Amazon Linux:
