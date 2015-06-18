@@ -38,7 +38,7 @@ to be able to create RPM packages as a non-root user.
 
 ## RPM build prerequisites
 
-First onstall ZeroC's key to avoid warnings with unsigned packages:
+First install ZeroC's key to avoid warnings with unsigned packages:
 
     $ wget https://zeroc.com/download/GPG-KEY-zeroc-release
     $ sudo rpm --import GPG-KEY-zeroc-release
