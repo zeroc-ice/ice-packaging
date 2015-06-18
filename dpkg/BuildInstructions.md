@@ -10,23 +10,6 @@ system:
 
     $ sudo apt-get install packaging-dev
 
-## Add the ZeroC repository
-
-Some of the third-party packages required to build Ice are not available through
-Ubuntu repositories, so you need to add the ZeroC Ice repository to be able to
-install these packages.
-
-First you need to install the GPG key used to sign the packages:
-
-    $ wget https://zeroc.com/download/GPG-KEY-zeroc-release
-    $ sudo apt-key add GPG-KEY-zeroc-release
-
-After installing the GPG key, add the ZeroC repository to your system apt sources:
-
-    $ cd /etc/apt/sources.list.d
-    $ sudo wget https://zeroc.com/download/Ice/3.6/ubuntu/ice3.6-trusty.list
-    $ sudo apt-get update
-
 ## Install Ice third-party dependencies
 
 Now we will install the necessary third-party packages from the Ubuntu Software
@@ -47,6 +30,19 @@ The next command installs all of the third-party dependencies, including Oracle
 Java 7 if necessary:
 
     $ sudo apt-get build-dep zeroc-ice3.6
+
+## Add the ZeroC source repository
+
+The Ice 3.6 source distribution is available in the ZeroC source repository, you need
+to install the source repository correspoding to your distribution:
+
+For Ubuntu 14.04 (Trusty Tahr):
+
+    $ sudo apt-add-repository "deb-src https://zeroc.com/download/apt/ice/ubuntu14.04 stable main"
+
+For Ubuntu 15.04 (Vivid Vervet ):
+
+    $ sudo apt-add-repository "deb-src https://zeroc.com/download/apt/ice/ubuntu15.04 stable main"
 
 ## Building the Ice packages
 
