@@ -46,22 +46,27 @@ First install ZeroC's key to avoid warnings with unsigned packages:
 Then add the Ice repository for you system and install the source RPM:
 
 * Red Hat Enterprise Linux 6:
+
     $ cd /etc/yum.repos.d
     $ sudo wget https://zeroc.com/download/rpm/ice/el6/zeroc-ice-el6.repo
 
 * Red Hat Enterprise Linux 7:
+
     $ cd /etc/yum.repos.d
     $ sudo wget https://zeroc.com/download/rpm/ice/el7/zeroc-ice-el7.repo
 
 * Amazon Linux:
+
     $ cd /etc/yum.repos.d
     $ sudo wget https://zeroc.com/download/rpm/ice/amzn1/zeroc-ice-amzn1.repo
 
 * Suse Linux Enterprise Server 11.3:
+
     $ wget https://zeroc.com/download/rpm/ice/sles12/zeroc-ice-sles11.3.repo
     $ sudo zypper addrepo zeroc-ice-sles11.3.repo
 
 * Suse Linux Enterprise Server 12:
+
     $ wget https://zeroc.com/download/rpm/ice/sles12/zeroc-ice-sles12.repo
     $ sudo zypper addrepo zeroc-ice-sles12.repo
 
