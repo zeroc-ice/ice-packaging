@@ -40,7 +40,7 @@ For Ubuntu 14.04 (Trusty Tahr):
 
     $ sudo apt-add-repository "deb-src https://zeroc.com/download/apt/ice/ubuntu14.04 stable main"
 
-For Ubuntu 15.04 (Vivid Vervet ):
+For Ubuntu 15.04 (Vivid Vervet):
 
     $ sudo apt-add-repository "deb-src https://zeroc.com/download/apt/ice/ubuntu15.04 stable main"
 

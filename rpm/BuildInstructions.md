@@ -38,22 +38,40 @@ to be able to create RPM packages as a non-root user.
 
 ## RPM build prerequisites
 
-You will need two files in order to create RPM packages for Ice:
+First onstall ZeroC's key to avoid warnings with unsigned packages:
 
-- `ice.spec` - the RPM specification file
-- `Ice-3.6.0.tar.gz` - the Ice source distribution
+    $ wget https://zeroc.com/download/GPG-KEY-zeroc-release
+    $ sudo rpm --import GPG-KEY-zeroc-release
 
-These files can be extracted from an existing Ice source RPM by installing it:
+Then add the Ice repositories and install the source RPM: 
 
-    $ rpm -i ice-3.6.0-1.src.rpm
+* Red Hat Enterprise Linux 6:
+    $ cd /etc/yum.repos.d
+    $ sudo wget https://zeroc.com/download/rpm/ice/el6/zeroc-ice-el6.repo
 
+* Red Hat Enterprise Linux 7:
+    $ cd /etc/yum.repos.d
+    $ sudo wget https://zeroc.com/download/rpm/ice/el7/zeroc-ice-el7.repo
+
+* Amazon Linux:
+    $ cd /etc/yum.repos.d
+    $ sudo wget https://zeroc.com/download/rpm/ice/amzn1/zeroc-ice-amzn1.repo
+
+* Suse Linux Enterprise Server 11.3:
+    $ wget https://zeroc.com/download/rpm/ice/sles12/zeroc-ice-sles11.3.repo
+    $ sudo zypper addrepo zeroc-ice-sles11.3.repo
+
+* Suse Linux Enterprise Server 12:
+    $ wget https://zeroc.com/download/rpm/ice/sles12/zeroc-ice-sles12.repo
+    $ sudo zypper addrepo zeroc-ice-sles12.repo
+
+Now download and install the source rpm:
+
+    $ yumdownloader --source ice
+    $ rpm -i ice-3.6.0-1.el6.src.rpm
+    
 You can find the `ice.spec` file in the `pkgdir/SPECS` directory, while the archive
 file is in the `pkgdir/SOURCES` directory.
-
-If you prefer not to install the Ice source RPM, you can extract the contents of the
-file using the following command:
-
-    $ rpm2cpio ice-3.6.0-1.src.rpm | cpio -idmv
 
 The `ice.spec` file defines a number of build requirements that must be installed on
 your system in order to build the RPM packages. These dependencies are listed below:
@@ -135,8 +153,13 @@ On SuSE Linux Enterprise Server 11:
 
     $ cd pkgdir/SPECS
     $ rpmbuild -bb --sign --target noarch,i586 ice.spec
-
+    
 Replace i586 with x86_64 on 64-bit platforms.
+
+On Amazon Linux:
+
+    $ cd pkgdir/SPECS
+    $ rpmbuild -bb --sign --target noarch,x86_64 ice.spec
 
 Omit the `--sign` option if you do not want to sign the RPMs, or if you do not
 have a GnuPG key setup.
