@@ -1,6 +1,3 @@
-etc/init.d/icegridnode
-etc/init.d/icegridregistry
-
 etc/icegridnode.conf
 etc/icegridregistry.conf
 

@@ -84,7 +84,7 @@ icebox_install:
 	@echo usr/share/man/man1/icebox.1 >> $(CURDIR)/debian/zeroc-icebox.install
 
 %:
-	dh $@ --parallel --with php5 --with javahelper
+	dh $@ --parallel --with php5 --with javahelper --with systemd
 
 override_dh_auto_build-arch:
 	if [ ! -d cpp11 ]; then cp -r cpp cpp11; fi
@@ -113,6 +113,11 @@ override_dh_auto_clean-indep:
 
 override_dh_auto_test:
 
+override_dh_installinit:
+	dh_installinit --noscripts --name icegridregistry
+	dh_installinit --noscripts --name icegridnode
+	dh_installinit --noscripts --name glacier2router
+
 override_dh_install: icebox_install
 
 	#
@@ -130,7 +135,7 @@ override_dh_install: icebox_install
 	mkdir -p $(DESTDIR)$(prefix)/lib/$(DEB_HOST_MULTIARCH)/c++11
 
 	#
-	# Move C++11 libarries and binaries to their locations
+	# Move C++11 libraries and binaries to their locations
 	#
 	for name in $(CPP11_LIB_NAMES) ; \
 	do \
@@ -150,16 +155,6 @@ override_dh_install: icebox_install
 	cp debian/zeroc-glacier2.glacier2router.conf $(DESTDIR)/etc/glacier2router.conf
 	cp debian/zeroc-icegrid.icegridnode.conf $(DESTDIR)/etc/icegridnode.conf
 	cp debian/zeroc-icegrid.icegridregistry.conf $(DESTDIR)/etc/icegridregistry.conf
-
-	mkdir -p $(DESTDIR)/etc/init.d
-	cp debian/zeroc-glacier2.glacier2router $(DESTDIR)/etc/init.d/glacier2router
-	chmod 755 $(DESTDIR)/etc/init.d/glacier2router
-
-	cp debian/zeroc-icegrid.icegridnode $(DESTDIR)/etc/init.d/icegridnode
-	chmod 755 $(DESTDIR)/etc/init.d/icegridnode
-
-	cp debian/zeroc-icegrid.icegridregistry $(DESTDIR)/etc/init.d/icegridregistry
-	chmod 755 $(DESTDIR)/etc/init.d/icegridregistry
 
 	mkdir -p $(DESTDIR)/var/lib/ice/icegrid/registry
 	mkdir -p $(DESTDIR)/var/lib/ice/icegrid/node1

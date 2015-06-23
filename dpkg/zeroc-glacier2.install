@@ -1,5 +1,3 @@
-etc/init.d/glacier2router
-
 etc/glacier2router.conf
 
 usr/bin/glacier2router
