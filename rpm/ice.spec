@@ -61,9 +61,9 @@ ExcludeArch: %{ix86}
 %endif
 %endif
 
-Name: ice-all-runtime
+Name: ice
 Version: 3.6.0
-Summary: Ice meta package that includes all run-time components and services.
+Summary: Comprehensive RPC framework with support for C++, .NET, Java, Python, JavaScript and more.
 Release: 1%{?dist}
 License: GPL v2 with exceptions
 Group: System Environment/Libraries
@@ -81,24 +81,6 @@ BuildRoot: %{_tmppath}/ice-%{version}-%{release}-root-%(%{__id_u} -n)
 %define commonversion 1.8.0
 %define formsversion 1.8.0
 %define looksversion 2.6.0
-
-#
-# This "meta" package includes all run-time components and services.
-#
-%if %{cppx86}
-Requires: icebox%{?_isa} = %{version}-%{release}
-Requires: libicestorm3.6%{?_isa} = %{version}-%{release}
-%else
-Requires: glacier2%{?_isa} = %{version}-%{release}
-Requires: icegrid%{?_isa} = %{version}-%{release}
-Requires: icepatch2%{?_isa} = %{version}-%{release}
-Requires: php-ice%{?_isa} = %{version}-%{release}
-Requires: libice3.6-c++%{?_isa} = %{version}-%{release}
-Requires: libfreeze3.6-c++%{?_isa} = %{version}-%{release}
-Requires: ice-utils-java = %{version}-%{release}
-Requires: icebox%{?_isa} = %{version}-%{release}
-Requires: libicestorm3.6%{?_isa} = %{version}-%{release}
-%endif # cppx86
 
 #
 # RHEL7 includes Berkeley DB 5.3.21, on other platforms we supply 5.3.28.
@@ -174,6 +156,29 @@ certificate authority utility.
 # Arch-dependent packages
 #
 %ifarch %{core_arches}
+
+#
+# This "meta" package includes all run-time components and services.
+#
+%package -n ice-all-runtime
+Summary: Ice meta package that includes all run-time components and services.
+Group: System Environment/Libraries
+%if %{cppx86}
+Requires: icebox%{?_isa} = %{version}-%{release}
+Requires: libicestorm3.6%{?_isa} = %{version}-%{release}
+%else
+Requires: glacier2%{?_isa} = %{version}-%{release}
+Requires: icegrid%{?_isa} = %{version}-%{release}
+Requires: icepatch2%{?_isa} = %{version}-%{release}
+Requires: php-ice%{?_isa} = %{version}-%{release}
+Requires: libice3.6-c++%{?_isa} = %{version}-%{release}
+Requires: libfreeze3.6-c++%{?_isa} = %{version}-%{release}
+Requires: ice-utils-java = %{version}-%{release}
+Requires: icebox%{?_isa} = %{version}-%{release}
+Requires: libicestorm3.6%{?_isa} = %{version}-%{release}
+%endif # cppx86
+%description -n ice-all-runtime
+Ice meta package that includes all run-time components and services.
 
 #
 # This "meta" package includes all development kits.
@@ -780,9 +785,14 @@ rm -rf $RPM_BUILD_ROOT
 %ifarch %{core_arches}
 
 #
-# Generate "ice" meta package as arch-specific
+# Empty list for main "ice" package
 #
 %files
+
+#
+# Generate "ice-all-runtime" meta package as arch-specific
+#
+%files -n ice-all-runtime
 %defattr(-, root, root, -)
 %{_defaultdocdir}/ice-all-runtime-%{version}
 
