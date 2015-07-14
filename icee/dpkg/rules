@@ -1,0 +1,64 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+DEB_BUILD_OPTIONS += nocheck notest
+
+#export DH_VERBOSE=1
+
+VERSION = 3.6.0
+ICE_HOME = /usr
+HOST	= $(DEB_HOST_GNU_TYPE)
+PACKAGE_NAMES = libzeroc-icee-dev \
+		zeroc-icee-glacier2
+
+DESTDIR=$(CURDIR)/debian/tmp
+
+ifeq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+	OPTIMIZE=yes
+endif
+
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+	MAKEFLAGS += -j$(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+else
+	MAKEFLAGS += -j$(shell /usr/bin/getconf _NPROCESSORS_ONLN)
+endif
+
+prefix = /usr
+MAKEOPTS = prefix=$(prefix) OPTIMIZE=$(OPTIMIZE)
+
+%:
+	dh $@ --parallel
+
+override_dh_auto_build-arch:
+	$(MAKE) $(MAKEOPTS) HOST=$(DEB_HOST_GNU_TYPE) ICE_HOME=$(ICE_HOME) V=1 dist
+
+override_dh_auto_install-arch:
+	$(MAKE) $(MAKEOPTS) HOST=$(DEB_HOST_GNU_TYPE) ICE_HOME=$(ICE_HOME) DESTDIR=$(DESTDIR) install
+
+
+override_dh_auto_clean-arch:
+	$(MAKE) $(MAKEOPTS) HOST=$(DEB_HOST_GNU_TYPE) ICE_HOME=$(ICE_HOME) V=1 clean
+
+override_dh_auto_test:
+	
+# 
+override_dh_installinit:
+	dh_installinit --noscripts --name glacier2router
+
+override_dh_install:
+	mkdir -p $(DESTDIR)/etc
+	cp debian/zeroc-icee-glacier2.glacier2router.conf $(DESTDIR)/etc/glacier2router.conf
+
+	#
+	# Continue with regular dh_install
+	#
+	dh_install
+
+	#
+	# Copy package readme
+	#
+	for name in $(PACKAGE_NAMES) ; \
+	do \
+		mkdir -p $(DESTDIR)$(prefix)/share/doc/$$name ; \
+		cp debian/README $(DESTDIR)$(prefix)/share/doc/$$name/README ; \
+	done ;

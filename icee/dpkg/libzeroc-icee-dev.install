@@ -1,0 +1,4 @@
+usr/lib/*/libIce.a
+usr/lib/*/libGlacier2.a
+usr/lib/*/libIceGrid.a
+usr/lib/*/libIceStorm.a
