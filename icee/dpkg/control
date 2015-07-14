@@ -21,10 +21,10 @@ Built-Using: libzeroc-ice-dev (=3.6.0)
 Section: web
 Conflicts: zeroc-glacier2
 Replaces:glacier2, ice35-services
-Depends: libbz2 (>= 1.0),
+Depends: libbz2-1.0 (>= 1.0.6-4),
  libc6 (>= 2.13),
  libgcc1, 
- libssl (>= 1.0.0),
+ libssl1.0.0 (>= 1.0.1e-2),
  libstdc++6
 Description: The Glacier2 router daemon
  Glacier2 is the firewall traversal service for the Internet Communications
