@@ -99,7 +99,7 @@ with open('README.rst') as file:
 setup(
     name='zeroc-ice',
 
-    version='3.6.0',
+    version='3.6.1',
 
     description="Ice is comprehensive RPC framework with support for Python, C++, .NET, Java, JavaScript and more.",
 

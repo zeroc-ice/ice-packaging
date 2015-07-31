@@ -9,7 +9,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'zeroc-ice'
-  s.version     = '3.6.0'
+  s.version     = '3.6.1'
   s.date        = '2015-01-16'
   s.summary     = "ZeroC Ice for Ruby"
   s.description = <<-eos
