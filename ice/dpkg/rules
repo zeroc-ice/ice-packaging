@@ -146,7 +146,7 @@ override_dh_install: icebox_install
 	cp $(CPP11_DESTDIR)$(prefix)/bin/$(ICEBOX)++11 $(DESTDIR)$(prefix)/bin/$(ICEBOX)++11
 
 	mkdir -p $(DESTDIR)$(prefix)/bin
-	cp java/bin/icegridgui.deb $(DESTDIR)$(prefix)/bin/icegridgui && \
+	cp debian/zeroc-ice-utils-java.icegridgui $(DESTDIR)$(prefix)/bin/icegridgui && \
 	chmod 755 $(DESTDIR)$(prefix)/bin/icegridgui
 
 	mkdir -p $(DESTDIR)/etc/php5/mods-available
