@@ -1,3 +1,9 @@
+zeroc-ice3.6 (3.6.1-1000) trusty vivid; urgency=low
+
+  * 3.6.1 release
+
+ -- Benoit <benoit@zeroc.com>  Tue, 04 Aug 2015 11:31:15 +0000
+
 zeroc-ice3.6 (3.6.0-1000) trusty vidid; urgency=low
   * 3.6.0 release
 
