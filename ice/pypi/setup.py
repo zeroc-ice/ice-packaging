@@ -32,6 +32,8 @@ extra_compile_args=[]
 platform = sys.platform
 if platform[:6] == 'darwin':
     platform = 'darwin'
+elif platform[:5] == 'linux':
+    platform = 'linux'
 
 if platform == 'darwin':
     if not 'ARCHFLAGS' in os.environ:
@@ -46,7 +48,7 @@ if platform == 'darwin':
             return False
         return True
 
-elif platform == 'linux2':
+elif platform == 'linux':
 
     extra_compile_args.append('-w')
     extra_link_args = []
