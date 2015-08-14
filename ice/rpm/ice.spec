@@ -519,8 +519,6 @@ rm -f $RPM_BUILD_ROOT/%_lib/libSlice++11.so*
 rm -f $RPM_BUILD_ROOT/%_lib/libIceXML++11.so*
 rm -f $RPM_BUILD_ROOT/%_lib/c++11/libGlacier2CryptPermissionsVerifier.so
 rm -f $RPM_BUILD_ROOT/%_lib/c++11/libSlice.so
-rm -f $RPM_BUILD_ROOT/%_lib/c++11/libIceDiscovery.so
-rm -f $RPM_BUILD_ROOT/%_lib/c++11/libIceLocatorDiscovery.so
 rm -f $RPM_BUILD_ROOT/%_lib/c++11/libIceStormService.so
 rm -f $RPM_BUILD_ROOT/%_lib/c++11/libIceXML.so
 mv $RPM_BUILD_ROOT/%_lib/* $RPM_BUILD_ROOT%{_libdir}
@@ -688,8 +686,6 @@ rm -f $RPM_BUILD_ROOT/LICENSE
 rm -fr $RPM_BUILD_ROOT/doc/reference
 rm -fr $RPM_BUILD_ROOT/slice
 rm -f $RPM_BUILD_ROOT%{_libdir}/libIceStormService.so
-rm -f $RPM_BUILD_ROOT%{_libdir}/libIceDiscovery.so
-rm -f $RPM_BUILD_ROOT%{_libdir}/libIceLocatorDiscovery.so
 rm -f $RPM_BUILD_ROOT%{_libdir}/libGlacier2CryptPermissionsVerifier.so
 rm -f $RPM_BUILD_ROOT%{_libdir}/libIceXML.so
 rm -f $RPM_BUILD_ROOT%{_bindir}/slice2cs
@@ -1184,7 +1180,9 @@ exit 0
 %{_libdir}/libGlacier2.so
 %{_libdir}/libIce.so
 %{_libdir}/libIceBox.so
+%{_libdir}/libIceDiscovery.so
 %{_libdir}/libIceGrid.so
+%{_libdir}/libIceLocatorDiscovery.so
 %{_libdir}/libIcePatch2.so
 %{_libdir}/libIceSSL.so
 %{_libdir}/libIceStorm.so
@@ -1197,7 +1195,9 @@ exit 0
 %{_libdir}/c++11/libGlacier2.so
 %{_libdir}/c++11/libIce.so
 %{_libdir}/c++11/libIceBox.so
+%{_libdir}/c++11/libIceDiscovery.so
 %{_libdir}/c++11/libIceGrid.so
+%{_libdir}/c++11/libIceLocatorDiscovery.so
 %{_libdir}/c++11/libIcePatch2.so
 %{_libdir}/c++11/libIceSSL.so
 %{_libdir}/c++11/libIceStorm.so
