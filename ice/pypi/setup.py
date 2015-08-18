@@ -50,6 +50,15 @@ if platform == 'darwin':
 
 elif platform == 'linux':
 
+    #
+    # TODO: Get rid of this hack to remove -Wstrict-prototypes from the compiler options
+    # when http://bugs.python.org/issue1222585 is fixed. Note that this hack doesn't work
+    # with recent distutils versions which no longer allow overriding OPT in the env.
+    #
+    from distutils.sysconfig import get_config_vars
+    (opt,) = get_config_vars('OPT')
+    os.environ['OPT'] = " ".join(flag for flag in opt.split() if flag != '-Wstrict-prototypes')
+
     extra_compile_args.append('-w')
     extra_link_args = []
     libraries=['ssl', 'crypto', 'bz2', 'rt', 'dl']
