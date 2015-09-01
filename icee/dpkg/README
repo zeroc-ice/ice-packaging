@@ -9,9 +9,9 @@ Getting Started with Ice-E on Linux
 -----------------------------------
 
 Please visit the 'Using the Ice-E Binary Distributions' section in the
-Ice-E 3.6.0 release notes:
+Ice-E 3.6.1 release notes:
 
-https://doc.zeroc.com/display/Rel/Ice-E+3.6.0+Release+Notes
+https://doc.zeroc.com/display/Rel/Ice-E+3.6.1+Release+Notes
 
 Documentation
 -------------
@@ -24,6 +24,6 @@ https://doc.zeroc.com/display/Ice36/Ice+Manual
 Source Code
 ------------
 
-The source code for Ice-E 3.6.0 is on GitHub:
+The source code for Ice-E 3.6.1 is on GitHub:
 
-https://github.com/zeroc-ice/icee/releases/tag/v3.6.0
+https://github.com/zeroc-ice/icee/releases/tag/v3.6.1

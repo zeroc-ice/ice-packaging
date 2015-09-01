@@ -1,43 +1,44 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
-DEB_BUILD_OPTIONS += nocheck notest
+DEB_BUILD_OPTIONS               += nocheck notest
 
-#export DH_VERBOSE=1
+ICE_HOME                        = /usr
+HOST                            = $(DEB_HOST_GNU_TYPE)
 
-VERSION = 3.6.0
-ICE_HOME = /usr
-HOST	= $(DEB_HOST_GNU_TYPE)
-PACKAGE_NAMES = libzeroc-icee-dev \
-		zeroc-icee-glacier2
+PACKAGE_NAMES                   = libzeroc-ice-python2.7 \
+                                  libzeroc-ice3.6 \
+                                  libzeroc-icee-dev \
+                                  zeroc-glacier2 \
+                                  zeroc-ice-utils \
+                                  zeroc-icebox \
 
-DESTDIR=$(CURDIR)/debian/tmp
+DESTDIR                         = $(CURDIR)/debian/tmp
 
 ifeq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-	OPTIMIZE=yes
+    OPTIMIZE                    = yes
 endif
 
 ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-	MAKEFLAGS += -j$(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+    MAKEFLAGS                   += -j$(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 else
-	MAKEFLAGS += -j$(shell /usr/bin/getconf _NPROCESSORS_ONLN)
+    MAKEFLAGS                   += -j$(shell /usr/bin/getconf _NPROCESSORS_ONLN)
 endif
 
-prefix = /usr
-MAKEOPTS = prefix=$(prefix) OPTIMIZE=$(OPTIMIZE)
+prefix                          = /usr
+MAKEOPTS                        = prefix=$(prefix) DESTDIR=$(DESTDIR) OPTIMIZE=$(OPTIMIZE) HOST=$(DEB_HOST_GNU_TYPE) ICE_HOME=$(ICE_HOME) V=1 
 
 %:
 	dh $@ --parallel
 
-override_dh_auto_build-arch:
-	$(MAKE) $(MAKEOPTS) HOST=$(DEB_HOST_GNU_TYPE) ICE_HOME=$(ICE_HOME) V=1 dist
+override_dh_auto_build:
+	$(MAKE) $(MAKEOPTS) dist
 
-override_dh_auto_install-arch:
-	$(MAKE) $(MAKEOPTS) HOST=$(DEB_HOST_GNU_TYPE) ICE_HOME=$(ICE_HOME) DESTDIR=$(DESTDIR) install
+override_dh_auto_install:
+	$(MAKE) $(MAKEOPTS) install
 
-
-override_dh_auto_clean-arch:
-	$(MAKE) $(MAKEOPTS) HOST=$(DEB_HOST_GNU_TYPE) ICE_HOME=$(ICE_HOME) V=1 clean
+override_dh_auto_clean:
+	$(MAKE) $(MAKEOPTS) clean
 
 override_dh_auto_test:
 	
@@ -47,7 +48,7 @@ override_dh_installinit:
 
 override_dh_install:
 	mkdir -p $(DESTDIR)/etc
-	cp debian/zeroc-icee-glacier2.glacier2router.conf $(DESTDIR)/etc/glacier2router.conf
+	cp debian/zeroc-glacier2.glacier2router.conf $(DESTDIR)/etc/glacier2router.conf
 
 	#
 	# Continue with regular dh_install
