@@ -769,7 +769,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n ice-utils-java
 %defattr(-, root, root, -)
-%{_bindir}/icegridgui
+%attr(755,root,root) %{_bindir}/icegridgui
 %{_javadir}/icegridgui.jar
 %{_defaultdocdir}/ice-utils-java-%{version}
 
