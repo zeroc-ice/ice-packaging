@@ -1,6 +1,10 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
+
+STATIC_LIBS                     = Ice Glacier2 IceGrid IceStorm
+DYNAMIC_LIBS                    = IceUtil Ice IceDiscovery IceSSL Glacier2 IceGrid IceStorm Slice IceBox
+
 DEB_BUILD_OPTIONS               += nocheck notest
 
 ICE_HOME                        = /usr
@@ -26,7 +30,9 @@ else
 endif
 
 prefix                          = /usr
-MAKEOPTS                        = prefix=$(prefix) DESTDIR=$(DESTDIR) OPTIMIZE=$(OPTIMIZE) HOST=$(DEB_HOST_GNU_TYPE) ICE_HOME=$(ICE_HOME) V=1 
+
+MAKEOPTS                        = prefix=$(prefix) ICEE_TARGET_OS=debian DESTDIR=$(DESTDIR) \
+                                  OPTIMIZE=$(OPTIMIZE) HOST=$(DEB_HOST_GNU_TYPE) ICE_HOME=$(ICE_HOME) V=1 
 
 %:
 	dh $@ --parallel
@@ -46,7 +52,22 @@ override_dh_auto_test:
 override_dh_installinit:
 	dh_installinit --noscripts --name glacier2router
 
-override_dh_install:
+icee_install:
+	@rm -f $(CURDIR)/debian/libzeroc-icee-dev.install
+	@touch $(CURDIR)/debian/libzeroc-icee-dev.install
+	@for lib in $(STATIC_LIBS); \
+	do \
+	    echo "usr/lib/*/lib$$lib.a" >> $(CURDIR)/debian/libzeroc-icee-dev.install ; \
+	done ;
+ifeq ($(DEB_HOST_GNU_TYPE),arm-linux-gnueabihf)
+	@for lib in $(DYNAMIC_LIBS); \
+	do \
+	    echo "usr/lib/*/lib$$lib.so" >> $(CURDIR)/debian/libzeroc-icee-dev.install ; \
+	    echo "usr/lib/*/lib$$lib.so.*" >> $(CURDIR)/debian/libzeroc-icee-dev.install ; \
+	done ;
+endif
+
+override_dh_install: icee_install
 	mkdir -p $(DESTDIR)/etc
 	cp debian/zeroc-glacier2.glacier2router.conf $(DESTDIR)/etc/glacier2router.conf
 
