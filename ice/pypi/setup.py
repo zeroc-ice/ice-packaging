@@ -112,7 +112,7 @@ setup(
 
     version='3.6.1',
 
-    description="Ice is comprehensive RPC framework with support for Python, C++, .NET, Java, JavaScript and more.",
+    description="Ice is a comprehensive RPC framework with support for Python, C++, .NET, Java, JavaScript and more.",
 
     long_description=long_description,
 
