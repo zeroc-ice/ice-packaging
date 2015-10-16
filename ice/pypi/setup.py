@@ -13,6 +13,17 @@ except ImportError:
 from distutils.extension import Extension
 import sys, os, shutil, fnmatch
 
+platform = sys.platform
+if platform[:6] == 'darwin':
+    platform = 'darwin'
+elif platform[:5] == 'linux':
+    platform = 'linux'
+
+build_ice = platform == "win32" # Always build Ice on Windows
+if "--with-builtin-ice" in sys.argv:
+    build_ice = True
+    sys.argv.remove("--with-builtin-ice")
+
 #
 # Sort out packages, package_dir and package_data from the lib dir.
 #
@@ -25,27 +36,31 @@ for f in os.listdir('lib'):
         packages.append(f)
 package_data = { 'slice' : ['*/*.ice'] }
 
-include_dirs=['src', 'src/ice/cpp/include', 'src/ice/cpp/src']
-define_macros=[('ICE_STATIC_LIBS', None)]
 extra_compile_args=[]
-
-platform = sys.platform
-if platform[:6] == 'darwin':
-    platform = 'darwin'
-elif platform[:5] == 'linux':
-    platform = 'linux'
+if build_ice:
+    include_dirs=['src', 'src/ice/cpp/include', 'src/ice/cpp/src']
+    define_macros=[('ICE_STATIC_LIBS', None)]
+else:
+    include_dirs=['src']
+    define_macros=[]
 
 if platform == 'darwin':
     if not 'ARCHFLAGS' in os.environ:
         os.environ['ARCHFLAGS'] = '-arch x86_64'
     extra_compile_args.append('-w')
-    extra_link_args = ['-framework','Security', '-framework','CoreFoundation']
-    libraries=['iconv']
-    # Don't compile the bzip2 source under darwin or linux.
+    if build_ice:
+        libraries=['iconv']
+        extra_link_args = ['-framework','Security', '-framework','CoreFoundation']
+    else:
+        libraries = ["IceSSL", "Ice", "Slice", "IceUtil"]
+        extra_link_args = []
+
     def filterName(path):
         d = os.path.dirname(path)
-        if d.find('bzip2') != -1:
+        if not build_ice and d.find("src/ice/") != -1:
             return False
+        if d.find('bzip2') != -1:
+            return False # Don't compile the bzip2 source under darwin or linux.
         return True
 
 elif platform == 'linux':
@@ -61,12 +76,17 @@ elif platform == 'linux':
 
     extra_compile_args.append('-w')
     extra_link_args = []
-    libraries=['ssl', 'crypto', 'bz2', 'rt', 'dl']
-    # Don't compile the bzip2 source under darwin or linux.
+    if build_ice:
+        libraries=['ssl', 'crypto', 'bz2', 'rt', 'dl']
+    else:
+        libraries = ["IceSSL", "Ice", "Slice", "IceUtil"]
+
     def filterName(path):
         d = os.path.dirname(path)
-        if d.find('bzip2') != -1:
+        if not build_ice and d.find("src/ice/") != -1:
             return False
+        if d.find('bzip2') != -1:
+            return False # Don't compile the bzip2 source under darwin or linux.
         return True
 
 elif platform == 'win32':
