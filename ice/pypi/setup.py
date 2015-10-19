@@ -19,10 +19,10 @@ if platform[:6] == 'darwin':
 elif platform[:5] == 'linux':
     platform = 'linux'
 
-build_ice = platform == "win32" # Always build Ice on Windows
-if "--with-builtin-ice" in sys.argv:
-    build_ice = True
-    sys.argv.remove("--with-builtin-ice")
+use_ice = False
+if "--with-installed-ice" in sys.argv:
+    use_ice = True
+    sys.argv.remove("--with-installed-ice")
 
 #
 # Sort out packages, package_dir and package_data from the lib dir.
@@ -37,27 +37,27 @@ for f in os.listdir('lib'):
 package_data = { 'slice' : ['*/*.ice'] }
 
 extra_compile_args=[]
-if build_ice:
-    include_dirs=['src', 'src/ice/cpp/include', 'src/ice/cpp/src']
-    define_macros=[('ICE_STATIC_LIBS', None)]
-else:
+if use_ice:
     include_dirs=['src']
     define_macros=[]
+else:
+    include_dirs=['src', 'src/ice/cpp/include', 'src/ice/cpp/src']
+    define_macros=[('ICE_STATIC_LIBS', None)]
 
 if platform == 'darwin':
     if not 'ARCHFLAGS' in os.environ:
         os.environ['ARCHFLAGS'] = '-arch x86_64'
     extra_compile_args.append('-w')
-    if build_ice:
-        libraries=['iconv']
-        extra_link_args = ['-framework','Security', '-framework','CoreFoundation']
-    else:
+    if use_ice:
         libraries = ["IceSSL", "Ice", "Slice", "IceUtil"]
         extra_link_args = []
+    else:
+        libraries=['iconv']
+        extra_link_args = ['-framework','Security', '-framework','CoreFoundation']
 
     def filterName(path):
         d = os.path.dirname(path)
-        if not build_ice and d.find("src/ice/") != -1:
+        if use_ice and d.find("src/ice/") != -1:
             return False
         if d.find('bzip2') != -1:
             return False # Don't compile the bzip2 source under darwin or linux.
@@ -76,14 +76,14 @@ elif platform == 'linux':
 
     extra_compile_args.append('-w')
     extra_link_args = []
-    if build_ice:
-        libraries=['ssl', 'crypto', 'bz2', 'rt', 'dl']
-    else:
+    if use_ice:
         libraries = ["IceSSL", "Ice", "Slice", "IceUtil"]
+    else:
+        libraries=['ssl', 'crypto', 'bz2', 'rt', 'dl']
 
     def filterName(path):
         d = os.path.dirname(path)
-        if not build_ice and d.find("src/ice/") != -1:
+        if use_ice and d.find("src/ice/") != -1:
             return False
         if d.find('bzip2') != -1:
             return False # Don't compile the bzip2 source under darwin or linux.
