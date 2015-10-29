@@ -7,6 +7,8 @@ usr/share/man/man1/iceboxadmin.1
 usr/bin/icegridadmin
 usr/share/man/man1/icegridadmin.1
 
+usr/bin/icegriddb36
+
 usr/bin/icepatch2calc
 usr/share/man/man1/icepatch2calc.1
 
@@ -18,6 +20,8 @@ usr/share/man/man1/icestormadmin.1
 
 usr/bin/icestormmigrate
 usr/share/man/man1/icestormmigrate.1
+
+usr/bin/icestormdb36
 
 usr/bin/slice2html
 usr/share/man/man1/slice2html.1
