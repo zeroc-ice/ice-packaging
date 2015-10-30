@@ -948,11 +948,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/icestormmigrate
 %{_mandir}/man1/icestormmigrate.1.gz
 %{_bindir}/icestormdb36
+%{_mandir}/man1/icestormdb36.1.gz
 %{_bindir}/slice2html
 %{_mandir}/man1/slice2html.1.gz
 %{_bindir}/icegridadmin
 %{_mandir}/man1/icegridadmin.1.gz
 %{_bindir}/icegriddb36
+%{_mandir}/man1/icegriddb36.1.gz
 %{_defaultdocdir}/ice-utils-%{version}
 
 %post -n ice-utils -p /sbin/ldconfig
