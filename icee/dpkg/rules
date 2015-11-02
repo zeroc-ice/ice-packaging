@@ -11,7 +11,7 @@ ICE_HOME                        = /usr
 HOST                            = $(DEB_HOST_GNU_TYPE)
 
 PACKAGE_NAMES                   = libzeroc-ice-python2.7 \
-                                  libzeroc-ice3.6 \
+                                  libzeroc-ice3.7 \
                                   libzeroc-icee-dev \
                                   zeroc-glacier2 \
                                   zeroc-ice-utils \

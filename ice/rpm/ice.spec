@@ -62,7 +62,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name: ice
-Version: 3.6.1
+Version: 3.7.0
 Summary: Comprehensive RPC framework with support for C++, .NET, Java, Python, JavaScript and more.
 Release: 1%{?dist}
 License: GPL v2 with exceptions
@@ -74,9 +74,9 @@ Source1: Ice-rpmbuild-%{version}.tar.gz
 
 BuildRoot: %{_tmppath}/ice-%{version}-%{release}-root-%(%{__id_u} -n)
 
-%define soversion 36
-%define dotnetversion 3.6.1
-%define mmversion 3.6
+%define soversion 37
+%define dotnetversion 3.7.0
+%define mmversion 3.7
 
 %define commonversion 1.8.0
 %define formsversion 1.8.0
@@ -165,17 +165,17 @@ Summary: Ice meta package that includes all run-time components and services.
 Group: System Environment/Libraries
 %if %{cppx86}
 Requires: icebox%{?_isa} = %{version}-%{release}
-Requires: libicestorm3.6%{?_isa} = %{version}-%{release}
+Requires: libicestorm3.7%{?_isa} = %{version}-%{release}
 %else
 Requires: glacier2%{?_isa} = %{version}-%{release}
 Requires: icegrid%{?_isa} = %{version}-%{release}
 Requires: icepatch2%{?_isa} = %{version}-%{release}
 Requires: php-ice%{?_isa} = %{version}-%{release}
-Requires: libice3.6-c++%{?_isa} = %{version}-%{release}
-Requires: libfreeze3.6-c++%{?_isa} = %{version}-%{release}
+Requires: libice3.7-c++%{?_isa} = %{version}-%{release}
+Requires: libfreeze3.7-c++%{?_isa} = %{version}-%{release}
 Requires: ice-utils-java = %{version}-%{release}
 Requires: icebox%{?_isa} = %{version}-%{release}
-Requires: libicestorm3.6%{?_isa} = %{version}-%{release}
+Requires: libicestorm3.7%{?_isa} = %{version}-%{release}
 %endif # cppx86
 %description -n ice-all-runtime
 Ice meta package that includes all run-time components and services.
@@ -196,23 +196,23 @@ Requires: php-ice-devel%{?_isa} = %{version}-%{release}
 %description -n ice-all-devel
 Ice development meta package that includes development kits for all supported languages.
 
-%package -n libice3.6-c++
+%package -n libice3.7-c++
 Summary: The Ice run time libraries for C++.
 Group: System Environment/Libraries
 Requires: bzip2
-%description -n libice3.6-c++
+%description -n libice3.7-c++
 The Ice run time libraries for C++.
 
-%package -n libfreeze3.6-c++
+%package -n libfreeze3.7-c++
 Summary: The Freeze library for C++.
 Group: System Environment/Libraries
-Requires: libice3.6-c++%{?_isa} = %{version}-%{release}
+Requires: libice3.7-c++%{?_isa} = %{version}-%{release}
 %if "%{dist}" == ".el7"
 Requires: libdb%{?_isa} >= %{dbversion}
 %else
 Requires: db53%{?_isa} >= %{dbversion}
 %endif
-%description -n libfreeze3.6-c++
+%description -n libfreeze3.7-c++
 The Freeze library for C++.
 
 %package -n icebox
@@ -254,7 +254,7 @@ Ice for Java run-time libraries and development tools.
 Summary: Ice utilities and admin tools.
 Group: Applications/System
 Obsoletes: ice-utils < 3.6
-Requires: libfreeze3.6-c++%{?_isa} = %{version}-%{release}
+Requires: libfreeze3.7-c++%{?_isa} = %{version}-%{release}
 %description -n ice-utils
 Command-line administrative tools to manage Ice servers (IceGrid,
 IceStorm, IceBox, etc.), plus various Ice-related utilities.
@@ -263,7 +263,7 @@ IceStorm, IceBox, etc.), plus various Ice-related utilities.
 Summary: IceGrid servers.
 Group: System Environment/Daemons
 Obsoletes: ice-servers < 3.6
-Requires: libfreeze3.6-c++%{?_isa} = %{version}-%{release}, ice-utils = %{version}-%{release}
+Requires: libfreeze3.7-c++%{?_isa} = %{version}-%{release}, ice-utils = %{version}-%{release}
 # Requirements for the users
 Requires(pre): %{shadow}
 %if %{systemd}
@@ -323,18 +323,18 @@ IcePatch2 server.
 
 %endif # ! cppx86
 
-%package -n libicestorm3.6
+%package -n libicestorm3.7
 Summary: IceStorm service.
 Group: System Environment/Libraries
-Requires: libfreeze3.6-c++%{?_isa} = %{version}-%{release}
-%description -n libicestorm3.6
+Requires: libfreeze3.7-c++%{?_isa} = %{version}-%{release}
+%description -n libicestorm3.7
 IceStorm service.
 
 %package -n libice-c++-devel
 Summary: Tools, libraries and headers for developing Ice applications in C++.
 Group: Development/Tools
 Obsoletes: ice-c++-devel < 3.6
-Requires: libice3.6-c++%{?_isa} = %{version}-%{release}, ice-slice = %{version}-%{release}
+Requires: libice3.7-c++%{?_isa} = %{version}-%{release}, ice-slice = %{version}-%{release}
 %if %{cppx86}
 Requires: libice-c++-devel(x86-64) = %{version}-%{release}
 %endif
@@ -350,7 +350,7 @@ Tools, libraries and headers for developing Ice applications in C++.
 Summary: The Ice run time for PHP.
 Group: System Environment/Libraries
 Obsoletes: ice-php < 3.6
-Requires: libice3.6-c++%{?_isa} = %{version}-%{release}
+Requires: libice3.7-c++%{?_isa} = %{version}-%{release}
 %if "%{dist}" == ".sles11.3"
 Requires: php53%{?_isa}
 %endif
@@ -541,7 +541,7 @@ rm -rf $RPM_BUILD_ROOT/include/*
 # Doc & license files
 #
 
-for i in ice-all-runtime icebox ice-all-devel libfreeze3.6-c++ libice3.6-c++ libice-c++-devel libicestorm3.6
+for i in ice-all-runtime icebox ice-all-devel libfreeze3.7-c++ libice3.7-c++ libice-c++-devel libicestorm3.7
 do
   mkdir -p $RPM_BUILD_ROOT%{_defaultdocdir}/$i-%{version}
   cp -p $RPM_BUILD_DIR/Ice-rpmbuild-%{version}/README.Linux $RPM_BUILD_ROOT%{_defaultdocdir}/$i-%{version}/README
@@ -663,7 +663,7 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2objc.1
 # Doc & license files
 #
 
-PACKAGES="glacier2 ice-all-runtime icebox ice-all-devel icegrid icepatch2 ice-utils libfreeze3.6-c++ libice3.6-c++ libice-c++-devel libice-java libicestorm3.6 php-ice php-ice-devel"
+PACKAGES="glacier2 ice-all-runtime icebox ice-all-devel icegrid icepatch2 ice-utils libfreeze3.7-c++ libice3.7-c++ libice-c++-devel libice-java libicestorm3.7 php-ice php-ice-devel"
 
 for i in $PACKAGES
 do
@@ -673,7 +673,7 @@ do
   cp -p $RPM_BUILD_DIR/Ice-%{version}/LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/$i-%{version}
 done
 
-cp -p $RPM_BUILD_DIR/Ice-rpmbuild-%{version}/MCPP_LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/libice3.6-c++-%{version}
+cp -p $RPM_BUILD_DIR/Ice-rpmbuild-%{version}/MCPP_LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/libice3.7-c++-%{version}
 
 %endif # ! cppx86
 
@@ -799,7 +799,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, root, -)
 %{_defaultdocdir}/ice-all-devel-%{version}
 
-%files -n libice3.6-c++
+%files -n libice3.7-c++
 %defattr(-, root, root, -)
 %{_libdir}/libGlacier2.so.%{version}
 %{_libdir}/libGlacier2.so.%{soversion}
@@ -850,12 +850,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libIceUtil++11.so.%{version}
 %{_libdir}/libIceUtil++11.so.%{soversion}
 %endif
-%{_defaultdocdir}/libice3.6-c++-%{version}
+%{_defaultdocdir}/libice3.7-c++-%{version}
 
-%post -n libice3.6-c++ -p /sbin/ldconfig
-%postun -n libice3.6-c++ -p /sbin/ldconfig
+%post -n libice3.7-c++ -p /sbin/ldconfig
+%postun -n libice3.7-c++ -p /sbin/ldconfig
 
-%files -n libfreeze3.6-c++
+%files -n libfreeze3.7-c++
 %defattr(-, root, root, -)
 %{_libdir}/libFreeze.so.%{version}
 %{_libdir}/libFreeze.so.%{soversion}
@@ -867,12 +867,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libFreeze++11.so.%{version}
 %{_libdir}/libFreeze++11.so.%{soversion}
 %endif
-%{_defaultdocdir}/libfreeze3.6-c++-%{version}
+%{_defaultdocdir}/libfreeze3.7-c++-%{version}
 
-%post -n libfreeze3.6-c++ -p /sbin/ldconfig
-%postun -n libfreeze3.6-c++ -p /sbin/ldconfig
+%post -n libfreeze3.7-c++ -p /sbin/ldconfig
+%postun -n libfreeze3.7-c++ -p /sbin/ldconfig
 
-%files -n libicestorm3.6
+%files -n libicestorm3.7
 %defattr(-, root, root, -)
 %{_libdir}/libIceStormService.so.%{version}
 %{_libdir}/libIceStormService.so.%{soversion}
@@ -880,10 +880,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libIceStormService++11.so.%{version}
 %{_libdir}/libIceStormService++11.so.%{soversion}
 %endif
-%{_defaultdocdir}/libicestorm3.6-%{version}
+%{_defaultdocdir}/libicestorm3.7-%{version}
 
-%post -n libicestorm3.6 -p /sbin/ldconfig
-%postun -n libicestorm3.6 -p /sbin/ldconfig
+%post -n libicestorm3.7 -p /sbin/ldconfig
+%postun -n libicestorm3.7 -p /sbin/ldconfig
 
 %if ! %{cppx86}
 

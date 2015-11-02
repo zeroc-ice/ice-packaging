@@ -29,11 +29,11 @@ is to use the `webupd8team ppa` repository:
 The next command installs all of the third-party dependencies, including Oracle
 Java 7 if necessary:
 
-    $ sudo apt-get build-dep zeroc-ice3.6
+    $ sudo apt-get build-dep zeroc-ice3.7
 
 ## Add the ZeroC source repository
 
-The Ice 3.6 source distribution is available in the ZeroC source repository, you need
+The Ice 3.7 source distribution is available in the ZeroC source repository, you need
 to install the source repository correspoding to your distribution:
 
 For Ubuntu 14.04 (Trusty Tahr):
@@ -46,15 +46,15 @@ For Ubuntu 15.04 (Vivid Vervet):
 
 ## Building the Ice packages
 
-Install the Ice 3.6 source distribution:
+Install the Ice 3.7 source distribution:
 
     $ mkdir ~/zeroc-build
     $ cd ~/zeroc-build
-    $ apt-get source zeroc-ice3.6
+    $ apt-get source zeroc-ice3.7
 
-Change the working directory to `zeroc-ice3.6-3.6.1`:
+Change the working directory to `zeroc-ice3.7-3.7.0`:
 
-    $ cd zeroc-ice3.6-3.6.1
+    $ cd zeroc-ice3.7-3.7.0
 
 Now you're ready to build the Ice packages:
 
