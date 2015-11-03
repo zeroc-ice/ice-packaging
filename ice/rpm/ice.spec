@@ -807,6 +807,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libIce.so.%{soversion}
 %{_libdir}/libIceBox.so.%{version}
 %{_libdir}/libIceBox.so.%{soversion}
+%{_libdir}/libIceDB.so.%{version}
+%{_libdir}/libIceDB.so.%{soversion}
 %{_libdir}/libIceDiscovery.so.%{version}
 %{_libdir}/libIceDiscovery.so.%{soversion}
 %{_libdir}/libIceGrid.so.%{version}
@@ -835,6 +837,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libIce++11.so.%{soversion}
 %{_libdir}/libIceBox++11.so.%{version}
 %{_libdir}/libIceBox++11.so.%{soversion}
+%{_libdir}/libIceDB++11.so.%{version}
+%{_libdir}/libIceDB++11.so.%{soversion}
 %{_libdir}/libIceDiscovery++11.so.%{version}
 %{_libdir}/libIceDiscovery++11.so.%{soversion}
 %{_libdir}/libIceGrid++11.so.%{version}
@@ -1182,6 +1186,7 @@ exit 0
 %{_libdir}/libGlacier2.so
 %{_libdir}/libIce.so
 %{_libdir}/libIceBox.so
+%{_libdir}/libIceDB.so
 %{_libdir}/libIceDiscovery.so
 %{_libdir}/libIceGrid.so
 %{_libdir}/libIceLocatorDiscovery.so
@@ -1197,6 +1202,7 @@ exit 0
 %{_libdir}/c++11/libGlacier2.so
 %{_libdir}/c++11/libIce.so
 %{_libdir}/c++11/libIceBox.so
+%{_libdir}/c++11/libIceDB.so
 %{_libdir}/c++11/libIceDiscovery.so
 %{_libdir}/c++11/libIceGrid.so
 %{_libdir}/c++11/libIceLocatorDiscovery.so
