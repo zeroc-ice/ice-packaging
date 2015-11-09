@@ -610,7 +610,7 @@ make prefix=$RPM_BUILD_ROOT install
 
 mkdir -p $RPM_BUILD_ROOT%{_javadir}
 
-for i in freeze glacier2 ice icebox icediscovery icelocatordiscovery icegrid icepatch2 icestorm
+for i in freeze glacier2 ice icebox icebt icediscovery icelocatordiscovery icegrid icepatch2 icestorm
 do
   mv $RPM_BUILD_ROOT/lib/$i-%{version}.jar $RPM_BUILD_ROOT%{_javadir}
   ln -s $i-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/$i.jar
@@ -909,6 +909,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}/icebox.jar
 %{_javadir}/icebox-%{version}-source.jar
 %{_javadir}/icebox-source.jar
+%{_javadir}/icebt-%{version}.jar
+%{_javadir}/icebt.jar
+%{_javadir}/icebt-%{version}-source.jar
+%{_javadir}/icebt-source.jar
 %{_javadir}/icegrid-%{version}.jar
 %{_javadir}/icegrid.jar
 %{_javadir}/icegrid-%{version}-source.jar
