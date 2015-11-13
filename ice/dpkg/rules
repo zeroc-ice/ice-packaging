@@ -16,7 +16,6 @@ PACKAGE_NAMES = zeroc-ice \
 	zeroc-ice-dev \
 	zeroc-ice-slice \
 	libzeroc-ice3.7 \
-	libzeroc-freeze3.7 \
 	php5-zeroc-ice \
 	zeroc-glacier2 \
 	zeroc-icebox \
@@ -30,8 +29,7 @@ PACKAGE_NAMES = zeroc-ice \
 	php5-zeroc-ice-dev
 
 CPP11_DESTDIR = $(CURDIR)/debian/tmp-cpp11
-CPP11_LIB_NAMES = 	libFreeze \
-	libGlacier2 \
+CPP11_LIB_NAMES = 	libGlacier2 \
 	libIce \
 	libIceBox \
 	libIceDB \
@@ -42,12 +40,12 @@ CPP11_LIB_NAMES = 	libFreeze \
 	libIceSSL \
 	libIceStorm \
 	libIceStormService \
-	libIceUtil
+	libIceUtil \
+	libIceXML
 
 VERSION = 3.7.0
 
-ARTIFACT_NAMES = freeze \
-	glacier2 \
+ARTIFACT_NAMES = glacier2 \
 	ice \
 	icebox \
 	icediscovery \

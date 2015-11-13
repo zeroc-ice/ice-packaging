@@ -82,26 +82,14 @@ BuildRoot: %{_tmppath}/ice-%{version}-%{release}-root-%(%{__id_u} -n)
 %define formsversion 1.8.0
 %define looksversion 2.6.0
 
-#
-# RHEL7 includes Berkeley DB 5.3.21, on other platforms we supply 5.3.28.
-#
-%if "%{dist}" == ".el7"
-%define dbversion 5.3.21
-%else
-%define dbversion 5.3.28
-%endif
-
 BuildRequires: openssl-devel >= 0.9.7a
 BuildRequires: mcpp-devel >= 2.7.2
 
 %if "%{dist}" == ".el7"
-BuildRequires: libdb-cxx-devel >= %{dbversion}, libdb-java >= %{dbversion}
 BuildRequires: javapackages-tools
-%else
-BuildRequires: db53-devel >= %{dbversion}, db53-java >= %{dbversion}
+%endif
 %if "%{dist}" != ".sles12"
 BuildRequires: jpackage-utils
-%endif
 %endif
 
 %if "%{dist}" == ".el6"
@@ -172,7 +160,6 @@ Requires: icegrid%{?_isa} = %{version}-%{release}
 Requires: icepatch2%{?_isa} = %{version}-%{release}
 Requires: php-ice%{?_isa} = %{version}-%{release}
 Requires: libice3.7-c++%{?_isa} = %{version}-%{release}
-Requires: libfreeze3.7-c++%{?_isa} = %{version}-%{release}
 Requires: ice-utils-java = %{version}-%{release}
 Requires: icebox%{?_isa} = %{version}-%{release}
 Requires: libicestorm3.7%{?_isa} = %{version}-%{release}
@@ -203,18 +190,6 @@ Requires: bzip2
 %description -n libice3.7-c++
 The Ice run time libraries for C++.
 
-%package -n libfreeze3.7-c++
-Summary: The Freeze library for C++.
-Group: System Environment/Libraries
-Requires: libice3.7-c++%{?_isa} = %{version}-%{release}
-%if "%{dist}" == ".el7"
-Requires: libdb%{?_isa} >= %{dbversion}
-%else
-Requires: db53%{?_isa} >= %{dbversion}
-%endif
-%description -n libfreeze3.7-c++
-The Freeze library for C++.
-
 %package -n icebox
 Summary: IceBox server.
 Group: System Environment/Daemons
@@ -242,11 +217,6 @@ IceBox server.
 Summary: Ice for Java run-time libraries and development tools.
 Group: System Environment/Libraries
 Obsoletes: ice-java-devel < 3.6, ice-java < 3.6
-%if "%{dist}" == ".el7"
-Requires: libdb-java%{?_isa} >= %{dbversion}
-%else
-Requires: db53-java%{?_isa} >= %{dbversion}
-%endif
 %description -n libice-java
 Ice for Java run-time libraries and development tools.
 
@@ -254,7 +224,6 @@ Ice for Java run-time libraries and development tools.
 Summary: Ice utilities and admin tools.
 Group: Applications/System
 Obsoletes: ice-utils < 3.6
-Requires: libfreeze3.7-c++%{?_isa} = %{version}-%{release}
 %description -n ice-utils
 Command-line administrative tools to manage Ice servers (IceGrid,
 IceStorm, IceBox, etc.), plus various Ice-related utilities.
@@ -263,7 +232,7 @@ IceStorm, IceBox, etc.), plus various Ice-related utilities.
 Summary: IceGrid servers.
 Group: System Environment/Daemons
 Obsoletes: ice-servers < 3.6
-Requires: libfreeze3.7-c++%{?_isa} = %{version}-%{release}, ice-utils = %{version}-%{release}
+Requires: ice-utils = %{version}-%{release}
 # Requirements for the users
 Requires(pre): %{shadow}
 %if %{systemd}
@@ -326,7 +295,6 @@ IcePatch2 server.
 %package -n libicestorm3.7
 Summary: IceStorm service.
 Group: System Environment/Libraries
-Requires: libfreeze3.7-c++%{?_isa} = %{version}-%{release}
 %description -n libicestorm3.7
 IceStorm service.
 
@@ -445,9 +413,6 @@ make %{?_smp_mflags} OPTIMIZE=yes %{runpath}
 cd $RPM_BUILD_DIR/Ice-%{version}/cpp/src/slice2java
 make %{?_smp_mflags} OPTIMIZE=yes %{runpath}
 
-cd $RPM_BUILD_DIR/Ice-%{version}/cpp/src/slice2freezej
-make %{?_smp_mflags} OPTIMIZE=yes %{runpath}
-
 cd $RPM_BUILD_DIR/Ice-%{version}/java
 make dist
 
@@ -541,7 +506,7 @@ rm -rf $RPM_BUILD_ROOT/include/*
 # Doc & license files
 #
 
-for i in ice-all-runtime icebox ice-all-devel libfreeze3.7-c++ libice3.7-c++ libice-c++-devel libicestorm3.7
+for i in ice-all-runtime icebox ice-all-devel libice3.7-c++ libice-c++-devel libicestorm3.7
 do
   mkdir -p $RPM_BUILD_ROOT%{_defaultdocdir}/$i-%{version}
   cp -p $RPM_BUILD_DIR/Ice-rpmbuild-%{version}/README.Linux $RPM_BUILD_ROOT%{_defaultdocdir}/$i-%{version}/README
@@ -610,7 +575,7 @@ make prefix=$RPM_BUILD_ROOT install
 
 mkdir -p $RPM_BUILD_ROOT%{_javadir}
 
-for i in freeze glacier2 ice icebox icebt icediscovery icelocatordiscovery icegrid icepatch2 icestorm
+for i in glacier2 ice icebox icebt icediscovery icelocatordiscovery icegrid icepatch2 icestorm
 do
   mv $RPM_BUILD_ROOT/lib/$i-%{version}.jar $RPM_BUILD_ROOT%{_javadir}
   ln -s $i-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/$i.jar
@@ -663,7 +628,7 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2objc.1
 # Doc & license files
 #
 
-PACKAGES="glacier2 ice-all-runtime icebox ice-all-devel icegrid icepatch2 ice-utils libfreeze3.7-c++ libice3.7-c++ libice-c++-devel libice-java libicestorm3.7 php-ice php-ice-devel"
+PACKAGES="glacier2 ice-all-runtime icebox ice-all-devel icegrid icepatch2 ice-utils libice3.7-c++ libice-c++-devel libice-java libicestorm3.7 php-ice php-ice-devel"
 
 for i in $PACKAGES
 do
@@ -687,7 +652,6 @@ rm -fr $RPM_BUILD_ROOT/doc/reference
 rm -fr $RPM_BUILD_ROOT/slice
 rm -f $RPM_BUILD_ROOT%{_libdir}/libIceStormService.so
 rm -f $RPM_BUILD_ROOT%{_libdir}/libGlacier2CryptPermissionsVerifier.so
-rm -f $RPM_BUILD_ROOT%{_libdir}/libIceXML.so
 rm -f $RPM_BUILD_ROOT%{_bindir}/slice2cs
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/iceboxnet.1
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2cs.1
@@ -828,6 +792,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libGlacier2CryptPermissionsVerifier.so.%{soversion}
 %{_libdir}/libSlice.so.%{version}
 %{_libdir}/libSlice.so.%{soversion}
+%{_libdir}/libIceXML.so.%{version}
+%{_libdir}/libIceXML.so.%{soversion}
 %endif
 
 %if %{cpp11}
@@ -859,23 +825,6 @@ rm -rf $RPM_BUILD_ROOT
 %post -n libice3.7-c++ -p /sbin/ldconfig
 %postun -n libice3.7-c++ -p /sbin/ldconfig
 
-%files -n libfreeze3.7-c++
-%defattr(-, root, root, -)
-%{_libdir}/libFreeze.so.%{version}
-%{_libdir}/libFreeze.so.%{soversion}
-%if ! %{cppx86}
-%{_libdir}/libIceXML.so.%{version}
-%{_libdir}/libIceXML.so.%{soversion}
-%endif
-%if %{cpp11}
-%{_libdir}/libFreeze++11.so.%{version}
-%{_libdir}/libFreeze++11.so.%{soversion}
-%endif
-%{_defaultdocdir}/libfreeze3.7-c++-%{version}
-
-%post -n libfreeze3.7-c++ -p /sbin/ldconfig
-%postun -n libfreeze3.7-c++ -p /sbin/ldconfig
-
 %files -n libicestorm3.7
 %defattr(-, root, root, -)
 %{_libdir}/libIceStormService.so.%{version}
@@ -895,8 +844,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, root, -)
 %{_bindir}/slice2java
 %{_mandir}/man1/slice2java.1.gz
-%{_bindir}/slice2freezej
-%{_mandir}/man1/slice2freezej.1.gz
 %{_javadir}/ice-%{version}.jar
 %{_javadir}/ice.jar
 %{_javadir}/ice-%{version}-source.jar
@@ -933,18 +880,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}/icelocatordiscovery.jar
 %{_javadir}/icelocatordiscovery-%{version}-source.jar
 %{_javadir}/icelocatordiscovery-source.jar
-%{_javadir}/freeze-%{version}.jar
-%{_javadir}/freeze.jar
-%{_javadir}/freeze-%{version}-source.jar
-%{_javadir}/freeze-source.jar
 %{_defaultdocdir}/libice-java-%{version}
 
 %files -n ice-utils
 %defattr(-, root, root, -)
-%{_bindir}/dumpdb
-%{_mandir}/man1/dumpdb.1.gz
-%{_bindir}/transformdb
-%{_mandir}/man1/transformdb.1.gz
 %{_bindir}/iceboxadmin
 %{_mandir}/man1/iceboxadmin.1.gz
 %{_bindir}/icepatch2calc
@@ -1173,9 +1112,6 @@ exit 0
 %if ! %{cppx86}
 %{_bindir}/slice2cpp
 %{_mandir}/man1/slice2cpp.1.gz
-%{_bindir}/slice2freeze
-%{_mandir}/man1/slice2freeze.1.gz
-%{_includedir}/Freeze
 %{_includedir}/Glacier2
 %{_includedir}/Ice
 %{_includedir}/IceBox
@@ -1186,7 +1122,6 @@ exit 0
 %{_includedir}/IceUtil
 %{_includedir}/Slice
 %endif
-%{_libdir}/libFreeze.so
 %{_libdir}/libGlacier2.so
 %{_libdir}/libIce.so
 %{_libdir}/libIceBox.so
@@ -1200,9 +1135,9 @@ exit 0
 %{_libdir}/libIceUtil.so
 %if ! %{cppx86}
 %{_libdir}/libSlice.so
+%{_libdir}/libIceXML.so
 %endif
 %if %{cpp11}
-%{_libdir}/c++11/libFreeze.so
 %{_libdir}/c++11/libGlacier2.so
 %{_libdir}/c++11/libIce.so
 %{_libdir}/c++11/libIceBox.so

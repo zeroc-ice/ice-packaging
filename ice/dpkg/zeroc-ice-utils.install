@@ -1,6 +1,3 @@
-usr/bin/dumpdb
-usr/share/man/man1/dumpdb.1
-
 usr/bin/iceboxadmin
 usr/share/man/man1/iceboxadmin.1
 
@@ -24,6 +21,3 @@ usr/share/man/man1/icestormdb.1
 
 usr/bin/slice2html
 usr/share/man/man1/slice2html.1
-
-usr/bin/transformdb
-usr/share/man/man1/transformdb.1

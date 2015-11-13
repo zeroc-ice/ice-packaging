@@ -6,8 +6,6 @@ Build-Depends: debhelper (>= 9.0.0),
  libbz2-dev,
  libexpat1-dev,
  libssl-dev,
- libdb5.3++-dev (>=5.3.28),
- libdb5.3-java (>=5.3.28),
  oracle-java7-installer,
  php5-dev,
  php5-cli,
@@ -21,7 +19,6 @@ Architecture: all
 Section: web
 Depends: zeroc-ice-slice (=${binary:Version}),
  libzeroc-ice3.7 (=${binary:Version}),
- libzeroc-freeze3.7 (=${binary:Version}),
  php5-zeroc-ice (=${binary:Version}),
  zeroc-glacier2 (=${binary:Version}),
  zeroc-icebox (=${binary:Version}),
@@ -69,17 +66,6 @@ Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: The Ice run time for C++
  The Ice run time for C++.
 
-Package: libzeroc-freeze3.7
-Architecture: any
-Multi-Arch: same
-Section: libs
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends}, ${misc:Depends},
- libzeroc-ice3.7 (=${binary:Version}),
- libdb5.3++ (>=5.3.28)
-Description: Freeze persistence service C++ run-time
- Freeze persistence service C++ run-time.
-
 Package: libzeroc-ice-dev
 Architecture: any
 Section: devel
@@ -87,7 +73,6 @@ Replaces: libice++-dev, ice35-translators, libzeroc-ice35-dev
 Depends: ${shlibs:Depends}, ${misc:Depends},
  zeroc-ice-slice (=${binary:Version}),
  libzeroc-ice3.7 (=${binary:Version}),
- libzeroc-freeze3.7 (=${binary:Version})
 Description: Tools, libraries and headers for developing Ice applications in C++
  Tools, libraries and headers for developing Ice applications in C++.
 
@@ -99,7 +84,6 @@ Replaces:libice-java-dev, ice35-translators, libzeroc-ice3.7-java
 Depends: ${shlibs:Depends}, ${misc:Depends},
  zeroc-ice-slice (=${binary:Version}),
  libzeroc-ice3.7 (=${binary:Version}),
- libdb5.3-java (>=5.3.28),
  openjdk-7-jdk | openjdk-8-jdk | oracle-java7-installer | oracle-java8-installer
 Description: Tools for developing Ice applications in Java
  Tools for developing Ice applications in Java.
@@ -154,7 +138,6 @@ Replaces:icegrid, ice35-services
 Depends: ${shlibs:Depends}, ${misc:Depends},
  libzeroc-ice3.7 (=${binary:Version}),
  libzeroc-icestorm3.7 (=${binary:Version}),
- libzeroc-freeze3.7 (=${binary:Version})
 Description: IceGrid is the server deployment and monitoring for Ice
  IceGrid is the server deployment and monitoring for the Internet
  Communications Engine (Ice).
@@ -166,7 +149,6 @@ Section: web
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends},
  libzeroc-ice3.7 (=${binary:Version}),
- libzeroc-freeze3.7 (=${binary:Version})
 Description: IceStorm publish–subscribe event distribution service for Ice
  IceStorm publish–subscribe event distribution service for the Internet
  Communications Engine (Ice).
@@ -189,7 +171,6 @@ Section: admin
 Replaces:ice-utils, icebox, ice35-services
 Depends: ${shlibs:Depends}, ${misc:Depends},
  libzeroc-ice3.7 (=${binary:Version}),
- libzeroc-freeze3.7 (=${binary:Version}),
  libzeroc-icestorm3.7 (=${binary:Version})
 Description: Ice utilities and admin tools
  Ice utilities and admin tools.

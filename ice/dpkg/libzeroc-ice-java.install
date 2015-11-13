@@ -1,12 +1,6 @@
 usr/bin/slice2java
 usr/share/man/man1/slice2java.1
 
-usr/bin/slice2freezej
-usr/share/man/man1/slice2freezej.1
-
-usr/share/java/freeze-3.7.0.jar
-usr/share/java/freeze-3.7.0-source.jar
-
 usr/share/java/glacier2-3.7.0.jar
 usr/share/java/glacier2-3.7.0-source.jar
 
@@ -30,10 +24,6 @@ usr/share/java/icepatch2-3.7.0-source.jar
 
 usr/share/java/icestorm-3.7.0.jar
 usr/share/java/icestorm-3.7.0-source.jar
-
-usr/share/maven-repo/com/zeroc/freeze/3.7.0/freeze-3.7.0.jar
-usr/share/maven-repo/com/zeroc/freeze/3.7.0/freeze-3.7.0-source.jar
-usr/share/maven-repo/com/zeroc/freeze/3.7.0/freeze-3.7.0.pom
 
 usr/share/maven-repo/com/zeroc/glacier2/3.7.0/glacier2-3.7.0.jar
 usr/share/maven-repo/com/zeroc/glacier2/3.7.0/glacier2-3.7.0-source.jar

@@ -93,10 +93,6 @@ your system in order to build the RPM packages. These dependencies are listed be
 
 | Package            | Platform                     |
 | -------------------| -----------------------------|
-| libdb-cxx-devel    | el7                          |
-| db53-devel         | amzn1, el6, sles11.3, sles12 |
-| libdb-java         | el7                          |
-| db53-java          | amzn1, el6, sles11.3, sles12 |
 | mcpp-devel         | All                          |
 | openssl-devel      | All                          |
 | javapackages-tools | el7                          |
@@ -107,7 +103,7 @@ your system in order to build the RPM packages. These dependencies are listed be
 | php5-devel         | sles12                       |
 | php53-devel        | sles11.3                     |
 
-The `db53*` and `mcpp-devel` RPMs are provided by ZeroC. You can determine the
+The `mcpp-devel` RPMs are provided by ZeroC. You can determine the
 version requirements for all other prerequisites by examining the `BuildRequires`
 directives in the `ice.spec` file.
 
