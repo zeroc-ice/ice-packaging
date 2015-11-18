@@ -84,6 +84,7 @@ BuildRoot: %{_tmppath}/ice-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: openssl-devel >= 0.9.7a
 BuildRequires: mcpp-devel >= 2.7.2
+BuildRequires: lmdb-devel >= 0.9.11
 
 %if "%{dist}" == ".el7"
 BuildRequires: javapackages-tools
@@ -233,6 +234,9 @@ Summary: IceGrid servers.
 Group: System Environment/Daemons
 Obsoletes: ice-servers < 3.6
 Requires: ice-utils = %{version}-%{release}
+%if "%{dist}" == ".sles12"
+Requires: liblmdb-0_9_11
+%endif
 # Requirements for the users
 Requires(pre): %{shadow}
 %if %{systemd}
@@ -295,6 +299,9 @@ IcePatch2 server.
 %package -n libicestorm3.7
 Summary: IceStorm service.
 Group: System Environment/Libraries
+%if "%{dist}" == ".sles12"
+Requires: liblmdb-0_9_11
+%endif
 %description -n libicestorm3.7
 IceStorm service.
 
