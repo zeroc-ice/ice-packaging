@@ -32,6 +32,7 @@ CPP11_DESTDIR = $(CURDIR)/debian/tmp-cpp11
 CPP11_LIB_NAMES = 	libGlacier2 \
 	libIce \
 	libIceBox \
+	libIceBT \
 	libIceDB \
 	libIceDiscovery \
 	libIceGrid \
