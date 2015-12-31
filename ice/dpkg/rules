@@ -29,18 +29,15 @@ PACKAGE_NAMES = zeroc-ice \
 	php5-zeroc-ice-dev
 
 CPP11_DESTDIR = $(CURDIR)/debian/tmp-cpp11
-CPP11_LIB_NAMES = 	libGlacier2 \
+CPP11_LIB_NAMES = libGlacier2 \
 	libIce \
 	libIceBox \
 	libIceBT \
-	libIceDB \
 	libIceDiscovery \
 	libIceGrid \
 	libIceLocatorDiscovery \
-	libIcePatch2 \
 	libIceSSL \
 	libIceStorm \
-	libIceStormService \
 	libIceUtil \
 	libIceXML
 
@@ -90,7 +87,7 @@ override_dh_auto_build-arch:
 	if [ ! -d cpp11 ]; then cp -r cpp cpp11; fi
 	$(MAKE) $(MAKEOPTS) -C cpp/src
 	$(MAKE) $(MAKEOPTS) -C php/src
-	$(MAKE) $(MAKEOPTS) -C cpp11/src CPP11=yes LD_LIBRARY_PATH=$(CURDIR)/cpp11/lib/$(DEB_HOST_MULTIARCH)
+	$(MAKE) $(MAKEOPTS) -C cpp11/src CPP11_MAPPING=yes LD_LIBRARY_PATH=$(CURDIR)/cpp11/lib/$(DEB_HOST_MULTIARCH)
 
 override_dh_auto_build-indep:
 	$(MAKE) $(MAKEOPTS) -C java dist
@@ -98,7 +95,7 @@ override_dh_auto_build-indep:
 override_dh_auto_install-arch:
 	$(MAKE) $(MAKEOPTS) -C cpp DESTDIR=$(DESTDIR) install
 	$(MAKE) $(MAKEOPTS) -C php DESTDIR=$(DESTDIR) install
-	$(MAKE) $(MAKEOPTS) -C cpp11 DESTDIR=$(CPP11_DESTDIR) CPP11=yes install
+	$(MAKE) $(MAKEOPTS) -C cpp11 DESTDIR=$(CPP11_DESTDIR) CPP11_MAPPING=yes install
 
 override_dh_auto_install-indep:
 	$(MAKE) $(MAKEOPTS) -C java DESTDIR=$(DESTDIR) install
@@ -106,7 +103,7 @@ override_dh_auto_install-indep:
 override_dh_auto_clean-arch:
 	$(MAKE) $(MAKEOPTS) -C cpp/src clean
 	$(MAKE) $(MAKEOPTS) -C php/src clean
-	if [ -d cpp11 ]; then $(MAKE) $(MAKEOPTS) -C cpp11/src CPP11=yes clean; fi
+	if [ -d cpp11 ]; then $(MAKE) $(MAKEOPTS) -C cpp11/src CPP11_MAPPING=yes clean; fi
 
 override_dh_auto_clean-indep:
 	$(MAKE) $(MAKEOPTS) -C java clean
