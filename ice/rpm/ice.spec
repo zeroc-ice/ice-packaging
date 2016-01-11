@@ -387,9 +387,9 @@ mv cpp cpp.sav
 mv cpp11 cpp
 cd cpp/src
 %if %{cppx86}
-make %{?_smp_mflags} CXXARCHFLAGS="-m32" LP64=no CPP11=yes OPTIMIZE=yes %{runpath}
+make %{?_smp_mflags} CXXARCHFLAGS="-m32" LP64=no CPP11_MAPPING=yes OPTIMIZE=yes %{runpath}
 %else
-make %{?_smp_mflags} CPP11=yes OPTIMIZE=yes %{runpath}
+make %{?_smp_mflags} CPP11_MAPPING=yes OPTIMIZE=yes %{runpath}
 %endif
 cd $RPM_BUILD_DIR/Ice-%{version}
 mv cpp cpp11
@@ -478,20 +478,17 @@ mv cpp11 cpp
 cd cpp/src
 mkdir -p $RPM_BUILD_ROOT/%_lib/c++11
 %if %{cppx86}
-make CPP11=yes prefix=$RPM_BUILD_ROOT LP64=no install
+make CPP11_MAPPING=yes prefix=$RPM_BUILD_ROOT LP64=no install
 %else
-make CPP11=yes prefix=$RPM_BUILD_ROOT install
+make CPP11_MAPPING=yes prefix=$RPM_BUILD_ROOT install
 %endif
 cd $RPM_BUILD_DIR/Ice-%{version}
 mv cpp cpp11
 mv cpp.sav cpp
 
-rm -f $RPM_BUILD_ROOT/%_lib/libGlacier2CryptPermissionsVerifier++11.so*
 rm -f $RPM_BUILD_ROOT/%_lib/libSlice++11.so*
 rm -f $RPM_BUILD_ROOT/%_lib/libIceXML++11.so*
-rm -f $RPM_BUILD_ROOT/%_lib/c++11/libGlacier2CryptPermissionsVerifier.so
 rm -f $RPM_BUILD_ROOT/%_lib/c++11/libSlice.so
-rm -f $RPM_BUILD_ROOT/%_lib/c++11/libIceStormService.so
 rm -f $RPM_BUILD_ROOT/%_lib/c++11/libIceXML.so
 mv $RPM_BUILD_ROOT/%_lib/* $RPM_BUILD_ROOT%{_libdir}
 %if %{cppx86}
@@ -810,16 +807,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libIce++11.so.%{soversion}
 %{_libdir}/libIceBox++11.so.%{version}
 %{_libdir}/libIceBox++11.so.%{soversion}
-%{_libdir}/libIceDB++11.so.%{version}
-%{_libdir}/libIceDB++11.so.%{soversion}
 %{_libdir}/libIceDiscovery++11.so.%{version}
 %{_libdir}/libIceDiscovery++11.so.%{soversion}
 %{_libdir}/libIceGrid++11.so.%{version}
 %{_libdir}/libIceGrid++11.so.%{soversion}
 %{_libdir}/libIceLocatorDiscovery++11.so.%{version}
 %{_libdir}/libIceLocatorDiscovery++11.so.%{soversion}
-%{_libdir}/libIcePatch2++11.so.%{version}
-%{_libdir}/libIcePatch2++11.so.%{soversion}
 %{_libdir}/libIceSSL++11.so.%{version}
 %{_libdir}/libIceSSL++11.so.%{soversion}
 %{_libdir}/libIceStorm++11.so.%{version}
@@ -836,10 +829,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, root, -)
 %{_libdir}/libIceStormService.so.%{version}
 %{_libdir}/libIceStormService.so.%{soversion}
-%if %{cpp11}
-%{_libdir}/libIceStormService++11.so.%{version}
-%{_libdir}/libIceStormService++11.so.%{soversion}
-%endif
 %{_defaultdocdir}/libicestorm3.7-%{version}
 
 %post -n libicestorm3.7 -p /sbin/ldconfig
@@ -1152,7 +1141,6 @@ exit 0
 %{_libdir}/c++11/libIceDiscovery.so
 %{_libdir}/c++11/libIceGrid.so
 %{_libdir}/c++11/libIceLocatorDiscovery.so
-%{_libdir}/c++11/libIcePatch2.so
 %{_libdir}/c++11/libIceSSL.so
 %{_libdir}/c++11/libIceStorm.so
 %{_libdir}/c++11/libIceUtil.so
