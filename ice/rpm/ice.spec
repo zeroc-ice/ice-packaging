@@ -1141,7 +1141,6 @@ exit 0
 %{_libdir}/c++11/libGlacier2.so
 %{_libdir}/c++11/libIce.so
 %{_libdir}/c++11/libIceBox.so
-%{_libdir}/c++11/libIceDB.so
 %{_libdir}/c++11/libIceDiscovery.so
 %{_libdir}/c++11/libIceGrid.so
 %{_libdir}/c++11/libIceLocatorDiscovery.so
