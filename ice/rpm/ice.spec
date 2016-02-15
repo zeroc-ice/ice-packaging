@@ -7,40 +7,29 @@
 #
 # **********************************************************************
 
+%if "%{dist}" == ".sles12.1"
+  %define dist .sles12
+%endif
+
 %if "%{dist}" == ".sles12"
 # SLES 12 should only be built on x86_64
 ExcludeArch: %{ix86}
 %endif
 
-%define cpp11 0
-
-%define systemd 0
-%define systemdpkg bogus
-
-%define shadow bogus
+%define cpp11 1
 %define biarch 0
+%define systemd 1
+%define systemdpkg systemd
+%define shadow shadow-utils
 
-%if "%{dist}" == ".el6"
-  %define shadow shadow-utils
-%endif
 %if "%{dist}" == ".el7"
-  %define systemd 1
-  %define systemdpkg systemd
-  %define cpp11 1
-  %define shadow shadow-utils
   %define biarch 1
 %endif
 %if "%{dist}" == ".amzn1"
-  %define cpp11 1
-  %define shadow shadow-utils
-%endif
-%if "%{dist}" == ".sles11.3"
-  %define shadow pwdutils
+  %define systemd 0
 %endif
 %if "%{dist}" == ".sles12"
-  %define systemd 1
   %define systemdpkg systemd-rpm-macros
-  %define cpp11 1
   %define shadow shadow
 %endif
 
@@ -112,9 +101,6 @@ BuildRequires: bzip2-devel >= 1.0.6
 BuildRequires: expat-devel >= 2.0.1
 BuildRequires: php-devel >= 5.3.2
 BuildRequires: php-devel < 5.4
-%endif
-%if "%{dist}" == ".sles11.3"
-BuildRequires: php53-devel >= 5.3.0
 %endif
 %if "%{dist}" == ".sles12"
 BuildRequires: libbz2-devel >= 1.0.6
@@ -332,9 +318,6 @@ Summary: The Ice run time for PHP.
 Group: System Environment/Libraries
 Obsoletes: ice-php < 3.6
 Requires: libice3.7-c++%{?_isa} = %{version}-%{release}
-%if "%{dist}" == ".sles11.3"
-Requires: php53%{?_isa}
-%endif
 %if "%{dist}" == ".sles12"
 Requires: php5%{?_isa}
 %endif
@@ -557,15 +540,6 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/php/modules
 mv $RPM_BUILD_ROOT/php/IcePHP.so $RPM_BUILD_ROOT%{_libdir}/php/modules
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/php
 mv $RPM_BUILD_ROOT/php/* $RPM_BUILD_ROOT%{_datadir}/php
-%endif
-
-%if "%{dist}" == ".sles11.3"
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/php5/conf.d
-cp -p $RPM_BUILD_DIR/Ice-rpmbuild-%{version}/ice.ini $RPM_BUILD_ROOT%{_sysconfdir}/php5/conf.d
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/php5/extensions
-mv $RPM_BUILD_ROOT/php/IcePHP.so $RPM_BUILD_ROOT%{_libdir}/php5/extensions
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/php5
-mv $RPM_BUILD_ROOT/php/* $RPM_BUILD_ROOT%{_datadir}/php5
 %endif
 
 %if "%{dist}" == ".sles12"
@@ -945,10 +919,8 @@ exit 0
 %if %{systemd}
 /bin/systemctl daemon-reload >/dev/null 2>&1  || :
 %else
-%if "%{dist}" != ".sles11.3"
 /sbin/chkconfig --add icegridregistry
 /sbin/chkconfig --add icegridnode
-%endif
 %endif
 
 %preun -n icegrid
@@ -960,17 +932,10 @@ if [ $1 = 0 ]; then
   /bin/systemctl --no-reload disable icegridregistry.service >/dev/null 2>&1 || :
   /bin/systemctl stop icegridregistry.service >/dev/null 2>&1 || :
 %else
-%if "%{dist}" == ".sles11.3"
-        /sbin/service icegridnode stop >/dev/null 2>&1 || :
-        /sbin/insserv -r icegridnode
+  /sbin/service icegridnode stop >/dev/null 2>&1 || :
+  /sbin/chkconfig --del icegridnode
 	/sbin/service icegridregistry stop >/dev/null 2>&1 || :
-        /sbin/insserv -r icegridregistry
-%else
-        /sbin/service icegridnode stop >/dev/null 2>&1 || :
-        /sbin/chkconfig --del icegridnode
-	/sbin/service icegridregistry stop >/dev/null 2>&1 || :
-        /sbin/chkconfig --del icegridregistry
-%endif
+  /sbin/chkconfig --del icegridregistry
 %endif
 fi
 
@@ -1014,24 +979,17 @@ exit 0
 %if %{systemd}
 /bin/systemctl daemon-reload >/dev/null 2>&1  || :
 %else
-%if "%{dist}" != ".sles11.3"
 /sbin/chkconfig --add glacier2router
-%endif
 %endif
 
 %preun -n glacier2
 if [ $1 = 0 ]; then
 %if %{systemd}
-        /bin/systemctl --no-reload disable glacier2router.service >/dev/null 2>&1 || :
-        /bin/systemctl stop glacier2router.service >/dev/null 2>&1 || :
+  /bin/systemctl --no-reload disable glacier2router.service >/dev/null 2>&1 || :
+  /bin/systemctl stop glacier2router.service >/dev/null 2>&1 || :
 %else
-%if "%{dist}" == ".sles11.3"
-        /sbin/service glacier2router stop >/dev/null 2>&1 || :
-        /sbin/insserv -r glacier2router
-%else
-        /sbin/service glacier2router stop >/dev/null 2>&1 || :
-        /sbin/chkconfig --del glacier2router
-%endif
+  /sbin/service glacier2router stop >/dev/null 2>&1 || :
+  /sbin/chkconfig --del glacier2router
 %endif
 fi
 
@@ -1173,12 +1131,6 @@ exit 0
 %{_datadir}/php
 %{_libdir}/php/modules/IcePHP.so
 %config(noreplace) %{_sysconfdir}/php.d/ice.ini
-%endif
-
-%if "%{dist}" == ".sles11.3"
-%{_datadir}/php5
-%{_libdir}/php5/extensions
-%config(noreplace) %{_sysconfdir}/php5/conf.d/ice.ini
 %endif
 
 %if "%{dist}" == ".sles12"
