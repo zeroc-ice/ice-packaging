@@ -117,6 +117,8 @@ BuildRequires: php-devel < 5.4
 BuildRequires: php53-devel >= 5.3.0
 %endif
 %if "%{dist}" == ".sles12"
+BuildRequires: libbz2-devel >= 1.0.6
+BuildRequires: libexpat-devel >= 2.1
 BuildRequires: php5-devel >= 5.5
 %endif
 
