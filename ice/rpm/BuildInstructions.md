@@ -20,18 +20,16 @@ The GPG settings are only needed if you want to sign your RPMs. Replace
 The value for `%dist` should be one of
 
     .sles12
-    .sles11.3
     .el7
-    .el6
     .amzn1
 
 These tags correspond to the Linux distributions that ZeroC officially supports.
 
 ## The RPM package build directory
 
-The RPM package build directory is `/usr/src/packages` on SLES. For RHEL 6,
-RHEL 7, and Amazon Linux, create and use `~/rpmbuild`. In this document we
-refer to the package directory symbolically as `pkgdir`.
+The RPM package build directory is `/usr/src/packages` on SLES. For RHEL and
+Amazon Linux, create and use `~/rpmbuild`. In this document we refer to the
+package directory symbolically as `pkgdir`.
 
 You may need to adjust the permissions on all subdirectories of this directory
 to be able to create RPM packages as a non-root user.
@@ -45,45 +43,31 @@ First install ZeroC's key to avoid warnings with unsigned packages:
 
 Then add the Ice repository for you system and install the source RPM:
 
-* Red Hat Enterprise Linux 6:
-
-    ```
-    $ cd /etc/yum.repos.d
-    $ sudo wget https://zeroc.com/download/rpm/ice/el6/zeroc-ice-el6.repo
-    ```
-
 * Red Hat Enterprise Linux 7:
 
     ```
     $ cd /etc/yum.repos.d
-    $ sudo wget https://zeroc.com/download/rpm/ice/el7/zeroc-ice-el7.repo
+    $ sudo wget https://zeroc.com/download/rpm/zeroc-ice-el7.repo
     ```
 
 * Amazon Linux:
 
     ```
     $ cd /etc/yum.repos.d
-    $ sudo wget https://zeroc.com/download/rpm/ice/amzn1/zeroc-ice-amzn1.repo
-    ```
-
-* Suse Linux Enterprise Server 11.3:
-
-    ```
-    $ wget https://zeroc.com/download/rpm/ice/sles12/zeroc-ice-sles11.3.repo
-    $ sudo zypper addrepo zeroc-ice-sles11.3.repo
+    $ sudo wget https://zeroc.com/download/rpm/zeroc-ice-amzn1.repo
     ```
 
 * Suse Linux Enterprise Server 12:
 
     ```
-    $ wget https://zeroc.com/download/rpm/ice/sles12/zeroc-ice-sles12.repo
+    $ wget https://zeroc.com/download/rpm/zeroc-ice-sles12.repo
     $ sudo zypper addrepo zeroc-ice-sles12.repo
     ```
 
 Now download and install the source rpm:
 
     $ yumdownloader --source ice
-    $ rpm -i ice-3.7.0-1.el6.src.rpm
+    $ rpm -i ice-3.7.0-1.el7.src.rpm
 
 You can find the `ice.spec` file in the `pkgdir/SPECS` directory, while the archive
 file is in the `pkgdir/SOURCES` directory.
@@ -94,18 +78,18 @@ your system in order to build the RPM packages. These dependencies are listed be
 | Package            | Platform                     |
 | -------------------| -----------------------------|
 | mcpp-devel         | All                          |
+| lmdb-devel         | All                          |
 | openssl-devel      | All                          |
 | javapackages-tools | el7                          |
-| jpackage-utils     | amzn1, el6, sles11.3         |
+| jpackage-utils     | amzn1                        |
 | bzip2-devel        | All                          |
 | expat-devel        | All                          |
-| php-devel          | el7, el6, amzn1              |
+| php-devel          | el7, amzn1                   |
 | php5-devel         | sles12                       |
-| php53-devel        | sles11.3                     |
 
-The `mcpp-devel` RPMs are provided by ZeroC. You can determine the
-version requirements for all other prerequisites by examining the `BuildRequires`
-directives in the `ice.spec` file.
+The `mcpp-devel` and `lmdb-devel` RPMs are provided by ZeroC. You can determine
+the version requirements for all other prerequisites by examining the
+`BuildRequires` directives in the `ice.spec` file.
 
 ## Creating the source RPM package
 
@@ -140,6 +124,15 @@ is present in your PATH
 
    > JDK 1.7 with JavaFX is necessary for compiling the IceGrid Admin GUI client
    > with full functionality. We recommend using Oracle JDK.
+
+- If you want to sign the IceGrid Administrative GUI jar file, you should set
+  these environment variables:
+
+   JARSIGNER_KEYSTORE=<path to the keystore file with the certificate>
+   JARSIGNER_KEYSTORE_ALIAS=<alias of the certificate>
+   JARSIGNER_KEYSTORE_PASSWORD=<keystore file password>
+
+   If you don't set them, the jar file signing will be skipped.
 
 - Build the RPMs as a non-root user.
 
