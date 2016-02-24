@@ -49,34 +49,34 @@ Then add the Ice repository for you system and install the source RPM:
 
     ```
     $ cd /etc/yum.repos.d
-    $ sudo wget https://zeroc.com/download/rpm/ice/el6/zeroc-ice-el6.repo
+    $ sudo wget https://zeroc.com/download/rpm/zeroc-ice-el6.repo
     ```
 
 * Red Hat Enterprise Linux 7:
 
     ```
     $ cd /etc/yum.repos.d
-    $ sudo wget https://zeroc.com/download/rpm/ice/el7/zeroc-ice-el7.repo
+    $ sudo wget https://zeroc.com/download/rpm/zeroc-ice-el7.repo
     ```
 
 * Amazon Linux:
 
     ```
     $ cd /etc/yum.repos.d
-    $ sudo wget https://zeroc.com/download/rpm/ice/amzn1/zeroc-ice-amzn1.repo
+    $ sudo wget https://zeroc.com/download/rpm/zeroc-ice-amzn1.repo
     ```
 
 * Suse Linux Enterprise Server 11.3:
 
     ```
-    $ wget https://zeroc.com/download/rpm/ice/sles12/zeroc-ice-sles11.3.repo
+    $ wget https://zeroc.com/download/rpm/zeroc-ice-sles11.3.repo
     $ sudo zypper addrepo zeroc-ice-sles11.3.repo
     ```
 
 * Suse Linux Enterprise Server 12:
 
     ```
-    $ wget https://zeroc.com/download/rpm/ice/sles12/zeroc-ice-sles12.repo
+    $ wget https://zeroc.com/download/rpm/zeroc-ice-sles12.repo
     $ sudo zypper addrepo zeroc-ice-sles12.repo
     ```
 
@@ -144,6 +144,15 @@ is present in your PATH
 
    > JDK 1.7 with JavaFX is necessary for compiling the IceGrid Admin GUI client
    > with full functionality. We recommend using Oracle JDK.
+
+- If you want to sign the IceGrid Administrative GUI jar file, you should set
+  these environment variables:
+
+   JARSIGNER_KEYSTORE=<path to the keystore file with the certificate>
+   JARSIGNER_KEYSTORE_ALIAS=<alias of the certificate>
+   JARSIGNER_KEYSTORE_PASSWORD=<keystore file password>
+
+   If you don't set them, the jar file signing will be skipped.
 
 - Build the RPMs as a non-root user.
 
