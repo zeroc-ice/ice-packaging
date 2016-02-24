@@ -690,7 +690,9 @@ mkdir -p $RPM_BUILD_ROOT%{_javadir}
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 cp -p $RPM_BUILD_DIR/Ice-%{version}/java/lib/icegridgui.jar $RPM_BUILD_ROOT%{_javadir}/icegridgui.jar
 cp -p $RPM_BUILD_DIR/Ice-rpmbuild-%{version}/icegridgui $RPM_BUILD_ROOT%{_bindir}/icegridgui
-jarsigner -keystore $JARSIGNER_KEYSTORE -storepass "$JARSIGNER_KEYSTORE_PASSWORD" $RPM_BUILD_ROOT%{_javadir}/icegridgui.jar zeroc.com -tsa http://timestamp.digicert.com
+if [ -n "$JARSIGNER_KEYSTORE" ]; then
+  jarsigner -keystore $JARSIGNER_KEYSTORE -storepass "$JARSIGNER_KEYSTORE_PASSWORD" $RPM_BUILD_ROOT%{_javadir}/icegridgui.jar $JARSIGNER_KEYSTORE_ALIAS -tsa http://timestamp.digicert.com
+fi
 
 #
 # Slice files
