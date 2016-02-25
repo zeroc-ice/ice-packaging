@@ -821,7 +821,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n libice-java
 %defattr(-, root, root, -)
 %{_bindir}/slice2java
-%{_mandir}/man1/slice2java.1.gz
+%{_mandir}/man1/slice2java.1*
 %{_javadir}/ice-%{version}.jar
 %{_javadir}/ice.jar
 %{_javadir}/ice-%{version}-source.jar
@@ -863,21 +863,21 @@ rm -rf $RPM_BUILD_ROOT
 %files -n ice-utils
 %defattr(-, root, root, -)
 %{_bindir}/iceboxadmin
-%{_mandir}/man1/iceboxadmin.1.gz
+%{_mandir}/man1/iceboxadmin.1*
 %{_bindir}/icepatch2calc
-%{_mandir}/man1/icepatch2calc.1.gz
+%{_mandir}/man1/icepatch2calc.1*
 %{_bindir}/icepatch2client
-%{_mandir}/man1/icepatch2client.1.gz
+%{_mandir}/man1/icepatch2client.1*
 %{_bindir}/icestormadmin
-%{_mandir}/man1/icestormadmin.1.gz
+%{_mandir}/man1/icestormadmin.1*
 %{_bindir}/icestormdb
-%{_mandir}/man1/icestormdb.1.gz
+%{_mandir}/man1/icestormdb.1*
 %{_bindir}/slice2html
-%{_mandir}/man1/slice2html.1.gz
+%{_mandir}/man1/slice2html.1*
 %{_bindir}/icegridadmin
-%{_mandir}/man1/icegridadmin.1.gz
+%{_mandir}/man1/icegridadmin.1*
 %{_bindir}/icegriddb
-%{_mandir}/man1/icegriddb.1.gz
+%{_mandir}/man1/icegriddb.1*
 %{_defaultdocdir}/ice-utils-%{version}
 
 %post -n ice-utils -p /sbin/ldconfig
@@ -886,9 +886,9 @@ rm -rf $RPM_BUILD_ROOT
 %files -n icegrid
 %defattr(-, root, root, -)
 %{_bindir}/icegridnode
-%{_mandir}/man1/icegridnode.1.gz
+%{_mandir}/man1/icegridnode.1*
 %{_bindir}/icegridregistry
-%{_mandir}/man1/icegridregistry.1.gz
+%{_mandir}/man1/icegridregistry.1*
 %dir %{_datadir}/Ice-%{version}
 %{_datadir}/Ice-%{version}/templates.xml
 %attr(755,root,root) %{_datadir}/Ice-%{version}/upgradeicegrid36.py*
@@ -960,7 +960,7 @@ fi
 %files -n glacier2
 %defattr(-, root, root, -)
 %{_bindir}/glacier2router
-%{_mandir}/man1/glacier2router.1.gz
+%{_mandir}/man1/glacier2router.1*
 %if %{systemd}
 %attr(755,root,root) %{_unitdir}/glacier2router.service
 %else
@@ -1012,7 +1012,7 @@ fi
 %files -n icepatch2
 %defattr(-, root, root, -)
 %{_bindir}/icepatch2server
-%{_mandir}/man1/icepatch2server.1.gz
+%{_mandir}/man1/icepatch2server.1*
 %{_defaultdocdir}/icepatch2-%{version}
 
 %pre -n icepatch2
@@ -1040,7 +1040,7 @@ exit 0
 %else
 %{_bindir}/icebox
 %endif
-%{_mandir}/man1/icebox.1.gz
+%{_mandir}/man1/icebox.1*
 %endif
 %if %{cpp11}
 %if %{cppx86}
@@ -1073,7 +1073,7 @@ exit 0
 
 %if ! %{cppx86}
 %{_bindir}/slice2cpp
-%{_mandir}/man1/slice2cpp.1.gz
+%{_mandir}/man1/slice2cpp.1*
 %{_includedir}/Glacier2
 %{_includedir}/Ice
 %{_includedir}/IceBox
@@ -1146,7 +1146,7 @@ exit 0
 %files -n php-ice-devel
 %defattr(-, root, root, -)
 %{_bindir}/slice2php
-%{_mandir}/man1/slice2php.1.gz
+%{_mandir}/man1/slice2php.1*
 %{_defaultdocdir}/php-ice-devel-%{version}
 %endif
 
