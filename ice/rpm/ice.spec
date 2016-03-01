@@ -1261,7 +1261,7 @@ exit 0
 
 %changelog
 
-* Mon Feb 29 2015 Benoit Foucher <benoit@zeroc.com> 3.6.2
+* Mon Feb 29 2016 Benoit Foucher <benoit@zeroc.com> 3.6.2
 - Made the signing of the IceGridGUI jar file optional if JARSIGNER_KEYSTORE
   is not set.
 - Added ice_license macro to allow customizing the licence.
