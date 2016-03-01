@@ -25,6 +25,15 @@ The value for `%dist` should be one of
 
 These tags correspond to the Linux distributions that ZeroC officially supports.
 
+Optional macros can be set to customize the RPMs:
+
+* `nameprefix` : defines the prefix to use for RPM package names. For example,
+if it's defined to `zeroc-`, the RPM for glacier2 will be named `zeroc-glacier2`
+and the RPM for `libice3.6` will be named `libzeroc-ice3.6`.
+
+* `ice_license` : defines the license shown in the RPM information (default
+value is `GPL v2 with exceptions`).
+
 ## The RPM package build directory
 
 The RPM package build directory is `/usr/src/packages` on SLES. For RHEL and
@@ -126,7 +135,7 @@ is present in your PATH
    > with full functionality. We recommend using Oracle JDK.
 
 - If you want to sign the IceGrid Administrative GUI jar file, you should set
-  these environment variables:
+these environment variables:
 
    JARSIGNER_KEYSTORE=<path to the keystore file with the certificate>
    JARSIGNER_KEYSTORE_ALIAS=<alias of the certificate>
