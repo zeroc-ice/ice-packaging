@@ -60,7 +60,7 @@ ExcludeArch: %{ix86}
 %endif
 %endif
 
-Name: %{nameprefix}ice
+Name: %{?nameprefix}ice
 Version: 3.6.1
 Summary: Comprehensive RPC framework with support for C++, .NET, Java, Python, JavaScript and more.
 Release: 1%{?dist}
@@ -145,18 +145,18 @@ distributed applications with minimal effort.
 #
 %ifarch noarch
 
-%package -n %{nameprefix}ice-slice
+%package -n %{?nameprefix}ice-slice
 Summary: Slice files for the Ice run time
 Group: System Environment/Libraries
-%description -n %{nameprefix}ice-slice
+%description -n %{?nameprefix}ice-slice
 Slice files for the Ice run time.
 
-%package -n %{nameprefix}ice-utils-java
+%package -n %{?nameprefix}ice-utils-java
 Summary: Java-based Ice utilities and admin tools.
 Group: Applications/System
 Obsoletes: ice-utils < 3.6
 Requires: java
-%description -n %{nameprefix}ice-utils-java
+%description -n %{?nameprefix}ice-utils-java
 Graphical IceGrid administrative tool and command-line
 certificate authority utility.
 %endif
@@ -169,65 +169,65 @@ certificate authority utility.
 #
 # This "meta" package includes all run-time components and services.
 #
-%package -n %{nameprefix}ice-all-runtime
+%package -n %{?nameprefix}ice-all-runtime
 Summary: Ice meta package that includes all run-time components and services.
 Group: System Environment/Libraries
 %if %{cppx86}
-Requires: %{nameprefix}icebox%{?_isa} = %{version}-%{release}
-Requires: lib%{nameprefix}icestorm3.6%{?_isa} = %{version}-%{release}
+Requires: %{?nameprefix}icebox%{?_isa} = %{version}-%{release}
+Requires: lib%{?nameprefix}icestorm3.6%{?_isa} = %{version}-%{release}
 %else
-Requires: %{nameprefix}glacier2%{?_isa} = %{version}-%{release}
-Requires: %{nameprefix}icegrid%{?_isa} = %{version}-%{release}
-Requires: %{nameprefix}icepatch2%{?_isa} = %{version}-%{release}
-Requires: php-%{nameprefix}ice%{?_isa} = %{version}-%{release}
-Requires: lib%{nameprefix}ice3.6-c++%{?_isa} = %{version}-%{release}
-Requires: lib%{nameprefix}freeze3.6-c++%{?_isa} = %{version}-%{release}
-Requires: %{nameprefix}ice-utils-java = %{version}-%{release}
-Requires: %{nameprefix}icebox%{?_isa} = %{version}-%{release}
-Requires: lib%{nameprefix}icestorm3.6%{?_isa} = %{version}-%{release}
+Requires: %{?nameprefix}glacier2%{?_isa} = %{version}-%{release}
+Requires: %{?nameprefix}icegrid%{?_isa} = %{version}-%{release}
+Requires: %{?nameprefix}icepatch2%{?_isa} = %{version}-%{release}
+Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
+Requires: lib%{?nameprefix}ice3.6-c++%{?_isa} = %{version}-%{release}
+Requires: lib%{?nameprefix}freeze3.6-c++%{?_isa} = %{version}-%{release}
+Requires: %{?nameprefix}ice-utils-java = %{version}-%{release}
+Requires: %{?nameprefix}icebox%{?_isa} = %{version}-%{release}
+Requires: lib%{?nameprefix}icestorm3.6%{?_isa} = %{version}-%{release}
 %endif # cppx86
-%description -n %{nameprefix}ice-all-runtime
+%description -n %{?nameprefix}ice-all-runtime
 Ice meta package that includes all run-time components and services.
 
 #
 # This "meta" package includes all development kits.
 #
-%package -n %{nameprefix}ice-all-devel
+%package -n %{?nameprefix}ice-all-devel
 Summary: Ice development meta package that includes development kits for all supported languages.
 Group: System Environment/Libraries
 %if %{cppx86}
-Requires: lib%{nameprefix}ice-c++-devel%{?_isa} = %{version}-%{release}
+Requires: lib%{?nameprefix}ice-c++-devel%{?_isa} = %{version}-%{release}
 %else
-Requires: lib%{nameprefix}ice-c++-devel%{?_isa} = %{version}-%{release}
-Requires: lib%{nameprefix}ice-java%{?_isa} = %{version}-%{release}
-Requires: php-%{nameprefix}ice-devel%{?_isa} = %{version}-%{release}
+Requires: lib%{?nameprefix}ice-c++-devel%{?_isa} = %{version}-%{release}
+Requires: lib%{?nameprefix}ice-java%{?_isa} = %{version}-%{release}
+Requires: php-%{?nameprefix}ice-devel%{?_isa} = %{version}-%{release}
 %endif # cppx86
-%description -n %{nameprefix}ice-all-devel
+%description -n %{?nameprefix}ice-all-devel
 Ice development meta package that includes development kits for all supported languages.
 
-%package -n lib%{nameprefix}ice3.6-c++
+%package -n lib%{?nameprefix}ice3.6-c++
 Summary: The Ice run time libraries for C++.
 Group: System Environment/Libraries
 Requires: bzip2
-%description -n lib%{nameprefix}ice3.6-c++
+%description -n lib%{?nameprefix}ice3.6-c++
 The Ice run time libraries for C++.
 
-%package -n lib%{nameprefix}freeze3.6-c++
+%package -n lib%{?nameprefix}freeze3.6-c++
 Summary: The Freeze library for C++.
 Group: System Environment/Libraries
-Requires: lib%{nameprefix}ice3.6-c++%{?_isa} = %{version}-%{release}
+Requires: lib%{?nameprefix}ice3.6-c++%{?_isa} = %{version}-%{release}
 %if "%{dist}" == ".el7"
 Requires: libdb%{?_isa} >= %{dbversion}
 %else
 Requires: db53%{?_isa} >= %{dbversion}
 %endif
-%description -n lib%{nameprefix}freeze3.6-c++
+%description -n lib%{?nameprefix}freeze3.6-c++
 The Freeze library for C++.
 
-%package -n %{nameprefix}icebox
+%package -n %{?nameprefix}icebox
 Summary: IceBox server.
 Group: System Environment/Daemons
-Requires: %{nameprefix}ice-utils = %{version}-%{release}
+Requires: %{?nameprefix}ice-utils = %{version}-%{release}
 Obsoletes: ice-servers < 3.6
 # Requirements for the users
 Requires(pre): %{shadow}
@@ -242,12 +242,12 @@ Requires(post): /sbin/chkconfig
 Requires(preun): /sbin/chkconfig
 Requires(preun): /sbin/service
 %endif
-%description -n %{nameprefix}icebox
+%description -n %{?nameprefix}icebox
 IceBox server.
 
 %if ! %{cppx86}
 
-%package -n lib%{nameprefix}ice-java
+%package -n lib%{?nameprefix}ice-java
 Summary: Ice for Java run-time libraries and development tools.
 Group: System Environment/Libraries
 Obsoletes: ice-java-devel < 3.6, ice-java < 3.6
@@ -256,23 +256,23 @@ Requires: libdb-java%{?_isa} >= %{dbversion}
 %else
 Requires: db53-java%{?_isa} >= %{dbversion}
 %endif
-%description -n lib%{nameprefix}ice-java
+%description -n lib%{?nameprefix}ice-java
 Ice for Java run-time libraries and development tools.
 
-%package -n %{nameprefix}ice-utils
+%package -n %{?nameprefix}ice-utils
 Summary: Ice utilities and admin tools.
 Group: Applications/System
 Obsoletes: ice-utils < 3.6
-Requires: lib%{nameprefix}freeze3.6-c++%{?_isa} = %{version}-%{release}
-%description -n %{nameprefix}ice-utils
+Requires: lib%{?nameprefix}freeze3.6-c++%{?_isa} = %{version}-%{release}
+%description -n %{?nameprefix}ice-utils
 Command-line administrative tools to manage Ice servers (IceGrid,
 IceStorm, IceBox, etc.), plus various Ice-related utilities.
 
-%package -n %{nameprefix}icegrid
+%package -n %{?nameprefix}icegrid
 Summary: IceGrid servers.
 Group: System Environment/Daemons
 Obsoletes: ice-servers < 3.6
-Requires: lib%{nameprefix}freeze3.6-c++%{?_isa} = %{version}-%{release}, %{nameprefix}ice-utils = %{version}-%{release}
+Requires: lib%{?nameprefix}freeze3.6-c++%{?_isa} = %{version}-%{release}, %{?nameprefix}ice-utils = %{version}-%{release}
 # Requirements for the users
 Requires(pre): %{shadow}
 %if %{systemd}
@@ -286,10 +286,10 @@ Requires(post): /sbin/chkconfig
 Requires(preun): /sbin/chkconfig
 Requires(preun): /sbin/service
 %endif
-%description -n %{nameprefix}icegrid
+%description -n %{?nameprefix}icegrid
 IceGrid servers.
 
-%package -n %{nameprefix}glacier2
+%package -n %{?nameprefix}glacier2
 Summary: Glacier2 server.
 Group: System Environment/Daemons
 Obsoletes: ice-servers < 3.6
@@ -306,14 +306,14 @@ Requires(post): /sbin/chkconfig
 Requires(preun): /sbin/chkconfig
 Requires(preun): /sbin/service
 %endif
-%description -n %{nameprefix}glacier2
+%description -n %{?nameprefix}glacier2
 Glacier2 server.
 
-%package -n %{nameprefix}icepatch2
+%package -n %{?nameprefix}icepatch2
 Summary: IcePatch2 server.
 Group: System Environment/Daemons
 Obsoletes: ice-servers < 3.6
-Requires: %{nameprefix}ice-utils%{?_isa} = %{version}-%{release}
+Requires: %{?nameprefix}ice-utils%{?_isa} = %{version}-%{release}
 # Requirements for the users
 Requires(pre): %{shadow}
 %if %{systemd}
@@ -327,39 +327,39 @@ Requires(post): /sbin/chkconfig
 Requires(preun): /sbin/chkconfig
 Requires(preun): /sbin/service
 %endif
-%description -n %{nameprefix}icepatch2
+%description -n %{?nameprefix}icepatch2
 IcePatch2 server.
 
 %endif # ! cppx86
 
-%package -n lib%{nameprefix}icestorm3.6
+%package -n lib%{?nameprefix}icestorm3.6
 Summary: IceStorm service.
 Group: System Environment/Libraries
-Requires: lib%{nameprefix}freeze3.6-c++%{?_isa} = %{version}-%{release}
-%description -n lib%{nameprefix}icestorm3.6
+Requires: lib%{?nameprefix}freeze3.6-c++%{?_isa} = %{version}-%{release}
+%description -n lib%{?nameprefix}icestorm3.6
 IceStorm service.
 
-%package -n lib%{nameprefix}ice-c++-devel
+%package -n lib%{?nameprefix}ice-c++-devel
 Summary: Tools, libraries and headers for developing Ice applications in C++.
 Group: Development/Tools
 Obsoletes: ice-c++-devel < 3.6
-Requires: lib%{nameprefix}ice3.6-c++%{?_isa} = %{version}-%{release}, %{nameprefix}ice-slice = %{version}-%{release}
+Requires: lib%{?nameprefix}ice3.6-c++%{?_isa} = %{version}-%{release}, %{?nameprefix}ice-slice = %{version}-%{release}
 %if %{cppx86}
-Requires: lib%{nameprefix}ice-c++-devel(x86-64) = %{version}-%{release}
+Requires: lib%{?nameprefix}ice-c++-devel(x86-64) = %{version}-%{release}
 %endif
 %if %{biarch}
 Requires: glibc-devel%{?_isa}
 %endif
-%description -n lib%{nameprefix}ice-c++-devel
+%description -n lib%{?nameprefix}ice-c++-devel
 Tools, libraries and headers for developing Ice applications in C++.
 
 %if ! %{cppx86}
 
-%package -n php-%{nameprefix}ice
+%package -n php-%{?nameprefix}ice
 Summary: The Ice run time for PHP.
 Group: System Environment/Libraries
 Obsoletes: ice-php < 3.6
-Requires: lib%{nameprefix}ice3.6-c++%{?_isa} = %{version}-%{release}
+Requires: lib%{?nameprefix}ice3.6-c++%{?_isa} = %{version}-%{release}
 %if "%{dist}" == ".sles11.3"
 Requires: php53%{?_isa}
 %endif
@@ -375,15 +375,15 @@ Requires: php-common%{?_isa}
 %if "%{dist}" == ".amzn1"
 Requires: php-common%{?_isa} < 5.4
 %endif
-%description -n php-%{nameprefix}ice
+%description -n php-%{?nameprefix}ice
 The Ice run time for PHP.
 
-%package -n php-%{nameprefix}ice-devel
+%package -n php-%{?nameprefix}ice-devel
 Summary: Tools for developing Ice applications in PHP.
 Group: Development/Tools
 Obsoletes: ice-php-devel < 3.6
-Requires: php-%{nameprefix}ice%{?_isa} = %{version}-%{release}, %{nameprefix}ice-slice = %{version}-%{release}
-%description -n php-%{nameprefix}ice-devel
+Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}, %{?nameprefix}ice-slice = %{version}-%{release}
+%description -n php-%{?nameprefix}ice-devel
 Tools for developing Ice applications in PHP.
 %endif
 
@@ -550,7 +550,7 @@ rm -rf $RPM_BUILD_ROOT/include/*
 # Doc & license files
 #
 
-for i in %{nameprefix}ice-all-runtime %{nameprefix}icebox %{nameprefix}ice-all-devel lib%{nameprefix}freeze3.6-c++ lib%{nameprefix}ice3.6-c++ lib%{nameprefix}ice-c++-devel lib%{nameprefix}icestorm3.6
+for i in %{?nameprefix}ice-all-runtime %{?nameprefix}icebox %{?nameprefix}ice-all-devel lib%{?nameprefix}freeze3.6-c++ lib%{?nameprefix}ice3.6-c++ lib%{?nameprefix}ice-c++-devel lib%{?nameprefix}icestorm3.6
 do
   mkdir -p $RPM_BUILD_ROOT%{_defaultdocdir}/$i-%{version}
   cp -p $RPM_BUILD_DIR/Ice-rpmbuild-%{version}/README.Linux $RPM_BUILD_ROOT%{_defaultdocdir}/$i-%{version}/README
@@ -672,7 +672,7 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2objc.1
 # Doc & license files
 #
 
-PACKAGES="%{nameprefix}glacier2 %{nameprefix}ice-all-runtime %{nameprefix}icebox %{nameprefix}ice-all-devel %{nameprefix}icegrid %{nameprefix}icepatch2 %{nameprefix}ice-utils lib%{nameprefix}freeze3.6-c++ lib%{nameprefix}ice3.6-c++ lib%{nameprefix}ice-c++-devel lib%{nameprefix}ice-java lib%{nameprefix}icestorm3.6 php-%{nameprefix}ice php-%{nameprefix}ice-devel"
+PACKAGES="%{?nameprefix}glacier2 %{?nameprefix}ice-all-runtime %{?nameprefix}icebox %{?nameprefix}ice-all-devel %{?nameprefix}icegrid %{?nameprefix}icepatch2 %{?nameprefix}ice-utils lib%{?nameprefix}freeze3.6-c++ lib%{?nameprefix}ice3.6-c++ lib%{?nameprefix}ice-c++-devel lib%{?nameprefix}ice-java lib%{?nameprefix}icestorm3.6 php-%{?nameprefix}ice php-%{?nameprefix}ice-devel"
 
 for i in $PACKAGES
 do
@@ -682,7 +682,7 @@ do
   cp -p $RPM_BUILD_DIR/Ice-%{version}/LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/$i-%{version}
 done
 
-cp -p $RPM_BUILD_DIR/Ice-rpmbuild-%{version}/MCPP_LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/lib%{nameprefix}ice3.6-c++-%{version}
+cp -p $RPM_BUILD_DIR/Ice-rpmbuild-%{version}/MCPP_LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/lib%{?nameprefix}ice3.6-c++-%{version}
 
 %endif # ! cppx86
 
@@ -734,13 +734,13 @@ cd $RPM_BUILD_DIR/Ice-%{version}/java
 #
 for i in ice-utils-java ice-slice
 do
-  mkdir -p $RPM_BUILD_ROOT%{_defaultdocdir}/%{nameprefix}$i-%{version}
-  cp -p $RPM_BUILD_DIR/Ice-rpmbuild-%{version}/README.Linux $RPM_BUILD_ROOT%{_defaultdocdir}/%{nameprefix}$i-%{version}/README
-  cp -p $RPM_BUILD_DIR/Ice-%{version}/ICE_LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/%{nameprefix}$i-%{version}
-  cp -p $RPM_BUILD_DIR/Ice-%{version}/LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/%{nameprefix}$i-%{version}
+  mkdir -p $RPM_BUILD_ROOT%{_defaultdocdir}/%{?nameprefix}$i-%{version}
+  cp -p $RPM_BUILD_DIR/Ice-rpmbuild-%{version}/README.Linux $RPM_BUILD_ROOT%{_defaultdocdir}/%{?nameprefix}$i-%{version}/README
+  cp -p $RPM_BUILD_DIR/Ice-%{version}/ICE_LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/%{?nameprefix}$i-%{version}
+  cp -p $RPM_BUILD_DIR/Ice-%{version}/LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/%{?nameprefix}$i-%{version}
 done
 
-cp -p $RPM_BUILD_DIR/Ice-rpmbuild-%{version}/JGOODIES_LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/%{nameprefix}ice-utils-java-%{version}
+cp -p $RPM_BUILD_DIR/Ice-rpmbuild-%{version}/JGOODIES_LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/%{?nameprefix}ice-utils-java-%{version}
 
 #
 # IceGridGUI
@@ -771,18 +771,18 @@ rm -rf $RPM_BUILD_ROOT
 #
 %ifarch noarch
 
-%files -n %{nameprefix}ice-slice
+%files -n %{?nameprefix}ice-slice
 %defattr(-, root, root, -)
 %dir %{_datadir}/Ice-%{version}
 %{_datadir}/Ice-%{version}/slice
 %{_datadir}/slice
-%{_defaultdocdir}/%{nameprefix}ice-slice-%{version}
+%{_defaultdocdir}/%{?nameprefix}ice-slice-%{version}
 
-%files -n %{nameprefix}ice-utils-java
+%files -n %{?nameprefix}ice-utils-java
 %defattr(-, root, root, -)
 %attr(755,root,root) %{_bindir}/icegridgui
 %{_javadir}/icegridgui.jar
-%{_defaultdocdir}/%{nameprefix}ice-utils-java-%{version}
+%{_defaultdocdir}/%{?nameprefix}ice-utils-java-%{version}
 
 %endif
 
@@ -799,18 +799,18 @@ rm -rf $RPM_BUILD_ROOT
 #
 # Generate "ice-all-runtime" meta package as arch-specific
 #
-%files -n %{nameprefix}ice-all-runtime
+%files -n %{?nameprefix}ice-all-runtime
 %defattr(-, root, root, -)
-%{_defaultdocdir}/%{nameprefix}ice-all-runtime-%{version}
+%{_defaultdocdir}/%{?nameprefix}ice-all-runtime-%{version}
 
 #
 # Generate "ice-all-devel" meta package as arch-specific
 #
-%files -n %{nameprefix}ice-all-devel
+%files -n %{?nameprefix}ice-all-devel
 %defattr(-, root, root, -)
-%{_defaultdocdir}/%{nameprefix}ice-all-devel-%{version}
+%{_defaultdocdir}/%{?nameprefix}ice-all-devel-%{version}
 
-%files -n lib%{nameprefix}ice3.6-c++
+%files -n lib%{?nameprefix}ice3.6-c++
 %defattr(-, root, root, -)
 %{_libdir}/libGlacier2.so.%{version}
 %{_libdir}/libGlacier2.so.%{soversion}
@@ -861,12 +861,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libIceUtil++11.so.%{version}
 %{_libdir}/libIceUtil++11.so.%{soversion}
 %endif
-%{_defaultdocdir}/lib%{nameprefix}ice3.6-c++-%{version}
+%{_defaultdocdir}/lib%{?nameprefix}ice3.6-c++-%{version}
 
-%post -n lib%{nameprefix}ice3.6-c++ -p /sbin/ldconfig
-%postun -n lib%{nameprefix}ice3.6-c++ -p /sbin/ldconfig
+%post -n lib%{?nameprefix}ice3.6-c++ -p /sbin/ldconfig
+%postun -n lib%{?nameprefix}ice3.6-c++ -p /sbin/ldconfig
 
-%files -n lib%{nameprefix}freeze3.6-c++
+%files -n lib%{?nameprefix}freeze3.6-c++
 %defattr(-, root, root, -)
 %{_libdir}/libFreeze.so.%{version}
 %{_libdir}/libFreeze.so.%{soversion}
@@ -878,12 +878,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libFreeze++11.so.%{version}
 %{_libdir}/libFreeze++11.so.%{soversion}
 %endif
-%{_defaultdocdir}/lib%{nameprefix}freeze3.6-c++-%{version}
+%{_defaultdocdir}/lib%{?nameprefix}freeze3.6-c++-%{version}
 
-%post -n lib%{nameprefix}freeze3.6-c++ -p /sbin/ldconfig
-%postun -n lib%{nameprefix}freeze3.6-c++ -p /sbin/ldconfig
+%post -n lib%{?nameprefix}freeze3.6-c++ -p /sbin/ldconfig
+%postun -n lib%{?nameprefix}freeze3.6-c++ -p /sbin/ldconfig
 
-%files -n lib%{nameprefix}icestorm3.6
+%files -n lib%{?nameprefix}icestorm3.6
 %defattr(-, root, root, -)
 %{_libdir}/libIceStormService.so.%{version}
 %{_libdir}/libIceStormService.so.%{soversion}
@@ -891,14 +891,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libIceStormService++11.so.%{version}
 %{_libdir}/libIceStormService++11.so.%{soversion}
 %endif
-%{_defaultdocdir}/lib%{nameprefix}icestorm3.6-%{version}
+%{_defaultdocdir}/lib%{?nameprefix}icestorm3.6-%{version}
 
-%post -n lib%{nameprefix}icestorm3.6 -p /sbin/ldconfig
-%postun -n lib%{nameprefix}icestorm3.6 -p /sbin/ldconfig
+%post -n lib%{?nameprefix}icestorm3.6 -p /sbin/ldconfig
+%postun -n lib%{?nameprefix}icestorm3.6 -p /sbin/ldconfig
 
 %if ! %{cppx86}
 
-%files -n lib%{nameprefix}ice-java
+%files -n lib%{?nameprefix}ice-java
 %defattr(-, root, root, -)
 %{_bindir}/slice2java
 %{_mandir}/man1/slice2java.1*
@@ -940,9 +940,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}/freeze.jar
 %{_javadir}/freeze-%{version}-source.jar
 %{_javadir}/freeze-source.jar
-%{_defaultdocdir}/lib%{nameprefix}ice-java-%{version}
+%{_defaultdocdir}/lib%{?nameprefix}ice-java-%{version}
 
-%files -n %{nameprefix}ice-utils
+%files -n %{?nameprefix}ice-utils
 %defattr(-, root, root, -)
 %{_bindir}/dumpdb
 %{_mandir}/man1/dumpdb.1*
@@ -966,12 +966,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/icegridadmin.1*
 %{_bindir}/icegriddb36
 %{_mandir}/man1/icegriddb36.1*
-%{_defaultdocdir}/%{nameprefix}ice-utils-%{version}
+%{_defaultdocdir}/%{?nameprefix}ice-utils-%{version}
 
-%post -n %{nameprefix}ice-utils -p /sbin/ldconfig
-%postun -n %{nameprefix}ice-utils -p /sbin/ldconfig
+%post -n %{?nameprefix}ice-utils -p /sbin/ldconfig
+%postun -n %{?nameprefix}ice-utils -p /sbin/ldconfig
 
-%files -n %{nameprefix}icegrid
+%files -n %{?nameprefix}icegrid
 %defattr(-, root, root, -)
 %{_bindir}/icegridnode
 %{_mandir}/man1/icegridnode.1*
@@ -991,9 +991,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %config(noreplace) %{_sysconfdir}/icegridregistry.conf
 %config(noreplace) %{_sysconfdir}/icegridnode.conf
-%{_defaultdocdir}/%{nameprefix}icegrid-%{version}
+%{_defaultdocdir}/%{?nameprefix}icegrid-%{version}
 
-%pre -n %{nameprefix}icegrid
+%pre -n %{?nameprefix}icegrid
 %if "%{_prefix}" == "/usr"
 getent group ice > /dev/null || groupadd -r ice
 getent passwd ice > /dev/null || \
@@ -1005,7 +1005,7 @@ test -d %{_localstatedir}/lib/ice/icegrid/node1 || \
 exit 0
 %endif
 
-%post -n %{nameprefix}icegrid
+%post -n %{?nameprefix}icegrid
 /sbin/ldconfig
 %if "%{_prefix}" == "/usr"
   %if %{systemd}
@@ -1018,7 +1018,7 @@ exit 0
   %endif
 %endif
 
-%preun -n %{nameprefix}icegrid
+%preun -n %{?nameprefix}icegrid
 %if "%{_prefix}" == "/usr"
   if [ $1 = 0 ]; then
   %if %{systemd}
@@ -1043,7 +1043,7 @@ exit 0
   fi
 %endif
 
-%postun -n %{nameprefix}icegrid
+%postun -n %{?nameprefix}icegrid
 %if "%{_prefix}" == "/usr"
   %if %{systemd}
     /bin/systemctl daemon-reload >/dev/null 2>&1 || :
@@ -1060,7 +1060,7 @@ exit 0
 %endif
 /sbin/ldconfig
 
-%files -n %{nameprefix}glacier2
+%files -n %{?nameprefix}glacier2
 %defattr(-, root, root, -)
 %{_bindir}/glacier2router
 %{_mandir}/man1/glacier2router.1*
@@ -1070,9 +1070,9 @@ exit 0
   %attr(755,root,root) %{_initrddir}/glacier2router
 %endif
 %config(noreplace) %{_sysconfdir}/glacier2router.conf
-%{_defaultdocdir}/%{nameprefix}glacier2-%{version}
+%{_defaultdocdir}/%{?nameprefix}glacier2-%{version}
 
-%pre -n %{nameprefix}glacier2
+%pre -n %{?nameprefix}glacier2
 %if "%{_prefix}" == "/usr"
   getent group ice > /dev/null || groupadd -r ice
   getent passwd ice > /dev/null || \
@@ -1081,7 +1081,7 @@ exit 0
   exit 0
 %endif
 
-%post -n %{nameprefix}glacier2
+%post -n %{?nameprefix}glacier2
 /sbin/ldconfig
 %if "%{_prefix}" == "/usr"
   %if %{systemd}
@@ -1093,7 +1093,7 @@ exit 0
   %endif
 %endif
 
-%preun -n %{nameprefix}glacier2
+%preun -n %{?nameprefix}glacier2
 %if "%{_prefix}" == "/usr"
   if [ $1 = 0 ]; then
   %if %{systemd}
@@ -1111,7 +1111,7 @@ exit 0
   fi
 %endif
 
-%postun -n %{nameprefix}glacier2
+%postun -n %{?nameprefix}glacier2
 %if "%{_prefix}" == "/usr"
   %if %{systemd}
     /bin/systemctl daemon-reload >/dev/null 2>&1 || :
@@ -1126,18 +1126,18 @@ exit 0
 %endif
 /sbin/ldconfig
 
-%files -n %{nameprefix}icepatch2
+%files -n %{?nameprefix}icepatch2
 %defattr(-, root, root, -)
 %{_bindir}/icepatch2server
 %{_mandir}/man1/icepatch2server.1*
-%{_defaultdocdir}/%{nameprefix}icepatch2-%{version}
+%{_defaultdocdir}/%{?nameprefix}icepatch2-%{version}
 
-%post -n %{nameprefix}icepatch2 -p /sbin/ldconfig
-%postun -n %{nameprefix}icepatch2 -p /sbin/ldconfig
+%post -n %{?nameprefix}icepatch2 -p /sbin/ldconfig
+%postun -n %{?nameprefix}icepatch2 -p /sbin/ldconfig
 
 %endif # ! cppx86
 
-%files -n %{nameprefix}icebox
+%files -n %{?nameprefix}icebox
 %defattr(-, root, root, -)
 %if %{cppx86}
 %{_bindir}/icebox32
@@ -1160,12 +1160,12 @@ exit 0
 %endif
 %endif
 %endif
-%{_defaultdocdir}/%{nameprefix}icebox-%{version}
+%{_defaultdocdir}/%{?nameprefix}icebox-%{version}
 
-%post -n %{nameprefix}icebox -p /sbin/ldconfig
-%postun -n %{nameprefix}icebox -p /sbin/ldconfig
+%post -n %{?nameprefix}icebox -p /sbin/ldconfig
+%postun -n %{?nameprefix}icebox -p /sbin/ldconfig
 
-%files -n lib%{nameprefix}ice-c++-devel
+%files -n lib%{?nameprefix}ice-c++-devel
 %defattr(-, root, root, -)
 
 %if ! %{cppx86}
@@ -1211,11 +1211,11 @@ exit 0
 %{_libdir}/c++11/libIceStorm.so
 %{_libdir}/c++11/libIceUtil.so
 %endif
-%{_defaultdocdir}/lib%{nameprefix}ice-c++-devel-%{version}
+%{_defaultdocdir}/lib%{?nameprefix}ice-c++-devel-%{version}
 
 %if ! %{cppx86}
 
-%files -n php-%{nameprefix}ice
+%files -n php-%{?nameprefix}ice
 %defattr(-, root, root, -)
 
 %if "%{dist}" == ".el6"
@@ -1248,13 +1248,13 @@ exit 0
 %config(noreplace) %{_sysconfdir}/php5/conf.d/ice.ini
 %endif
 
-%{_defaultdocdir}/php-%{nameprefix}ice-%{version}
+%{_defaultdocdir}/php-%{?nameprefix}ice-%{version}
 
-%files -n php-%{nameprefix}ice-devel
+%files -n php-%{?nameprefix}ice-devel
 %defattr(-, root, root, -)
 %{_bindir}/slice2php
 %{_mandir}/man1/slice2php.1*
-%{_defaultdocdir}/php-%{nameprefix}ice-devel-%{version}
+%{_defaultdocdir}/php-%{?nameprefix}ice-devel-%{version}
 %endif
 
 %endif # ! cppx86
