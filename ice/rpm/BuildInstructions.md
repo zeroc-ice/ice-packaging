@@ -136,31 +136,12 @@ is present in your PATH
 
 - Build the RPMs as a non-root user.
 
-On Red Hat Enterprise Linux 7 and Amazon Linux:
+On Red Hat Enterprise Linux 7:
 
     $ cd pkgdir/SPECS
     $ rpmbuild -bb --sign --target noarch,i686,x86_64 ice.spec
 
-On Red Hat Enterprise Linux 6:
-
-    $ cd pkgdir/SPECS
-    $ rpmbuild -bb --sign --target noarch,i686 ice.spec
-
-Replace i686 with x86_64 on 64-bit platforms.
-
-On SuSE Linux Enterprise Server 12:
-
-    $ cd pkgdir/SPECS
-    $ rpmbuild -bb --sign --target noarch,x86_64 ice.spec
-
-On SuSE Linux Enterprise Server 11:
-
-    $ cd pkgdir/SPECS
-    $ rpmbuild -bb --sign --target noarch,i586 ice.spec
-
-Replace i586 with x86_64 on 64-bit platforms.
-
-On Amazon Linux:
+On SuSE Linux Enterprise Server 12 and Amazon Linux:
 
     $ cd pkgdir/SPECS
     $ rpmbuild -bb --sign --target noarch,x86_64 ice.spec
