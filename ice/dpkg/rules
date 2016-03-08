@@ -89,10 +89,8 @@ icebox_install:
 override_dh_auto_build-arch:
 	if [ ! -d cpp11 ]; then cp -r cpp cpp11; fi
 	$(MAKE) $(MAKEOPTS) -C cpp/src
-	$(MAKE) $(MAKEOPTS) -C cpp/tools
 	$(MAKE) $(MAKEOPTS) -C php/src
 	$(MAKE) $(MAKEOPTS) -C cpp11/src CPP11=yes LD_LIBRARY_PATH=$(CURDIR)/cpp11/lib/$(DEB_HOST_MULTIARCH)
-	$(MAKE) $(MAKEOPTS) -C cpp11/tools CPP11=yes LD_LIBRARY_PATH=$(CURDIR)/cpp11/lib/$(DEB_HOST_MULTIARCH)
 
 override_dh_auto_build-indep:
 	$(MAKE) $(MAKEOPTS) -C java dist
@@ -107,10 +105,8 @@ override_dh_auto_install-indep:
 
 override_dh_auto_clean-arch:
 	$(MAKE) $(MAKEOPTS) -C cpp/src clean
-	$(MAKE) $(MAKEOPTS) -C cpp/tools clean
 	$(MAKE) $(MAKEOPTS) -C php/src clean
 	if [ -d cpp11 ]; then $(MAKE) $(MAKEOPTS) -C cpp11/src CPP11=yes clean; fi
-	if [ -d cpp11 ]; then $(MAKE) $(MAKEOPTS) -C cpp11/tools CPP11=yes clean; fi
 
 override_dh_auto_clean-indep:
 	$(MAKE) $(MAKEOPTS) -C java clean
