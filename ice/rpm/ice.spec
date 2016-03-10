@@ -61,7 +61,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name: %{?nameprefix}ice
-Version: 3.6.1
+Version: 3.6.2
 Summary: Comprehensive RPC framework with support for C++, .NET, Java, Python, JavaScript and more.
 Release: 1%{?dist}
 %if "%{?ice_license}"
@@ -78,7 +78,7 @@ Source1: Ice-rpmbuild-%{version}.tar.gz
 BuildRoot: %{_tmppath}/ice-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %define soversion 36
-%define dotnetversion 3.6.1
+%define dotnetversion 3.6.2
 %define mmversion 3.6
 
 %define commonversion 1.8.0

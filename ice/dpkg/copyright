@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: ZeroC Ice
-Source: https://github.com/zeroc-ice/ice/releases/tag/v3.6.1
+Source: https://github.com/zeroc-ice/ice/releases/tag/v3.6.2
 
 Files: *
 Copyright: Copyright (c) 2003-2016 ZeroC, Inc. All rights reserved.
