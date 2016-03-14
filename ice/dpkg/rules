@@ -12,8 +12,8 @@ export CLASSPATH=/usr/share/java/proguard.jar
 export GRADLE_HOME=$(HOME)/.gradle
 export GRADLE = ./gradlew -g $(GRADLE_HOME)
 
-PACKAGE_NAMES = zeroc-ice \
-	zeroc-ice-dev \
+PACKAGE_NAMES = zeroc-ice-all-runtime \
+	zeroc-ice-all-dev \
 	zeroc-ice-slice \
 	libzeroc-ice3.6 \
 	libzeroc-freeze3.6 \
@@ -25,6 +25,7 @@ PACKAGE_NAMES = zeroc-ice \
 	zeroc-icepatch2 \
 	zeroc-ice-utils \
 	zeroc-ice-utils-java \
+	zeroc-ice-dev \
 	libzeroc-ice-dev \
 	libzeroc-ice-java \
 	php5-zeroc-ice-dev
