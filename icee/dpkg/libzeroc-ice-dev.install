@@ -1,0 +1,5 @@
+usr/lib/*/*.so
+usr/lib/*/*.a
+
+usr/lib/*/c++11/*.a
+usr/lib/*/c++11/*.so
