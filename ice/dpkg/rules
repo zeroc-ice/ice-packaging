@@ -25,7 +25,6 @@ PACKAGE_NAMES = zeroc-ice-all-runtime \
 	zeroc-icepatch2 \
 	zeroc-ice-utils \
 	zeroc-ice-utils-java \
-	zeroc-ice-dev \
 	libzeroc-ice-dev \
 	libzeroc-ice-java \
 	php5-zeroc-ice-dev

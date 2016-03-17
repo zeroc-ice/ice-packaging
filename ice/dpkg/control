@@ -80,26 +80,16 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 Description: Freeze persistence service C++ run-time
  Freeze persistence service C++ run-time.
 
-Package: zeroc-ice-dev
-Architecture: any
-Multi-Arch: allowed
-Section: devel
-Depends: ${shlibs:Depends}, ${misc:Depends},
- zeroc-ice-slice (=${binary:Version}),
- libzeroc-ice3.6 (=${binary:Version})
-Description: Tools and headers for developing Ice applications in C++
-  Tools and headers for developing Ice applications in C++.
-
 Package: libzeroc-ice-dev
 Architecture: any
 Section: devel
 Replaces: libice++-dev, ice35-translators, libzeroc-ice35-dev
 Depends: ${shlibs:Depends}, ${misc:Depends},
- zeroc-ice-dev:any (=${binary:Version}),
+ zeroc-ice-slice (=${binary:Version}),
  libzeroc-ice3.6 (=${binary:Version}),
  libzeroc-freeze3.6 (=${binary:Version})
-Description: Libraries for developing Ice applications in C++
- Libraries for developing Ice applications in C++.
+Description: Tools, libraries and headers for developing Ice applications in C++
+ Tools, libraries and headers for developing Ice applications in C++.
 
 Package: libzeroc-ice-java
 Architecture: any

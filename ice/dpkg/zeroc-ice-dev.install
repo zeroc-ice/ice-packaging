@@ -1,7 +1,0 @@
-usr/bin/slice2cpp
-usr/share/man/man1/slice2cpp.1
-
-usr/bin/slice2freeze
-usr/share/man/man1/slice2freeze.1
-
-usr/include/*
