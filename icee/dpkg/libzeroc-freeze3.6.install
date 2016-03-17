@@ -1,2 +1,4 @@
 usr/lib/*/libFreeze.so.*
+usr/lib/*/libIceXML.so.*
+
 usr/lib/*/libFreeze++11.so.*

@@ -11,14 +11,14 @@ Build-Depends: debhelper (>= 9.0.0),
 Standards-Version: 3.9.4
 Homepage: https://zeroc.com
 
-Package: libzeroc-ice-python2.7
-Architecture: any
-Multi-Arch: same
-Section: libs
-Depends: libzeroc-ice3.6 (=${binary:Version}),
+Package: zeroc-ice-all-dev
+Architecture: all
+Section: devel
+Depends: libzeroc-ice-dev (=${binary:Version}),
+ zeroc-ice-compilers (=${binary:Version}),
  zeroc-ice-slice (=${binary:Version})
-Description: The Ice for Python extension
- The Ice for Python extension.
+Description: Ice development packages
+ Ice development packages.
 
 Package: zeroc-ice-all-runtime
 Architecture: all
@@ -43,32 +43,6 @@ Description: Ice (Internet Communications Engine)
  transmission, or retrying failed connection attempts (to name but a
  few of dozens of such low-level details).
 
-Package: zeroc-ice-all-dev
-Architecture: all
-Section: devel
-Depends: libzeroc-ice-dev (=${binary:Version}),
- zeroc-ice-dev (=${binary:Version}),
- zeroc-ice-slice (=${binary:Version})
-Description: Ice development packages
- Ice development packages.
-
-Package: zeroc-ice-slice
-Architecture: all
-Section: libs
-Multi-Arch: foreign
-Depends: ${misc:Depends}
-Description: Slice files used by ZeroC Ice packages
- Slice files used by ZeroC Ice packages.
-
-Package: libzeroc-ice3.6
-Architecture: any
-Multi-Arch: same
-Section: libs
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: The Ice run time for C++
- The Ice run time for C++.
-
 Package: libzeroc-freeze3.6
 Architecture: any
 Multi-Arch: same
@@ -80,47 +54,37 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 Description: Freeze persistence service C++ run-time
  Freeze persistence service C++ run-time.
 
-Package: zeroc-ice-dev
-Architecture: any
-Multi-Arch: allowed
-Section: devel
-Depends: ${shlibs:Depends}, ${misc:Depends},
- zeroc-ice-slice (=${binary:Version}),
- libzeroc-ice3.6 (=${binary:Version})
-Description: Tools and headers for developing Ice applications in C++
-  Tools and headers for developing Ice applications in C++.
-
 Package: libzeroc-ice-dev
 Architecture: any
+Multi-Arch: same
 Section: devel
 Replaces: libice++-dev, ice35-translators, libzeroc-ice35-dev
 Depends: ${shlibs:Depends}, ${misc:Depends},
- zeroc-ice-dev:any (=${binary:Version}),
+ zeroc-ice-compilers (=${binary:Version}),
  libzeroc-ice3.6 (=${binary:Version}),
- libzeroc-freeze3.6 (=${binary:Version})
-Description: Libraries for developing Ice applications in C++
- Libraries for developing Ice applications in C++.
+ libzeroc-freeze3.6 (=${binary:Version}),
+ libbz2-dev,
+ libssl-dev
+Description: Libraries and headers for developing Ice applications in C++
+ Libraries and headers for developing Ice applications in C++.
 
-Package: zeroc-glacier2
+Package: libzeroc-ice-python2.7
 Architecture: any
-Multi-Arch: foreign
-Section: web
-Replaces:glacier2, ice35-services
-Depends: ${shlibs:Depends}, ${misc:Depends},
- libzeroc-ice3.6 (=${binary:Version})
-Description: The Glacier2 router daemon
- Glacier2 is the firewall traversal service for the Internet Communications
- Engine (Ice).
+Multi-Arch: same
+Section: libs
+Depends: libzeroc-ice3.6 (=${binary:Version}),
+ zeroc-ice-slice (=${binary:Version})
+Description: The Ice for Python extension
+ The Ice for Python extension.
 
-Package: zeroc-icebox
+Package: libzeroc-ice3.6
 Architecture: any
-Section: web
-Replaces:icebox
-Provides:icebox
-Depends: ${shlibs:Depends}, ${misc:Depends},
- libzeroc-ice3.6 (=${binary:Version})
-Description: IceBox C++ server
- IceBox C++ server.
+Multi-Arch: same
+Section: libs
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: The Ice run time for C++
+ The Ice run time for C++.
 
 Package: libzeroc-icestorm3.6
 Architecture: any
@@ -134,6 +98,35 @@ Description: IceStorm publish–subscribe event distribution service for Ice
  IceStorm publish–subscribe event distribution service for the Internet
  Communications Engine (Ice).
 
+Package: zeroc-glacier2
+Architecture: any
+Multi-Arch: foreign
+Section: web
+Replaces:glacier2, ice35-services
+Depends: ${shlibs:Depends}, ${misc:Depends},
+ libzeroc-ice3.6 (=${binary:Version})
+Description: The Glacier2 router daemon
+ Glacier2 is the firewall traversal service for the Internet Communications
+ Engine (Ice).
+
+Package: zeroc-ice-compilers
+Architecture: any
+Multi-Arch: foreign
+Section: devel
+Depends: ${shlibs:Depends}, ${misc:Depends},
+ zeroc-ice-slice (=${binary:Version}),
+ libzeroc-ice3.6 (=${binary:Version})
+Description: Slice compilers for developing Ice applications
+  Slice compilers for developing Ice applications.
+
+Package: zeroc-ice-slice
+Architecture: all
+Section: libs
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Description: Slice files used by ZeroC Ice packages
+ Slice files used by ZeroC Ice packages.
+
 Package: zeroc-ice-utils
 Architecture: any
 Multi-Arch: foreign
@@ -145,3 +138,14 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  libzeroc-icestorm3.6 (=${binary:Version})
 Description: Ice utilities and admin tools
  Ice utilities and admin tools.
+
+Package: zeroc-icebox
+Architecture: any
+Multi-Arch: foreign
+Section: web
+Replaces:icebox
+Provides:icebox
+Depends: ${shlibs:Depends}, ${misc:Depends},
+ libzeroc-ice3.6 (=${binary:Version})
+Description: IceBox C++ server
+ IceBox C++ server.
