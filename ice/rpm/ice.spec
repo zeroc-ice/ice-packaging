@@ -139,8 +139,9 @@ BuildRequires: php5-devel >= 5.5
 %endif
 
 %description
-Ice is a modern object-oriented toolkit that enables you to build
-distributed applications with minimal effort.
+Ice is a comprehensive RPC framework that helps you build
+distributed applications with minimal effort using familiar
+object-oriented idioms.
 
 #
 # Arch-independent packages
