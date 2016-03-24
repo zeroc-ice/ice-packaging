@@ -20,7 +20,7 @@ The GPG settings are only needed if you want to sign your RPMs. Replace
 The value for `%dist` should be one of
 
     .sles12
-    .sles11.3
+    .sles11
     .el7
     .el6
     .amzn1
