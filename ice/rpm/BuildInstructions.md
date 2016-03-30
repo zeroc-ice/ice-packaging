@@ -78,8 +78,8 @@ Then add the Ice repository for you system and install the source RPM:
 * Suse Linux Enterprise Server 11.3:
 
     ```
-    $ wget https://zeroc.com/download/rpm/zeroc-ice-sles11.3.repo
-    $ sudo zypper addrepo zeroc-ice-sles11.3.repo
+    $ wget https://zeroc.com/download/rpm/zeroc-ice-sles11.repo
+    $ sudo zypper addrepo zeroc-ice-sles11.repo
     ```
 
 * Suse Linux Enterprise Server 12:
