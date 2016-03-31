@@ -3,9 +3,9 @@ Upstream-Name: ZeroC Ice-E
 Source: https://github.com/zeroc-ice/icee/releases/tag/v3.7.0
 
 Files: *
-Copyright: Copyright (c) 2003-2015 ZeroC, Inc. All rights reserved.
+Copyright: Copyright (c) 2003-2016 ZeroC, Inc. All rights reserved.
 License: GPL-2 with OpenSSL exception
- Copyright (c) 2003-2015 ZeroC, Inc. All rights reserved.
+ Copyright (c) 2003-2016 ZeroC, Inc. All rights reserved.
 
  This copy of Ice-E is free software; you can redistribute it and/or 
  modify it under the terms of the GNU General Public License version 2 as

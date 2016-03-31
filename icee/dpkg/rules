@@ -1,21 +1,21 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
-
-STATIC_LIBS                     = Ice Glacier2 IceGrid IceStorm
-DYNAMIC_LIBS                    = IceUtil Ice IceDiscovery IceSSL Glacier2 IceGrid IceStorm Slice IceBox
-
 DEB_BUILD_OPTIONS               += nocheck notest
 
-ICE_HOME                        = /usr
 HOST                            = $(DEB_HOST_GNU_TYPE)
 
-PACKAGE_NAMES                   = libzeroc-ice-python2.7 \
+PACKAGE_NAMES                   = libzeroc-ice-dev \
+                                  libzeroc-ice-python2.7 \
                                   libzeroc-ice3.7 \
-                                  libzeroc-icee-dev \
+                                  libzeroc-icestorm3.7 \
                                   zeroc-glacier2 \
+                                  zeroc-ice-all-dev \
+                                  zeroc-ice-all-runtime \
+                                  zeroc-ice-dev \
+                                  zeroc-ice-slice \
                                   zeroc-ice-utils \
-                                  zeroc-icebox \
+                                  zeroc-icebox
 
 DESTDIR                         = $(CURDIR)/debian/tmp
 
@@ -32,42 +32,33 @@ endif
 prefix                          = /usr
 
 MAKEOPTS                        = prefix=$(prefix) ICEE_TARGET_OS=debian DESTDIR=$(DESTDIR) \
-                                  OPTIMIZE=$(OPTIMIZE) HOST=$(DEB_HOST_GNU_TYPE) ICE_HOME=$(ICE_HOME) V=1 
+                                  OPTIMIZE=$(OPTIMIZE) HOST=$(DEB_HOST_GNU_TYPE) V=1
 
 %:
 	dh $@ --parallel
 
 override_dh_auto_build:
-	$(MAKE) $(MAKEOPTS) dist
+	$(MAKE) OPTIMIZE=$(OPTIMIZE) -C ice/cpp/src/IceUtil
+	$(MAKE) OPTIMIZE=$(OPTIMIZE) -C ice/cpp/src/Slice
+	$(MAKE) OPTIMIZE=$(OPTIMIZE) -C ice/cpp/src/slice2cpp
+	$(MAKE) OPTIMIZE=$(OPTIMIZE) -C ice/cpp/src/slice2py
+	$(MAKE) $(MAKEOPTS) dist CPP11=yes
+	$(MAKE)	$(MAKEOPTS) dist
 
 override_dh_auto_install:
 	$(MAKE) $(MAKEOPTS) install
+	$(MAKE) $(MAKEOPTS) CPP11=yes install
 
 override_dh_auto_clean:
 	$(MAKE) $(MAKEOPTS) clean
 
 override_dh_auto_test:
-	
-# 
+
+#
 override_dh_installinit:
 	dh_installinit --noscripts --name glacier2router
 
-icee_install:
-	@rm -f $(CURDIR)/debian/libzeroc-icee-dev.install
-	@touch $(CURDIR)/debian/libzeroc-icee-dev.install
-	@for lib in $(STATIC_LIBS); \
-	do \
-	    echo "usr/lib/*/lib$$lib.a" >> $(CURDIR)/debian/libzeroc-icee-dev.install ; \
-	done ;
-ifeq ($(DEB_HOST_GNU_TYPE),arm-linux-gnueabihf)
-	@for lib in $(DYNAMIC_LIBS); \
-	do \
-	    echo "usr/lib/*/lib$$lib.so" >> $(CURDIR)/debian/libzeroc-icee-dev.install ; \
-	    echo "usr/lib/*/lib$$lib.so.*" >> $(CURDIR)/debian/libzeroc-icee-dev.install ; \
-	done ;
-endif
-
-override_dh_install: icee_install
+override_dh_install:
 	mkdir -p $(DESTDIR)/etc
 	cp debian/zeroc-glacier2.glacier2router.conf $(DESTDIR)/etc/glacier2router.conf
 
@@ -84,3 +75,8 @@ override_dh_install: icee_install
 		mkdir -p $(DESTDIR)$(prefix)/share/doc/$$name ; \
 		cp debian/README $(DESTDIR)$(prefix)/share/doc/$$name/README ; \
 	done ;
+
+override_dh_clean:
+	$(MAKE) OPTIMIZE=$(OPTIMIZE) clean -C ice/cpp/src
+	$(MAKE) $(MAKEOPTS) clean CPP11=yes
+	dh_clean

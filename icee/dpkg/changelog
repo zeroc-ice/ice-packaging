@@ -1,3 +1,9 @@
+zeroc-icee3.6 (3.6.2-1000) jessie; urgency=low
+
+  * 3.6.2 release
+
+ -- Jose <jose@zeroc.com>  Fri, 11 Mar 2016 08:51:00 +0000
+
 zeroc-icee3.6 (3.6.1-1000) wheezy; urgency=low
   * 3.6.1 release
 

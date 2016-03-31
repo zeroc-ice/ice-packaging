@@ -1,6 +1,6 @@
 # **********************************************************************
 #
-# Copyright (c) 2003-2015 ZeroC, Inc. All rights reserved.
+# Copyright (c) 2003-2016 ZeroC, Inc. All rights reserved.
 #
 # **********************************************************************
 
@@ -104,7 +104,7 @@ elif platform == 'win32':
     extra_compile_args.append('/wd4251')
     extra_compile_args.append('/wd4275')
     extra_compile_args.append('/wd4996')
-    libraries=['dbghelp','rpcrt4','advapi32','Iphlpapi','secur32','crypt32','ws2_32']
+    libraries=['dbghelp', 'Shlwapi', 'rpcrt4','advapi32','Iphlpapi','secur32','crypt32','ws2_32']
     # SysLoggerI.cpp shouldn't be built under Windows.
     def filterName(path):
         b = os.path.basename(path)
@@ -172,6 +172,7 @@ setup(
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
     ],
 
     # What does your project relate to?

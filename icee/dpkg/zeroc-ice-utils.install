@@ -1,2 +1,14 @@
+usr/bin/dumpdb
+usr/share/man/man1/dumpdb.1
+
 usr/bin/iceboxadmin
 usr/share/man/man1/iceboxadmin.1
+
+usr/bin/icestormadmin
+usr/share/man/man1/icestormadmin.1
+
+usr/bin/icestormdb
+usr/share/man/man1/icestormdb.1
+
+usr/bin/transformdb
+usr/share/man/man1/transformdb.1

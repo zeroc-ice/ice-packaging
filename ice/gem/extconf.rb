@@ -1,6 +1,6 @@
 # **********************************************************************
 #
-# Copyright (c) 2003-2015 ZeroC, Inc. All rights reserved.
+# Copyright (c) 2003-2016 ZeroC, Inc. All rights reserved.
 #
 # This copy of Ice is licensed to you under the terms described in the
 # ICE_LICENSE file included in this distribution.
@@ -55,7 +55,7 @@ if RUBY_PLATFORM =~ /mswin|mingw/
 
 	# -lws2_32 must be in LOCAL_LIBS even though mkmk puts it at the end of the LIBS, otherwise
 	# you get error 6 when using the socket library.
-	$LOCAL_LIBS << ' -lrpcrt4  -ladvapi32 -lIphlpapi -lsecur32 -lcrypt32 -lws2_32'
+	$LOCAL_LIBS << ' -lShlwapi -lrpcrt4  -ladvapi32 -lIphlpapi -lsecur32 -lcrypt32 -lws2_32'
 
 	# statically link the C and C++ runtimes.
 	$LDFLAGS << ' -static-libgcc -static-libstdc++'
