@@ -66,10 +66,6 @@ Source1: Ice-rpmbuild-%{version}.tar.gz
 
 BuildRoot: %{_tmppath}/ice-%{version}-%{release}-root-%(%{__id_u} -n)
 
-%define soversion 37
-%define dotnetversion 3.7.0
-%define mmversion 3.7
-
 %define commonversion 1.8.0
 %define formsversion 1.8.0
 %define looksversion 2.6.0
@@ -760,56 +756,33 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n lib%{?nameprefix}ice3.7-c++
 %defattr(-, root, root, -)
-%{_libdir}/libGlacier2.so.%{version}
-%{_libdir}/libGlacier2.so.%{soversion}
-%{_libdir}/libIce.so.%{version}
-%{_libdir}/libIce.so.%{soversion}
-%{_libdir}/libIceBox.so.%{version}
-%{_libdir}/libIceBox.so.%{soversion}
-%{_libdir}/libIceDB.so.%{version}
-%{_libdir}/libIceDB.so.%{soversion}
-%{_libdir}/libIceDiscovery.so.%{version}
-%{_libdir}/libIceDiscovery.so.%{soversion}
-%{_libdir}/libIceGrid.so.%{version}
-%{_libdir}/libIceGrid.so.%{soversion}
-%{_libdir}/libIceLocatorDiscovery.so.%{version}
-%{_libdir}/libIceLocatorDiscovery.so.%{soversion}
-%{_libdir}/libIcePatch2.so.%{version}
-%{_libdir}/libIcePatch2.so.%{soversion}
-%{_libdir}/libIceSSL.so.%{version}
-%{_libdir}/libIceSSL.so.%{soversion}
-%{_libdir}/libIceStorm.so.%{version}
-%{_libdir}/libIceStorm.so.%{soversion}
-%{_libdir}/libIceUtil.so.%{version}
-%{_libdir}/libIceUtil.so.%{soversion}
+%{_libdir}/libGlacier2.so.*
+%{_libdir}/libIce.so.*
+%{_libdir}/libIceBox.so.*
+%{_libdir}/libIceDB.so.*
+%{_libdir}/libIceDiscovery.so.*
+%{_libdir}/libIceGrid.so.*
+%{_libdir}/libIceLocatorDiscovery.so.*
+%{_libdir}/libIcePatch2.so.*
+%{_libdir}/libIceSSL.so.*
+%{_libdir}/libIceStorm.so.*
+%{_libdir}/libIceUtil.so.*
 %if ! %{cppx86}
-%{_libdir}/libGlacier2CryptPermissionsVerifier.so.%{version}
-%{_libdir}/libGlacier2CryptPermissionsVerifier.so.%{soversion}
-%{_libdir}/libSlice.so.%{version}
-%{_libdir}/libSlice.so.%{soversion}
-%{_libdir}/libIceXML.so.%{version}
-%{_libdir}/libIceXML.so.%{soversion}
+%{_libdir}/libGlacier2CryptPermissionsVerifier.so.*
+%{_libdir}/libSlice.so.*
+%{_libdir}/libIceXML.so.*
 %endif
 
 %if %{cpp11}
-%{_libdir}/libGlacier2++11.so.%{version}
-%{_libdir}/libGlacier2++11.so.%{soversion}
-%{_libdir}/libIce++11.so.%{version}
-%{_libdir}/libIce++11.so.%{soversion}
-%{_libdir}/libIceBox++11.so.%{version}
-%{_libdir}/libIceBox++11.so.%{soversion}
-%{_libdir}/libIceDiscovery++11.so.%{version}
-%{_libdir}/libIceDiscovery++11.so.%{soversion}
-%{_libdir}/libIceGrid++11.so.%{version}
-%{_libdir}/libIceGrid++11.so.%{soversion}
-%{_libdir}/libIceLocatorDiscovery++11.so.%{version}
-%{_libdir}/libIceLocatorDiscovery++11.so.%{soversion}
-%{_libdir}/libIceSSL++11.so.%{version}
-%{_libdir}/libIceSSL++11.so.%{soversion}
-%{_libdir}/libIceStorm++11.so.%{version}
-%{_libdir}/libIceStorm++11.so.%{soversion}
-%{_libdir}/libIceUtil++11.so.%{version}
-%{_libdir}/libIceUtil++11.so.%{soversion}
+%{_libdir}/libGlacier2++11.so.*
+%{_libdir}/libIce++11.so.*
+%{_libdir}/libIceBox++11.so.*
+%{_libdir}/libIceDiscovery++11.so.*
+%{_libdir}/libIceGrid++11.so.*
+%{_libdir}/libIceLocatorDiscovery++11.so.*
+%{_libdir}/libIceSSL++11.so.*
+%{_libdir}/libIceStorm++11.so.*
+%{_libdir}/libIceUtil++11.so.*
 %endif
 %{_defaultdocdir}/lib%{?nameprefix}ice3.7-c++-%{version}
 
@@ -818,8 +791,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n lib%{?nameprefix}icestorm3.7
 %defattr(-, root, root, -)
-%{_libdir}/libIceStormService.so.%{version}
-%{_libdir}/libIceStormService.so.%{soversion}
+%{_libdir}/libIceStormService.so.*
 %{_defaultdocdir}/libicestorm3.7-%{version}
 
 %post -n lib%{?nameprefix}icestorm3.7 -p /sbin/ldconfig
