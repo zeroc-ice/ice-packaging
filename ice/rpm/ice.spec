@@ -21,6 +21,7 @@ ExcludeArch: %{ix86}
 %define systemd 1
 %define systemdpkg systemd
 %define shadow shadow-utils
+%define jarVersion 3.7.0-alpha0
 
 %if "%{dist}" == ".el7"
   %define biarch 1
@@ -563,10 +564,10 @@ mkdir -p $RPM_BUILD_ROOT%{_javadir}
 
 for i in glacier2 ice icebox icebt icediscovery icelocatordiscovery icegrid icepatch2 icestorm
 do
-  mv $RPM_BUILD_ROOT/lib/$i-%{version}.jar $RPM_BUILD_ROOT%{_javadir}
-  ln -s $i-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/$i.jar
-  mv $RPM_BUILD_ROOT/lib/$i-%{version}-source.jar $RPM_BUILD_ROOT%{_javadir}
-  ln -s $i-%{version}-source.jar $RPM_BUILD_ROOT%{_javadir}/$i-source.jar
+  mv $RPM_BUILD_ROOT/lib/$i-%{jarVersion}.jar $RPM_BUILD_ROOT%{_javadir}
+  ln -s $i-%{jarVersion}.jar $RPM_BUILD_ROOT%{_javadir}/$i.jar
+  mv $RPM_BUILD_ROOT/lib/$i-%{jarVersion}-source.jar $RPM_BUILD_ROOT%{_javadir}
+  ln -s $i-%{jarVersion}-source.jar $RPM_BUILD_ROOT%{_javadir}/$i-source.jar
 done
 
 #
@@ -803,41 +804,41 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, root, -)
 %{_bindir}/slice2java
 %{_mandir}/man1/slice2java.1*
-%{_javadir}/ice-%{version}.jar
+%{_javadir}/ice-%{jarVersion}.jar
 %{_javadir}/ice.jar
-%{_javadir}/ice-%{version}-source.jar
+%{_javadir}/ice-%{jarVersion}-source.jar
 %{_javadir}/ice-source.jar
-%{_javadir}/glacier2-%{version}.jar
+%{_javadir}/glacier2-%{jarVersion}.jar
 %{_javadir}/glacier2.jar
-%{_javadir}/glacier2-%{version}-source.jar
+%{_javadir}/glacier2-%{jarVersion}-source.jar
 %{_javadir}/glacier2-source.jar
-%{_javadir}/icebox-%{version}.jar
+%{_javadir}/icebox-%{jarVersion}.jar
 %{_javadir}/icebox.jar
-%{_javadir}/icebox-%{version}-source.jar
+%{_javadir}/icebox-%{jarVersion}-source.jar
 %{_javadir}/icebox-source.jar
-%{_javadir}/icebt-%{version}.jar
+%{_javadir}/icebt-%{jarVersion}.jar
 %{_javadir}/icebt.jar
-%{_javadir}/icebt-%{version}-source.jar
+%{_javadir}/icebt-%{jarVersion}-source.jar
 %{_javadir}/icebt-source.jar
-%{_javadir}/icegrid-%{version}.jar
+%{_javadir}/icegrid-%{jarVersion}.jar
 %{_javadir}/icegrid.jar
-%{_javadir}/icegrid-%{version}-source.jar
+%{_javadir}/icegrid-%{jarVersion}-source.jar
 %{_javadir}/icegrid-source.jar
-%{_javadir}/icepatch2-%{version}.jar
+%{_javadir}/icepatch2-%{jarVersion}.jar
 %{_javadir}/icepatch2.jar
-%{_javadir}/icepatch2-%{version}-source.jar
+%{_javadir}/icepatch2-%{jarVersion}-source.jar
 %{_javadir}/icepatch2-source.jar
-%{_javadir}/icestorm-%{version}.jar
+%{_javadir}/icestorm-%{jarVersion}.jar
 %{_javadir}/icestorm.jar
-%{_javadir}/icestorm-%{version}-source.jar
+%{_javadir}/icestorm-%{jarVersion}-source.jar
 %{_javadir}/icestorm-source.jar
-%{_javadir}/icediscovery-%{version}.jar
+%{_javadir}/icediscovery-%{jarVersion}.jar
 %{_javadir}/icediscovery.jar
-%{_javadir}/icediscovery-%{version}-source.jar
+%{_javadir}/icediscovery-%{jarVersion}-source.jar
 %{_javadir}/icediscovery-source.jar
-%{_javadir}/icelocatordiscovery-%{version}.jar
+%{_javadir}/icelocatordiscovery-%{jarVersion}.jar
 %{_javadir}/icelocatordiscovery.jar
-%{_javadir}/icelocatordiscovery-%{version}-source.jar
+%{_javadir}/icelocatordiscovery-%{jarVersion}-source.jar
 %{_javadir}/icelocatordiscovery-source.jar
 %{_defaultdocdir}/lib%{?nameprefix}ice-java-%{version}
 
