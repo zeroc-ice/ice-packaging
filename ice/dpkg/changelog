@@ -1,3 +1,9 @@
+zeroc-ice3.7 (3.7a0-1000) wily; urgency=low
+
+  * 3.7a0 release
+
+ -- Benoit <benoit@zeroc.com>  Thu, 07 Apr 2015 21:19:22 +0000
+
 zeroc-ice3.7 (3.7.0-1000) trusty vivid wily; urgency=low
 
   * 3.7.0 release
