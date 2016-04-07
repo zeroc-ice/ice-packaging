@@ -41,7 +41,7 @@ CPP11_LIB_NAMES = libGlacier2 \
 	libIceUtil \
 	libIceXML
 
-VERSION = 3.7.0
+VERSION = 3.7a0
 
 ARTIFACT_NAMES = glacier2 \
 	ice \
