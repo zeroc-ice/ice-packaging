@@ -61,7 +61,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name: %{?nameprefix}ice
-Version: 3.6.2
+Version: 3.6.3
 Summary: Comprehensive RPC framework with support for C++, .NET, Java, Python, JavaScript and more.
 Release: 1%{?dist}
 %if "%{?ice_license}"
