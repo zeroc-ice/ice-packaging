@@ -42,6 +42,7 @@ CPP11_LIB_NAMES = libGlacier2 \
 	libIceXML
 
 VERSION = 3.7a0
+JAR_VERSION = 3.7.0-alpha0
 
 ARTIFACT_NAMES = glacier2 \
 	ice \
@@ -124,9 +125,9 @@ override_dh_install: icebox_install
 	do \
 		cd $(CURDIR) ; \
 		mkdir -p $(DESTDIR)$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) ; \
-		mv $(DESTDIR)$(prefix)/share/java/$$name-$(VERSION).pom $(DESTDIR)$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) ; \
-		cd $(DESTDIR)$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) && ln -s ../../../../../java/$$name-$(VERSION).jar . ; \
-		cd $(DESTDIR)$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) && ln -s ../../../../../java/$$name-$(VERSION)-source.jar . ; \
+		mv $(DESTDIR)$(prefix)/share/java/$$name-$(JAR_VERSION).pom $(DESTDIR)$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) ; \
+		cd $(DESTDIR)$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) && ln -s ../../../../../java/$$name-$(JAR_VERSION).jar . ; \
+		cd $(DESTDIR)$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) && ln -s ../../../../../java/$$name-$(JAR_VERSION)-source.jar . ; \
 	done ;
 
 	mkdir -p $(DESTDIR)$(prefix)/lib/$(DEB_HOST_MULTIARCH)/c++11
