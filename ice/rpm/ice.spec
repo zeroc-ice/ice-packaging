@@ -96,13 +96,16 @@ BuildRoot: %{_tmppath}/ice-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: openssl-devel >= 0.9.7a
 BuildRequires: mcpp-devel >= 2.7.2
-%if %{biarch}
+%if %{cppx86}
 BuildRequires: openssl-devel(x86-32) >= 0.9.7a
 BuildRequires: mcpp-devel(x86-32) >= 2.7.2
 %endif
 
 %if "%{dist}" == ".el7"
-BuildRequires: libdb-cxx-devel >= %{dbversion}, libdb-cxx-devel(x86-32) >= %{dbversion}, libdb-java >= %{dbversion}
+BuildRequires: libdb-cxx-devel >= %{dbversion}, libdb-java >= %{dbversion}
+%if %{cppx86}
+BuildRequires: libdb-cxx-devel(x86-32) >= %{dbversion}
+%endif
 BuildRequires: javapackages-tools
 %else
 BuildRequires: db53-devel >= %{dbversion}, db53-java >= %{dbversion}
@@ -117,8 +120,12 @@ BuildRequires: expat-devel >= 2.0.1
 BuildRequires: php-devel >= 5.3.2
 %endif
 %if "%{dist}" == ".el7"
-BuildRequires: bzip2-devel >= 1.0.6, bzip2-devel(x86-32) >= 1.0.6
-BuildRequires: expat-devel >= 2.1, expat-devel(x86-32) >= 2.1
+BuildRequires: bzip2-devel >= 1.0.6
+BuildRequires: expat-devel >= 2.1
+%if %{cppx86}
+BuildRequires: bzip2-devel(x86-32) >= 1.0.6
+BuildRequires: expat-devel(x86-32) >= 2.1
+%endif
 BuildRequires: php-devel >= 5.4
 %endif
 %if "%{dist}" == ".amzn1"
@@ -1263,6 +1270,10 @@ exit 0
 %endif # ! cppx86
 
 %changelog
+
+* Thu Apr 14 2016 Mark Spruiell <mes@zeroc.com> 3.6.3
+- x86-32 dependencies should only be required when building x86 packages on
+  a bi-arch platform.
 
 * Mon Feb 29 2016 Benoit Foucher <benoit@zeroc.com> 3.6.2
 - Made the signing of the IceGridGUI jar file optional if JARSIGNER_KEYSTORE
