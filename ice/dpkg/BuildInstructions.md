@@ -30,19 +30,17 @@ The next command installs all of the third-party dependencies, including Oracle
 Java 7 if necessary:
 
     $ sudo apt-get build-dep zeroc-ice3.6
+    
+For Ubuntu 16.04 you need to use the nophp5 build profile to avoid php5 dependencies:
+
+    $ sudo DEB_BUILD_PROFILES=nophp5 apt-get build-dep zeroc-ice3.6
 
 ## Add the ZeroC source repository
 
 The Ice 3.6 source distribution is available in the ZeroC source repository, you need
 to install the source repository correspoding to your distribution:
 
-For Ubuntu 14.04 (Trusty Tahr):
-
-    $ sudo apt-add-repository "deb-src https://zeroc.com/download/apt/ice/ubuntu14.04 stable main"
-
-For Ubuntu 15.04 (Vivid Vervet):
-
-    $ sudo apt-add-repository "deb-src https://zeroc.com/download/apt/ice/ubuntu15.04 stable main"
+    $ sudo apt-add-repository "deb-src https://zeroc.com/download/apt/ice/ubuntu`lsb_release -rs` stable main"
 
 ## Building the Ice packages
 
@@ -52,13 +50,18 @@ Install the Ice 3.6 source distribution:
     $ cd ~/zeroc-build
     $ apt-get source zeroc-ice3.6
 
-Change the working directory to `zeroc-ice3.6-3.6.1`:
+Change the working directory to `zeroc-ice3.6-3.6.2`:
 
-    $ cd zeroc-ice3.6-3.6.1
+    $ cd zeroc-ice3.6-3.6.2
 
 Now you're ready to build the Ice packages:
 
     $ dpkg-buildpackage -us -uc
+
+Use the nophp5 build profile to disable the building of PHP packages. This is required
+with Ubuntu 16.04, which doesn't support php5:
+
+    $ dpkg-buildpackage -us -uc -Pnophp5
 
 The resulting unsigned `.deb` files will be in the `zeroc-build` directory.
 
