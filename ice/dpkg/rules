@@ -16,7 +16,6 @@ PACKAGE_NAMES = zeroc-ice-all-runtime \
 	zeroc-ice-all-dev \
 	zeroc-ice-slice \
 	libzeroc-ice3.7 \
-	php5-zeroc-ice \
 	zeroc-glacier2 \
 	zeroc-icebox \
 	zeroc-icegrid \
@@ -25,8 +24,7 @@ PACKAGE_NAMES = zeroc-ice-all-runtime \
 	zeroc-ice-utils \
 	zeroc-ice-utils-java \
 	libzeroc-ice-dev \
-	libzeroc-ice-java \
-	php5-zeroc-ice-dev
+	libzeroc-ice-java
 
 CPP11_DESTDIR = $(CURDIR)/debian/tmp-cpp11
 CPP11_LIB_NAMES = libGlacier2 \
@@ -73,6 +71,19 @@ else
 	endif
 endif
 
+
+DHARGS	= --parallel --with javahelper --with systemd
+
+#
+# Check if nophp5 build profile is active
+#
+ifeq (,$(filter nophp5,$(DEB_BUILD_PROFILES)))
+	PHP5=yes
+	DHARGS += --with php5
+	PACKAGE_NAMES += php5-zeroc-ice php5-zeroc-ice-dev
+endif
+
+
 prefix = /usr
 MAKEOPTS = prefix=$(prefix) OPTIMIZE=$(OPTIMIZE)
 
@@ -82,12 +93,14 @@ icebox_install:
 	@echo usr/share/man/man1/icebox.1 >> $(CURDIR)/debian/zeroc-icebox.install
 
 %:
-	dh $@ --parallel --with php5 --with javahelper --with systemd
+	dh $@ $(DHARGS)
 
 override_dh_auto_build-arch:
 	if [ ! -d cpp11 ]; then cp -r cpp cpp11; fi
 	$(MAKE) $(MAKEOPTS) -C cpp/src
+ifeq ($(PHP5),yes)
 	$(MAKE) $(MAKEOPTS) -C php/src
+endif
 	$(MAKE) $(MAKEOPTS) -C cpp11/src CPP11_MAPPING=yes LD_LIBRARY_PATH=$(CURDIR)/cpp11/lib/$(DEB_HOST_MULTIARCH)
 
 override_dh_auto_build-indep:
@@ -95,7 +108,9 @@ override_dh_auto_build-indep:
 
 override_dh_auto_install-arch:
 	$(MAKE) $(MAKEOPTS) -C cpp DESTDIR=$(DESTDIR) install
+ifeq ($(PHP5),yes)
 	$(MAKE) $(MAKEOPTS) -C php DESTDIR=$(DESTDIR) install
+endif
 	$(MAKE) $(MAKEOPTS) -C cpp11 DESTDIR=$(CPP11_DESTDIR) CPP11_MAPPING=yes install
 
 override_dh_auto_install-indep:
@@ -103,7 +118,9 @@ override_dh_auto_install-indep:
 
 override_dh_auto_clean-arch:
 	$(MAKE) $(MAKEOPTS) -C cpp/src clean
+ifeq ($(PHP5),yes)
 	$(MAKE) $(MAKEOPTS) -C php/src clean
+endif
 	if [ -d cpp11 ]; then $(MAKE) $(MAKEOPTS) -C cpp11/src CPP11_MAPPING=yes clean; fi
 
 override_dh_auto_clean-indep:
@@ -146,9 +163,9 @@ override_dh_install: icebox_install
 	mkdir -p $(DESTDIR)$(prefix)/bin
 	cp debian/zeroc-ice-utils-java.icegridgui $(DESTDIR)$(prefix)/bin/icegridgui && \
 	chmod 755 $(DESTDIR)$(prefix)/bin/icegridgui
-
+ifeq ($(PHP5),yes)
 	mkdir -p $(DESTDIR)/etc/php5/mods-available
-
+endif
 	mkdir -p $(DESTDIR)/etc
 	cp debian/zeroc-glacier2.glacier2router.conf $(DESTDIR)/etc/glacier2router.conf
 	cp debian/zeroc-icegrid.icegridnode.conf $(DESTDIR)/etc/icegridnode.conf

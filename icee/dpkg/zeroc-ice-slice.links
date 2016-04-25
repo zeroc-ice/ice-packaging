@@ -1,2 +1,2 @@
 /usr/share/doc/zeroc-ice-slice/copyright /usr/share/doc/zeroc-ice-slice/ICE_LICENSE
-/usr/share/Ice-3.7.0/slice /usr/share/slice
+/usr/share/Ice-*/slice /usr/share/slice

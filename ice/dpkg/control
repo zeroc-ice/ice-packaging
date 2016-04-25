@@ -8,8 +8,8 @@ Build-Depends: debhelper (>= 9.0.0),
  libexpat1-dev,
  libssl-dev,
  oracle-java7-installer,
- php5-dev,
- php5-cli,
+ php5-dev <!nophp5>,
+ php5-cli <!nophp5>,
  javahelper (>= 0.45),
  dh-systemd (>= 1.3),
  libdbus-1-dev,
@@ -22,7 +22,7 @@ Architecture: all
 Section: web
 Depends: zeroc-ice-slice (=${binary:Version}),
  libzeroc-ice3.7 (=${binary:Version}),
- php5-zeroc-ice (=${binary:Version}),
+ php5-zeroc-ice (=${binary:Version}) <!nophp5>,
  zeroc-glacier2 (=${binary:Version}),
  zeroc-icebox (=${binary:Version}),
  zeroc-icegrid (=${binary:Version}),
@@ -47,7 +47,7 @@ Architecture: all
 Section: devel
 Depends: libzeroc-ice-dev (=${binary:Version}),
  libzeroc-ice-java (=${binary:Version}),
- php5-zeroc-ice-dev (=${binary:Version})
+ php5-zeroc-ice-dev (=${binary:Version}) <!nophp5>
 Replaces: libzeroc-ice-java (<=3.5.1)
 Description: Ice development packages
  Ice development packages.
@@ -94,6 +94,7 @@ Description: Tools for developing Ice applications in Java
 Package: php5-zeroc-ice
 Architecture: any
 Section: php
+Build-Profiles: <!nophp5>
 Replaces:libice3.5-php, php-zeroc-ice
 Depends: ${shlibs:Depends}, ${misc:Depends},
  libzeroc-ice3.7 (=${binary:Version})
@@ -104,6 +105,7 @@ Package: php5-zeroc-ice-dev
 Architecture: any
 Multi-Arch: foreign
 Section: devel
+Build-Profiles: <!nophp5>
 Replaces:libice-php-dev, ice35-translators
 Depends: php5-cli | php5, ${shlibs:Depends},
  zeroc-ice-slice (=${binary:Version}),

@@ -1,14 +1,16 @@
+zeroc-ice3.6 (3.6.3-1000) trusty vivid wily; urgency=low
+
+  * 3.6.3 release
+  
+ -- Benoit <benoit@zeroc.com>  Fri, 8 Apr 2016 10:09:28 +0000
+
+
 zeroc-ice3.7 (3.7a0-1000) wily; urgency=low
 
   * 3.7a0 release
 
- -- Benoit <benoit@zeroc.com>  Thu, 07 Apr 2015 21:19:22 +0000
+ -- Benoit <benoit@zeroc.com>  Thu, 07 Apr 2016 21:19:22 +0000
 
-zeroc-ice3.7 (3.7.0-1000) trusty vivid wily; urgency=low
-
-  * 3.7.0 release
-
- -- Dwayne <dwayne@zeroc.com>  Mon, 02 Nov 2015 16:14:54 +0000
 
 zeroc-ice3.6 (3.6.2-1000) trusty vivid wily; urgency=low
 
@@ -16,27 +18,34 @@ zeroc-ice3.6 (3.6.2-1000) trusty vivid wily; urgency=low
 
  -- Benoit <benoit@zeroc.com>  Fri, 11 Mar 2016 11:31:15 +0000
 
+
 zeroc-ice3.6 (3.6.1-1000) trusty vivid; urgency=low
 
   * 3.6.1 release
 
  -- Benoit <benoit@zeroc.com>  Tue, 04 Aug 2015 11:31:15 +0000
 
+
 zeroc-ice3.6 (3.6.0-1000) trusty vivid; urgency=low
+
   * 3.6.0 release
 
  -- Jose <jose@zeroc.com>  Wed, 21 Jan 2015 09:15:00 +0200
 
+
 zeroc-ice3.6 (3.6.0-1) unstable; urgency=low
+
   * 3.6 beta release
 
  -- Jose <jose@zeroc.com>  Fri, 2 Oct 2014 21:21:00 +0200
+
 
 ice3.5 (3.5.1-1) unstable; urgency=low
 
   * 3.5.1 release
 
  -- Jose <jose@zeroc.com>  Fri, 12 Sep 2013 21:21:00 +0200
+
 
 ice3.5 (3.5.0-1) unstable; urgency=low
 
