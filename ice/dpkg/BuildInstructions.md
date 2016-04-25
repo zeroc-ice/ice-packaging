@@ -50,9 +50,9 @@ Install the Ice 3.6 source distribution:
     $ cd ~/zeroc-build
     $ apt-get source zeroc-ice3.6
 
-Change the working directory to `zeroc-ice3.6-3.6.2`:
+Change the working directory to `zeroc-ice3.6-3.6.3`:
 
-    $ cd zeroc-ice3.6-3.6.2
+    $ cd zeroc-ice3.6-3.6.3
 
 Now you're ready to build the Ice packages:
 
