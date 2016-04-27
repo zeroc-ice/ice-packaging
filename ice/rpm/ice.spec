@@ -17,15 +17,11 @@ ExcludeArch: %{ix86}
 %endif
 
 %define cpp11 1
-%define biarch 0
 %define systemd 1
 %define systemdpkg systemd
 %define shadow shadow-utils
 %define jarVersion 3.7.0-alpha0
 
-%if "%{dist}" == ".el7"
-  %define biarch 1
-%endif
 %if "%{dist}" == ".amzn1"
   %define systemd 0
 %endif
@@ -45,7 +41,7 @@ ExcludeArch: %{ix86}
 %define cppx86 0
 
 %ifarch %{ix86}
-%if %{biarch}
+%if 0%{?biarch}
 %define cppx86 1
 %endif
 %endif
@@ -74,7 +70,7 @@ BuildRoot: %{_tmppath}/ice-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: openssl-devel >= 0.9.7a
 BuildRequires: mcpp-devel >= 2.7.2
 BuildRequires: lmdb-devel >= 0.9.11
-%if %{cppx86}
+%if 0%{?biarch}
 BuildRequires: openssl-devel(x86-32) >= 0.9.7a
 BuildRequires: mcpp-devel(x86-32) >= 2.7.2
 BuildRequires: lmdb-devel(x86-32) >= 0.9.11
@@ -87,15 +83,10 @@ BuildRequires: javapackages-tools
 BuildRequires: jpackage-utils
 %endif
 
-%if "%{dist}" == ".el6"
-BuildRequires: bzip2-devel >= 1.0.5
-BuildRequires: expat-devel >= 2.0.1
-BuildRequires: php-devel >= 5.3.2
-%endif
 %if "%{dist}" == ".el7"
 BuildRequires: bzip2-devel >= 1.0.6
 BuildRequires: expat-devel >= 2.1
-%if %{cppx86}
+%if 0%{?biarch}
 BuildRequires: bzip2-devel(x86-32) >= 1.0.6
 BuildRequires: expat-devel(x86-32) >= 2.1
 %endif
@@ -311,7 +302,7 @@ Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}, %{?namepr
 %if %{cppx86}
 Requires: lib%{?nameprefix}ice-c++-devel(x86-64) = %{version}-%{release}
 %endif
-%if %{biarch}
+%if 0%{?biarch}
 Requires: glibc-devel%{?_isa}
 %endif
 %description -n lib%{?nameprefix}ice-c++-devel
