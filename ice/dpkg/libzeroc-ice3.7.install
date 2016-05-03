@@ -12,7 +12,6 @@ usr/lib/*/libIceSSL.so.*
 usr/lib/*/libIceStorm.so.*
 usr/lib/*/libIceUtil.so.*
 usr/lib/*/libIceXML.so.*
-usr/lib/*/libSlice.so.*
 
 usr/lib/*/libGlacier2++11.so.*
 usr/lib/*/libIce++11.so.*
