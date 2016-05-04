@@ -433,9 +433,11 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/slice2confluence
 rm -f $RPM_BUILD_ROOT%{_bindir}/slice2js
 rm -f $RPM_BUILD_ROOT%{_bindir}/slice2objc
 rm -f $RPM_BUILD_ROOT%{_bindir}/slice2py
+rm -f $RPM_BUILD_ROOT%{_bindir}/slice2rb
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2js.1
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2objc.1
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2py.1
+rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2rb.1
 rm -f $RPM_BUILD_ROOT/%{_javadir}/*.pom
 
 # The files below are packaged with the noarch RPM

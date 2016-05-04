@@ -36,6 +36,7 @@ if RUBY_PLATFORM =~ /darwin/
 end
 
 $INCFLAGS << ' -Iice/cpp/include'
+$INCFLAGS << ' -Iice/cpp/include/generated'
 $INCFLAGS << ' -Iice/cpp/src'
 
 $CPPFLAGS << ' -DICE_STATIC_LIBS'

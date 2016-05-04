@@ -41,7 +41,7 @@ if use_ice:
     include_dirs=['src']
     define_macros=[]
 else:
-    include_dirs=['src', 'src/ice/cpp/include', 'src/ice/cpp/src']
+    include_dirs=['src', 'src/ice/cpp/include', 'src/ice/cpp/include/generated', 'src/ice/cpp/src']
     define_macros=[('ICE_STATIC_LIBS', None)]
 
 if platform == 'darwin':
