@@ -134,10 +134,6 @@ override_dh_install:
 	#
 	dh_install
 
-ifeq ($(DEB_HOST_ARCH),amd64)
-	dh_install -plibzeroc-ice3.7 --autodest usr/lib/*/libSlice.so.*
-	dh_install -plibzeroc-ice-dev --autodest usr/lib/*/libSlice.so
-endif
 	#
 	# Copy package readme
 	#

@@ -10,7 +10,6 @@ usr/lib/*/libIceLocatorDiscovery.so.*
 usr/lib/*/libIcePatch2.so.*
 usr/lib/*/libIceSSL.so.*
 usr/lib/*/libIceStorm.so.*
-usr/lib/*/libIceUtil.so.*
 usr/lib/*/libIceXML.so.*
 
 usr/lib/*/libGlacier2++11.so.*
@@ -22,5 +21,4 @@ usr/lib/*/libIceGrid++11.so.*
 usr/lib/*/libIceLocatorDiscovery++11.so.*
 usr/lib/*/libIceSSL++11.so.*
 usr/lib/*/libIceStorm++11.so.*
-usr/lib/*/libIceUtil++11.so.*
 usr/lib/*/libIceXML++11.so.*

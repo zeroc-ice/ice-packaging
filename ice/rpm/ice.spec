@@ -451,7 +451,6 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}/ICE_LICENSE
 # These directories and files aren't needed in the x86 build.
 rm -f $RPM_BUILD_ROOT%{_libdir}/libGlacier2CryptPermissionsVerifier.so*
 rm -f $RPM_BUILD_ROOT%{_libdir}/libIceXML*.so*
-rm -f $RPM_BUILD_ROOT%{_libdir}/libSlice*.so*
 rm -f $RPM_BUILD_ROOT%{_bindir}/slice2*
 rm -rf $RPM_BUILD_ROOT%{_includedir}
 rm -rf $RPM_BUILD_ROOT%{_mandir}
@@ -584,7 +583,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libIcePatch2.so.*
 %{_libdir}/libIceSSL.so.*
 %{_libdir}/libIceStorm.so.*
-%{_libdir}/libIceUtil.so.*
 %{_libdir}/libIceDB.so.*
 %{_libdir}/libGlacier2++11.so.*
 %{_libdir}/libIce++11.so.*
@@ -594,10 +592,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libIceLocatorDiscovery++11.so.*
 %{_libdir}/libIceSSL++11.so.*
 %{_libdir}/libIceStorm++11.so.*
-%{_libdir}/libIceUtil++11.so.*
 %if ! %{cppx86}
 %{_libdir}/libGlacier2CryptPermissionsVerifier.so.*
-%{_libdir}/libSlice.so.*
 %{_libdir}/libIceXML.so.*
 %endif
 %{_defaultdocdir}/lib%{?nameprefix}ice3.7-c++-%{version}
@@ -635,7 +631,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libIcePatch2.so
 %{_libdir}/libIceSSL.so
 %{_libdir}/libIceStorm.so
-%{_libdir}/libIceUtil.so
 %{_libdir}/libIceDB.so
 %{_libdir}/libGlacier2++11.so
 %{_libdir}/libIce++11.so
@@ -645,7 +640,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libIceLocatorDiscovery++11.so
 %{_libdir}/libIceSSL++11.so
 %{_libdir}/libIceStorm++11.so
-%{_libdir}/libIceUtil++11.so
 %if ! %{cppx86}
 %{_bindir}/slice2cpp
 %{_mandir}/man1/slice2cpp.1*
@@ -658,7 +652,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/IceStorm
 %{_includedir}/IceUtil
 %{_includedir}/Slice
-%{_libdir}/libSlice.so
 %{_libdir}/libIceXML.so
 %endif
 %{_defaultdocdir}/lib%{?nameprefix}ice-c++-devel-%{version}
