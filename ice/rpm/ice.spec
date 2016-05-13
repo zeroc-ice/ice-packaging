@@ -651,7 +651,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/IceSSL
 %{_includedir}/IceStorm
 %{_includedir}/IceUtil
-%{_includedir}/Slice
 %{_libdir}/libIceXML.so
 %endif
 %{_defaultdocdir}/lib%{?nameprefix}ice-c++-devel-%{version}
