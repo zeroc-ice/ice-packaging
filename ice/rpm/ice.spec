@@ -514,11 +514,6 @@ if [ -n "$JARSIGNER_KEYSTORE" ]; then
     jarsigner -keystore $JARSIGNER_KEYSTORE -storepass "$JARSIGNER_KEYSTORE_PASSWORD" $RPM_BUILD_ROOT%{_javadir}/icegridgui.jar $JARSIGNER_KEYSTORE_ALIAS -tsa http://timestamp.digicert.com
 fi
 
-#
-# Link for Slice files
-#
-ln -s %{_datadir}/Ice-%{version}/slice $RPM_BUILD_ROOT%{_datadir}/slice
-
 %endif # noarch
 
 %clean
