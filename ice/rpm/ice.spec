@@ -442,6 +442,7 @@ rm -f $RPM_BUILD_ROOT/%{_javadir}/*.pom
 
 # The files below are packaged with the noarch RPM
 rm -f $RPM_BUILD_ROOT/%{_javadir}/icegridgui.jar
+rm -f $RPM_BUILD_ROOT%{_datadir}/slice
 rm -rf $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}/slice
 rm -rf $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}/LICENSE
 rm -rf $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}/ICE_LICENSE
