@@ -635,8 +635,8 @@ for i in freeze glacier2 ice icebox icediscovery icelocatordiscovery icegrid ice
 do
   mv $RPM_BUILD_ROOT/lib/$i-%{version}.jar $RPM_BUILD_ROOT%{_javadir}
   ln -s $i-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/$i.jar
-  mv $RPM_BUILD_ROOT/lib/$i-%{version}-source.jar $RPM_BUILD_ROOT%{_javadir}
-  ln -s $i-%{version}-source.jar $RPM_BUILD_ROOT%{_javadir}/$i-source.jar
+  mv $RPM_BUILD_ROOT/lib/$i-%{version}-sources.jar $RPM_BUILD_ROOT%{_javadir}
+  ln -s $i-%{version}-sources.jar $RPM_BUILD_ROOT%{_javadir}/$i-sources.jar
 done
 
 #
@@ -918,40 +918,40 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/slice2freezej.1*
 %{_javadir}/ice-%{version}.jar
 %{_javadir}/ice.jar
-%{_javadir}/ice-%{version}-source.jar
-%{_javadir}/ice-source.jar
+%{_javadir}/ice-%{version}-sources.jar
+%{_javadir}/ice-sources.jar
 %{_javadir}/glacier2-%{version}.jar
 %{_javadir}/glacier2.jar
-%{_javadir}/glacier2-%{version}-source.jar
-%{_javadir}/glacier2-source.jar
+%{_javadir}/glacier2-%{version}-sources.jar
+%{_javadir}/glacier2-sources.jar
 %{_javadir}/icebox-%{version}.jar
 %{_javadir}/icebox.jar
-%{_javadir}/icebox-%{version}-source.jar
-%{_javadir}/icebox-source.jar
+%{_javadir}/icebox-%{version}-sources.jar
+%{_javadir}/icebox-sources.jar
 %{_javadir}/icegrid-%{version}.jar
 %{_javadir}/icegrid.jar
-%{_javadir}/icegrid-%{version}-source.jar
-%{_javadir}/icegrid-source.jar
+%{_javadir}/icegrid-%{version}-sources.jar
+%{_javadir}/icegrid-sources.jar
 %{_javadir}/icepatch2-%{version}.jar
 %{_javadir}/icepatch2.jar
-%{_javadir}/icepatch2-%{version}-source.jar
-%{_javadir}/icepatch2-source.jar
+%{_javadir}/icepatch2-%{version}-sources.jar
+%{_javadir}/icepatch2-sources.jar
 %{_javadir}/icestorm-%{version}.jar
 %{_javadir}/icestorm.jar
-%{_javadir}/icestorm-%{version}-source.jar
-%{_javadir}/icestorm-source.jar
+%{_javadir}/icestorm-%{version}-sources.jar
+%{_javadir}/icestorm-sources.jar
 %{_javadir}/icediscovery-%{version}.jar
 %{_javadir}/icediscovery.jar
-%{_javadir}/icediscovery-%{version}-source.jar
-%{_javadir}/icediscovery-source.jar
+%{_javadir}/icediscovery-%{version}-sources.jar
+%{_javadir}/icediscovery-sources.jar
 %{_javadir}/icelocatordiscovery-%{version}.jar
 %{_javadir}/icelocatordiscovery.jar
-%{_javadir}/icelocatordiscovery-%{version}-source.jar
-%{_javadir}/icelocatordiscovery-source.jar
+%{_javadir}/icelocatordiscovery-%{version}-sources.jar
+%{_javadir}/icelocatordiscovery-sources.jar
 %{_javadir}/freeze-%{version}.jar
 %{_javadir}/freeze.jar
-%{_javadir}/freeze-%{version}-source.jar
-%{_javadir}/freeze-source.jar
+%{_javadir}/freeze-%{version}-sources.jar
+%{_javadir}/freeze-sources.jar
 %{_defaultdocdir}/lib%{?nameprefix}ice-java-%{version}
 
 %files -n %{?nameprefix}ice-utils

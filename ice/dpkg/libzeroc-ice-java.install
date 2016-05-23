@@ -5,64 +5,64 @@ usr/bin/slice2freezej
 usr/share/man/man1/slice2freezej.1
 
 usr/share/java/freeze-*.jar
-usr/share/java/freeze-*-source.jar
+usr/share/java/freeze-*-sources.jar
 
 usr/share/java/glacier2-*.jar
-usr/share/java/glacier2-*-source.jar
+usr/share/java/glacier2-*-sources.jar
 
 usr/share/java/ice-*.jar
-usr/share/java/ice-*-source.jar
+usr/share/java/ice-*-sources.jar
 
 usr/share/java/icebox-*.jar
-usr/share/java/icebox-*-source.jar
+usr/share/java/icebox-*-sources.jar
 
 usr/share/java/icediscovery-*.jar
-usr/share/java/icediscovery-*-source.jar
+usr/share/java/icediscovery-*-sources.jar
 
 usr/share/java/icelocatordiscovery-*.jar
-usr/share/java/icelocatordiscovery-*-source.jar
+usr/share/java/icelocatordiscovery-*-sources.jar
 
 usr/share/java/icegrid-*.jar
-usr/share/java/icegrid-*-source.jar
+usr/share/java/icegrid-*-sources.jar
 
 usr/share/java/icepatch2-*.jar
-usr/share/java/icepatch2-*-source.jar
+usr/share/java/icepatch2-*-sources.jar
 
 usr/share/java/icestorm-*.jar
-usr/share/java/icestorm-*-source.jar
+usr/share/java/icestorm-*-sources.jar
 
 usr/share/maven-repo/com/zeroc/freeze/*/freeze-*.jar
-usr/share/maven-repo/com/zeroc/freeze/*/freeze-*-source.jar
+usr/share/maven-repo/com/zeroc/freeze/*/freeze-*-sources.jar
 usr/share/maven-repo/com/zeroc/freeze/*/freeze-*.pom
 
 usr/share/maven-repo/com/zeroc/glacier2/*/glacier2-*.jar
-usr/share/maven-repo/com/zeroc/glacier2/*/glacier2-*-source.jar
+usr/share/maven-repo/com/zeroc/glacier2/*/glacier2-*-sources.jar
 usr/share/maven-repo/com/zeroc/glacier2/*/glacier2-*.pom
 
 usr/share/maven-repo/com/zeroc/ice/*/ice-*.jar
-usr/share/maven-repo/com/zeroc/ice/*/ice-*-source.jar
+usr/share/maven-repo/com/zeroc/ice/*/ice-*-sources.jar
 usr/share/maven-repo/com/zeroc/ice/*/ice-*.pom
 
 usr/share/maven-repo/com/zeroc/icebox/*/icebox-*.jar
-usr/share/maven-repo/com/zeroc/icebox/*/icebox-*-source.jar
+usr/share/maven-repo/com/zeroc/icebox/*/icebox-*-sources.jar
 usr/share/maven-repo/com/zeroc/icebox/*/icebox-*.pom
 
 usr/share/maven-repo/com/zeroc/icediscovery/*/icediscovery-*.jar
-usr/share/maven-repo/com/zeroc/icediscovery/*/icediscovery-*-source.jar
+usr/share/maven-repo/com/zeroc/icediscovery/*/icediscovery-*-sources.jar
 usr/share/maven-repo/com/zeroc/icediscovery/*/icediscovery-*.pom
 
 usr/share/maven-repo/com/zeroc/icelocatordiscovery/*/icelocatordiscovery-*.jar
-usr/share/maven-repo/com/zeroc/icelocatordiscovery/*/icelocatordiscovery-*-source.jar
+usr/share/maven-repo/com/zeroc/icelocatordiscovery/*/icelocatordiscovery-*-sources.jar
 usr/share/maven-repo/com/zeroc/icelocatordiscovery/*/icelocatordiscovery-*.pom
 
 usr/share/maven-repo/com/zeroc/icegrid/*/icegrid-*.jar
-usr/share/maven-repo/com/zeroc/icegrid/*/icegrid-*-source.jar
+usr/share/maven-repo/com/zeroc/icegrid/*/icegrid-*-sources.jar
 usr/share/maven-repo/com/zeroc/icegrid/*/icegrid-*.pom
 
 usr/share/maven-repo/com/zeroc/icepatch2/*/icepatch2-*.jar
-usr/share/maven-repo/com/zeroc/icepatch2/*/icepatch2-*-source.jar
+usr/share/maven-repo/com/zeroc/icepatch2/*/icepatch2-*-sources.jar
 usr/share/maven-repo/com/zeroc/icepatch2/*/icepatch2-*.pom
 
 usr/share/maven-repo/com/zeroc/icestorm/*/icestorm-*.jar
-usr/share/maven-repo/com/zeroc/icestorm/*/icestorm-*-source.jar
+usr/share/maven-repo/com/zeroc/icestorm/*/icestorm-*-sources.jar
 usr/share/maven-repo/com/zeroc/icestorm/*/icestorm-*.pom
