@@ -115,7 +115,7 @@ override_dh_install:
 		mkdir -p $(DESTDIR)$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) ; \
 		mv $(DESTDIR)$(prefix)/share/java/$$name-$(JAR_VERSION).pom $(DESTDIR)$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) ; \
 		cd $(DESTDIR)$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) && ln -s ../../../../../java/$$name-$(JAR_VERSION).jar . ; \
-		cd $(DESTDIR)$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) && ln -s ../../../../../java/$$name-$(JAR_VERSION)-source.jar . ; \
+		cd $(DESTDIR)$(prefix)/share/maven-repo/com/zeroc/$$name/$(VERSION) && ln -s ../../../../../java/$$name-$(JAR_VERSION)-sources.jar . ; \
 	done ;
 
 	mkdir -p $(DESTDIR)$(prefix)/bin

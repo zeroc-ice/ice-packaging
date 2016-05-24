@@ -465,7 +465,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}
 for i in glacier2 ice icebox icebt icediscovery icelocatordiscovery icegrid icepatch2 icestorm
 do
     ln -s $i-%{jarVersion}.jar $RPM_BUILD_ROOT%{_javadir}/$i.jar
-    ln -s $i-%{jarVersion}-source.jar $RPM_BUILD_ROOT%{_javadir}/$i-source.jar
+    ln -s $i-%{jarVersion}-sources.jar $RPM_BUILD_ROOT%{_javadir}/$i-sources.jar
 done
 
 #
@@ -672,40 +672,40 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/slice2java.1*
 %{_javadir}/ice-%{jarVersion}.jar
 %{_javadir}/ice.jar
-%{_javadir}/ice-%{jarVersion}-source.jar
-%{_javadir}/ice-source.jar
+%{_javadir}/ice-%{jarVersion}-sources.jar
+%{_javadir}/ice-sources.jar
 %{_javadir}/glacier2-%{jarVersion}.jar
 %{_javadir}/glacier2.jar
-%{_javadir}/glacier2-%{jarVersion}-source.jar
-%{_javadir}/glacier2-source.jar
+%{_javadir}/glacier2-%{jarVersion}-sources.jar
+%{_javadir}/glacier2-sources.jar
 %{_javadir}/icebox-%{jarVersion}.jar
 %{_javadir}/icebox.jar
-%{_javadir}/icebox-%{jarVersion}-source.jar
-%{_javadir}/icebox-source.jar
+%{_javadir}/icebox-%{jarVersion}-sources.jar
+%{_javadir}/icebox-sources.jar
 %{_javadir}/icebt-%{jarVersion}.jar
 %{_javadir}/icebt.jar
-%{_javadir}/icebt-%{jarVersion}-source.jar
-%{_javadir}/icebt-source.jar
+%{_javadir}/icebt-%{jarVersion}-sources.jar
+%{_javadir}/icebt-sources.jar
 %{_javadir}/icegrid-%{jarVersion}.jar
 %{_javadir}/icegrid.jar
-%{_javadir}/icegrid-%{jarVersion}-source.jar
-%{_javadir}/icegrid-source.jar
+%{_javadir}/icegrid-%{jarVersion}-sources.jar
+%{_javadir}/icegrid-sources.jar
 %{_javadir}/icepatch2-%{jarVersion}.jar
 %{_javadir}/icepatch2.jar
-%{_javadir}/icepatch2-%{jarVersion}-source.jar
-%{_javadir}/icepatch2-source.jar
+%{_javadir}/icepatch2-%{jarVersion}-sources.jar
+%{_javadir}/icepatch2-sources.jar
 %{_javadir}/icestorm-%{jarVersion}.jar
 %{_javadir}/icestorm.jar
-%{_javadir}/icestorm-%{jarVersion}-source.jar
-%{_javadir}/icestorm-source.jar
+%{_javadir}/icestorm-%{jarVersion}-sources.jar
+%{_javadir}/icestorm-sources.jar
 %{_javadir}/icediscovery-%{jarVersion}.jar
 %{_javadir}/icediscovery.jar
-%{_javadir}/icediscovery-%{jarVersion}-source.jar
-%{_javadir}/icediscovery-source.jar
+%{_javadir}/icediscovery-%{jarVersion}-sources.jar
+%{_javadir}/icediscovery-sources.jar
 %{_javadir}/icelocatordiscovery-%{jarVersion}.jar
 %{_javadir}/icelocatordiscovery.jar
-%{_javadir}/icelocatordiscovery-%{jarVersion}-source.jar
-%{_javadir}/icelocatordiscovery-source.jar
+%{_javadir}/icelocatordiscovery-%{jarVersion}-sources.jar
+%{_javadir}/icelocatordiscovery-sources.jar
 %{_defaultdocdir}/lib%{?nameprefix}ice-java-%{version}
 
 #
