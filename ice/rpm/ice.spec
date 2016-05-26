@@ -595,6 +595,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_defaultdocdir}/lib%{?nameprefix}ice3.7-c++-%{version}
 %post -n lib%{?nameprefix}ice3.7-c++ -p /sbin/ldconfig
 %postun -n lib%{?nameprefix}ice3.7-c++ -p /sbin/ldconfig
+exit 0
 
 #
 # icebox package
@@ -612,6 +613,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_defaultdocdir}/%{?nameprefix}icebox-%{version}
 %post -n %{?nameprefix}icebox -p /sbin/ldconfig
 %postun -n %{?nameprefix}icebox -p /sbin/ldconfig
+exit 0
 
 #
 # libice-c++devel package
@@ -660,6 +662,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_defaultdocdir}/lib%{?nameprefix}icestorm3.7-%{version}
 %post -n lib%{?nameprefix}icestorm3.7 -p /sbin/ldconfig
 %postun -n lib%{?nameprefix}icestorm3.7 -p /sbin/ldconfig
+exit 0
 
 %if ! %{cppx86}
 
@@ -732,6 +735,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_defaultdocdir}/%{?nameprefix}ice-utils-%{version}
 %post -n %{?nameprefix}ice-utils -p /sbin/ldconfig
 %postun -n %{?nameprefix}ice-utils -p /sbin/ldconfig
+exit 0
 
 #
 # icegrid package
@@ -812,6 +816,7 @@ exit 0
   %endif
 %endif
 /sbin/ldconfig
+exit 0
 
 #
 # glacier2 package
@@ -874,6 +879,7 @@ exit 0
   %endif
 %endif
 /sbin/ldconfig
+exit 0
 
 #
 # icepatch2 package
@@ -885,6 +891,7 @@ exit 0
 %{_defaultdocdir}/%{?nameprefix}icepatch2-%{version}
 %post -n %{?nameprefix}icepatch2 -p /sbin/ldconfig
 %postun -n %{?nameprefix}icepatch2 -p /sbin/ldconfig
+exit 0
 
 #
 # php-ice package
