@@ -16,7 +16,7 @@
 %define bzip2devel bzip2-devel
 %define phpdir %{_datadir}/php
 %define phplibdir %{_libdir}/php/modules
-%define jarVersion 3.7.0-alpha0
+%define jarVersion 3.7.0-alpha2
 
 %if "%{dist}" == ".el7"
   %define javapackagestools javapackages-tools
@@ -60,7 +60,7 @@
 %endif
 
 Name: %{?nameprefix}ice
-Version: 3.7a0
+Version: 3.7a2
 Summary: Comprehensive RPC framework with support for C++, .NET, Java, Python, JavaScript and more.
 Release: 1%{?dist}
 %if "%{?ice_license}"
