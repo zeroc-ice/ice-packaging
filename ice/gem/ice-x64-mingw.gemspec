@@ -9,7 +9,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'zeroc-ice-x64-mingw'
-  s.version     = '3.7a2'
+  s.version     = '3.7a3'
   s.summary     = "ZeroC Ice for Ruby"
   s.description = <<-eos
 The Internet Communications Engine (Ice) provides a robust, proven

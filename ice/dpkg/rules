@@ -27,8 +27,8 @@ PACKAGE_NAMES = \
 	libzeroc-ice-dev \
 	libzeroc-ice-java
 
-VERSION = 3.7a2
-JAR_VERSION = 3.7.0-alpha2
+VERSION = 3.7a3
+JAR_VERSION = 3.7.0-alpha3
 
 ARTIFACT_NAMES = \
 	glacier2 \

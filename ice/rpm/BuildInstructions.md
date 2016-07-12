@@ -76,7 +76,7 @@ Then add the Ice repository for you system and install the source RPM:
 Now download and install the source rpm:
 
     $ yumdownloader --source ice
-    $ rpm -i ice-3.7a2-1.el7.src.rpm
+    $ rpm -i ice-3.7a3-1.el7.src.rpm
 
 You can find the `ice.spec` file in the `pkgdir/SPECS` directory, while the archive
 file is in the `pkgdir/SOURCES` directory.
@@ -123,7 +123,7 @@ The source RPM is created in `pkgdir/SRPMS`.
 
 To create binary RPM packages for Ice, you must first install the source RPM:
 
-    $ rpm -i ice-3.7a2-1.src.rpm
+    $ rpm -i ice-3.7a3-1.src.rpm
 
 If you have not already done so, install the RPM prerequisites listed above. The
 following additional steps are also necessary:
@@ -174,16 +174,16 @@ source patches:
 
     - List the patch (or patches) after ``Source0``, for example:
 
-             Source0: Ice-3.7a2.tar.gz
-             Patch1: Ice-3.7a2-patch1.patch
-             Patch2: Ice-3.7a2-patch2.patch
+             Source0: Ice-3.7a3.tar.gz
+             Patch1: Ice-3.7a3-patch1.patch
+             Patch2: Ice-3.7a3-patch2.patch
 
     - Apply the patch(es) in the `%prep` section. Continuing our example with
       two patches:
 
              %prep
              %if %{buildall}
-             %setup -n Ice-3.7a2 -q
+             %setup -n Ice-3.7a3 -q
              %patch1 -p0 -b .orig1
              %patch2 -p0 -b .orig2
              %endif
