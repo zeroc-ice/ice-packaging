@@ -18,6 +18,8 @@ if platform[:6] == 'darwin':
     platform = 'darwin'
 elif platform[:5] == 'linux':
     platform = 'linux'
+elif platform[:7] == 'freebsd':
+    platform = 'freebsd'
 
 use_ice = False
 if "--with-installed-ice" in sys.argv:
@@ -63,32 +65,6 @@ if platform == 'darwin':
             return False # Don't compile the bzip2 source under darwin or linux.
         return True
 
-elif platform == 'linux':
-
-    #
-    # TODO: Get rid of this hack to remove -Wstrict-prototypes from the compiler options
-    # when http://bugs.python.org/issue1222585 is fixed. Note that this hack doesn't work
-    # with recent distutils versions which no longer allow overriding OPT in the env.
-    #
-    from distutils.sysconfig import get_config_vars
-    (opt,) = get_config_vars('OPT')
-    os.environ['OPT'] = " ".join(flag for flag in opt.split() if flag != '-Wstrict-prototypes')
-
-    extra_compile_args.append('-w')
-    extra_link_args = []
-    if use_ice:
-        libraries = ["IceSSL", "Ice", "Slice", "IceUtil"]
-    else:
-        libraries=['ssl', 'crypto', 'bz2', 'rt', 'dl']
-
-    def filterName(path):
-        d = os.path.dirname(path)
-        if use_ice and d.find("src/ice/") != -1:
-            return False
-        if d.find('bzip2') != -1:
-            return False # Don't compile the bzip2 source under darwin or linux.
-        return True
-
 elif platform == 'win32':
     extra_link_args = []
     libraries=[]
@@ -111,6 +87,34 @@ elif platform == 'win32':
         if b == 'SysLoggerI.cpp':
             return False
         return True
+
+else:
+    #
+    # TODO: Get rid of this hack to remove -Wstrict-prototypes from the compiler options
+    # when http://bugs.python.org/issue1222585 is fixed. Note that this hack doesn't work
+    # with recent distutils versions which no longer allow overriding OPT in the env.
+    #
+    from distutils.sysconfig import get_config_vars
+    (opt,) = get_config_vars('OPT')
+    os.environ['OPT'] = " ".join(flag for flag in opt.split() if flag != '-Wstrict-prototypes')
+
+    extra_compile_args.append('-w')
+    extra_link_args = []
+    if use_ice:
+        libraries = ["IceSSL", "Ice", "Slice", "IceUtil"]
+    else:
+        libraries=['ssl', 'crypto', 'bz2', 'rt']
+        if platform is not 'freebsd':
+            libraries.append('dl')
+
+    def filterName(path):
+        d = os.path.dirname(path)
+        if use_ice and d.find("src/ice/") != -1:
+            return False
+        if d.find('bzip2') != -1:
+            return False # Don't compile the bzip2 source under darwin or linux.
+        return True
+
 
 # Gather the list of sources to compile.
 sources = []
