@@ -148,7 +148,7 @@ Group: System Environment/Libraries
 Requires: lib%{?nameprefix}ice-c++-devel%{?_isa} = %{version}-%{release}
 %else
 Requires: lib%{?nameprefix}ice-c++-devel%{?_isa} = %{version}-%{release}
-Requires: lib%{?nameprefix}ice-java%{?_isa} = %{version}-%{release}
+Requires: lib%{?nameprefix}ice-java-devel%{?_isa} = %{version}-%{release}
 Requires: php-%{?nameprefix}ice-devel%{?_isa} = %{version}-%{release}
 %endif # cppx86
 %description -n %{?nameprefix}ice-all-devel
@@ -189,7 +189,7 @@ Requires(preun): /sbin/service
 IceBox server.
 
 #
-# lib-icestormMm package
+# libicestormMm package
 #
 %package -n lib%{?nameprefix}icestorm3.7
 Summary: IceStorm service.
@@ -201,7 +201,7 @@ Requires: %{?liblmdb}
 IceStorm service.
 
 #
-# lib-ice-c+++-devel package
+# libice-c+++-devel package
 #
 %package -n lib%{?nameprefix}ice-c++-devel
 Summary: Tools, libraries and headers for developing Ice applications in C++.
@@ -218,7 +218,20 @@ Tools, libraries and headers for developing Ice applications in C++.
 %if ! %{cppx86}
 
 #
-# lib-ice-java package
+# libice-java-devel package
+#
+%package -n lib%{?nameprefix}ice-java-devel
+Summary: Tools for developing Ice applications in Java.
+Group: Development/Tools
+Obsoletes: ice-java-devel < 3.6
+Requires: lib%{?nameprefix}ice-java%{?_isa} = %{version}-%{release}
+Requires: lib%{?nameprefix}ice-java-compat%{?_isa} = %{version}-%{release}
+Requires: %{?nameprefix}ice-slice = %{version}-%{release}
+%description -n lib%{?nameprefix}ice-java-devel
+Tools for developing Ice applications in Java.
+
+#
+# libice-java package
 #
 %package -n lib%{?nameprefix}ice-java
 Summary: Ice for Java run-time libraries and development tools.
@@ -226,6 +239,16 @@ Group: System Environment/Libraries
 Obsoletes: ice-java-devel < 3.6, ice-java < 3.6
 %description -n lib%{?nameprefix}ice-java
 Ice for Java run-time libraries and development tools.
+
+#
+# libice-java-compat package
+#
+%package -n lib%{?nameprefix}ice-java-compat
+Summary: Ice for Java run-time compatibility libraries and development tools.
+Group: System Environment/Libraries
+Obsoletes: ice-java-devel < 3.6, ice-java < 3.6
+%description -n lib%{?nameprefix}ice-java-compat
+Ice for Java run-time compatibility libraries and development tools.
 
 #
 # ice-utils package
@@ -361,9 +384,9 @@ cd $RPM_BUILD_DIR/Ice-%{version}
 
 %ifarch %{core_arches}
     %if %{cppx86}
-        make %{makebuildopts} PLATFORMS=x86 LANGUAGES="cpp java" srcs
+        make %{makebuildopts} PLATFORMS=x86 LANGUAGES="cpp java java-compat" srcs
     %else
-        make %{makebuildopts} PLATFORMS=x64 LANGUAGES="cpp java php" srcs
+        make %{makebuildopts} PLATFORMS=x64 LANGUAGES="cpp java java-compat php" srcs
     %endif
 %endif
 
@@ -397,9 +420,11 @@ cd $RPM_BUILD_DIR/Ice-%{version}
                   %{?nameprefix}ice-utils \
                   php-%{?nameprefix}ice \
                   php-%{?nameprefix}ice-devel \
-                  lib%{?nameprefix}ice-java"
+                  lib%{?nameprefix}ice-java-devel \
+                  lib%{?nameprefix}ice-java \
+                  lib%{?nameprefix}ice-java-compat"
 
-        make %{?_smp_mflags} %{makeinstallopts} PLATFORMS=x64 LANGUAGES="cpp java php" install
+        make %{?_smp_mflags} %{makeinstallopts} PLATFORMS=x64 LANGUAGES="cpp java java-compat php" install
     %endif
 %endif
 
@@ -462,7 +487,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}
 #
 # Java links
 #
-for i in glacier2 ice icebox icebt icediscovery icelocatordiscovery icegrid icepatch2 icestorm
+for i in glacier2 ice icebox icediscovery icelocatordiscovery icegrid icepatch2 icestorm \
+    glacier2-compat ice-compat icebox-compat icebt-compat icediscovery-compat icelocatordiscovery-compat \
+    icegrid-compat icepatch2-compat icestorm-compat
 do
     ln -s $i-%{jarVersion}.jar $RPM_BUILD_ROOT%{_javadir}/$i.jar
     ln -s $i-%{jarVersion}-sources.jar $RPM_BUILD_ROOT%{_javadir}/$i-sources.jar
@@ -667,12 +694,19 @@ exit 0
 %if ! %{cppx86}
 
 #
+# libice-java-devel package
+#
+%files -n lib%{?nameprefix}ice-java-devel
+%defattr(-, root, root, -)
+%{_bindir}/slice2java
+%{_mandir}/man1/slice2java.1*
+%{_defaultdocdir}/lib%{?nameprefix}ice-java-devel-%{version}
+
+#
 # libice-java package
 #
 %files -n lib%{?nameprefix}ice-java
 %defattr(-, root, root, -)
-%{_bindir}/slice2java
-%{_mandir}/man1/slice2java.1*
 %{_javadir}/ice-%{jarVersion}.jar
 %{_javadir}/ice.jar
 %{_javadir}/ice-%{jarVersion}-sources.jar
@@ -685,10 +719,10 @@ exit 0
 %{_javadir}/icebox.jar
 %{_javadir}/icebox-%{jarVersion}-sources.jar
 %{_javadir}/icebox-sources.jar
-%{_javadir}/icebt-%{jarVersion}.jar
-%{_javadir}/icebt.jar
-%{_javadir}/icebt-%{jarVersion}-sources.jar
-%{_javadir}/icebt-sources.jar
+#%{_javadir}/icebt-%{jarVersion}.jar
+#%{_javadir}/icebt.jar
+#%{_javadir}/icebt-%{jarVersion}-sources.jar
+#%{_javadir}/icebt-sources.jar
 %{_javadir}/icegrid-%{jarVersion}.jar
 %{_javadir}/icegrid.jar
 %{_javadir}/icegrid-%{jarVersion}-sources.jar
@@ -710,6 +744,50 @@ exit 0
 %{_javadir}/icelocatordiscovery-%{jarVersion}-sources.jar
 %{_javadir}/icelocatordiscovery-sources.jar
 %{_defaultdocdir}/lib%{?nameprefix}ice-java-%{version}
+
+
+#
+# libice-java-compat package
+#
+%files -n lib%{?nameprefix}ice-java-compat
+%defattr(-, root, root, -)
+%{_javadir}/ice-compat-%{jarVersion}.jar
+%{_javadir}/ice-compat.jar
+%{_javadir}/ice-compat-%{jarVersion}-sources.jar
+%{_javadir}/ice-compat-sources.jar
+%{_javadir}/glacier2-compat-%{jarVersion}.jar
+%{_javadir}/glacier2-compat.jar
+%{_javadir}/glacier2-compat-%{jarVersion}-sources.jar
+%{_javadir}/glacier2-compat-sources.jar
+%{_javadir}/icebox-compat-%{jarVersion}.jar
+%{_javadir}/icebox-compat.jar
+%{_javadir}/icebox-compat-%{jarVersion}-sources.jar
+%{_javadir}/icebox-compat-sources.jar
+%{_javadir}/icebt-compat-%{jarVersion}.jar
+%{_javadir}/icebt-compat.jar
+%{_javadir}/icebt-compat-%{jarVersion}-sources.jar
+%{_javadir}/icebt-compat-sources.jar
+%{_javadir}/icegrid-compat-%{jarVersion}.jar
+%{_javadir}/icegrid-compat.jar
+%{_javadir}/icegrid-compat-%{jarVersion}-sources.jar
+%{_javadir}/icegrid-compat-sources.jar
+%{_javadir}/icepatch2-compat-%{jarVersion}.jar
+%{_javadir}/icepatch2-compat.jar
+%{_javadir}/icepatch2-compat-%{jarVersion}-sources.jar
+%{_javadir}/icepatch2-compat-sources.jar
+%{_javadir}/icestorm-compat-%{jarVersion}.jar
+%{_javadir}/icestorm-compat.jar
+%{_javadir}/icestorm-compat-%{jarVersion}-sources.jar
+%{_javadir}/icestorm-compat-sources.jar
+%{_javadir}/icediscovery-compat-%{jarVersion}.jar
+%{_javadir}/icediscovery-compat.jar
+%{_javadir}/icediscovery-compat-%{jarVersion}-sources.jar
+%{_javadir}/icediscovery-compat-sources.jar
+%{_javadir}/icelocatordiscovery-compat-%{jarVersion}.jar
+%{_javadir}/icelocatordiscovery-compat.jar
+%{_javadir}/icelocatordiscovery-compat-%{jarVersion}-sources.jar
+%{_javadir}/icelocatordiscovery-compat-sources.jar
+%{_defaultdocdir}/lib%{?nameprefix}ice-java-compat-%{version}
 
 #
 # ice-utils package
