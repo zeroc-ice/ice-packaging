@@ -234,21 +234,21 @@ Tools for developing Ice applications in Java.
 # libice-java package
 #
 %package -n lib%{?nameprefix}ice-java
-Summary: Ice for Java run-time libraries and development tools.
+Summary: Ice for Java run-time libraries.
 Group: System Environment/Libraries
 Obsoletes: ice-java-devel < 3.6, ice-java < 3.6
 %description -n lib%{?nameprefix}ice-java
-Ice for Java run-time libraries and development tools.
+Ice for Java run-time libraries.
 
 #
 # libice-java-compat package
 #
 %package -n lib%{?nameprefix}ice-java-compat
-Summary: Ice for Java run-time compatibility libraries and development tools.
+Summary: Ice for Java run-time compatibility libraries.
 Group: System Environment/Libraries
 Obsoletes: ice-java-devel < 3.6, ice-java < 3.6
 %description -n lib%{?nameprefix}ice-java-compat
-Ice for Java run-time compatibility libraries and development tools.
+Ice for Java run-time compatibility libraries.
 
 #
 # ice-utils package

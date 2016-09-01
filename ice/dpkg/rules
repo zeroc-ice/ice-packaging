@@ -25,7 +25,9 @@ PACKAGE_NAMES = \
 	zeroc-ice-utils \
 	zeroc-ice-utils-java \
 	libzeroc-ice-dev \
-	libzeroc-ice-java
+	libzeroc-ice-java-dev \
+	libzeroc-ice-java \
+	libzeroc-ice-java-compat
 
 VERSION = 3.7a3
 JAR_VERSION = 3.7.0-alpha3
@@ -38,7 +40,15 @@ ARTIFACT_NAMES = \
 	icegrid \
 	icelocatordiscovery \
 	icepatch2 \
-	icestorm
+	icestorm \
+	glacier2-compat \
+	ice-compat \
+	icebox-compat \
+	icediscovery-compat \
+	icegrid-compat \
+	icelocatordiscovery-compat \
+	icepatch2-compat \
+	icestorm-compat
 
 DESTDIR=$(CURDIR)/debian/tmp
 ifeq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
@@ -83,19 +93,19 @@ override_dh_auto_build-arch:
 	$(MAKE) $(MAKEOPTS) LANGUAGES="$(LANGUAGES)" CONFIGS="shared cpp11-shared" srcs
 
 override_dh_auto_build-indep:
-	$(MAKE) $(MAKEOPTS) -C java srcs
+	$(MAKE) $(MAKEOPTS) LANGUAGES="java java-compat" srcs
 
 override_dh_auto_install-arch:
 	$(MAKE) $(MAKEOPTS) LANGUAGES="$(LANGUAGES)" CONFIGS="shared cpp11-shared" DESTDIR=$(DESTDIR) install
 
 override_dh_auto_install-indep:
-	$(MAKE) $(MAKEOPTS) DESTDIR=$(DESTDIR) -C java install
+	$(MAKE) $(MAKEOPTS) DESTDIR=$(DESTDIR) LANGUAGES="java java-compat" install
 
 override_dh_auto_clean-arch:
 	$(MAKE) $(MAKEOPTS) LANGUAGES="$(LANGUAGES)" distclean
 
 override_dh_auto_clean-indep:
-	$(MAKE) $(MAKEOPTS) -C java clean
+	$(MAKE) $(MAKEOPTS) LANGUAGES="java java-compat" clean
 
 override_dh_auto_test:
 
@@ -146,3 +156,4 @@ override_dh_install:
 override_dh_clean:
 	dh_clean
 	rm -rf java/.gradle
+	rm -rf java-compat/.gradle

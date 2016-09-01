@@ -9,7 +9,7 @@ Build-Depends: debhelper (>= 9.0.0),
  libssl-dev,
  libdbus-1-dev,
  libbluetooth-dev,
- oracle-java7-installer [!armhf] | openjdk-7-jdk [!armhf],
+ oracle-java8-installer [!armhf] | openjdk-8-jdk [!armhf],
  php-dev [!armhf] | php5-dev [!armhf],
  javahelper (>= 0.45),
  dh-systemd (>= 1.3),
@@ -47,7 +47,7 @@ Package: zeroc-ice-all-dev
 Architecture: all
 Section: devel
 Depends: libzeroc-ice-dev (=${binary:Version}),
- libzeroc-ice-java (=${binary:Version}),
+ libzeroc-ice-java-dev (=${binary:Version}),
  php-zeroc-ice-dev (=${binary:Version}) <with-php>,
  php5-zeroc-ice-dev (=${binary:Version}) <with-php5>
 Replaces: libzeroc-ice-java (<=3.5.1)
@@ -81,6 +81,17 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 Description: Tools, libraries and headers for developing Ice applications in C++
  Tools, libraries and headers for developing Ice applications in C++.
 
+Package: libzeroc-ice-java-dev
+Architecture: i386 amd64
+Multi-Arch: foreign
+Section: devel
+Depends: ${shlibs:Depends}, ${misc:Depends},
+ zeroc-ice-slice (=${binary:Version}),
+ libzeroc-ice-java (=${binary:Version}),
+ libzeroc-ice-java-compat (=${binary:Version}),
+Description: Tools and libraries for developing Ice applications in Java
+ Tools and libraries for developing Ice applications in Java.
+
 Package: libzeroc-ice-java
 Architecture: i386 amd64
 Multi-Arch: foreign
@@ -89,9 +100,20 @@ Replaces: libice-java-dev, ice35-translators, libzeroc-ice3.5-java
 Depends: ${shlibs:Depends}, ${misc:Depends},
  zeroc-ice-slice (=${binary:Version}),
  libzeroc-ice3.7 (=${binary:Version}),
- openjdk-8-jdk | openjdk-7-jdk | oracle-java8-installer | oracle-java7-installer
-Description: Tools for developing Ice applications in Java
- Tools for developing Ice applications in Java.
+ openjdk-8-jdk | oracle-java8-installer
+Description: Libraries for developing Ice applications in Java
+ Libraries for developing Ice applications in Java.
+
+Package: libzeroc-ice-java-compat
+Architecture: i386 amd64
+Multi-Arch: foreign
+Section: devel
+Depends: ${shlibs:Depends}, ${misc:Depends},
+ zeroc-ice-slice (=${binary:Version}),
+ libzeroc-ice3.7 (=${binary:Version}),
+ openjdk-8-jdk | oracle-java8-installer
+Description: Compatibility libraries for developing Ice applications in Java
+ Compatibility libraries for developing Ice applications in Java.
 
 Package: php-zeroc-ice
 Architecture: i386 amd64
@@ -213,5 +235,5 @@ Section: admin
 Replaces: ice-utils, icegrid-gui
 Depends: ${java:Depends}, ${misc:Depends},
  zeroc-ice-utils (=${binary:Version}),
- openjdk-8-jdk | openjdk-7-jdk | oracle-java8-installer | oracle-java7-installer
+ openjdk-8-jdk | oracle-java8-installer
 Description: IceGrid Admin graphical client for IceGrid
