@@ -621,7 +621,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %{_defaultdocdir}/lib%{?nameprefix}ice3.7-c++-%{version}
 %post -n lib%{?nameprefix}ice3.7-c++ -p /sbin/ldconfig
-%postun -n lib%{?nameprefix}ice3.7-c++ -p /sbin/ldconfig
+%postun -n lib%{?nameprefix}ice3.7-c++
+/sbin/ldconfig
 exit 0
 
 #
@@ -639,7 +640,8 @@ exit 0
 %endif
 %{_defaultdocdir}/%{?nameprefix}icebox-%{version}
 %post -n %{?nameprefix}icebox -p /sbin/ldconfig
-%postun -n %{?nameprefix}icebox -p /sbin/ldconfig
+%postun -n %{?nameprefix}icebox
+/sbin/ldconfig
 exit 0
 
 #
@@ -688,7 +690,8 @@ exit 0
 %{_libdir}/libIceStormService.so.*
 %{_defaultdocdir}/lib%{?nameprefix}icestorm3.7-%{version}
 %post -n lib%{?nameprefix}icestorm3.7 -p /sbin/ldconfig
-%postun -n lib%{?nameprefix}icestorm3.7 -p /sbin/ldconfig
+%postun -n lib%{?nameprefix}icestorm3.7
+/sbin/ldconfig
 exit 0
 
 %if ! %{cppx86}
@@ -812,7 +815,8 @@ exit 0
 %{_mandir}/man1/icegriddb.1*
 %{_defaultdocdir}/%{?nameprefix}ice-utils-%{version}
 %post -n %{?nameprefix}ice-utils -p /sbin/ldconfig
-%postun -n %{?nameprefix}ice-utils -p /sbin/ldconfig
+%postun -n %{?nameprefix}ice-utils
+/sbin/ldconfig
 exit 0
 
 #
@@ -968,7 +972,8 @@ exit 0
 %{_mandir}/man1/icepatch2server.1*
 %{_defaultdocdir}/%{?nameprefix}icepatch2-%{version}
 %post -n %{?nameprefix}icepatch2 -p /sbin/ldconfig
-%postun -n %{?nameprefix}icepatch2 -p /sbin/ldconfig
+%postun -n %{?nameprefix}icepatch2
+/sbin/ldconfig
 exit 0
 
 #
