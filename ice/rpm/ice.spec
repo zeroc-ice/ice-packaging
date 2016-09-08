@@ -112,6 +112,16 @@ Requires: java
 Graphical IceGrid administrative tool and command-line
 certificate authority utility.
 
+#
+# libice-java package
+#
+%package -n lib%{?nameprefix}ice-java
+Summary: Ice for Java run-time libraries.
+Group: System Environment/Libraries
+Obsoletes: ice-java-devel < 3.6, ice-java < 3.6
+%description -n lib%{?nameprefix}ice-java
+Ice for Java run-time libraries.
+
 %endif
 
 #
@@ -143,14 +153,8 @@ Ice meta package that includes all run-time components and services.
 #
 %package -n %{?nameprefix}ice-all-devel
 Summary: Ice development meta package that includes development kits for all supported languages.
-Group: System Environment/Libraries
-%if %{cppx86}
+Group: Development/Tools
 Requires: lib%{?nameprefix}ice-c++-devel%{?_isa} = %{version}-%{release}
-%else
-Requires: lib%{?nameprefix}ice-c++-devel%{?_isa} = %{version}-%{release}
-Requires: lib%{?nameprefix}ice-java-devel%{?_isa} = %{version}-%{release}
-Requires: php-%{?nameprefix}ice-devel%{?_isa} = %{version}-%{release}
-%endif # cppx86
 %description -n %{?nameprefix}ice-all-devel
 Ice development meta package that includes development kits for all supported languages.
 
@@ -201,16 +205,14 @@ Requires: %{?liblmdb}
 IceStorm service.
 
 #
-# libice-c+++-devel package
+# libice-c++-devel package
 #
 %package -n lib%{?nameprefix}ice-c++-devel
 Summary: Tools, libraries and headers for developing Ice applications in C++.
 Group: Development/Tools
 Obsoletes: ice-c++-devel < 3.6
-Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}, %{?nameprefix}ice-slice = %{version}-%{release}
-%if %{cppx86}
-Requires: lib%{?nameprefix}ice-c++-devel(x86-64) = %{version}-%{release}
-%endif
+Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
+Requires: %{?nameprefix}ice-compilers(x86-64) = %{version}-%{release}
 Requires: glibc-devel%{?_isa}
 %description -n lib%{?nameprefix}ice-c++-devel
 Tools, libraries and headers for developing Ice applications in C++.
@@ -218,37 +220,14 @@ Tools, libraries and headers for developing Ice applications in C++.
 %if ! %{cppx86}
 
 #
-# libice-java-devel package
+# ice-compilers package
 #
-%package -n lib%{?nameprefix}ice-java-devel
-Summary: Tools for developing Ice applications in Java.
+%package -n %{?nameprefix}ice-compilers
+Summary: Slice compilers for developing Ice applications
 Group: Development/Tools
-Obsoletes: ice-java-devel < 3.6
-Requires: lib%{?nameprefix}ice-java%{?_isa} = %{version}-%{release}
-Requires: lib%{?nameprefix}ice-java-compat%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}ice-slice = %{version}-%{release}
-%description -n lib%{?nameprefix}ice-java-devel
-Tools for developing Ice applications in Java.
-
-#
-# libice-java package
-#
-%package -n lib%{?nameprefix}ice-java
-Summary: Ice for Java run-time libraries.
-Group: System Environment/Libraries
-Obsoletes: ice-java-devel < 3.6, ice-java < 3.6
-%description -n lib%{?nameprefix}ice-java
-Ice for Java run-time libraries.
-
-#
-# libice-java-compat package
-#
-%package -n lib%{?nameprefix}ice-java-compat
-Summary: Ice for Java run-time compatibility libraries.
-Group: System Environment/Libraries
-Obsoletes: ice-java-devel < 3.6, ice-java < 3.6
-%description -n lib%{?nameprefix}ice-java-compat
-Ice for Java run-time compatibility libraries.
+%description -n %{?nameprefix}ice-compilers
+Slice compilers for developing Ice applications.
 
 #
 # ice-utils package
@@ -358,17 +337,6 @@ Requires: php-common%{?_isa} < 5.4
 %description -n php-%{?nameprefix}ice
 The Ice run time for PHP.
 
-#
-# php-ice-devel package
-#
-%package -n php-%{?nameprefix}ice-devel
-Summary: Tools for developing Ice applications in PHP.
-Group: Development/Tools
-Obsoletes: ice-php-devel < 3.6
-Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}, %{?nameprefix}ice-slice = %{version}-%{release}
-%description -n php-%{?nameprefix}ice-devel
-Tools for developing Ice applications in PHP.
-
 %endif # ! cppx86
 
 %endif # core_arches
@@ -384,16 +352,15 @@ cd $RPM_BUILD_DIR/Ice-%{version}
 
 %ifarch %{core_arches}
     %if %{cppx86}
-        make %{makebuildopts} PLATFORMS=x86 LANGUAGES="cpp java java-compat" srcs
+        make %{makebuildopts} PLATFORMS=x86 LANGUAGES="cpp" srcs
     %else
-        make %{makebuildopts} PLATFORMS=x64 LANGUAGES="cpp java java-compat php" srcs
+        make %{makebuildopts} PLATFORMS=x64 LANGUAGES="cpp php" srcs
     %endif
 %endif
 
 %ifarch noarch
-    # Just builds the necessary for the IceGridGUI (for ice-utils-java)
     (cd cpp; make %{makebuildopts} slice2java)
-    (cd java; make srcs)
+    make %{makebuildopts} LANGUAGES="java java-compat" srcs
 %endif
 
 
@@ -404,7 +371,8 @@ cd $RPM_BUILD_DIR/Ice-%{version}
 
 %ifarch %{core_arches}
     PACKAGES="%{?nameprefix}ice-all-runtime \
-              %{?nameprefix}icebox %{?nameprefix}ice-all-devel \
+              %{?nameprefix}icebox \
+              %{?nameprefix}ice-all-devel \
               lib%{?nameprefix}ice3.7-c++ \
               lib%{?nameprefix}ice-c++-devel \
               lib%{?nameprefix}icestorm3.7"
@@ -418,23 +386,20 @@ cd $RPM_BUILD_DIR/Ice-%{version}
                   %{?nameprefix}icegrid \
                   %{?nameprefix}icepatch2 \
                   %{?nameprefix}ice-utils \
-                  php-%{?nameprefix}ice \
-                  php-%{?nameprefix}ice-devel \
-                  lib%{?nameprefix}ice-java-devel \
-                  lib%{?nameprefix}ice-java \
-                  lib%{?nameprefix}ice-java-compat"
+                  %{?nameprefix}ice-compilers \
+                  php-%{?nameprefix}ice"
 
-        make %{?_smp_mflags} %{makeinstallopts} PLATFORMS=x64 LANGUAGES="cpp java java-compat php" install
+        make %{?_smp_mflags} %{makeinstallopts} PLATFORMS=x64 LANGUAGES="cpp php" install
     %endif
 %endif
 
 %ifarch noarch
     # Just install what is necessary for ice-utils-java
-    PACKAGES="%{?nameprefix}ice-utils-java %{?nameprefix}ice-slice"
-    (cd java; make %{makeinstallopts} install-icegridgui)
+    PACKAGES="%{?nameprefix}ice-utils-java \
+              %{?nameprefix}ice-slice \
+              lib%{?nameprefix}ice-java"
 
-    # And for the ice-slice package
-    make %{makeinstallopts} install-slice
+    make %{makeinstallopts} LANGUAGES="java java-compat" install
 %endif
 
 #
@@ -463,7 +428,6 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2js.1
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2objc.1
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2py.1
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2rb.1
-rm -f $RPM_BUILD_ROOT/%{_javadir}/*.pom
 
 # The files below are packaged with the noarch RPM
 rm -f $RPM_BUILD_ROOT/%{_javadir}/icegridgui.jar
@@ -483,18 +447,6 @@ rm -rf $RPM_BUILD_ROOT%{_mandir}
 rm -rf $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}
 
 %else
-
-#
-# Java links
-#
-for i in glacier2 ice icebox icediscovery icelocatordiscovery icegrid icepatch2 icestorm \
-    glacier2-compat ice-compat icebox-compat icebt-compat icediscovery-compat icelocatordiscovery-compat \
-    icegrid-compat icepatch2-compat icestorm-compat
-do
-    ln -s $i-%{jarVersion}.jar $RPM_BUILD_ROOT%{_javadir}/$i.jar
-    ln -s $i-%{jarVersion}-sources.jar $RPM_BUILD_ROOT%{_javadir}/$i-sources.jar
-done
-
 #
 # php ice.ini
 #
@@ -542,6 +494,21 @@ if [ -n "$JARSIGNER_KEYSTORE" ]; then
     jarsigner -keystore $JARSIGNER_KEYSTORE -storepass "$JARSIGNER_KEYSTORE_PASSWORD" $RPM_BUILD_ROOT%{_javadir}/icegridgui.jar $JARSIGNER_KEYSTORE_ALIAS -tsa http://timestamp.digicert.com
 fi
 
+#
+# Java links
+#
+for i in glacier2 ice icebox icediscovery icelocatordiscovery icegrid icepatch2 icestorm \
+    glacier2-compat ice-compat icebox-compat icebt-compat icediscovery-compat icelocatordiscovery-compat \
+    icegrid-compat icepatch2-compat icestorm-compat
+do
+    ln -s $i-%{jarVersion}.jar $RPM_BUILD_ROOT%{_javadir}/$i.jar
+    ln -s $i-%{jarVersion}-sources.jar $RPM_BUILD_ROOT%{_javadir}/$i-sources.jar
+done
+
+rm -rf $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}/LICENSE
+rm -rf $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}/ICE_LICENSE
+rm -f $RPM_BUILD_ROOT/%{_javadir}/*.pom
+
 %endif # noarch
 
 %clean
@@ -565,6 +532,85 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/icegridgui
 %{_javadir}/icegridgui.jar
 %{_defaultdocdir}/%{?nameprefix}ice-utils-java-%{version}
+
+#
+# libice-java package
+#
+%files -n lib%{?nameprefix}ice-java
+%defattr(-, root, root, -)
+%{_javadir}/ice-%{jarVersion}.jar
+%{_javadir}/ice.jar
+%{_javadir}/ice-%{jarVersion}-sources.jar
+%{_javadir}/ice-sources.jar
+%{_javadir}/glacier2-%{jarVersion}.jar
+%{_javadir}/glacier2.jar
+%{_javadir}/glacier2-%{jarVersion}-sources.jar
+%{_javadir}/glacier2-sources.jar
+%{_javadir}/icebox-%{jarVersion}.jar
+%{_javadir}/icebox.jar
+%{_javadir}/icebox-%{jarVersion}-sources.jar
+%{_javadir}/icebox-sources.jar
+#%{_javadir}/icebt-%{jarVersion}.jar
+#%{_javadir}/icebt.jar
+#%{_javadir}/icebt-%{jarVersion}-sources.jar
+#%{_javadir}/icebt-sources.jar
+%{_javadir}/icegrid-%{jarVersion}.jar
+%{_javadir}/icegrid.jar
+%{_javadir}/icegrid-%{jarVersion}-sources.jar
+%{_javadir}/icegrid-sources.jar
+%{_javadir}/icepatch2-%{jarVersion}.jar
+%{_javadir}/icepatch2.jar
+%{_javadir}/icepatch2-%{jarVersion}-sources.jar
+%{_javadir}/icepatch2-sources.jar
+%{_javadir}/icestorm-%{jarVersion}.jar
+%{_javadir}/icestorm.jar
+%{_javadir}/icestorm-%{jarVersion}-sources.jar
+%{_javadir}/icestorm-sources.jar
+%{_javadir}/icediscovery-%{jarVersion}.jar
+%{_javadir}/icediscovery.jar
+%{_javadir}/icediscovery-%{jarVersion}-sources.jar
+%{_javadir}/icediscovery-sources.jar
+%{_javadir}/icelocatordiscovery-%{jarVersion}.jar
+%{_javadir}/icelocatordiscovery.jar
+%{_javadir}/icelocatordiscovery-%{jarVersion}-sources.jar
+%{_javadir}/icelocatordiscovery-sources.jar
+%{_javadir}/ice-compat-%{jarVersion}.jar
+%{_javadir}/ice-compat.jar
+%{_javadir}/ice-compat-%{jarVersion}-sources.jar
+%{_javadir}/ice-compat-sources.jar
+%{_javadir}/glacier2-compat-%{jarVersion}.jar
+%{_javadir}/glacier2-compat.jar
+%{_javadir}/glacier2-compat-%{jarVersion}-sources.jar
+%{_javadir}/glacier2-compat-sources.jar
+%{_javadir}/icebox-compat-%{jarVersion}.jar
+%{_javadir}/icebox-compat.jar
+%{_javadir}/icebox-compat-%{jarVersion}-sources.jar
+%{_javadir}/icebox-compat-sources.jar
+%{_javadir}/icebt-compat-%{jarVersion}.jar
+%{_javadir}/icebt-compat.jar
+%{_javadir}/icebt-compat-%{jarVersion}-sources.jar
+%{_javadir}/icebt-compat-sources.jar
+%{_javadir}/icegrid-compat-%{jarVersion}.jar
+%{_javadir}/icegrid-compat.jar
+%{_javadir}/icegrid-compat-%{jarVersion}-sources.jar
+%{_javadir}/icegrid-compat-sources.jar
+%{_javadir}/icepatch2-compat-%{jarVersion}.jar
+%{_javadir}/icepatch2-compat.jar
+%{_javadir}/icepatch2-compat-%{jarVersion}-sources.jar
+%{_javadir}/icepatch2-compat-sources.jar
+%{_javadir}/icestorm-compat-%{jarVersion}.jar
+%{_javadir}/icestorm-compat.jar
+%{_javadir}/icestorm-compat-%{jarVersion}-sources.jar
+%{_javadir}/icestorm-compat-sources.jar
+%{_javadir}/icediscovery-compat-%{jarVersion}.jar
+%{_javadir}/icediscovery-compat.jar
+%{_javadir}/icediscovery-compat-%{jarVersion}-sources.jar
+%{_javadir}/icediscovery-compat-sources.jar
+%{_javadir}/icelocatordiscovery-compat-%{jarVersion}.jar
+%{_javadir}/icelocatordiscovery-compat.jar
+%{_javadir}/icelocatordiscovery-compat-%{jarVersion}-sources.jar
+%{_javadir}/icelocatordiscovery-compat-sources.jar
+%{_defaultdocdir}/lib%{?nameprefix}ice-java-%{version}
 
 %endif # noarch
 
@@ -668,8 +714,6 @@ exit 0
 %{_libdir}/libIceSSL++11.so
 %{_libdir}/libIceStorm++11.so
 %if ! %{cppx86}
-%{_bindir}/slice2cpp
-%{_mandir}/man1/slice2cpp.1*
 %{_includedir}/Glacier2
 %{_includedir}/Ice
 %{_includedir}/IceBox
@@ -697,100 +741,19 @@ exit 0
 %if ! %{cppx86}
 
 #
-# libice-java-devel package
+# ice-compilers package
 #
-%files -n lib%{?nameprefix}ice-java-devel
+%files -n %{?nameprefix}ice-compilers
 %defattr(-, root, root, -)
+%{_bindir}/slice2cpp
+%{_mandir}/man1/slice2cpp.1*
 %{_bindir}/slice2java
 %{_mandir}/man1/slice2java.1*
-%{_defaultdocdir}/lib%{?nameprefix}ice-java-devel-%{version}
-
-#
-# libice-java package
-#
-%files -n lib%{?nameprefix}ice-java
-%defattr(-, root, root, -)
-%{_javadir}/ice-%{jarVersion}.jar
-%{_javadir}/ice.jar
-%{_javadir}/ice-%{jarVersion}-sources.jar
-%{_javadir}/ice-sources.jar
-%{_javadir}/glacier2-%{jarVersion}.jar
-%{_javadir}/glacier2.jar
-%{_javadir}/glacier2-%{jarVersion}-sources.jar
-%{_javadir}/glacier2-sources.jar
-%{_javadir}/icebox-%{jarVersion}.jar
-%{_javadir}/icebox.jar
-%{_javadir}/icebox-%{jarVersion}-sources.jar
-%{_javadir}/icebox-sources.jar
-#%{_javadir}/icebt-%{jarVersion}.jar
-#%{_javadir}/icebt.jar
-#%{_javadir}/icebt-%{jarVersion}-sources.jar
-#%{_javadir}/icebt-sources.jar
-%{_javadir}/icegrid-%{jarVersion}.jar
-%{_javadir}/icegrid.jar
-%{_javadir}/icegrid-%{jarVersion}-sources.jar
-%{_javadir}/icegrid-sources.jar
-%{_javadir}/icepatch2-%{jarVersion}.jar
-%{_javadir}/icepatch2.jar
-%{_javadir}/icepatch2-%{jarVersion}-sources.jar
-%{_javadir}/icepatch2-sources.jar
-%{_javadir}/icestorm-%{jarVersion}.jar
-%{_javadir}/icestorm.jar
-%{_javadir}/icestorm-%{jarVersion}-sources.jar
-%{_javadir}/icestorm-sources.jar
-%{_javadir}/icediscovery-%{jarVersion}.jar
-%{_javadir}/icediscovery.jar
-%{_javadir}/icediscovery-%{jarVersion}-sources.jar
-%{_javadir}/icediscovery-sources.jar
-%{_javadir}/icelocatordiscovery-%{jarVersion}.jar
-%{_javadir}/icelocatordiscovery.jar
-%{_javadir}/icelocatordiscovery-%{jarVersion}-sources.jar
-%{_javadir}/icelocatordiscovery-sources.jar
-%{_defaultdocdir}/lib%{?nameprefix}ice-java-%{version}
-
-
-#
-# libice-java-compat package
-#
-%files -n lib%{?nameprefix}ice-java-compat
-%defattr(-, root, root, -)
-%{_javadir}/ice-compat-%{jarVersion}.jar
-%{_javadir}/ice-compat.jar
-%{_javadir}/ice-compat-%{jarVersion}-sources.jar
-%{_javadir}/ice-compat-sources.jar
-%{_javadir}/glacier2-compat-%{jarVersion}.jar
-%{_javadir}/glacier2-compat.jar
-%{_javadir}/glacier2-compat-%{jarVersion}-sources.jar
-%{_javadir}/glacier2-compat-sources.jar
-%{_javadir}/icebox-compat-%{jarVersion}.jar
-%{_javadir}/icebox-compat.jar
-%{_javadir}/icebox-compat-%{jarVersion}-sources.jar
-%{_javadir}/icebox-compat-sources.jar
-%{_javadir}/icebt-compat-%{jarVersion}.jar
-%{_javadir}/icebt-compat.jar
-%{_javadir}/icebt-compat-%{jarVersion}-sources.jar
-%{_javadir}/icebt-compat-sources.jar
-%{_javadir}/icegrid-compat-%{jarVersion}.jar
-%{_javadir}/icegrid-compat.jar
-%{_javadir}/icegrid-compat-%{jarVersion}-sources.jar
-%{_javadir}/icegrid-compat-sources.jar
-%{_javadir}/icepatch2-compat-%{jarVersion}.jar
-%{_javadir}/icepatch2-compat.jar
-%{_javadir}/icepatch2-compat-%{jarVersion}-sources.jar
-%{_javadir}/icepatch2-compat-sources.jar
-%{_javadir}/icestorm-compat-%{jarVersion}.jar
-%{_javadir}/icestorm-compat.jar
-%{_javadir}/icestorm-compat-%{jarVersion}-sources.jar
-%{_javadir}/icestorm-compat-sources.jar
-%{_javadir}/icediscovery-compat-%{jarVersion}.jar
-%{_javadir}/icediscovery-compat.jar
-%{_javadir}/icediscovery-compat-%{jarVersion}-sources.jar
-%{_javadir}/icediscovery-compat-sources.jar
-%{_javadir}/icelocatordiscovery-compat-%{jarVersion}.jar
-%{_javadir}/icelocatordiscovery-compat.jar
-%{_javadir}/icelocatordiscovery-compat-%{jarVersion}-sources.jar
-%{_javadir}/icelocatordiscovery-compat-sources.jar
-%{_defaultdocdir}/lib%{?nameprefix}ice-java-compat-%{version}
+%{_bindir}/slice2html
+%{_mandir}/man1/slice2html.1*
+%{_bindir}/slice2php
+%{_mandir}/man1/slice2php.1*
+%{_defaultdocdir}/%{?nameprefix}ice-compilers-%{version}
 
 #
 # ice-utils package
@@ -807,8 +770,6 @@ exit 0
 %{_mandir}/man1/icestormadmin.1*
 %{_bindir}/icestormdb
 %{_mandir}/man1/icestormdb.1*
-%{_bindir}/slice2html
-%{_mandir}/man1/slice2html.1*
 %{_bindir}/icegridadmin
 %{_mandir}/man1/icegridadmin.1*
 %{_bindir}/icegriddb
@@ -989,15 +950,6 @@ exit 0
 %config(noreplace) %{_sysconfdir}/php.d/ice.ini
 %endif
 %{_defaultdocdir}/php-%{?nameprefix}ice-%{version}
-
-#
-# php-ice-devel package
-#
-%files -n php-%{?nameprefix}ice-devel
-%defattr(-, root, root, -)
-%{_bindir}/slice2php
-%{_mandir}/man1/slice2php.1*
-%{_defaultdocdir}/php-%{?nameprefix}ice-devel-%{version}
 
 %endif # ! cppx86
 
