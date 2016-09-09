@@ -143,6 +143,7 @@ Requires: %{?nameprefix}icegrid%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icepatch2%{?_isa} = %{version}-%{release}
 Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
+Requires: lib%{?nameprefix}ice-java = %{version}-%{release}
 Requires: %{?nameprefix}ice-utils-java = %{version}-%{release}
 %endif # cppx86
 %description -n %{?nameprefix}ice-all-runtime
