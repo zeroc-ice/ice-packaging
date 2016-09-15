@@ -148,9 +148,10 @@ BuildRequires: php5-devel >= 5.5
 %endif
 
 %description
-Ice is a comprehensive RPC framework that helps you build
-distributed applications with minimal effort using familiar
-object-oriented idioms.
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
 
 #
 # Arch-independent packages
@@ -158,19 +159,32 @@ object-oriented idioms.
 %ifarch noarch
 
 %package -n %{?nameprefix}ice-slice
-Summary: Slice files for the Ice run time
+Summary: Slice files for Ice.
 Group: System Environment/Libraries
 %description -n %{?nameprefix}ice-slice
-Slice files for the Ice run time.
+This package contains Slice files used by the Ice framework.
 
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
+ 
 %package -n %{?nameprefix}ice-utils-java
-Summary: Java-based Ice utilities and admin tools.
+Summary:  IceGrid Admin graphical client.
 Group: Applications/System
 Obsoletes: ice-utils < 3.6
 Requires: java
 %description -n %{?nameprefix}ice-utils-java
-Graphical IceGrid administrative tool and command-line
-certificate authority utility.
+The IceGrid service helps you locate, deploy and manage Ice servers.
+
+The IceGrid GUI give you complete control over your deployed applications.
+Activities such as starting a server or modifying a configuration setting
+are just a mouse click away.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
 %endif
 
 #
@@ -182,7 +196,7 @@ certificate authority utility.
 # This "meta" package includes all run-time components and services.
 #
 %package -n %{?nameprefix}ice-all-runtime
-Summary: Ice meta package that includes all run-time components and services.
+Summary: Ice run-time packages (meta package).
 Group: System Environment/Libraries
 %if %{cppx86}
 Requires: %{?nameprefix}icebox%{?_isa} = %{version}-%{release}
@@ -199,13 +213,18 @@ Requires: %{?nameprefix}icebox%{?_isa} = %{version}-%{release}
 Requires: lib%{?nameprefix}icestorm3.6%{?_isa} = %{version}-%{release}
 %endif # cppx86
 %description -n %{?nameprefix}ice-all-runtime
-Ice meta package that includes all run-time components and services.
+This is a meta package that depends on all run-time packages for Ice.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
 
 #
 # This "meta" package includes all development kits.
 #
 %package -n %{?nameprefix}ice-all-devel
-Summary: Ice development meta package that includes development kits for all supported languages.
+Summary: Ice development packages (meta package)
 Group: System Environment/Libraries
 %if %{cppx86}
 Requires: lib%{?nameprefix}ice-c++-devel%{?_isa} = %{version}-%{release}
@@ -215,17 +234,27 @@ Requires: lib%{?nameprefix}ice-java%{?_isa} = %{version}-%{release}
 Requires: php-%{?nameprefix}ice-devel%{?_isa} = %{version}-%{release}
 %endif # cppx86
 %description -n %{?nameprefix}ice-all-devel
-Ice development meta package that includes development kits for all supported languages.
+This is a meta package that depends on all development packages for Ice.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
 
 %package -n lib%{?nameprefix}ice3.6-c++
-Summary: The Ice run time libraries for C++.
+Summary: Ice for C++ run-time libraries.
 Group: System Environment/Libraries
 Requires: bzip2
 %description -n lib%{?nameprefix}ice3.6-c++
-The Ice run time libraries for C++.
+This package contains the C++ run-time libraries for the Ice framework.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
 
 %package -n lib%{?nameprefix}freeze3.6-c++
-Summary: The Freeze library for C++.
+Summary: C++ run-time libraries for the Freeze persistence service.
 Group: System Environment/Libraries
 Requires: lib%{?nameprefix}ice3.6-c++%{?_isa} = %{version}-%{release}
 %if "%{dist}" == ".el7"
@@ -234,10 +263,20 @@ Requires: libdb%{?_isa} >= %{dbversion}
 Requires: db53%{?_isa} >= %{dbversion}
 %endif
 %description -n lib%{?nameprefix}freeze3.6-c++
-The Freeze library for C++.
+This package contains the C++ run-time libraries for the Freeze persistence
+service.
+
+The Freeze persistence service allows you to store Ice objects in Oracle
+Berkeley DB, with all the features you expect from a robust database - 
+transactions, hot backups, indexing, and more.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
 
 %package -n %{?nameprefix}icebox
-Summary: IceBox server.
+Summary: IceBox server, a framework for Ice application services.
 Group: System Environment/Daemons
 Requires: %{?nameprefix}ice-utils = %{version}-%{release}
 Obsoletes: ice-servers < 3.6
@@ -255,7 +294,13 @@ Requires(preun): /sbin/chkconfig
 Requires(preun): /sbin/service
 %endif
 %description -n %{?nameprefix}icebox
-IceBox server.
+This package contains the IceBox server, an easy-to-use framework for
+developing and deploying Ice application services.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
 
 %if ! %{cppx86}
 
@@ -269,7 +314,12 @@ Requires: libdb-java%{?_isa} >= %{dbversion}
 Requires: db53-java%{?_isa} >= %{dbversion}
 %endif
 %description -n lib%{?nameprefix}ice-java
-Ice for Java run-time libraries and development tools.
+This package contains Ice for Java run-time libraries and development tools.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
 
 %package -n %{?nameprefix}ice-utils
 Summary: Ice utilities and admin tools.
@@ -277,11 +327,15 @@ Group: Applications/System
 Obsoletes: ice-utils < 3.6
 Requires: lib%{?nameprefix}freeze3.6-c++%{?_isa} = %{version}-%{release}
 %description -n %{?nameprefix}ice-utils
-Command-line administrative tools to manage Ice servers (IceGrid,
-IceStorm, IceBox, etc.), plus various Ice-related utilities.
+This package contains Ice utilities and admin tools.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
 
 %package -n %{?nameprefix}icegrid
-Summary: IceGrid servers.
+Summary: Locate, deploy, and manage Ice servers.
 Group: System Environment/Daemons
 Obsoletes: ice-servers < 3.6
 Requires: lib%{?nameprefix}freeze3.6-c++%{?_isa} = %{version}-%{release}, %{?nameprefix}ice-utils = %{version}-%{release}
@@ -299,10 +353,16 @@ Requires(preun): /sbin/chkconfig
 Requires(preun): /sbin/service
 %endif
 %description -n %{?nameprefix}icegrid
-IceGrid servers.
+This package contains the IceGrid service, the IceGrid service helps you
+locate, deploy and manage Ice servers.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
 
 %package -n %{?nameprefix}glacier2
-Summary: Glacier2 server.
+Summary: Glacier2 router.
 Group: System Environment/Daemons
 Obsoletes: ice-servers < 3.6
 # Requirements for the users
@@ -319,10 +379,19 @@ Requires(preun): /sbin/chkconfig
 Requires(preun): /sbin/service
 %endif
 %description -n %{?nameprefix}glacier2
-Glacier2 server.
+This package contains the Glacier2 router. A Glacier2 router allows you to
+securely route Ice communications across networks, such as the public Internet
+and a private network behind a firewall. With Glacier2, you only need to open
+one port in your firewall to make multiple back-end Ice servers reachable by
+remote Ice clients on the Internet.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
 
 %package -n %{?nameprefix}icepatch2
-Summary: IcePatch2 server.
+Summary: File distribution and patching.
 Group: System Environment/Daemons
 Obsoletes: ice-servers < 3.6
 Requires: %{?nameprefix}ice-utils%{?_isa} = %{version}-%{release}
@@ -340,16 +409,34 @@ Requires(preun): /sbin/chkconfig
 Requires(preun): /sbin/service
 %endif
 %description -n %{?nameprefix}icepatch2
-IcePatch2 server.
+This package contains IcePatch2 service, with IcePatch2, you can easily
+distribute a large set of files to many clients, and keep these files
+synced with your source set.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
 
 %endif # ! cppx86
 
 %package -n lib%{?nameprefix}icestorm3.6
-Summary: IceStorm service.
+Summary: IceStorm publish-subscribe event distribution service.
 Group: System Environment/Libraries
 Requires: lib%{?nameprefix}freeze3.6-c++%{?_isa} = %{version}-%{release}
 %description -n lib%{?nameprefix}icestorm3.6
-IceStorm service.
+This package contains the IceStorm publish-subscribe event distribution
+service.
+
+IceStorm helps you create push applications. Your Ice client (the publisher)
+sends a request to a topic managed by IceStorm, and IceStorm delivers this
+request to all the subscribers (Ice objects) that you registered with this
+topic.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
 
 %package -n lib%{?nameprefix}ice-c++-devel
 Summary: Tools, libraries and headers for developing Ice applications in C++.
@@ -363,12 +450,18 @@ Requires: lib%{?nameprefix}ice-c++-devel(x86-64) = %{version}-%{release}
 Requires: glibc-devel%{?_isa}
 %endif
 %description -n lib%{?nameprefix}ice-c++-devel
-Tools, libraries and headers for developing Ice applications in C++.
+This package contains the tools, libraries and headers for developing Ice
+applications in C++.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
 
 %if ! %{cppx86}
 
 %package -n php-%{?nameprefix}ice
-Summary: The Ice run time for PHP.
+Summary: PHP extension for Ice.
 Group: System Environment/Libraries
 Obsoletes: ice-php < 3.6
 Requires: lib%{?nameprefix}ice3.6-c++%{?_isa} = %{version}-%{release}
@@ -388,7 +481,12 @@ Requires: php-common%{?_isa}
 Requires: php-common%{?_isa} < 5.4
 %endif
 %description -n php-%{?nameprefix}ice
-The Ice run time for PHP.
+This package contains a PHP extension for communicating with Ice.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
 
 %package -n php-%{?nameprefix}ice-devel
 Summary: Tools for developing Ice applications in PHP.
@@ -396,7 +494,13 @@ Group: Development/Tools
 Obsoletes: ice-php-devel < 3.6
 Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}, %{?nameprefix}ice-slice = %{version}-%{release}
 %description -n php-%{?nameprefix}ice-devel
-Tools for developing Ice applications in PHP.
+This package contains the tools for developing Ice applications in PHP.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
+
 %endif
 
 %endif # ! cppx86
