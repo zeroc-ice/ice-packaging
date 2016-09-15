@@ -111,7 +111,7 @@ your application logic.
 %package -n %{?nameprefix}icegridgui
 Summary: IceGrid Admin graphical client.
 Group: Applications/System
-Obsoletes: ice-utils < 3.6
+Obsoletes: ice-utils < 3.6, ice-utils-java
 Requires: java
 %description -n %{?nameprefix}icegridgui
 The IceGrid service helps you locate, deploy and manage Ice servers.
