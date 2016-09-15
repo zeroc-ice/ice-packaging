@@ -101,16 +101,15 @@ Group: System Environment/Libraries
 Slice files for the Ice run time.
 
 #
-# ice-utils-java package
+# icegridgui package
 #
-%package -n %{?nameprefix}ice-utils-java
-Summary: Java-based Ice utilities and admin tools.
+%package -n %{?nameprefix}icegridgui
+Summary: Graphical admin utility for IceGrid
 Group: Applications/System
 Obsoletes: ice-utils < 3.6
 Requires: java
-%description -n %{?nameprefix}ice-utils-java
-Graphical IceGrid administrative tool and command-line
-certificate authority utility.
+%description -n %{?nameprefix}icegridgui
+Graphical admin utility for IceGrid.
 
 #
 # libice-java package
@@ -144,7 +143,7 @@ Requires: %{?nameprefix}icepatch2%{?_isa} = %{version}-%{release}
 Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
 Requires: lib%{?nameprefix}ice-java = %{version}-%{release}
-Requires: %{?nameprefix}ice-utils-java = %{version}-%{release}
+Requires: %{?nameprefix}icegridgui = %{version}-%{release}
 %endif # cppx86
 %description -n %{?nameprefix}ice-all-runtime
 Ice meta package that includes all run-time components and services.
@@ -395,8 +394,8 @@ cd $RPM_BUILD_DIR/Ice-%{version}
 %endif
 
 %ifarch noarch
-    # Just install what is necessary for ice-utils-java
-    PACKAGES="%{?nameprefix}ice-utils-java \
+    # Just install what is necessary for icegridgui
+    PACKAGES="%{?nameprefix}icegridgui \
               %{?nameprefix}ice-slice \
               lib%{?nameprefix}ice-java"
 
@@ -484,7 +483,7 @@ cp -p %{rpmbuildfiles}/MCPP_LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/lib%{?namep
 #
 %ifarch noarch
 
-cp -p %{rpmbuildfiles}/JGOODIES_LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/%{?nameprefix}ice-utils-java-%{version}
+cp -p %{rpmbuildfiles}/JGOODIES_LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/%{?nameprefix}icegridgui-%{version}
 
 #
 # IceGridGUI
@@ -528,11 +527,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/slice
 %{_defaultdocdir}/%{?nameprefix}ice-slice-%{version}
 
-%files -n %{?nameprefix}ice-utils-java
+%files -n %{?nameprefix}icegridgui
 %defattr(-, root, root, -)
 %attr(755,root,root) %{_bindir}/icegridgui
 %{_javadir}/icegridgui.jar
-%{_defaultdocdir}/%{?nameprefix}ice-utils-java-%{version}
+%{_defaultdocdir}/%{?nameprefix}icegridgui-%{version}
 
 #
 # libice-java package
@@ -957,6 +956,9 @@ exit 0
 %endif # core_arches
 
 %changelog
+
+* Wed Sep 14 2016 José Gutiérrez de la Concha <jose@zeroc.com> 3.7a3
+- Rename ice-utils-java as icegridgui
 
 * Thu Apr 14 2016 Mark Spruiell <mes@zeroc.com> 3.6.3
 - x86-32 dependencies should only be required when building x86 packages on
