@@ -332,8 +332,8 @@ Requires(preun): /sbin/chkconfig
 Requires(preun): /sbin/service
 %endif
 %description -n %{?nameprefix}icegrid
-This package contains the IceGrid service, the IceGrid service helps you
-locate, deploy and manage Ice servers.
+This package contains the IceGrid service. IceGrid helps you locate,
+deploy and manage Ice servers.
 
 Ice is a comprehensive RPC framework that helps you network your software
 with minimal effort. Ice takes care of all interactions with low-level
@@ -394,8 +394,8 @@ Requires(preun): /sbin/chkconfig
 Requires(preun): /sbin/service
 %endif
 %description -n %{?nameprefix}icepatch2
-This package contains IcePatch2 service, with IcePatch2, you can easily
-distribute a large set of files to many clients, and keep these files
+This package contains the IcePatch2 service. With IcePatch2, you can easily
+distribute a large set of files to many clients and keep these files
 synced with your source set.
 
 Ice is a comprehensive RPC framework that helps you network your software
