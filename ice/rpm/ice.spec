@@ -76,7 +76,6 @@ Source1: Ice-rpmbuild-%{version}.tar.gz
 BuildRoot: %{_tmppath}/ice-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %define soversion 36
-%define dotnetversion 3.6.2
 %define mmversion 3.6
 
 %define commonversion 1.8.0
