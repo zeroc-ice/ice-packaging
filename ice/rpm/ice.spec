@@ -19,6 +19,11 @@ ExcludeArch: %{ix86}
 
 %define shadow bogus
 
+# Define slice2cs=1 to generate an RPM package containing the Slice-to-C# compiler.
+%if "%{?slice2cs}" == ""
+  %define slice2cs 0
+%endif
+
 %if "%{dist}" == ".el6"
   %define shadow shadow-utils
 %endif
@@ -231,6 +236,9 @@ Requires: lib%{?nameprefix}ice-c++-devel%{?_isa} = %{version}-%{release}
 Requires: lib%{?nameprefix}ice-c++-devel%{?_isa} = %{version}-%{release}
 Requires: lib%{?nameprefix}ice-java%{?_isa} = %{version}-%{release}
 Requires: php-%{?nameprefix}ice-devel%{?_isa} = %{version}-%{release}
+%if %{slice2cs}
+Requires: %{?nameprefix}ice-slice2cs%{?_isa} = %{version}-%{release}
+%endif # slice2cs
 %endif # cppx86
 %description -n %{?nameprefix}ice-all-devel
 This is a meta package that depends on all development packages for Ice.
@@ -416,6 +424,21 @@ Ice is a comprehensive RPC framework that helps you network your software
 with minimal effort. Ice takes care of all interactions with low-level
 network programming interfaces and allows you to focus your efforts on
 your application logic.
+
+%if %{slice2cs}
+%package -n %{?nameprefix}ice-slice2cs
+Summary: Slice-to-C# compiler.
+Group: Development/Tools
+Obsoletes: ice-mono-devel < 3.6
+Requires: lib%{?nameprefix}ice3.6-c++%{?_isa} = %{version}-%{release}
+%description -n %{?nameprefix}ice-slice2cs
+This package contains the Slice-to-C# compiler.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
+%endif # slice2cs
 
 %endif # ! cppx86
 
@@ -789,6 +812,10 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2objc.1
 
 PACKAGES="%{?nameprefix}glacier2 %{?nameprefix}ice-all-runtime %{?nameprefix}icebox %{?nameprefix}ice-all-devel %{?nameprefix}icegrid %{?nameprefix}icepatch2 %{?nameprefix}ice-utils lib%{?nameprefix}freeze3.6-c++ lib%{?nameprefix}ice3.6-c++ lib%{?nameprefix}ice-c++-devel lib%{?nameprefix}ice-java lib%{?nameprefix}icestorm3.6 php-%{?nameprefix}ice php-%{?nameprefix}ice-devel"
 
+%if %{slice2cs}
+PACKAGES="$PACKAGES %{?nameprefix}ice-slice2cs"
+%endif
+
 for i in $PACKAGES
 do
   mkdir -p $RPM_BUILD_ROOT%{_defaultdocdir}/$i-%{version}
@@ -812,9 +839,11 @@ rm -fr $RPM_BUILD_ROOT/slice
 rm -f $RPM_BUILD_ROOT%{_libdir}/libIceStormService.so
 rm -f $RPM_BUILD_ROOT%{_libdir}/libGlacier2CryptPermissionsVerifier.so
 rm -f $RPM_BUILD_ROOT%{_libdir}/libIceXML.so
-rm -f $RPM_BUILD_ROOT%{_bindir}/slice2cs
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/iceboxnet.1
+%if !%{slice2cs}
+rm -f $RPM_BUILD_ROOT%{_bindir}/slice2cs
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2cs.1
+%endif # ! slice2cs
 
 %if %{cppx86}
 
@@ -1249,6 +1278,17 @@ exit 0
 
 %post -n %{?nameprefix}icepatch2 -p /sbin/ldconfig
 %postun -n %{?nameprefix}icepatch2 -p /sbin/ldconfig
+
+%if %{slice2cs}
+%files -n %{?nameprefix}ice-slice2cs
+%defattr(-, root, root, -)
+%{_bindir}/slice2cs
+%{_mandir}/man1/slice2cs.1*
+%{_defaultdocdir}/%{?nameprefix}ice-slice2cs-%{version}
+
+%post -n %{?nameprefix}ice-slice2cs -p /sbin/ldconfig
+%postun -n %{?nameprefix}ice-slice2cs -p /sbin/ldconfig
+%endif # slice2cs
 
 %endif # ! cppx86
 
