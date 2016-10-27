@@ -69,8 +69,6 @@ elif platform == 'win32':
     extra_link_args = []
     libraries=[]
     define_macros.append(('WIN32_LEAN_AND_MEAN', None))
-    define_macros.append(('ICE_BUILDING_ICE_UTIL', None))
-    define_macros.append(('ICE_BUILDING_SLICE', None))
     define_macros.append(('ICE_BUILDING_ICE', None))
     define_macros.append(('ICE_BUILDING_ICE_SSL', None))
     define_macros.append(('_WIN32_WINNT', '0x601'))
