@@ -45,7 +45,7 @@
 
 
 %define makebuildopts CONFIGS="shared cpp11-shared" OPTIMIZE=yes %{runpath} %{?_smp_mflags}
-%define makeinstallopts CONFIGS="shared cpp11-shared" OPTIMIZE=yes %{runpath} DESTDIR=$RPM_BUILD_ROOT prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_slicedir=%{_datadir}/Ice-%{version}/slice install_docdir=%{_datadir}/Ice-%{version}  install_includedir=%{_includedir} install_mandir=%{_mandir} install_configdir=%{_datadir}/Ice-%{version} install_javadir=%{_javadir} install_phplibdir=%{phplibdir} install_phpdir=%{phpdir}
+%define makeinstallopts CONFIGS="shared cpp11-shared" OPTIMIZE=yes %{runpath} DESTDIR=$RPM_BUILD_ROOT prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_slicedir=%{_datadir}/ice/slice install_docdir=%{_datadir}/ice  install_includedir=%{_includedir} install_mandir=%{_mandir} install_configdir=%{_datadir}/ice install_javadir=%{_javadir} install_phplibdir=%{phplibdir} install_phpdir=%{phpdir}
 
 %define core_arches %{ix86} x86_64
 
@@ -526,9 +526,9 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2rb.1
 # The files below are packaged with the noarch RPM
 rm -f $RPM_BUILD_ROOT/%{_javadir}/icegridgui.jar
 rm -f $RPM_BUILD_ROOT%{_datadir}/slice
-rm -rf $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}/slice
-rm -rf $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}/LICENSE
-rm -rf $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}/ICE_LICENSE
+rm -rf $RPM_BUILD_ROOT%{_datadir}/ice/slice
+rm -rf $RPM_BUILD_ROOT%{_datadir}/ice/LICENSE
+rm -rf $RPM_BUILD_ROOT%{_datadir}/ice/ICE_LICENSE
 
 %if %{cppx86}
 
@@ -538,7 +538,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libIceXML*.so*
 rm -f $RPM_BUILD_ROOT%{_bindir}/slice2*
 rm -rf $RPM_BUILD_ROOT%{_includedir}
 rm -rf $RPM_BUILD_ROOT%{_mandir}
-rm -rf $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}
+rm -rf $RPM_BUILD_ROOT%{_datadir}/ice
 
 %else
 #
@@ -599,8 +599,8 @@ do
     ln -s $i-%{jarVersion}-sources.jar $RPM_BUILD_ROOT%{_javadir}/$i-sources.jar
 done
 
-rm -rf $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}/LICENSE
-rm -rf $RPM_BUILD_ROOT%{_datadir}/Ice-%{version}/ICE_LICENSE
+rm -rf $RPM_BUILD_ROOT%{_datadir}/ice/LICENSE
+rm -rf $RPM_BUILD_ROOT%{_datadir}/ice/ICE_LICENSE
 rm -f $RPM_BUILD_ROOT/%{_javadir}/*.pom
 
 %endif # noarch
@@ -616,8 +616,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %{?nameprefix}ice-slice
 %defattr(-, root, root, -)
-%dir %{_datadir}/Ice-%{version}
-%{_datadir}/Ice-%{version}/slice
+%dir %{_datadir}/ice
+%{_datadir}/ice/slice
 %{_datadir}/slice
 %{_defaultdocdir}/%{?nameprefix}ice-slice-%{version}
 
@@ -883,8 +883,8 @@ exit 0
 %{_mandir}/man1/icegridnode.1*
 %{_bindir}/icegridregistry
 %{_mandir}/man1/icegridregistry.1*
-%dir %{_datadir}/Ice-%{version}
-%{_datadir}/Ice-%{version}/templates.xml
+%dir %{_datadir}/ice
+%{_datadir}/ice/templates.xml
 %if %{systemd}
 %attr(755,root,root) %{_unitdir}/icegridregistry.service
 %attr(755,root,root) %{_unitdir}/icegridnode.service
