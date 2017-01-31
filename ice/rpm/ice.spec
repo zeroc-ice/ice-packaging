@@ -868,6 +868,7 @@ exit 0
 %{_bindir}/icegriddb
 %{_mandir}/man1/icegriddb.1*
 %{_bindir}/icebridge
+%{_mandir}/man1/icebridge.1*
 %{_defaultdocdir}/%{?nameprefix}ice-utils-%{version}
 %post -n %{?nameprefix}ice-utils -p /sbin/ldconfig
 %postun -n %{?nameprefix}ice-utils
