@@ -43,7 +43,6 @@
 
 %define rpmbuildfiles $RPM_BUILD_DIR/Ice-rpmbuild-%{version}
 
-
 %define makebuildopts CONFIGS="shared cpp11-shared" OPTIMIZE=yes V=1 %{runpath} %{?_smp_mflags}
 %define makeinstallopts CONFIGS="shared cpp11-shared" OPTIMIZE=yes V=1 %{runpath} DESTDIR=$RPM_BUILD_ROOT prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_slicedir=%{_datadir}/ice/slice install_docdir=%{_datadir}/ice  install_includedir=%{_includedir} install_mandir=%{_mandir} install_configdir=%{_datadir}/ice install_javadir=%{_javadir} install_phplibdir=%{phplibdir} install_phpdir=%{phpdir}
 
@@ -868,6 +867,7 @@ exit 0
 %{_mandir}/man1/icegridadmin.1*
 %{_bindir}/icegriddb
 %{_mandir}/man1/icegriddb.1*
+%{_bindir}/icebridge
 %{_defaultdocdir}/%{?nameprefix}ice-utils-%{version}
 %post -n %{?nameprefix}ice-utils -p /sbin/ldconfig
 %postun -n %{?nameprefix}ice-utils
