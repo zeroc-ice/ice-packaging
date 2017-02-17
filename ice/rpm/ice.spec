@@ -19,7 +19,6 @@
 %define phplibdir %{_libdir}/php/modules
 %define pythonname python
 %define pythondir %{python_sitearch}
-%define jarVersion 3.7.0-alpha4
 
 %if "%{dist}" == ".amzn1"
   %define systemd 0
@@ -127,21 +126,6 @@ with minimal effort. Ice takes care of all interactions with low-level
 network programming interfaces and allows you to focus your efforts on
 your application logic.
 
-#
-# libice-java package
-#
-%package -n lib%{?nameprefix}ice-java
-Summary: Ice for Java run-time libraries.
-Group: System Environment/Libraries
-Obsoletes: ice-java-devel < 3.6, ice-java < 3.6
-%description -n lib%{?nameprefix}ice-java
-This package contains Ice for Java run-time libraries.
-
-Ice is a comprehensive RPC framework that helps you network your software
-with minimal effort. Ice takes care of all interactions with low-level
-network programming interfaces and allows you to focus your efforts on
-your application logic.
-
 %endif
 
 #
@@ -164,7 +148,6 @@ Requires: %{?nameprefix}icepatch2%{?_isa} = %{version}-%{release}
 Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
 Requires: %{pythonname}-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
-Requires: lib%{?nameprefix}ice-java = %{version}-%{release}
 Requires: %{?nameprefix}icegridgui = %{version}-%{release}
 %endif # cppx86
 %description -n %{?nameprefix}ice-all-runtime
@@ -475,7 +458,7 @@ cd $RPM_BUILD_DIR/Ice-%{version}
 
 %ifarch noarch
     (cd cpp; make %{makebuildopts} slice2java)
-    make %{makebuildopts} LANGUAGES="java java-compat" srcs
+    make %{makebuildopts} LANGUAGES="java" srcs
 %endif
 
 
@@ -512,10 +495,9 @@ cd $RPM_BUILD_DIR/Ice-%{version}
 %ifarch noarch
     # Just install what is necessary for icegridgui
     PACKAGES="%{?nameprefix}icegridgui \
-	      %{?nameprefix}ice-slice \
-	      lib%{?nameprefix}ice-java"
+	      %{?nameprefix}ice-slice"
 
-    make %{makeinstallopts} LANGUAGES="java java-compat" install
+    make %{makeinstallopts} LANGUAGES="java" install
 %endif
 
 #
@@ -611,14 +593,11 @@ if [ -n "$JARSIGNER_KEYSTORE" ]; then
 fi
 
 #
-# Java links
+# Remove Ice jar files
 #
-for i in glacier2 ice icebox icediscovery icelocatordiscovery icegrid icepatch2 icestorm \
-    glacier2-compat ice-compat icebox-compat icebt-compat icediscovery-compat icelocatordiscovery-compat \
-    icegrid-compat icepatch2-compat icestorm-compat
+for i in glacier2 ice icebox icediscovery icelocatordiscovery icegrid icepatch2 icestorm
 do
-    ln -s $i-%{jarVersion}.jar $RPM_BUILD_ROOT%{_javadir}/$i.jar
-    ln -s $i-%{jarVersion}-sources.jar $RPM_BUILD_ROOT%{_javadir}/$i-sources.jar
+    rm $RPM_BUILD_ROOT%{_javadir}/$i-*.jar
 done
 
 rm -rf $RPM_BUILD_ROOT%{_datadir}/ice/LICENSE
@@ -648,85 +627,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/icegridgui
 %{_javadir}/icegridgui.jar
 %{_defaultdocdir}/%{?nameprefix}icegridgui-%{version}
-
-#
-# libice-java package
-#
-%files -n lib%{?nameprefix}ice-java
-%defattr(-, root, root, -)
-%{_javadir}/ice-%{jarVersion}.jar
-%{_javadir}/ice.jar
-%{_javadir}/ice-%{jarVersion}-sources.jar
-%{_javadir}/ice-sources.jar
-%{_javadir}/glacier2-%{jarVersion}.jar
-%{_javadir}/glacier2.jar
-%{_javadir}/glacier2-%{jarVersion}-sources.jar
-%{_javadir}/glacier2-sources.jar
-%{_javadir}/icebox-%{jarVersion}.jar
-%{_javadir}/icebox.jar
-%{_javadir}/icebox-%{jarVersion}-sources.jar
-%{_javadir}/icebox-sources.jar
-#%{_javadir}/icebt-%{jarVersion}.jar
-#%{_javadir}/icebt.jar
-#%{_javadir}/icebt-%{jarVersion}-sources.jar
-#%{_javadir}/icebt-sources.jar
-%{_javadir}/icegrid-%{jarVersion}.jar
-%{_javadir}/icegrid.jar
-%{_javadir}/icegrid-%{jarVersion}-sources.jar
-%{_javadir}/icegrid-sources.jar
-%{_javadir}/icepatch2-%{jarVersion}.jar
-%{_javadir}/icepatch2.jar
-%{_javadir}/icepatch2-%{jarVersion}-sources.jar
-%{_javadir}/icepatch2-sources.jar
-%{_javadir}/icestorm-%{jarVersion}.jar
-%{_javadir}/icestorm.jar
-%{_javadir}/icestorm-%{jarVersion}-sources.jar
-%{_javadir}/icestorm-sources.jar
-%{_javadir}/icediscovery-%{jarVersion}.jar
-%{_javadir}/icediscovery.jar
-%{_javadir}/icediscovery-%{jarVersion}-sources.jar
-%{_javadir}/icediscovery-sources.jar
-%{_javadir}/icelocatordiscovery-%{jarVersion}.jar
-%{_javadir}/icelocatordiscovery.jar
-%{_javadir}/icelocatordiscovery-%{jarVersion}-sources.jar
-%{_javadir}/icelocatordiscovery-sources.jar
-%{_javadir}/ice-compat-%{jarVersion}.jar
-%{_javadir}/ice-compat.jar
-%{_javadir}/ice-compat-%{jarVersion}-sources.jar
-%{_javadir}/ice-compat-sources.jar
-%{_javadir}/glacier2-compat-%{jarVersion}.jar
-%{_javadir}/glacier2-compat.jar
-%{_javadir}/glacier2-compat-%{jarVersion}-sources.jar
-%{_javadir}/glacier2-compat-sources.jar
-%{_javadir}/icebox-compat-%{jarVersion}.jar
-%{_javadir}/icebox-compat.jar
-%{_javadir}/icebox-compat-%{jarVersion}-sources.jar
-%{_javadir}/icebox-compat-sources.jar
-%{_javadir}/icebt-compat-%{jarVersion}.jar
-%{_javadir}/icebt-compat.jar
-%{_javadir}/icebt-compat-%{jarVersion}-sources.jar
-%{_javadir}/icebt-compat-sources.jar
-%{_javadir}/icegrid-compat-%{jarVersion}.jar
-%{_javadir}/icegrid-compat.jar
-%{_javadir}/icegrid-compat-%{jarVersion}-sources.jar
-%{_javadir}/icegrid-compat-sources.jar
-%{_javadir}/icepatch2-compat-%{jarVersion}.jar
-%{_javadir}/icepatch2-compat.jar
-%{_javadir}/icepatch2-compat-%{jarVersion}-sources.jar
-%{_javadir}/icepatch2-compat-sources.jar
-%{_javadir}/icestorm-compat-%{jarVersion}.jar
-%{_javadir}/icestorm-compat.jar
-%{_javadir}/icestorm-compat-%{jarVersion}-sources.jar
-%{_javadir}/icestorm-compat-sources.jar
-%{_javadir}/icediscovery-compat-%{jarVersion}.jar
-%{_javadir}/icediscovery-compat.jar
-%{_javadir}/icediscovery-compat-%{jarVersion}-sources.jar
-%{_javadir}/icediscovery-compat-sources.jar
-%{_javadir}/icelocatordiscovery-compat-%{jarVersion}.jar
-%{_javadir}/icelocatordiscovery-compat.jar
-%{_javadir}/icelocatordiscovery-compat-%{jarVersion}-sources.jar
-%{_javadir}/icelocatordiscovery-compat-sources.jar
-%{_defaultdocdir}/lib%{?nameprefix}ice-java-%{version}
 
 %endif # noarch
 
@@ -1088,8 +988,11 @@ exit 0
 %endif # core_arches
 
 %changelog
-* Thu Feb 16 2017 Bernard Normier <bernard@zeroc.com> 3.7a4
-- Added python-ice package, and slice2py + slice2cs in ice-compilers
+* Fri Feb 17 2017 Bernard Normier <bernard@zeroc.com> 3.7a4
+- Updates for Ice 3.7
+ - Added python-ice package
+ - Added slice2cs and slice2py to ice-compilers
+ - Removed libice-java package
 
 * Wed Sep 14 2016 José Gutiérrez de la Concha <jose@zeroc.com> 3.7a3
 - Rename ice-utils-java as icegridgui
