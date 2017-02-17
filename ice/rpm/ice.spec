@@ -864,7 +864,7 @@ exit 0
 %{_bindir}/slice2cpp
 %{_mandir}/man1/slice2cpp.1*
 %{_bindir}/slice2cs
-#%{_mandir}/man1/slice2cs.1*
+%{_mandir}/man1/slice2cs.1*
 %{_bindir}/slice2html
 %{_mandir}/man1/slice2html.1*
 %{_bindir}/slice2java
