@@ -88,6 +88,13 @@ distributed applications with minimal effort using familiar
 object-oriented idioms.
 
 #
+# Enable debug package except if it's already enabled
+#
+%if %{!?_enable_debug_packages:1}%{?_enable_debug_packages:0}
+%debug_package
+%endif
+
+#
 # Arch-independent packages
 #
 %ifarch noarch
@@ -447,6 +454,12 @@ your application logic.
 %build
 
 cd $RPM_BUILD_DIR/Ice-%{version}
+
+#
+# Recommended flags for optimized hardened build
+#
+export CXXFLAGS="%{optflags}"
+export LDFLAGS="%{?__global_ldflags}"
 
 %ifarch %{core_arches}
     %if %{cppx86}
