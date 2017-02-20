@@ -67,7 +67,7 @@ Release: 1%{?dist}
 %if "%{?ice_license}"
 License: %{ice_license}
 %else
-License: GPL v2 with exceptions
+License: GPLv2 with exceptions
 %endif
 Group: System Environment/Libraries
 Vendor: ZeroC, Inc.
@@ -994,6 +994,8 @@ exit 0
  - Added python-ice package
  - Added slice2cs and slice2py to ice-compilers
  - Removed libice-java package
+ - Build with recommended compiler flags
+ - Enable debuginfo packages
 
 * Wed Sep 14 2016 José Gutiérrez de la Concha <jose@zeroc.com> 3.7a3
 - Rename ice-utils-java as icegridgui
