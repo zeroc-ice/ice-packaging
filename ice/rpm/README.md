@@ -112,12 +112,12 @@ The following additional steps are also necessary:
 - Install the Java Development Kit version 1.8 and verify that the `javac `command
 is present in your `PATH`.
 
-- If you want to sign the IceGridGUI jar file, you should set
-these environment variables:
-
-   JARSIGNER_KEYSTORE=<path to the keystore file with the certificate>
-   JARSIGNER_KEYSTORE_ALIAS=<alias of the certificate>
-   JARSIGNER_KEYSTORE_PASSWORD=<keystore file password>
+- If you want to sign the IceGridGUI jar file, you should set these environment variables:
+```
+    JARSIGNER_KEYSTORE=<path to the keystore file with the certificate>
+    JARSIGNER_KEYSTORE_ALIAS=<alias of the certificate>
+    JARSIGNER_KEYSTORE_PASSWORD=<keystore file password>
+```
 
    If you don't set them, the jar file signing will be skipped.
 
