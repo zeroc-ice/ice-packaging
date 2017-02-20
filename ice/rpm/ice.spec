@@ -506,11 +506,11 @@ cd $RPM_BUILD_DIR/Ice-%{version}
 %endif
 
 %ifarch noarch
-    # Just install what is necessary for icegridgui
-    PACKAGES="%{?nameprefix}icegridgui \
-	      %{?nameprefix}ice-slice"
+    # Just install what is necessary for icegridgui and for ice-slice
+    PACKAGES="%{?nameprefix}icegridgui %{?nameprefix}ice-slice"
+    (cd java; make %{makeinstallopts} install-icegridgui)
 
-    make %{makeinstallopts} LANGUAGES="java" install
+    make %{makeinstallopts} install-slice
 %endif
 
 #
@@ -604,18 +604,6 @@ cp -p %{rpmbuildfiles}/icegridgui $RPM_BUILD_ROOT%{_bindir}/icegridgui
 if [ -n "$JARSIGNER_KEYSTORE" ]; then
     jarsigner -keystore $JARSIGNER_KEYSTORE -storepass "$JARSIGNER_KEYSTORE_PASSWORD" $RPM_BUILD_ROOT%{_javadir}/icegridgui.jar $JARSIGNER_KEYSTORE_ALIAS -tsa http://timestamp.digicert.com
 fi
-
-#
-# Remove Ice jar files
-#
-for i in glacier2 ice icebox icediscovery icelocatordiscovery icegrid icepatch2 icestorm
-do
-    rm $RPM_BUILD_ROOT%{_javadir}/$i-*.jar
-done
-
-rm -rf $RPM_BUILD_ROOT%{_datadir}/ice/LICENSE
-rm -rf $RPM_BUILD_ROOT%{_datadir}/ice/ICE_LICENSE
-rm -f $RPM_BUILD_ROOT/%{_javadir}/*.pom
 
 %endif # noarch
 
