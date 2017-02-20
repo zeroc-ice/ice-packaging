@@ -29,12 +29,12 @@ Optional macros can be set to customize the RPMs:
 
 * `nameprefix` : defines the prefix to use for RPM package names. For example,
 if it's defined to `zeroc-`, the RPM for glacier2 will be named `zeroc-glacier2`
-and the RPM for `libice3.7` will be named `libzeroc-ice3.7`.
+and the RPM for `libice3.7-c++` will be named `libzeroc-ice3.7-c++`.
 
 * `ice_license` : defines the license shown in the RPM information (default
 value is `GPLv2 with exceptions`).
 
-* `biarch` : on Red Hat Enterprise Linux 7, set biarch to 1 to generate packages for both x86_64 and i686.
+* `biarch` : on Red Hat Enterprise Linux 7, set `biarch` to `1` to generate packages for both `x86_64` and `i686`.
 
 ## The RPM package build directory
 
@@ -109,8 +109,8 @@ To create binary RPM packages for Ice, you must first install the source RPM:
 If you have not already done so, install the RPM prerequisites listed in `ice.spec`. 
 The following additional steps are also necessary:
 
-- Install the Java Development Kit version 1.8 and verify that the javac command
-is present in your PATH.
+- Install the Java Development Kit version 1.8 and verify that the `javac `command
+is present in your `PATH`.
 
 - If you want to sign the IceGridGUI jar file, you should set
 these environment variables:
