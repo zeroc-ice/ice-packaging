@@ -1,6 +1,6 @@
 # Building Linux RPM Packages
 
-This document describes how to create source and binary RPM packages for Ice
+This README describes how to create source and binary RPM packages for Ice
 as a regular (non-root) user on your Linux system.
 
 ## The .rpmmacros File
@@ -23,25 +23,22 @@ The value for `%dist` should be one of
     .el7
     .amzn1
 
-These tags correspond to the Linux distributions that ZeroC officially supports.
+These tags correspond to the Linux RPM distributions provided by ZeroC.
 
 Optional macros can be set to customize the RPMs:
 
 * `nameprefix` : defines the prefix to use for RPM package names. For example,
 if it's defined to `zeroc-`, the RPM for glacier2 will be named `zeroc-glacier2`
-and the RPM for `libice3.6` will be named `libzeroc-ice3.6`.
+and the RPM for `libice3.7` will be named `libzeroc-ice3.7`.
 
 * `ice_license` : defines the license shown in the RPM information (default
-value is `GPL v2 with exceptions`).
+value is `GPLv2 with exceptions`).
+
+* `biarch` : on Red Hat Enterprise Linux 7, set biarch to 1 to generate packages for both x86_64 and i686.
 
 ## The RPM package build directory
 
-The RPM package build directory is `/usr/src/packages` on SLES. For RHEL and
-Amazon Linux, create and use `~/rpmbuild`. In this document we refer to the
-package directory symbolically as `pkgdir`.
-
-You may need to adjust the permissions on all subdirectories of this directory
-to be able to create RPM packages as a non-root user.
+The RPM package build directory is usually `~/rpmbuild`.
 
 ## RPM build prerequisites
 
@@ -78,33 +75,17 @@ Now download and install the source rpm:
     $ yumdownloader --source ice
     $ rpm -i ice-3.7a4-1.el7.src.rpm
 
-You can find the `ice.spec` file in the `pkgdir/SPECS` directory, while the archive
-file is in the `pkgdir/SOURCES` directory.
+You can find the `ice.spec` file in the `~/rpmbuild/SPECS` directory, while the archive
+file is in the `~/rpmbuild/SOURCES` directory.
 
 The `ice.spec` file defines a number of build requirements that must be installed on
-your system in order to build the RPM packages. These dependencies are listed below:
-
-| Package            | Platform                     |
-| -------------------| -----------------------------|
-| mcpp-devel         | All                          |
-| lmdb-devel         | All                          |
-| openssl-devel      | All                          |
-| javapackages-tools | el7                          |
-| jpackage-utils     | amzn1                        |
-| bzip2-devel        | All                          |
-| expat-devel        | All                          |
-| php-devel          | el7, amzn1                   |
-| php5-devel         | sles12                       |
-
-The `mcpp-devel` and `lmdb-devel` RPMs are provided by ZeroC. You can determine
-the version requirements for all other prerequisites by examining the
-`BuildRequires` directives in the `ice.spec` file.
+your system in order to build the RPM packages.
 
 ## Creating the source RPM package
 
 Follow these steps to create the Ice source RPM:
 
-1. Copy all desired source files and patches into the directory `pkgdir/SOURCES`
+1. Copy all desired source files and patches into the directory `~/rpmbuild/SOURCES`
 
 2. Review `ice.spec` to ensure all necessary source files and patches are listed
    using `SourceX` and `PatchX` directives. The files listed here will be included
@@ -117,7 +98,7 @@ Follow these steps to create the Ice source RPM:
 Omit the `--sign` option if you do not want to sign the source RPM, or if you do
 not have a GnuPG key prepared.
 
-The source RPM is created in `pkgdir/SRPMS`.
+The source RPM is created in `~rpmbuild/SRPMS`.
 
 ## Creating the binary RPM packages
 
@@ -125,16 +106,13 @@ To create binary RPM packages for Ice, you must first install the source RPM:
 
     $ rpm -i ice-3.7a4-1.src.rpm
 
-If you have not already done so, install the RPM prerequisites listed above. The
-following additional steps are also necessary:
+If you have not already done so, install the RPM prerequisites listed in `ice.spec`. 
+The following additional steps are also necessary:
 
-- Install the Java Development Kit version 1.7 and verify that the javac command
-is present in your PATH
+- Install the Java Development Kit version 1.8 and verify that the javac command
+is present in your PATH.
 
-   > JDK 1.7 with JavaFX is necessary for compiling the IceGrid Admin GUI client
-   > with full functionality. We recommend using Oracle JDK.
-
-- If you want to sign the IceGrid Administrative GUI jar file, you should set
+- If you want to sign the IceGridGUI jar file, you should set
 these environment variables:
 
    JARSIGNER_KEYSTORE=<path to the keystore file with the certificate>
@@ -145,20 +123,20 @@ these environment variables:
 
 - Build the RPMs as a non-root user.
 
-On Red Hat Enterprise Linux 7:
+On Red Hat Enterprise Linux 7 with bi-arch support (x86_64 and i686):
 
-    $ cd pkgdir/SPECS
+    $ cd ~/rpmbuild/SPECS
     $ rpmbuild -bb --sign --target noarch,i686,x86_64 ice.spec
 
-On SuSE Linux Enterprise Server 12 and Amazon Linux:
+On Red Hat Enterprise Linux 7 for a single architecture, SuSE Linux Enterprise Server 12 or Amazon Linux:
 
-    $ cd pkgdir/SPECS
+    $ cd ~/rpmbuild/SPECS
     $ rpmbuild -bb --sign --target noarch,x86_64 ice.spec
 
 Omit the `--sign` option if you do not want to sign the RPMs, or if you do not
 have a GnuPG key setup.
 
-Upon completion, the binary RPMs can be found in `pkgdir/RPMS`.
+Upon completion, the binary RPMs can be found in `~/rpmbuild/RPMS`.
 
 ## Applying a Patch
 
@@ -188,6 +166,6 @@ source patches:
              %patch2 -p0 -b .orig2
              %endif
 
-- Copy the patch(es) to `pkgdir/SOURCES`
+- Copy the patch(es) to `~/rpmbuild/SOURCES`
 
 - Finally, create the source and binary RPM packages as described above.
