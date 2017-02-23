@@ -5,15 +5,14 @@
 # **********************************************************************
 
 #
-# rpmbuild can define git_tag_version (no default) or git_branch (defaults to master)
+# rpmbuild can define git_tag_version (no default) or git_tag (defaults to master)
 # git_tag_version is the git vX.Y.Z tag less the v prefix
 #
 %if %{?git_tag_version:1}0
 %define git_tag v%{git_tag_version}
 %define archive_dir_version %{git_tag_version} 
 %else
-%define git_tag %{?git_branch}%{!?git_branch:master}
-%define archive_dir_version %{?git_branch}%{!?git_branch:master}
+%define archive_dir_version %{?git_tag}%{!?git_tag:master}
 %endif
 
 %define expatdevel expat-devel
@@ -54,8 +53,8 @@ License: GPLv2
 %endif
 Vendor: ZeroC, Inc.
 URL: https://zeroc.com/
-Source0: https://github.com/zeroc-ice/freeze/archive/%{git_tag}/%{name}-%{version}.tar.gz
-Source1: https://github.com/zeroc-ice/ice/archive/%{git_tag}/%{name}-ice-%{version}.tar.gz
+Source0: https://github.com/zeroc-ice/freeze/archive/%{?git_tag}%{!?%git_tag:master}/%{name}-%{version}.tar.gz
+Source1: https://github.com/zeroc-ice/ice/archive/%{?git_tag}%{!?git_tag:master}/%{name}-ice-%{version}.tar.gz
 BuildRequires: mcpp-devel, %{bzip2devel}, %{expatdevel}, %{libdbcxxdevel}
 %description
 Not used
