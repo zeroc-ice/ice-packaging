@@ -4,6 +4,18 @@
 #
 # **********************************************************************
 
+#
+# rpmbuild can define git_tag_version (no default) or git_branch (defaults to master)
+# git_tag_version is the git vX.Y.Z tag less the v prefix
+#
+%if %{?git_tag_version:1}0
+%define git_tag v%{git_tag_version}
+%define archive_dir_version %{git_tag_version} 
+%else
+%define git_tag %{?git_branch}%{!?git_branch:master}
+%define archive_dir_version %{?git_branch}%{!?git_branch:master}
+%endif
+
 %define expatdevel expat-devel
 %define bzip2devel bzip2-devel
 
@@ -42,8 +54,8 @@ License: GPLv2
 %endif
 Vendor: ZeroC, Inc.
 URL: https://zeroc.com/
-Source0: https://github.com/zeroc-ice/freeze/archive/master/%{name}-%{version}.tar.gz
-Source1: https://github.com/zeroc-ice/ice/archive/master/%{name}-ice-%{version}.tar.gz
+Source0: https://github.com/zeroc-ice/freeze/archive/%{git_tag}/%{name}-%{version}.tar.gz
+Source1: https://github.com/zeroc-ice/ice/archive/%{git_tag}/%{name}-ice-%{version}.tar.gz
 BuildRequires: mcpp-devel, %{bzip2devel}, %{expatdevel}, %{libdbcxxdevel}
 %description
 Not used
@@ -105,9 +117,9 @@ This package contains Freeze utilities.
 Freeze provides persistent storage for Ice objects.
 
 %prep
-%setup -q -n %{name}-master -a 1
+%setup -q -n %{name}-%{archive_dir_version} -a 1
 rmdir ice
-mv ice-master ice
+mv ice-%{archive_dir_version} ice
 
 %build
 # recommended flags for optimized hardened build

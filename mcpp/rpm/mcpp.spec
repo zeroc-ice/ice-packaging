@@ -2,11 +2,14 @@
 # Copyright (c) 2008-2017 ZeroC, Inc. All rights reserved.
 #
 
+# the github version tag without v prefix
+%define git_tag_version 2.7.2.12
+
 Summary: mcpp, a portable C/C++ preprocessor
 Name: mcpp-devel
 Version: 2.7.2
 Release: 5ice%{?dist}
-Source: https://github.com/zeroc-ice/mcpp/archive/v2.7.2.12/mcpp-%{version}.tar.gz
+Source: https://github.com/zeroc-ice/mcpp/archive/v%{git_tag_version}/mcpp-%{version}.tar.gz
 URL: http://mcpp.sourceforge.net/
 License: BSD
 Group: System Environment/Libraries
@@ -37,7 +40,7 @@ mcpp is a C/C++ preprocessor with the following features.
 %define debug_package %{nil}
 
 %prep
-%setup -q -n mcpp-%{version}.12
+%setup -q -n mcpp-%{git_tag_version}
 
 %build
 make CFLAGS="%{optflags}"
@@ -52,7 +55,7 @@ make PREFIX=%{buildroot}%{_prefix} install
 %changelog
 * Tue Feb 21 2017 Bernard Normier <bernard@zeroc.com> 2.7.2-5ice
 - Simplified spec file
-- Build with %{optflags}
+- Build with optflags
 
 * Tue Apr 7 2015 Bernard Normier <bernard@zeroc.com>
 - Update to use source from https://github:zeroc-ice/mcpp
