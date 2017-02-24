@@ -535,7 +535,7 @@ rm -rf %{buildroot}%{_datadir}/ice
 %files -n %{?nameprefix}ice-slice
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README.Linux
+%doc %{rpmbuildfiles}/README
 %dir %{_datadir}/ice
 %{_datadir}/ice/slice
 %{_datadir}/slice
@@ -544,7 +544,7 @@ rm -rf %{buildroot}%{_datadir}/ice
 %license LICENSE
 %license ICE_LICENSE
 %license %{rpmbuildfiles}/JGOODIES_LICENSE
-%doc %{rpmbuildfiles}/README.Linux
+%doc %{rpmbuildfiles}/README
 %attr(755,root,root) %{_bindir}/icegridgui
 %{_javadir}/icegridgui.jar
 
@@ -560,7 +560,7 @@ rm -rf %{buildroot}%{_datadir}/ice
 %files -n %{?nameprefix}ice-all-runtime
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README.Linux
+%doc %{rpmbuildfiles}/README
 
 #
 # Generate "ice-all-devel" meta package as arch-specific
@@ -568,7 +568,7 @@ rm -rf %{buildroot}%{_datadir}/ice
 %files -n %{?nameprefix}ice-all-devel
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README.Linux
+%doc %{rpmbuildfiles}/README
 
 #
 # libice-Mm-c++ package
@@ -577,7 +577,7 @@ rm -rf %{buildroot}%{_datadir}/ice
 %license LICENSE
 %license ICE_LICENSE
 %license %{rpmbuildfiles}/MCPP_LICENSE
-%doc %{rpmbuildfiles}/README.Linux
+%doc %{rpmbuildfiles}/README
 %{_libdir}/libGlacier2.so.*
 %{_libdir}/libIce.so.*
 %{_libdir}/libIceBox.so.*
@@ -611,7 +611,7 @@ exit 0
 %files -n %{?nameprefix}icebox
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README.Linux
+%doc %{rpmbuildfiles}/README
 %ifarch %{ix86}
 %{_bindir}/icebox32
 %{_bindir}/icebox32++11
@@ -631,7 +631,7 @@ exit 0
 %files -n lib%{?nameprefix}ice-c++-devel
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README.Linux
+%doc %{rpmbuildfiles}/README
 %{_libdir}/libGlacier2.so
 %{_libdir}/libIce.so
 %{_libdir}/libIceBox.so
@@ -668,7 +668,7 @@ exit 0
 %files -n lib%{?nameprefix}icestorm3.7
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README.Linux
+%doc %{rpmbuildfiles}/README
 %{_libdir}/libIceStormService.so.*
 %post -n lib%{?nameprefix}icestorm3.7 -p /sbin/ldconfig
 %postun -n lib%{?nameprefix}icestorm3.7
@@ -683,7 +683,7 @@ exit 0
 %files -n %{?nameprefix}ice-compilers
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README.Linux
+%doc %{rpmbuildfiles}/README
 %{_bindir}/slice2cpp
 %{_mandir}/man1/slice2cpp.1*
 %{_bindir}/slice2cs
@@ -703,7 +703,7 @@ exit 0
 %files -n %{?nameprefix}ice-utils
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README.Linux
+%doc %{rpmbuildfiles}/README
 %{_bindir}/iceboxadmin
 %{_mandir}/man1/iceboxadmin.1*
 %{_bindir}/icepatch2calc
@@ -731,7 +731,7 @@ exit 0
 %files -n %{?nameprefix}icegrid
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README.Linux
+%doc %{rpmbuildfiles}/README
 %{_bindir}/icegridnode
 %{_mandir}/man1/icegridnode.1*
 %{_bindir}/icegridregistry
@@ -813,7 +813,7 @@ exit 0
 %files -n %{?nameprefix}glacier2
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README.Linux
+%doc %{rpmbuildfiles}/README
 %{_bindir}/glacier2router
 %{_mandir}/man1/glacier2router.1*
 %if %{systemd}
@@ -877,7 +877,7 @@ exit 0
 %files -n %{?nameprefix}icepatch2
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README.Linux
+%doc %{rpmbuildfiles}/README
 %{_bindir}/icepatch2server
 %{_mandir}/man1/icepatch2server.1*
 %post -n %{?nameprefix}icepatch2 -p /sbin/ldconfig
@@ -891,7 +891,7 @@ exit 0
 %files -n php-%{?nameprefix}ice
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README.Linux
+%doc %{rpmbuildfiles}/README
 %{phpdir}
 %{phplibdir}/IcePHP.so
 %if "%{dist}" == ".sles12"
@@ -906,7 +906,7 @@ exit 0
 %files -n %{pythonname}-%{?nameprefix}ice
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README.Linux
+%doc %{rpmbuildfiles}/README
 %{pythondir}/Ice*
 %{pythondir}/Glacier2*
 
