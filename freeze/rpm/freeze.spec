@@ -5,14 +5,17 @@
 # **********************************************************************
 
 #
-# rpmbuild can define git_tag_version (no default) or git_tag (defaults to master)
-# git_tag_version is the git vX.Y.Z tag less the v prefix
+# git_tag, when defined, is typically a branch, for example master
 #
-%if %{?git_tag_version:1}0
-%define git_tag v%{git_tag_version}
-%define archive_dir_version %{git_tag_version} 
+%if 0%{?git_tag:1}
+   %define archive_tag %{git_tag}
+   %define archive_dir_suffix %{git_tag}
 %else
-%define archive_dir_version %{?git_tag}%{!?git_tag:master}
+   # git_tag_version is the git tag vX.Y.Z[...] less the v prefix 
+   # if not defined, we default to the version provided below
+   %{!?git_tag_version:%define git_tag_version 3.7.0-alpha4}
+   %define archive_tag v%{git_tag_version}
+   %define archive_dir_suffix %{git_tag_version}
 %endif
 
 %define expatdevel expat-devel
@@ -53,8 +56,8 @@ License: GPLv2
 %endif
 Vendor: ZeroC, Inc.
 URL: https://zeroc.com/
-Source0: https://github.com/zeroc-ice/freeze/archive/%{?git_tag}%{!?%git_tag:master}/%{name}-%{version}.tar.gz
-Source1: https://github.com/zeroc-ice/ice/archive/%{?git_tag}%{!?git_tag:master}/%{name}-ice-%{version}.tar.gz
+Source0: https://github.com/zeroc-ice/freeze/archive/%{archive_tag}/%{name}-%{version}.tar.gz
+Source1: https://github.com/zeroc-ice/ice/archive/%{archive_tag}/%{name}-ice-%{version}.tar.gz
 BuildRequires: mcpp-devel, %{bzip2devel}, %{expatdevel}, %{libdbcxxdevel}
 %description
 Not used
@@ -116,9 +119,9 @@ This package contains Freeze utilities.
 Freeze provides persistent storage for Ice objects.
 
 %prep
-%setup -q -n %{name}-%{archive_dir_version} -a 1
+%setup -q -n %{name}-%{archive_dir_suffix} -a 1
 rmdir ice
-mv ice-%{archive_dir_version} ice
+mv ice-%{archive_dir_suffix} ice
 
 %build
 # recommended flags for optimized hardened build

@@ -2,10 +2,23 @@
 #
 # Copyright (c) 2003-2017 ZeroC, Inc. All rights reserved.
 #
-# This copy of Ice is licensed to you under the terms described in the
-# ICE_LICENSE file included in this distribution.
-#
 # **********************************************************************
+
+#
+# git_tag, when defined, is typically a branch, for example master
+#
+%if 0%{?git_tag:1}
+   %define archive_tag %{git_tag}
+   %define archive_dir_suffix %{git_tag}
+%else
+   # git_tag_version is the git tag vX.Y.Z[...] less the v prefix 
+   # if not defined, we default to the version provided below
+   %{!?git_tag_version:%define git_tag_version 3.7.0-alpha4}
+   %define archive_tag v%{git_tag_version}
+   %define archive_dir_suffix %{git_tag_version}
+%endif
+
+%define rpmbuildfiles ice-packaging-%{archive_dir_suffix}/ice/rpm
 
 %define systemd 1
 %define systemdpkg systemd
@@ -21,44 +34,30 @@
 %define pythondir %{python_sitearch}
 
 %if "%{dist}" == ".amzn1"
-  %define systemd 0
-  %define pythonname python27
-  %define pythondevel python27-devel
-  %define pythondir %{python27_sitearch}
+   %define systemd 0
+   %define pythonname python27
+   %define pythondevel python27-devel
+   %define pythondir %{python27_sitearch}
 %endif
 %if "%{dist}" == ".sles12"
-  %define systemdpkg systemd-rpm-macros
-  %define phpdevel php5-devel
-  %define expatdevel libexpat-devel
-  %define bzip2devel libbz2-devel
-  %define liblmdb liblmdb-0_9_11
-  %define shadow shadow
-  %define phpdir %{_datadir}/php5
-  %define phplibdir %{_libdir}/php5/extensions
+   %define systemdpkg systemd-rpm-macros
+   %define phpdevel php5-devel
+   %define expatdevel libexpat-devel
+   %define bzip2devel libbz2-devel
+   %define liblmdb liblmdb-0_9_11
+   %define shadow shadow
+   %define phpdir %{_datadir}/php5
+   %define phplibdir %{_libdir}/php5/extensions
 %endif
 
 %if "%{_prefix}" == "/usr"
-%define runpath embedded_runpath=no
+   %define runpath embedded_runpath=no
 %else
-%define runpath embedded_runpath_prefix=%{_prefix}
+   %define runpath embedded_runpath_prefix=%{_prefix}
 %endif
-
-%define rpmbuildfiles $RPM_BUILD_DIR/Ice-rpmbuild-%{version}
 
 %define makebuildopts CONFIGS="shared cpp11-shared" PYTHON=%{pythonname} OPTIMIZE=yes V=1 %{runpath} %{?_smp_mflags}
-%define makeinstallopts CONFIGS="shared cpp11-shared" PYTHON=%{pythonname} OPTIMIZE=yes V=1 %{runpath} DESTDIR=$RPM_BUILD_ROOT prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_slicedir=%{_datadir}/ice/slice install_docdir=%{_datadir}/ice  install_includedir=%{_includedir} install_mandir=%{_mandir} install_configdir=%{_datadir}/ice install_javadir=%{_javadir} install_phplibdir=%{phplibdir} install_phpdir=%{phpdir} install_pythondir=%{pythondir}
-
-%define core_arches %{ix86} x86_64
-
-#
-# cppx86 indicates whether we're building x86 binaries on an x64 platform
-#
-%define cppx86 0
-%ifarch %{ix86}
-%if 0%{?biarch}
-%define cppx86 1
-%endif
-%endif
+%define makeinstallopts CONFIGS="shared cpp11-shared" PYTHON=%{pythonname} OPTIMIZE=yes V=1 %{runpath} DESTDIR=%{buildroot} prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_slicedir=%{_datadir}/ice/slice install_includedir=%{_includedir} install_mandir=%{_mandir} install_configdir=%{_datadir}/ice install_javadir=%{_javadir} install_phplibdir=%{phplibdir} install_phpdir=%{phpdir} install_pythondir=%{pythondir}
 
 Name: %{?nameprefix}ice
 Version: 3.7a4
@@ -69,23 +68,18 @@ License: %{ice_license}
 %else
 License: GPLv2 with exceptions
 %endif
-Group: System Environment/Libraries
 Vendor: ZeroC, Inc.
 URL: https://zeroc.com/
-Source0: Ice-%{version}.tar.gz
-Source1: Ice-rpmbuild-%{version}.tar.gz
-
-BuildRoot: %{_tmppath}/ice-%{version}-%{release}-root-%(%{__id_u} -n)
+Source0: https://github.com/zeroc-ice/ice/archive/%{archive_tag}/%{name}-%{version}.tar.gz
+Source1: https://github.com/zeroc-ice/ice-packaging/archive/%{archive_tag}/%{name}-packaging-%{version}.tar.gz
 
 BuildRequires: openssl-devel, mcpp-devel, lmdb-devel, %{bzip2devel}, %{expatdevel}, %{phpdevel}, %{pythondevel}, %{javapackagestools}
-%if 0%{?biarch}
+%ifarch %{ix86}
 BuildRequires: openssl-devel(x86-32), mcpp-devel(x86-32), lmdb-devel(x86-32), %{bzip2devel}(x86-32), %{expatdevel}(x86-32)
 %endif
 
 %description
-Ice is a comprehensive RPC framework that helps you build
-distributed applications with minimal effort using familiar
-object-oriented idioms.
+Not used
 
 #
 # Enable debug package except if it's already enabled
@@ -94,10 +88,7 @@ object-oriented idioms.
 %debug_package
 %endif
 
-#
-# Arch-independent packages
-#
-%ifarch noarch
+%ifarch x86_64 # We build noarch packages only on x86_64
 
 #
 # ice-slice package
@@ -105,6 +96,7 @@ object-oriented idioms.
 %package -n %{?nameprefix}ice-slice
 Summary: Slice files for Ice.
 Group: System Environment/Libraries
+BuildArch: noarch
 %description -n %{?nameprefix}ice-slice
 This package contains Slice files used by the Ice framework.
 
@@ -119,7 +111,8 @@ your application logic.
 %package -n %{?nameprefix}icegridgui
 Summary: IceGrid Admin graphical client.
 Group: Applications/System
-Obsoletes: ice-utils < 3.6, ice-utils-java
+BuildArch: noarch
+Obsoletes: ice-utils < 3.6, ice-utils-java <= 3.6
 Requires: java
 %description -n %{?nameprefix}icegridgui
 The IceGrid service helps you locate, deploy and manage Ice servers.
@@ -136,11 +129,6 @@ your application logic.
 %endif
 
 #
-# Arch-dependent packages
-#
-%ifarch %{core_arches}
-
-#
 # This "meta" package includes all run-time components and services.
 #
 %package -n %{?nameprefix}ice-all-runtime
@@ -148,7 +136,7 @@ Summary: Ice run-time packages (meta package).
 Group: System Environment/Libraries
 Requires: %{?nameprefix}icebox%{?_isa} = %{version}-%{release}
 Requires: lib%{?nameprefix}icestorm3.7%{?_isa} = %{version}-%{release}
-%if ! %{cppx86}
+%ifarch x86_64
 Requires: %{?nameprefix}glacier2%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icegrid%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icepatch2%{?_isa} = %{version}-%{release}
@@ -156,7 +144,7 @@ Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
 Requires: %{pythonname}-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icegridgui = %{version}-%{release}
-%endif # cppx86
+%endif # x86_64
 %description -n %{?nameprefix}ice-all-runtime
 This is a meta package that depends on all run-time packages for Ice.
 
@@ -268,7 +256,7 @@ with minimal effort. Ice takes care of all interactions with low-level
 network programming interfaces and allows you to focus your efforts on
 your application logic.
 
-%if ! %{cppx86}
+%ifarch x86_64
 
 #
 # ice-compilers package
@@ -441,225 +429,155 @@ with minimal effort. Ice takes care of all interactions with low-level
 network programming interfaces and allows you to focus your efforts on
 your application logic.
 
-
-%endif # ! cppx86
-
-%endif # core_arches
+%endif #x86_64
 
 %prep
-
-%setup -n Ice-%{version} -q
-%setup -n Ice-rpmbuild-%{version} -T -b 1
+%setup -q -n %{name}-%{archive_dir_suffix} -a 1
 
 %build
-
-cd $RPM_BUILD_DIR/Ice-%{version}
-
 #
 # Recommended flags for optimized hardened build
 #
 export CXXFLAGS="%{optflags}"
 export LDFLAGS="%{?__global_ldflags}"
 
-%ifarch %{core_arches}
-    %if %{cppx86}
-	make %{makebuildopts} PLATFORMS=x86 LANGUAGES="cpp" srcs
-    %else
-	make %{makebuildopts} PLATFORMS=x64 LANGUAGES="cpp php python" srcs
-    %endif
+%ifarch x86_64
+    make %{makebuildopts} PLATFORMS=x64 LANGUAGES="cpp java php python" srcs
 %endif
 
-%ifarch noarch
-    (cd cpp; make %{makebuildopts} slice2java)
-    make %{makebuildopts} LANGUAGES="java" srcs
+%ifarch %{ix86}
+    make %{makebuildopts} PLATFORMS=x86 LANGUAGES="cpp" srcs
 %endif
-
 
 %install
 
-rm -rf $RPM_BUILD_ROOT
-cd $RPM_BUILD_DIR/Ice-%{version}
-
-%ifarch %{core_arches}
-    PACKAGES="%{?nameprefix}ice-all-runtime \
-	      %{?nameprefix}icebox \
-	      %{?nameprefix}ice-all-devel \
-	      lib%{?nameprefix}ice3.7-c++ \
-	      lib%{?nameprefix}ice-c++-devel \
-	      lib%{?nameprefix}icestorm3.7"
-
-    %if %{cppx86}
-	make %{?_smp_mflags} %{makeinstallopts} PLATFORMS=x86 LANGUAGES="cpp" install
-    %else
-	PACKAGES="$PACKAGES \
-		  %{?nameprefix}glacier2 \
-		  %{?nameprefix}icebox  \
-		  %{?nameprefix}icegrid \
-		  %{?nameprefix}icepatch2 \
-		  %{?nameprefix}ice-utils \
-		  %{?nameprefix}ice-compilers \
-		  php-%{?nameprefix}ice \
-		  %{pythonname}-%{?nameprefix}ice"
-
-	make %{?_smp_mflags} %{makeinstallopts} PLATFORMS=x64 LANGUAGES="cpp php python" install
-    %endif
+%ifarch x86_64
+    make           %{?_smp_mflags} %{makeinstallopts} install-slice
+    make -C cpp    %{?_smp_mflags} %{makeinstallopts} PLATFORMS=x64 install
+    make -C php    %{?_smp_mflags} %{makeinstallopts} PLATFORMS=x64 install
+    make -C python %{?_smp_mflags} %{makeinstallopts} PLATFORMS=x64 install
+    make -C java   %{?_smp_mflags} %{makeinstallopts} install-icegridgui
 %endif
 
-%ifarch noarch
-    # Just install what is necessary for icegridgui and for ice-slice
-    PACKAGES="%{?nameprefix}icegridgui %{?nameprefix}ice-slice"
-    (cd java; make %{makeinstallopts} install-icegridgui)
-
-    make %{makeinstallopts} install-slice
+%ifarch %{ix86}
+    make -C cpp    %{?_smp_mflags} %{makeinstallopts} PLATFORMS=x86 install
 %endif
-
-#
-# Doc & license files
-#
-for i in $PACKAGES
-do
-    mkdir -p $RPM_BUILD_ROOT%{_defaultdocdir}/$i-%{version}
-    cp -p %{rpmbuildfiles}/README.Linux $RPM_BUILD_ROOT%{_defaultdocdir}/$i-%{version}/README
-    cp -p $RPM_BUILD_DIR/Ice-%{version}/LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/$i-%{version}
-    cp -p $RPM_BUILD_DIR/Ice-%{version}/ICE_LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/$i-%{version}
-done
-
-%ifarch %{core_arches}
 
 # Cleanup extra files
-rm -f $RPM_BUILD_ROOT%{_libdir}/libIceStormService.so
-rm -f $RPM_BUILD_ROOT%{_libdir}/libGlacier2CryptPermissionsVerifier.so
-rm -f $RPM_BUILD_ROOT%{_bindir}/slice2confluence
-rm -f $RPM_BUILD_ROOT%{_bindir}/slice2js
-rm -f $RPM_BUILD_ROOT%{_bindir}/slice2objc
-rm -f $RPM_BUILD_ROOT%{_bindir}/slice2rb
-rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2js.1
-rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2objc.1
-rm -f $RPM_BUILD_ROOT%{_mandir}/man1/slice2rb.1
+rm -f %{buildroot}%{_libdir}/libIceStormService.so
+rm -f %{buildroot}%{_libdir}/libGlacier2CryptPermissionsVerifier.so
+rm -f %{buildroot}%{_bindir}/slice2confluence
+rm -f %{buildroot}%{_bindir}/slice2js
+rm -f %{buildroot}%{_bindir}/slice2objc
+rm -f %{buildroot}%{_bindir}/slice2rb
+rm -f %{buildroot}%{_mandir}/man1/slice2js.1
+rm -f %{buildroot}%{_mandir}/man1/slice2objc.1
+rm -f %{buildroot}%{_mandir}/man1/slice2rb.1
 
 # TODO: keep with Python >= 3.5
-rm -f $RPM_BUILD_ROOT%{pythondir}/IceFuture.py
+rm -f %{buildroot}%{pythondir}/IceFuture.py
 
-# The files below are packaged with the noarch RPM
-rm -f $RPM_BUILD_ROOT/%{_javadir}/icegridgui.jar
-rm -f $RPM_BUILD_ROOT%{_datadir}/slice
-rm -rf $RPM_BUILD_ROOT%{_datadir}/ice/slice
-rm -rf $RPM_BUILD_ROOT%{_datadir}/ice/LICENSE
-rm -rf $RPM_BUILD_ROOT%{_datadir}/ice/ICE_LICENSE
+%ifarch x86_64
 
-%if %{cppx86}
-
-# These directories and files aren't needed in the x86 build.
-rm -f $RPM_BUILD_ROOT%{_libdir}/libGlacier2CryptPermissionsVerifier.so*
-rm -f $RPM_BUILD_ROOT%{_libdir}/libIceXML*.so*
-rm -f $RPM_BUILD_ROOT%{_bindir}/slice2*
-rm -rf $RPM_BUILD_ROOT%{_includedir}
-rm -rf $RPM_BUILD_ROOT%{_mandir}
-rm -rf $RPM_BUILD_ROOT%{_datadir}/ice
-
-%else
 #
 # php ice.ini
 #
 %if "%{dist}" == ".sles12"
-    mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/php5/conf.d
-    cp -p %{rpmbuildfiles}/ice.ini $RPM_BUILD_ROOT%{_sysconfdir}/php5/conf.d
+    mkdir -p %{buildroot}%{_sysconfdir}/php5/conf.d
+    cp -p %{rpmbuildfiles}/ice.ini %{buildroot}%{_sysconfdir}/php5/conf.d
 %else
-    mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/php.d
-    cp -p %{rpmbuildfiles}/ice.ini $RPM_BUILD_ROOT%{_sysconfdir}/php.d
+    mkdir -p %{buildroot}%{_sysconfdir}/php.d
+    cp -p %{rpmbuildfiles}/ice.ini %{buildroot}%{_sysconfdir}/php.d
 %endif
 
 #
 # initrd files (for servers)
 #
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
-cp %{rpmbuildfiles}/*.conf $RPM_BUILD_ROOT%{_sysconfdir}
+mkdir -p %{buildroot}%{_sysconfdir}
+cp %{rpmbuildfiles}/*.conf %{buildroot}%{_sysconfdir}
 for i in icegridregistry icegridnode glacier2router
 do
     %if %{systemd}
-	install -p -D %{rpmbuildfiles}/$i.service $RPM_BUILD_ROOT%{_unitdir}/$i.service
+	install -p -D %{rpmbuildfiles}/$i.service %{buildroot}%{_unitdir}/$i.service
     %else
-	install -p -D %{rpmbuildfiles}/$i.%{_vendor} $RPM_BUILD_ROOT%{_initrddir}/$i
+	install -p -D %{rpmbuildfiles}/$i.%{_vendor} %{buildroot}%{_initrddir}/$i
     %endif
 done
-
-cp -p %{rpmbuildfiles}/MCPP_LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/lib%{?nameprefix}ice3.7-c++-%{version}
-
-%endif # ! cppx86
-
-%endif
-
-#
-# Arch-independent packages
-#
-%ifarch noarch
-
-cp -p %{rpmbuildfiles}/JGOODIES_LICENSE $RPM_BUILD_ROOT%{_defaultdocdir}/%{?nameprefix}icegridgui-%{version}
 
 #
 # IceGridGUI
 #
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-cp -p %{rpmbuildfiles}/icegridgui $RPM_BUILD_ROOT%{_bindir}/icegridgui
+mkdir -p %{buildroot}%{_bindir}
+cp -p %{rpmbuildfiles}/icegridgui %{buildroot}%{_bindir}/icegridgui
 if [ -n "$JARSIGNER_KEYSTORE" ]; then
-    jarsigner -keystore $JARSIGNER_KEYSTORE -storepass "$JARSIGNER_KEYSTORE_PASSWORD" $RPM_BUILD_ROOT%{_javadir}/icegridgui.jar $JARSIGNER_KEYSTORE_ALIAS -tsa http://timestamp.digicert.com
+    jarsigner -keystore $JARSIGNER_KEYSTORE -storepass "$JARSIGNER_KEYSTORE_PASSWORD" %{buildroot}%{_javadir}/icegridgui.jar $JARSIGNER_KEYSTORE_ALIAS -tsa http://timestamp.digicert.com
 fi
 
-%endif # noarch
+%else
 
-%clean
+# These directories and files aren't needed in the x86 build.
+rm -f %{buildroot}%{_libdir}/libGlacier2CryptPermissionsVerifier.so*
+rm -f %{buildroot}%{_libdir}/libIceXML*.so*
+rm -f %{buildroot}%{_bindir}/slice2*
+rm -rf %{buildroot}%{_includedir}
+rm -rf %{buildroot}%{_mandir}
+rm -rf %{buildroot}%{_datadir}/ice
 
-rm -rf $RPM_BUILD_ROOT
+%endif # x86_64
+
+
+%ifarch x86_64
 
 #
 # noarch file packages
 #
-%ifarch noarch
 
 %files -n %{?nameprefix}ice-slice
-%defattr(-, root, root, -)
+%license LICENSE
+%license ICE_LICENSE
+%doc %{rpmbuildfiles}/README.Linux
 %dir %{_datadir}/ice
 %{_datadir}/ice/slice
 %{_datadir}/slice
-%{_defaultdocdir}/%{?nameprefix}ice-slice-%{version}
 
 %files -n %{?nameprefix}icegridgui
-%defattr(-, root, root, -)
+%license LICENSE
+%license ICE_LICENSE
+%license %{rpmbuildfiles}/JGOODIES_LICENSE
+%doc %{rpmbuildfiles}/README.Linux
 %attr(755,root,root) %{_bindir}/icegridgui
 %{_javadir}/icegridgui.jar
-%{_defaultdocdir}/%{?nameprefix}icegridgui-%{version}
 
-%endif # noarch
+%endif # x86_64
 
 #
 # arch-specific packages
 #
-%ifarch %{core_arches}
-
-#
-# Empty list for main "ice" package
-#
-%files
 
 #
 # Generate "ice-all-runtime" meta package as arch-specific
 #
 %files -n %{?nameprefix}ice-all-runtime
-%defattr(-, root, root, -)
-%{_defaultdocdir}/%{?nameprefix}ice-all-runtime-%{version}
+%license LICENSE
+%license ICE_LICENSE
+%doc %{rpmbuildfiles}/README.Linux
 
 #
 # Generate "ice-all-devel" meta package as arch-specific
 #
 %files -n %{?nameprefix}ice-all-devel
-%defattr(-, root, root, -)
-%{_defaultdocdir}/%{?nameprefix}ice-all-devel-%{version}
+%license LICENSE
+%license ICE_LICENSE
+%doc %{rpmbuildfiles}/README.Linux
 
 #
 # libice-Mm-c++ package
 #
 %files -n lib%{?nameprefix}ice3.7-c++
-%defattr(-, root, root, -)
+%license LICENSE
+%license ICE_LICENSE
+%license %{rpmbuildfiles}/MCPP_LICENSE
+%doc %{rpmbuildfiles}/README.Linux
 %{_libdir}/libGlacier2.so.*
 %{_libdir}/libIce.so.*
 %{_libdir}/libIceBox.so.*
@@ -678,11 +596,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libIceLocatorDiscovery++11.so.*
 %{_libdir}/libIceSSL++11.so.*
 %{_libdir}/libIceStorm++11.so.*
-%if ! %{cppx86}
+%ifarch x86_64
 %{_libdir}/libGlacier2CryptPermissionsVerifier.so.*
 %{_libdir}/libIceXML.so.*
 %endif
-%{_defaultdocdir}/lib%{?nameprefix}ice3.7-c++-%{version}
 %post -n lib%{?nameprefix}ice3.7-c++ -p /sbin/ldconfig
 %postun -n lib%{?nameprefix}ice3.7-c++
 /sbin/ldconfig
@@ -692,8 +609,10 @@ exit 0
 # icebox package
 #
 %files -n %{?nameprefix}icebox
-%defattr(-, root, root, -)
-%if %{cppx86}
+%license LICENSE
+%license ICE_LICENSE
+%doc %{rpmbuildfiles}/README.Linux
+%ifarch %{ix86}
 %{_bindir}/icebox32
 %{_bindir}/icebox32++11
 %else
@@ -701,7 +620,6 @@ exit 0
 %{_bindir}/icebox++11
 %{_mandir}/man1/icebox.1*
 %endif
-%{_defaultdocdir}/%{?nameprefix}icebox-%{version}
 %post -n %{?nameprefix}icebox -p /sbin/ldconfig
 %postun -n %{?nameprefix}icebox
 /sbin/ldconfig
@@ -711,7 +629,9 @@ exit 0
 # libice-c++devel package
 #
 %files -n lib%{?nameprefix}ice-c++-devel
-%defattr(-, root, root, -)
+%license LICENSE
+%license ICE_LICENSE
+%doc %{rpmbuildfiles}/README.Linux
 %{_libdir}/libGlacier2.so
 %{_libdir}/libIce.so
 %{_libdir}/libIceBox.so
@@ -730,7 +650,7 @@ exit 0
 %{_libdir}/libIceLocatorDiscovery++11.so
 %{_libdir}/libIceSSL++11.so
 %{_libdir}/libIceStorm++11.so
-%if ! %{cppx86}
+%ifarch x86_64
 %{_includedir}/Glacier2
 %{_includedir}/Ice
 %{_includedir}/IceBox
@@ -741,27 +661,29 @@ exit 0
 %{_includedir}/IceUtil
 %{_libdir}/libIceXML.so
 %endif
-%{_defaultdocdir}/lib%{?nameprefix}ice-c++-devel-%{version}
 
 #
 # libicestorm-Mm package
 #
 %files -n lib%{?nameprefix}icestorm3.7
-%defattr(-, root, root, -)
+%license LICENSE
+%license ICE_LICENSE
+%doc %{rpmbuildfiles}/README.Linux
 %{_libdir}/libIceStormService.so.*
-%{_defaultdocdir}/lib%{?nameprefix}icestorm3.7-%{version}
 %post -n lib%{?nameprefix}icestorm3.7 -p /sbin/ldconfig
 %postun -n lib%{?nameprefix}icestorm3.7
 /sbin/ldconfig
 exit 0
 
-%if ! %{cppx86}
+%ifarch x86_64
 
 #
 # ice-compilers package
 #
 %files -n %{?nameprefix}ice-compilers
-%defattr(-, root, root, -)
+%license LICENSE
+%license ICE_LICENSE
+%doc %{rpmbuildfiles}/README.Linux
 %{_bindir}/slice2cpp
 %{_mandir}/man1/slice2cpp.1*
 %{_bindir}/slice2cs
@@ -774,13 +696,14 @@ exit 0
 %{_mandir}/man1/slice2php.1*
 %{_bindir}/slice2py
 %{_mandir}/man1/slice2py.1*
-%{_defaultdocdir}/%{?nameprefix}ice-compilers-%{version}
 
 #
 # ice-utils package
 #
 %files -n %{?nameprefix}ice-utils
-%defattr(-, root, root, -)
+%license LICENSE
+%license ICE_LICENSE
+%doc %{rpmbuildfiles}/README.Linux
 %{_bindir}/iceboxadmin
 %{_mandir}/man1/iceboxadmin.1*
 %{_bindir}/icepatch2calc
@@ -797,7 +720,6 @@ exit 0
 %{_mandir}/man1/icegriddb.1*
 %{_bindir}/icebridge
 %{_mandir}/man1/icebridge.1*
-%{_defaultdocdir}/%{?nameprefix}ice-utils-%{version}
 %post -n %{?nameprefix}ice-utils -p /sbin/ldconfig
 %postun -n %{?nameprefix}ice-utils
 /sbin/ldconfig
@@ -807,7 +729,9 @@ exit 0
 # icegrid package
 #
 %files -n %{?nameprefix}icegrid
-%defattr(-, root, root, -)
+%license LICENSE
+%license ICE_LICENSE
+%doc %{rpmbuildfiles}/README.Linux
 %{_bindir}/icegridnode
 %{_mandir}/man1/icegridnode.1*
 %{_bindir}/icegridregistry
@@ -823,7 +747,6 @@ exit 0
 %endif
 %config(noreplace) %{_sysconfdir}/icegridregistry.conf
 %config(noreplace) %{_sysconfdir}/icegridnode.conf
-%{_defaultdocdir}/%{?nameprefix}icegrid-%{version}
 
 %pre -n %{?nameprefix}icegrid
 %if "%{_prefix}" == "/usr"
@@ -888,7 +811,9 @@ exit 0
 # glacier2 package
 #
 %files -n %{?nameprefix}glacier2
-%defattr(-, root, root, -)
+%license LICENSE
+%license ICE_LICENSE
+%doc %{rpmbuildfiles}/README.Linux
 %{_bindir}/glacier2router
 %{_mandir}/man1/glacier2router.1*
 %if %{systemd}
@@ -897,14 +822,13 @@ exit 0
   %attr(755,root,root) %{_initrddir}/glacier2router
 %endif
 %config(noreplace) %{_sysconfdir}/glacier2router.conf
-%{_defaultdocdir}/%{?nameprefix}glacier2-%{version}
 
 %pre -n %{?nameprefix}glacier2
 %if "%{_prefix}" == "/usr"
   getent group ice > /dev/null || groupadd -r ice
   getent passwd ice > /dev/null || \
-	 useradd -r -g ice -d %{_localstatedir}/lib/ice \
-	 -s /sbin/nologin -c "Ice Service account" ice
+         useradd -r -g ice -d %{_localstatedir}/lib/ice \
+         -s /sbin/nologin -c "Ice Service account" ice
   exit 0
 %endif
 
@@ -951,10 +875,11 @@ exit 0
 # icepatch2 package
 #
 %files -n %{?nameprefix}icepatch2
-%defattr(-, root, root, -)
+%license LICENSE
+%license ICE_LICENSE
+%doc %{rpmbuildfiles}/README.Linux
 %{_bindir}/icepatch2server
 %{_mandir}/man1/icepatch2server.1*
-%{_defaultdocdir}/%{?nameprefix}icepatch2-%{version}
 %post -n %{?nameprefix}icepatch2 -p /sbin/ldconfig
 %postun -n %{?nameprefix}icepatch2
 /sbin/ldconfig
@@ -964,7 +889,9 @@ exit 0
 # php-ice package
 #
 %files -n php-%{?nameprefix}ice
-%defattr(-, root, root, -)
+%license LICENSE
+%license ICE_LICENSE
+%doc %{rpmbuildfiles}/README.Linux
 %{phpdir}
 %{phplibdir}/IcePHP.so
 %if "%{dist}" == ".sles12"
@@ -972,21 +899,18 @@ exit 0
 %else
 %config(noreplace) %{_sysconfdir}/php.d/ice.ini
 %endif
-%{_defaultdocdir}/php-%{?nameprefix}ice-%{version}
-
 
 #
 # python-ice package
 #
 %files -n %{pythonname}-%{?nameprefix}ice
-%defattr(-, root, root, -)
+%license LICENSE
+%license ICE_LICENSE
+%doc %{rpmbuildfiles}/README.Linux
 %{pythondir}/Ice*
 %{pythondir}/Glacier2*
-%{_defaultdocdir}/%{pythonname}-%{?nameprefix}ice-%{version}
 
-%endif # ! cppx86
-
-%endif # core_arches
+%endif #x86_64
 
 %changelog
 * Fri Feb 17 2017 Bernard Normier <bernard@zeroc.com> 3.7a4
@@ -1037,7 +961,7 @@ exit 0
     other ice runtime packages
 - Many updates derived from Mary Ellen Foster (<mefoster at gmail.com>)'s
   Fedora RPM spec for Ice.
- - The Ice jar files are now installed in %{_javalibdir}, with
+ - The Ice jar files are now installed in _javalibdir, with
    jpackage-compliant names
  - New icegridgui shell script to launch the IceGrid GUI
  - The .NET files are now packaged using gacutil with the -root option.
