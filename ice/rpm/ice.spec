@@ -44,7 +44,6 @@
    %define phpdevel php5-devel
    %define expatdevel libexpat-devel
    %define bzip2devel libbz2-devel
-   %define liblmdb liblmdb-0_9_11
    %define shadow shadow
    %define phpdir %{_datadir}/php5
    %define phplibdir %{_libdir}/php5/extensions
@@ -220,9 +219,6 @@ your application logic.
 %package -n lib%{?nameprefix}icestorm3.7
 Summary: IceStorm publish-subscribe event distribution service.
 Group: System Environment/Libraries
-%if "%{?liblmdb}" != ""
-Requires: %{?liblmdb}
-%endif
 %description -n lib%{?nameprefix}icestorm3.7
 This package contains the IceStorm publish-subscribe event distribution
 service.
@@ -296,9 +292,6 @@ Summary: Locate, deploy, and manage Ice servers.
 Group: System Environment/Daemons
 Obsoletes: ice-servers < 3.6
 Requires: %{?nameprefix}ice-utils = %{version}-%{release}
-%if "%{?liblmdb}" != ""
-Requires: %{?liblmdb}
-%endif
 # Requirements for the users
 Requires(pre): %{shadow}
 %if %{systemd}
