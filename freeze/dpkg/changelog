@@ -1,0 +1,5 @@
+zeroc-freeze (3.7a4-1) UNRELEASED; urgency=medium
+
+  * Updates to support Ice 3.7
+
+ -- José Gutiérrez de la Concha <jose@zeroc.com>  Mon, 12 Sep 2016 15:58:00 +0000
