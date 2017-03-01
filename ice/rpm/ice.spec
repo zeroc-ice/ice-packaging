@@ -11,7 +11,7 @@
    %define archive_tag %{git_tag}
    %define archive_dir_suffix %{git_tag}
 %else
-   # git_tag_version is the git tag vX.Y.Z[...] less the v prefix 
+   # git_tag_version is the git tag vX.Y.Z[...] less the v prefix
    # if not defined, we default to the version provided below
    %{!?git_tag_version:%define git_tag_version 3.7.0-alpha4}
    %define archive_tag v%{git_tag_version}
@@ -386,7 +386,7 @@ Group: System Environment/Libraries
 Obsoletes: ice-php < 3.6
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
 %if "%{dist}" == ".sles12"
-Requires: php%{?_isa}
+Requires: php5%{?_isa}
 %endif
 %if "%{dist}" == ".el6"
 Requires: php-common%{?_isa}
