@@ -900,6 +900,11 @@ exit 0
 %license LICENSE
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
+%{pythondir}/IceBox
+%{pythondir}/IceGrid
+%{pythondir}/IceMX
+%{pythondir}/IcePatch2
+%{pythondir}/IceStorm
 %{pythondir}/Ice*
 %{pythondir}/Glacier2*
 
