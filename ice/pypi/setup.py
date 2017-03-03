@@ -26,6 +26,14 @@ if "--with-installed-ice" in sys.argv:
     use_ice = True
     sys.argv.remove("--with-installed-ice")
 
+
+#
+# Files from cpp/src/Slice that are required for IcePy
+#
+sliceSrcs = ["Checksum.cpp", "FileTracker.cpp", "Grammar.cpp", "MD5.cpp",
+             "MD5I.cpp", "Parser.cpp", "Preprocessor.cpp", "Python.cpp",
+             "PythonUtil.cpp", "Scanner.cpp", "SliceUtil.cpp", "StringLiteralUtil.cpp"]
+
 #
 # Sort out packages, package_dir and package_data from the lib dir.
 #
@@ -40,7 +48,7 @@ package_data = { 'slice' : ['*/*.ice'] }
 
 extra_compile_args=[]
 if use_ice:
-    include_dirs=['src']
+    include_dirs=['src', 'src/ice/cpp/src']
     define_macros=[]
 else:
     include_dirs=['src', 'src/ice/cpp/include', 'src/ice/cpp/include/generated', 'src/ice/cpp/src']
@@ -51,7 +59,7 @@ if platform == 'darwin':
         os.environ['ARCHFLAGS'] = '-arch x86_64'
     extra_compile_args.append('-w')
     if use_ice:
-        libraries = ["IceSSL", "Ice", "Slice", "IceUtil"]
+        libraries = ["IceSSL", "Ice"]
         extra_link_args = []
     else:
         libraries=['iconv']
@@ -72,6 +80,7 @@ elif platform == 'win32':
     define_macros.append(('ICE_BUILDING_SRC', None))
     define_macros.append(('ICE_BUILDING_ICE', None))
     define_macros.append(('ICE_BUILDING_ICE_SSL', None))
+    define_macros.append(('ICE_BUILDING_ICE_LOCATOR_DISCOVERY', None))
     define_macros.append(('_WIN32_WINNT', '0x601'))
     include_dirs.append('src/ice/bzip2')
     extra_compile_args.append('/EHsc')
@@ -82,8 +91,7 @@ elif platform == 'win32':
     libraries=['dbghelp', 'Shlwapi', 'rpcrt4','advapi32','Iphlpapi','secur32','crypt32','ws2_32']
     # SysLoggerI.cpp shouldn't be built under Windows.
     def filterName(path):
-        b = os.path.basename(path)
-        if b == 'SysLoggerI.cpp':
+        if os.path.basename(path) == 'SysLoggerI.cpp':
             return False
         return True
 
@@ -100,7 +108,7 @@ else:
     extra_compile_args.append('-w')
     extra_link_args = []
     if use_ice:
-        libraries = ["IceSSL", "Ice", "Slice", "IceUtil"]
+        libraries = ["IceSSL", "Ice"]
     else:
         libraries=['ssl', 'crypto', 'bz2', 'rt']
         if platform is not 'freebsd':
@@ -110,7 +118,7 @@ else:
         d = os.path.dirname(path)
         if use_ice and d.find("src/ice/") != -1:
             return False
-        if d.find('bzip2') != -1:
+        elif d.find('bzip2') != -1:
             return False # Don't compile the bzip2 source under darwin or linux.
         return True
 
@@ -119,8 +127,11 @@ else:
 sources = []
 for root, dirnames, filenames in os.walk('src'):
   for filename in fnmatch.filter(filenames, '*.cpp'):
-        n = os.path.join(root, filename)
-        if filterName(n):
+        n = os.path.normpath(os.path.join(root, filename))
+        if n.find(os.path.normpath("src/ice/cpp/src/Slice/")) != -1:
+            if os.path.basename(n) in sliceSrcs:
+                sources.append(n)
+        elif filterName(n):
             sources.append(n)
   for filename in fnmatch.filter(filenames, '*.c'):
         n = os.path.join(root, filename)
@@ -176,6 +187,7 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
 
     # What does your project relate to?
