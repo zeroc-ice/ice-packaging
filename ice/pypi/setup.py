@@ -113,7 +113,7 @@ def filterName(path):
     #
     # Always build Slice sources required by IcePy
     #
-    elif "ice/cpp/src/Slice":
+    elif os.path.normpath("ice/cpp/src/Slice") in d:
         return b in sliceSrcs
     if platform == "win32":
         #
@@ -125,7 +125,7 @@ def filterName(path):
         #
         # Don't build Ice for C++ sources if using Ice system install (--with-installed-ice)
         #
-        if use_ice and d.find("src/ice/") != -1:
+        if use_ice and os.path.normpath("src/ice/") in d:
             return False
         #
         # Always use system bzip2 under Unix platforms.
