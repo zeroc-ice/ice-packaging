@@ -28,7 +28,7 @@ if "--with-installed-ice" in sys.argv:
 
 
 #
-# Files from cpp/src/Slice that are required for IcePy
+# Files from cpp/src/Slice that are required by IcePy
 #
 sliceSrcs = ["Checksum.cpp", "FileTracker.cpp", "Grammar.cpp", "MD5.cpp",
              "MD5I.cpp", "Parser.cpp", "Preprocessor.cpp", "Python.cpp",
@@ -52,6 +52,9 @@ if use_ice:
     define_macros=[]
 else:
     include_dirs=['src', 'src/ice/cpp/include', 'src/ice/cpp/include/generated', 'src/ice/cpp/src']
+    #
+    # Define ICE_STATIC_LIBS to disable _API macros
+    #
     define_macros=[('ICE_STATIC_LIBS', None)]
 
 if platform == 'darwin':
@@ -59,7 +62,7 @@ if platform == 'darwin':
         os.environ['ARCHFLAGS'] = '-arch x86_64'
     extra_compile_args.append('-w')
     if use_ice:
-        libraries = ["IceSSL", "Ice"]
+        libraries = ["IceSSL", "IceLocatorDiscovery", "IceDiscovery", "Ice"]
         extra_link_args = []
     else:
         libraries=['iconv']
@@ -108,7 +111,7 @@ else:
     extra_compile_args.append('-w')
     extra_link_args = []
     if use_ice:
-        libraries = ["IceSSL", "Ice"]
+        libraries = ["IceSSL", "IceLocatorDiscovery", "IceDiscovery", "Ice"]
     else:
         libraries=['ssl', 'crypto', 'bz2', 'rt']
         if platform is not 'freebsd':
