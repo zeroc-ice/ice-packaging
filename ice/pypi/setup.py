@@ -67,15 +67,6 @@ if platform == 'darwin':
     else:
         libraries=['iconv']
         extra_link_args = ['-framework','Security', '-framework','CoreFoundation']
-
-    def filterName(path):
-        d = os.path.dirname(path)
-        if use_ice and d.find("src/ice/") != -1:
-            return False
-        if d.find('bzip2') != -1:
-            return False # Don't compile the bzip2 source under darwin or linux.
-        return True
-
 elif platform == 'win32':
     extra_link_args = []
     libraries=[]
@@ -92,12 +83,6 @@ elif platform == 'win32':
     extra_compile_args.append('/wd4275')
     extra_compile_args.append('/wd4996')
     libraries=['dbghelp', 'Shlwapi', 'rpcrt4','advapi32','Iphlpapi','secur32','crypt32','ws2_32']
-    # SysLoggerI.cpp shouldn't be built under Windows.
-    def filterName(path):
-        if os.path.basename(path) == 'SysLoggerI.cpp':
-            return False
-        return True
-
 else:
     #
     # TODO: Get rid of this hack to remove -Wstrict-prototypes from the compiler options
@@ -117,27 +102,47 @@ else:
         if platform is not 'freebsd':
             libraries.append('dl')
 
-    def filterName(path):
-        d = os.path.dirname(path)
+def filterName(path):
+    d = os.path.dirname(path)
+    b = os.path.basename(path)
+    #
+    # Always build mcpp sources
+    #
+    if "mcpp" in d:
+        return True
+    #
+    # Always build Slice sources required by IcePy
+    #
+    elif "ice/cpp/src/Slice":
+        return b in sliceSrcs
+    if platform == "win32":
+        #
+        # SysLoggerI.cpp shouldn't be built under Windows.
+        #
+        if b == 'SysLoggerI.cpp': 
+            return False
+    else:
+        #
+        # Don't build Ice for C++ sources if using Ice system install (--with-installed-ice)
+        #
         if use_ice and d.find("src/ice/") != -1:
             return False
+        #
+        # Always use system bzip2 under Unix platforms.
+        #
         elif d.find('bzip2') != -1:
-            return False # Don't compile the bzip2 source under darwin or linux.
-        return True
-
+            return False
+    return True
 
 # Gather the list of sources to compile.
 sources = []
 for root, dirnames, filenames in os.walk('src'):
   for filename in fnmatch.filter(filenames, '*.cpp'):
         n = os.path.normpath(os.path.join(root, filename))
-        if n.find(os.path.normpath("src/ice/cpp/src/Slice/")) != -1:
-            if os.path.basename(n) in sliceSrcs:
-                sources.append(n)
-        elif filterName(n):
+        if filterName(n):
             sources.append(n)
   for filename in fnmatch.filter(filenames, '*.c'):
-        n = os.path.join(root, filename)
+        n = os.path.normpath(os.path.join(root, filename))
         if filterName(n):
             sources.append(n)
 
