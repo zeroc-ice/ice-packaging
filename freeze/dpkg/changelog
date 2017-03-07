@@ -1,3 +1,9 @@
+zeroc-ice (3.7b0-1) UNRELEASED; urgency=medium
+
+  * Version bump
+
+ -- Benoit Foucher <benoit@zeroc.com>  Tue, 7 Mar 2017 14:20:00 +0000
+
 zeroc-freeze (3.7a4-1) UNRELEASED; urgency=medium
 
   * Updates to support Ice 3.7

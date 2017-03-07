@@ -11,9 +11,9 @@
    %define archive_tag %{git_tag}
    %define archive_dir_suffix %{git_tag}
 %else
-   # git_tag_version is the git tag vX.Y.Z[...] less the v prefix 
+   # git_tag_version is the git tag vX.Y.Z[...] less the v prefix
    # if not defined, we default to the version provided below
-   %{!?git_tag_version:%define git_tag_version 3.7.0-alpha4}
+   %{!?git_tag_version:%define git_tag_version 3.7.0-beta0}
    %define archive_tag v%{git_tag_version}
    %define archive_dir_suffix %{git_tag_version}
 %endif
@@ -46,7 +46,7 @@
 %define makeinstallopts CONFIGS="shared" OPTIMIZE=yes V=1 %{runpath} DESTDIR=%{buildroot} prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_includedir=%{_includedir} install_mandir=%{_mandir}
 
 Name: %{?nameprefix}freeze
-Version: 3.7a4
+Version: 3.7b0
 Summary: Persistent storage for Ice objects
 Release: 1%{?dist}
 %if "%{?ice_license}"
@@ -129,7 +129,7 @@ export CXXFLAGS="%{optflags}"
 export LDFLAGS="%{?__global_ldflags}"
 
 make -C ice/cpp %{makebuildopts} IceXML
-make -C cpp %{makebuildopts} srcs 
+make -C cpp %{makebuildopts} srcs
 
 %install
 make -C cpp %{makeinstallopts} install
@@ -172,5 +172,8 @@ make -C cpp %{makeinstallopts} install
 %{_mandir}/man1/transformdb.1*
 
 %changelog
+* Tue Mar 7 2017 Benoit Foucher <benoit@zeroc.com> 3.7b0
+- Version bump
+
 * Wed Feb 22 2017 Bernard Normier <bernard@zeroc.com> 3.7a4
 - Initial package
