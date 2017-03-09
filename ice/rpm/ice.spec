@@ -72,9 +72,9 @@ URL: https://zeroc.com/
 Source0: https://github.com/zeroc-ice/ice/archive/%{archive_tag}/%{name}-%{version}.tar.gz
 Source1: https://github.com/zeroc-ice/ice-packaging/archive/%{archive_tag}/%{name}-packaging-%{version}.tar.gz
 
-BuildRequires: openssl-devel, mcpp-devel, lmdb-devel, %{bzip2devel}, %{expatdevel}, %{phpdevel}, %{pythondevel}, %{javapackagestools}
-%ifarch %{ix86}
-BuildRequires: openssl-devel(x86-32), mcpp-devel(x86-32), lmdb-devel(x86-32), %{bzip2devel}(x86-32), %{expatdevel}(x86-32)
+BuildRequires: openssl-devel, mcpp-devel, lmdb-devel, %{bzip2devel}, %{expatdevel}
+%ifarch x86_64
+BuildRequires: %{phpdevel}, %{pythondevel}, %{javapackagestools}
 %endif
 
 %description
