@@ -8,11 +8,12 @@
 Summary: mcpp, a portable C/C++ preprocessor
 Name: mcpp-devel
 Version: 2.7.2
-Release: 5ice%{?dist}
+Release: 6ice%{?dist}
 Source: https://github.com/zeroc-ice/mcpp/archive/v%{git_tag_version}/mcpp-%{version}.tar.gz
 URL: http://mcpp.sourceforge.net/
 License: BSD
 Group: System Environment/Libraries
+Requires: pkgconfig
 
 %description
 mcpp is a C/C++ preprocessor with the following features.
@@ -48,11 +49,29 @@ make CFLAGS="%{optflags}"
 %install
 make PREFIX=%{buildroot}%{_prefix} install
 
+# create pkgconfig file
+mkdir %{buildroot}%{_libdir}/pkgconfig
+cat << "EOF" > %{buildroot}%{_libdir}/pkgconfig/mcpp.pc
+prefix=/usr
+exec_prefix=${prefix}
+libdir=%{_libdir}
+
+Name: mcpp
+Version: %{version}
+Description: %{summary}
+URL: %{url}
+Libs: -L${libdir} -lmcpp
+EOF
+
 %files -n mcpp-devel
 %doc LICENSE
 %{_libdir}/libmcpp.a
+%{_libdir}/pkgconfig/mcpp.pc
 
 %changelog
+* Fri Mar 10 2017 Bernard Normier <bernard@zeroc.com> 2.7.2-6ice
+- Added pkgconfig file
+
 * Tue Feb 21 2017 Bernard Normier <bernard@zeroc.com> 2.7.2-5ice
 - Simplified spec file
 - Build with optflags

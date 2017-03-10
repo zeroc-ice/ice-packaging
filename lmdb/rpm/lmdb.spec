@@ -3,7 +3,7 @@
 
 Name:           lmdb
 Version:        0.9.18
-Release:        2ice%{?dist}
+Release:        3ice%{?dist}
 Summary:        Memory-mapped key-value database
 
 License:        OpenLDAP
@@ -23,6 +23,7 @@ to the size of the virtual address space.
 %package        devel
 Summary:        Development files for %{name}
 Provides:       %{name}-static = %{version}-%{release}
+Requires:       pkgconfig
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -57,6 +58,21 @@ make DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} mandir=%{_mandir} 
 rm %{buildroot}%{_libdir}/*.so
 popd
 
+# create pkgconfig file
+mkdir %{buildroot}%{_libdir}/pkgconfig
+cat << "EOF" > %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
+prefix=/usr
+exec_prefix=${prefix}
+libdir=%{_libdir}
+includedir=${prefix}/include
+
+Name: %{name}
+Version: %{version}
+Description: LMDB embedded data store
+URL: %{url}
+Libs: -L${libdir} -l%{name}
+Cflags: -I${includedir}
+EOF
 
 %check
 pushd %{archive_path}
@@ -77,9 +93,12 @@ popd
 %license %{archive_path}/LICENSE
 %{_includedir}/*
 %{_libdir}/*.a
-
+%{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri Mar 10 2017 Bernard Normier <bernard@zeroc.com> 0.9.19-3ice
+- Added pkgconfig file
+
 * Mon Feb 20 2017 Bernard Normier <bernard@zeroc.com> 0.9.18-2ice
 - Fork of EPEL-7 packaging to create only static library and statically
   linked tools.
