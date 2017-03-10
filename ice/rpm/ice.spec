@@ -139,6 +139,7 @@ Requires: lib%{?nameprefix}icestorm3.7%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}glacier2%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icegrid%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icepatch2%{?_isa} = %{version}-%{release}
+Requires: %{?nameprefix}icebridge%{?_isa} = %{version}-%{release}
 Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
 Requires: %{pythonname}-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
@@ -347,6 +348,23 @@ network programming interfaces and allows you to focus your efforts on
 your application logic.
 
 #
+# icebridge package
+#
+%package -n %{?nameprefix}icebridge
+Summary: Ice bridge.
+Group: System Environment/Daemons
+%description -n %{?nameprefix}icebridge
+This package contains the Ice bridge. The Ice bridge allows you to bridge
+connections securely between one or multiple clients and a server. It
+relays requests from clients to a target server and makes every effort
+to be as transparent as possible.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
+
+#
 # icepatch2 package
 #
 %package -n %{?nameprefix}icepatch2
@@ -354,19 +372,6 @@ Summary: File distribution and patching.
 Group: System Environment/Daemons
 Obsoletes: ice-servers < 3.6
 Requires: %{?nameprefix}ice-utils%{?_isa} = %{version}-%{release}
-# Requirements for the users
-Requires(pre): %{shadow}
-%if %{systemd}
-BuildRequires:    %{systemdpkg}
-Requires(post):   %{systemdpkg}
-Requires(preun):  %{systemdpkg}
-Requires(postun): %{systemdpkg}
-%else
-# Requirements for the init.d services
-Requires(post): /sbin/chkconfig
-Requires(preun): /sbin/chkconfig
-Requires(preun): /sbin/service
-%endif
 %description -n %{?nameprefix}icepatch2
 This package contains the IcePatch2 service. With IcePatch2, you can easily
 distribute a large set of files to many clients and keep these files
@@ -711,8 +716,6 @@ exit 0
 %{_mandir}/man1/icegridadmin.1*
 %{_bindir}/icegriddb
 %{_mandir}/man1/icegriddb.1*
-%{_bindir}/icebridge
-%{_mandir}/man1/icebridge.1*
 %post -n %{?nameprefix}ice-utils -p /sbin/ldconfig
 %postun -n %{?nameprefix}ice-utils
 /sbin/ldconfig
@@ -865,6 +868,20 @@ exit 0
 exit 0
 
 #
+# icebridge package
+#
+%files -n %{?nameprefix}icebridge
+%license LICENSE
+%license ICE_LICENSE
+%doc %{rpmbuildfiles}/README
+%{_bindir}/icebridge
+%{_mandir}/man1/icebridge.1*
+%post -n %{?nameprefix}icebridge -p /sbin/ldconfig
+%postun -n %{?nameprefix}icebridge
+/sbin/ldconfig
+exit 0
+
+#
 # icepatch2 package
 #
 %files -n %{?nameprefix}icepatch2
@@ -911,6 +928,9 @@ exit 0
 %endif #x86_64
 
 %changelog
+* Fri Mar 10 2017 Benoit Foucher <benoit@zeroc.com> 3.7b0
+- Added icebridge package
+
 * Tue Mar 7 2017 Benoit Foucher <benoit@zeroc.com> 3.7b0
 - Version bump
 
