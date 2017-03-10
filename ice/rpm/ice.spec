@@ -25,8 +25,6 @@
 %define shadow shadow-utils
 %define javapackagestools javapackages-tools
 %define phpdevel php-devel
-%define pythondevel python-devel
-%define expatdevel expat-devel
 %define bzip2devel bzip2-devel
 %define phpdir %{_datadir}/php
 %define phplibdir %{_libdir}/php/modules
@@ -36,13 +34,11 @@
 %if "%{dist}" == ".amzn1"
    %define systemd 0
    %define pythonname python27
-   %define pythondevel python27-devel
    %define pythondir %{python27_sitearch}
 %endif
 %if "%{dist}" == ".sles12"
    %define systemdpkg systemd-rpm-macros
    %define phpdevel php5-devel
-   %define expatdevel libexpat-devel
    %define bzip2devel libbz2-devel
    %define shadow shadow
    %define phpdir %{_datadir}/php5
@@ -72,9 +68,9 @@ URL: https://zeroc.com/
 Source0: https://github.com/zeroc-ice/ice/archive/%{archive_tag}/%{name}-%{version}.tar.gz
 Source1: https://github.com/zeroc-ice/ice-packaging/archive/%{archive_tag}/%{name}-packaging-%{version}.tar.gz
 
-BuildRequires: openssl-devel, mcpp-devel, lmdb-devel, %{bzip2devel}, %{expatdevel}
+BuildRequires: pkgconfig(expat), pkgconfig(openssl), mcpp-devel, lmdb-devel, %{bzip2devel} 
 %ifarch x86_64
-BuildRequires: %{phpdevel}, %{pythondevel}, %{javapackagestools}
+BuildRequires: pkgconfig(python-2.7), %{phpdevel}, %{javapackagestools}
 %if %{systemd}
 BuildRequires: %{systemdpkg}
 %endif

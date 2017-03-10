@@ -18,14 +18,12 @@
    %define archive_dir_suffix %{git_tag_version}
 %endif
 
-%define expatdevel expat-devel
 %define bzip2devel bzip2-devel
 
 %define libdbcxx libdb-cxx
 %define libdbcxxdevel libdb-cxx-devel
 
 %if "%{dist}" == ".sles12"
-  %define expatdevel libexpat-devel
   %define bzip2devel libbz2-devel
   %define libdbcxx db53
   %define libdbcxxdevel db53-devel
@@ -58,7 +56,7 @@ Vendor: ZeroC, Inc.
 URL: https://zeroc.com/
 Source0: https://github.com/zeroc-ice/freeze/archive/%{archive_tag}/%{name}-%{version}.tar.gz
 Source1: https://github.com/zeroc-ice/ice/archive/%{archive_tag}/%{name}-ice-%{version}.tar.gz
-BuildRequires: mcpp-devel, %{bzip2devel}, %{expatdevel}, %{libdbcxxdevel}
+BuildRequires: pkgconfig(expat), mcpp-devel, %{bzip2devel}, %{libdbcxxdevel}
 %description
 Not used
 
