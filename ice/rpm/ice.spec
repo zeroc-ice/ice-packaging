@@ -426,7 +426,7 @@ your application logic.
 %endif #x86_64
 
 %prep
-%setup -q -n %{name}-%{archive_dir_suffix} -a 1
+%setup -q -n ice-%{archive_dir_suffix} -a 1
 
 %build
 #

@@ -117,7 +117,7 @@ This package contains Freeze utilities.
 Freeze provides persistent storage for Ice objects.
 
 %prep
-%setup -q -n %{name}-%{archive_dir_suffix} -a 1
+%setup -q -n freeze-%{archive_dir_suffix} -a 1
 rmdir ice
 mv ice-%{archive_dir_suffix} ice
 
