@@ -75,6 +75,9 @@ Source1: https://github.com/zeroc-ice/ice-packaging/archive/%{archive_tag}/%{nam
 BuildRequires: openssl-devel, mcpp-devel, lmdb-devel, %{bzip2devel}, %{expatdevel}
 %ifarch x86_64
 BuildRequires: %{phpdevel}, %{pythondevel}, %{javapackagestools}
+%if %{systemd}
+BuildRequires: %{systemdpkg}
+%endif
 %endif
 
 %description
@@ -195,7 +198,6 @@ Obsoletes: ice-servers < 3.6
 # Requirements for the users
 Requires(pre): %{shadow}
 %if %{systemd}
-BuildRequires:    %{systemdpkg}
 Requires(post):   %{systemdpkg}
 Requires(preun):  %{systemdpkg}
 Requires(postun): %{systemdpkg}
@@ -296,7 +298,6 @@ Requires: %{?nameprefix}ice-utils = %{version}-%{release}
 # Requirements for the users
 Requires(pre): %{shadow}
 %if %{systemd}
-BuildRequires:    %{systemdpkg}
 Requires(post):   %{systemdpkg}
 Requires(preun):  %{systemdpkg}
 Requires(postun): %{systemdpkg}
@@ -325,7 +326,6 @@ Obsoletes: ice-servers < 3.6
 # Requirements for the users
 Requires(pre): %{shadow}
 %if %{systemd}
-BuildRequires:    %{systemdpkg}
 Requires(post):   %{systemdpkg}
 Requires(preun):  %{systemdpkg}
 Requires(postun): %{systemdpkg}
