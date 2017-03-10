@@ -56,7 +56,7 @@ Vendor: ZeroC, Inc.
 URL: https://zeroc.com/
 Source0: https://github.com/zeroc-ice/freeze/archive/%{archive_tag}/%{name}-%{version}.tar.gz
 Source1: https://github.com/zeroc-ice/ice/archive/%{archive_tag}/%{name}-ice-%{version}.tar.gz
-BuildRequires: pkgconfig(expat), mcpp-devel, %{bzip2devel}, %{libdbcxxdevel}
+BuildRequires: pkgconfig(expat), pkgconfig(mcpp), %{bzip2devel}, %{libdbcxxdevel}
 %description
 Not used
 
