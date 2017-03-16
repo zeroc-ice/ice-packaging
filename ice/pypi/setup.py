@@ -73,7 +73,7 @@ elif platform == 'win32':
     define_macros.append(('WIN32_LEAN_AND_MEAN', None))
     define_macros.append(('ICE_BUILDING_SRC', None))
     define_macros.append(('ICE_BUILDING_ICE', None))
-    define_macros.append(('ICE_BUILDING_ICE_SSL', None))
+    define_macros.append(('ICE_BUILDING_ICESSL', None))
     define_macros.append(('ICE_BUILDING_ICE_LOCATOR_DISCOVERY', None))
     define_macros.append(('_WIN32_WINNT', '0x601'))
     include_dirs.append('src/ice/bzip2')
