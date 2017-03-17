@@ -134,7 +134,7 @@ def filterName(path):
         #
         if ((b.startswith("OpenSSL") and platform == "darwin") or
             (b.startswith("SecureTransport") and platform != "darwin") or
-            (b.startswith("SChannel")):
+            (b.startswith("SChannel"))):
             return False
         
         #
