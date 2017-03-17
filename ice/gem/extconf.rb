@@ -69,11 +69,26 @@ Dir["*.cpp"].each do |f|
     $srcs << f
 end
 
-# The Ice source.
-skip = []
+
+def filter(f)
+    #
+    # Filter IceSSL sources that doesn't match current OS default
+    # implementation
+    #
+    if f.start_with?("SChannel")
+        return false
+    end
+    if RUBY_PLATFORM =~ /darwin/ and f.start_with?("OpenSSL")
+        return false
+    end
+    if !(RUBY_PLATFORM =~ /darwin/) and f.start_with?("SecureTransport")
+         return false
+    end
+    return true
+end
 
 Dir["ice/**/*.cpp"].each do |f|
-    if ! skip.include? File.basename(f)
+    if filter File.basename(f)
         $objs << File.dirname(f) + "/" + File.basename(f, ".*") + ".o"
         $srcs << f
     end

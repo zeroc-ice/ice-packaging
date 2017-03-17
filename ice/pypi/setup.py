@@ -119,9 +119,24 @@ def filterName(path):
         #
         # SysLoggerI.cpp shouldn't be built under Windows.
         #
-        if b == 'SysLoggerI.cpp': 
+        if b == 'SysLoggerI.cpp':
+            return False
+        #
+        # Don't build OpenSSL and SecureTransport sources on
+        # Windows
+        #
+        if b.startswith("OpenSSL") or b.startswith("SecureTransport"):
             return False
     else:
+        #
+        # Filter IceSSL sources that doesn't match current OS default
+        # implementation
+        #
+        if ((b.startswith("OpenSSL") and platform == "darwin") or
+            (b.startswith("SecureTransport") and platform != "darwin") or
+            (b.startswith("SChannel")):
+            return False
+        
         #
         # Don't build Ice for C++ sources if using Ice system install (--with-installed-ice)
         #
