@@ -75,7 +75,7 @@ def filter(f)
     # Filter IceSSL sources that doesn't match current OS default
     # implementation
     #
-    if f.start_with?("SChannel")
+    if f.start_with?("SChannel") or f.start_with?("UWP")
         return false
     end
     if RUBY_PLATFORM =~ /darwin/ and f.start_with?("OpenSSL")

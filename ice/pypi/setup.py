@@ -122,19 +122,18 @@ def filterName(path):
         if b == 'SysLoggerI.cpp':
             return False
         #
-        # Don't build OpenSSL and SecureTransport sources on
+        # Don't build OpenSSL, SecureTransport and UWP sources on
         # Windows
         #
-        if b.startswith("OpenSSL") or b.startswith("SecureTransport"):
+        if b.startswith("UWP") or b.startswith("OpenSSL") or b.startswith("SecureTransport"):
             return False
     else:
         #
         # Filter IceSSL sources that doesn't match current OS default
         # implementation
         #
-        if ((b.startswith("OpenSSL") and platform == "darwin") or
-            (b.startswith("SecureTransport") and platform != "darwin") or
-            (b.startswith("SChannel"))):
+        if (b.startswith("SChannel") or b.startswith("UWP") or (b.startswith("OpenSSL") and platform == "darwin") or
+            (b.startswith("SecureTransport") and platform != "darwin")):
             return False
         
         #
