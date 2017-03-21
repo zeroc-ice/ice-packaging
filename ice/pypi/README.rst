@@ -3,7 +3,6 @@ developing mission-critical networked applications. Let Ice handle all of the
 low-level details such as network connections, serialization, and concurrency so
 that you can focus on your application logic.
 
-
 Our Python extension makes the full Ice feature set available to Python
 developers, including:
 
@@ -28,7 +27,6 @@ With support for Python2 and Python3, you can easily add Ice to your existing
 Python infrastructure and discover how easy it is to build distributed
 applications with Ice.
 
-
 Package Contents
 ----------------
 
@@ -45,11 +43,10 @@ install using ``python setup.py install`` instead, be aware that the Slice-to-
 Python compiler (``slice2py``) will not be available.
 
 By default, Ice is built statically with the package. On Linux and OS X, you
-can instead build the package with the system installed Ice shared libraries.
+can instead build the package with the system-installed Ice shared libraries.
 To do so, you can provide the --with-installed-ice option to setup.py install.
 With pip, you should pass the --install-option="--with-builtin-ice" option to
 pip install.
-
 
 Home Page
 ---------
@@ -61,7 +58,7 @@ Documentation
 -------------
 
 We provide extensive `online documentation
-<https://doc.zeroc.com/display/Ice36>`_ for Ice, the Python extension, and the
+<https://doc.zeroc.com/display/Ice37>`_ for Ice, the Python extension, and the
 other Ice language mappings and services.
 
 Support
