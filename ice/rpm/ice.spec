@@ -29,12 +29,12 @@
 %define phpdir %{_datadir}/php
 %define phplibdir %{_libdir}/php/modules
 %define pythonname python
-%define pythondir %{python_sitearch}
+%define pythonbasedir %{python_sitearch}
 
 %if "%{dist}" == ".amzn1"
    %define systemd 0
    %define pythonname python27
-   %define pythondir %{python27_sitearch}
+   %define pythonbasedir %{python27_sitearch}
 %endif
 %if "%{dist}" == ".sles12"
    %define systemdpkg systemd-rpm-macros
@@ -45,6 +45,11 @@
    %define phplibdir %{_libdir}/php5/extensions
 %endif
 
+#
+# Place the Python files into a subdirectory.
+#
+%define pythondir zeroc-ice
+
 %if "%{_prefix}" == "/usr"
    %define runpath embedded_runpath=no
 %else
@@ -52,7 +57,7 @@
 %endif
 
 %define makebuildopts CONFIGS="shared cpp11-shared" PYTHON=%{pythonname} OPTIMIZE=yes V=1 %{runpath} %{?_smp_mflags}
-%define makeinstallopts CONFIGS="shared cpp11-shared" PYTHON=%{pythonname} OPTIMIZE=yes V=1 %{runpath} DESTDIR=%{buildroot} prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_slicedir=%{_datadir}/ice/slice install_includedir=%{_includedir} install_mandir=%{_mandir} install_configdir=%{_datadir}/ice install_javadir=%{_javadir} install_phplibdir=%{phplibdir} install_phpdir=%{phpdir} install_pythondir=%{pythondir}
+%define makeinstallopts CONFIGS="shared cpp11-shared" PYTHON=%{pythonname} OPTIMIZE=yes V=1 %{runpath} DESTDIR=%{buildroot} prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_slicedir=%{_datadir}/ice/slice install_includedir=%{_includedir} install_mandir=%{_mandir} install_configdir=%{_datadir}/ice install_javadir=%{_javadir} install_phplibdir=%{phplibdir} install_phpdir=%{phpdir} install_pythondir=%{pythonbasedir}/%{pythondir}
 
 Name: %{?nameprefix}ice
 Version: 3.7b0
@@ -469,7 +474,12 @@ rm -f %{buildroot}%{_mandir}/man1/slice2objc.1
 rm -f %{buildroot}%{_mandir}/man1/slice2rb.1
 
 # TODO: keep with Python >= 3.5
-rm -f %{buildroot}%{pythondir}/IceFuture.py
+rm -f %{buildroot}%{pythonbasedir}/%{pythondir}/IceFuture.py
+
+#
+# Create a .pth file that adds the installation subdirectory to the Python include path.
+#
+echo "%{pythondir}" > %{buildroot}%{pythonbasedir}/%{pythondir}.pth
 
 %ifarch x86_64
 
@@ -913,13 +923,8 @@ exit 0
 %license LICENSE
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
-%{pythondir}/IceBox
-%{pythondir}/IceGrid
-%{pythondir}/IceMX
-%{pythondir}/IcePatch2
-%{pythondir}/IceStorm
-%{pythondir}/Ice*
-%{pythondir}/Glacier2*
+%{pythonbasedir}/%{pythondir}.pth
+%{pythonbasedir}/%{pythondir}
 
 %endif #x86_64
 
