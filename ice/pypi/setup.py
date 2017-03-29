@@ -51,11 +51,6 @@ for f in os.listdir('lib'):
 
 package_data = {}
 
-#
-# We are including package data (include_package_data=True) but we don't want this directory installed by the bdist.
-#
-exclude_package_data = { 'zeroc_ice.egg-info' : ['*'] }
-
 extra_compile_args=[]
 if use_ice:
     include_dirs=['src', 'src/ice/cpp/src']
@@ -230,7 +225,6 @@ setup(
     package_data = package_data,
     # Set include_package_data to True so that zeroc-ice.pth and zeroc-ice/slice are installed by the bdist.
     include_package_data = True,
-    exclude_package_data = exclude_package_data,
 
     entry_points = {
         'console_scripts': ['slice2py=slice2py:main'],
