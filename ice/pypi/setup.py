@@ -11,7 +11,6 @@ except ImportError:
     from distutils.core import setup
 
 from distutils.extension import Extension
-from distutils import sysconfig
 import sys, os, shutil, fnmatch
 
 platform = sys.platform
@@ -34,9 +33,23 @@ sliceSrcs = ["Checksum.cpp", "FileTracker.cpp", "Grammar.cpp", "MD5.cpp",
              "MD5I.cpp", "Parser.cpp", "Preprocessor.cpp", "Python.cpp",
              "PythonUtil.cpp", "Scanner.cpp", "SliceUtil.cpp", "StringLiteralUtil.cpp"]
 
-packages = ['zeroc-ice']
-package_dir = {'zeroc-ice' : 'lib/zeroc-ice'}
-data_files = [(sysconfig.get_python_lib(), ["lib/zeroc-ice.pth"])]
+#
+# Sort out packages, package_dir and package_data from the lib dir.
+#
+# Note that packages needs to contain '' for zeroc-ice.pth to be installed by the bdist, even though it
+# causes sdist to generate a warning such as:
+#
+# WARNING: '' not a valid package name; please use only .-separated package names in setup.py
+#
+packages = ['']
+package_dir={'' : 'lib'}
+for f in os.listdir('lib'):
+    p = os.path.join('lib', f)
+    if os.path.isdir(p):
+        package_dir[f] = p
+        packages.append(f)
+
+package_data = {}
 
 extra_compile_args=[]
 if use_ice:
@@ -127,7 +140,7 @@ def filterName(path):
         if (b.startswith("SChannel") or b.startswith("UWP") or (b.startswith("OpenSSL") and platform == "darwin") or
             (b.startswith("SecureTransport") and platform != "darwin")):
             return False
-
+        
         #
         # Don't build Ice for C++ sources if using Ice system install (--with-installed-ice)
         #
@@ -209,7 +222,9 @@ setup(
 
     packages = packages,
     package_dir = package_dir,
-    data_files = data_files,
+    package_data = package_data,
+    # Set include_package_data to True so that zeroc-ice.pth and zeroc-ice/slice are installed by the bdist.
+    include_package_data = True,
 
     entry_points = {
         'console_scripts': ['slice2py=slice2py:main'],
