@@ -41,15 +41,9 @@ sliceSrcs = ["Checksum.cpp", "FileTracker.cpp", "Grammar.cpp", "MD5.cpp",
 #
 # WARNING: '' not a valid package name; please use only .-separated package names in setup.py
 #
-packages = ['']
-package_dir={'' : 'lib'}
-for f in os.listdir('lib'):
-    p = os.path.join('lib', f)
-    if os.path.isdir(p):
-        package_dir[f] = p
-        packages.append(f)
-
-package_data = {}
+packages=['', 'zeroc-ice']
+package_dir={'' : 'lib', 'zeroc-ice' : 'lib/zeroc-ice'}
+package_data={'' : ['zeroc-ice.pth'], 'zeroc-ice' : ['slice/*/*']}
 
 extra_compile_args=[]
 if use_ice:
@@ -140,7 +134,7 @@ def filterName(path):
         if (b.startswith("SChannel") or b.startswith("UWP") or (b.startswith("OpenSSL") and platform == "darwin") or
             (b.startswith("SecureTransport") and platform != "darwin")):
             return False
-        
+
         #
         # Don't build Ice for C++ sources if using Ice system install (--with-installed-ice)
         #
@@ -223,8 +217,6 @@ setup(
     packages = packages,
     package_dir = package_dir,
     package_data = package_data,
-    # Set include_package_data to True so that zeroc-ice.pth and zeroc-ice/slice are installed by the bdist.
-    include_package_data = True,
 
     entry_points = {
         'console_scripts': ['slice2py=slice2py:main'],
