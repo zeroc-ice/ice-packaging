@@ -41,7 +41,7 @@ sliceSrcs = ["Checksum.cpp", "FileTracker.cpp", "Grammar.cpp", "MD5.cpp",
 #
 # WARNING: '' not a valid package name; please use only .-separated package names in setup.py
 #
-packages=['', 'zeroc-ice']
+packages=['', 'zeroc-ice'] + [ 'zeroc-ice.' + p for p in [ 'IceBox', 'IceGrid', 'IceMX', 'IcePatch2', 'IceStorm']]
 package_dir={'' : 'lib', 'zeroc-ice' : 'lib/zeroc-ice'}
 package_data={'' : ['zeroc-ice.pth'], 'zeroc-ice' : ['slice/*/*']}
 
