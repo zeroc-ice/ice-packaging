@@ -69,7 +69,7 @@ URL: https://zeroc.com/
 Source0: https://github.com/zeroc-ice/ice/archive/%{archive_tag}/%{name}-%{version}.tar.gz
 Source1: https://github.com/zeroc-ice/ice-packaging/archive/%{archive_tag}/%{name}-packaging-%{version}.tar.gz
 
-BuildRequires: pkgconfig(expat), pkgconfig(lmdb), pkgconfig(mcpp), pkgconfig(openssl), %{bzip2devel} 
+BuildRequires: pkgconfig(expat), pkgconfig(lmdb), pkgconfig(mcpp), pkgconfig(openssl), %{bzip2devel}
 %ifarch x86_64
 BuildRequires: pkgconfig(python-2.7), %{phpdevel}, %{javapackagestools}
 %if %{systemd}
@@ -108,10 +108,10 @@ your application logic.
 # icegridgui package
 #
 %package -n %{?nameprefix}icegridgui
-Summary: IceGrid Admin graphical client.
+Summary: IceGrid GUI admin client.
 Group: Applications/System
 BuildArch: noarch
-Obsoletes: ice-utils < 3.6, ice-utils-java <= 3.6
+Obsoletes: ice-utils < 3.6, ice-utils-java < 3.7
 Requires: java
 %description -n %{?nameprefix}icegridgui
 The IceGrid service helps you locate, deploy and manage Ice servers.
@@ -275,7 +275,6 @@ your application logic.
 %package -n %{?nameprefix}ice-utils
 Summary: Ice utilities and admin tools.
 Group: Applications/System
-Obsoletes: ice-utils < 3.6
 %description -n %{?nameprefix}ice-utils
 This package contains Ice utilities and admin tools.
 
