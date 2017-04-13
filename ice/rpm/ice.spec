@@ -461,12 +461,6 @@ export LDFLAGS="%{?__global_ldflags}"
 rm -f %{buildroot}%{_libdir}/libIceStormService.so
 rm -f %{buildroot}%{_libdir}/libGlacier2CryptPermissionsVerifier.so
 rm -f %{buildroot}%{_bindir}/slice2confluence
-rm -f %{buildroot}%{_bindir}/slice2js
-rm -f %{buildroot}%{_bindir}/slice2objc
-rm -f %{buildroot}%{_bindir}/slice2rb
-rm -f %{buildroot}%{_mandir}/man1/slice2js.1
-rm -f %{buildroot}%{_mandir}/man1/slice2objc.1
-rm -f %{buildroot}%{_mandir}/man1/slice2rb.1
 
 # TODO: keep with Python >= 3.5
 rm -f %{buildroot}%{pythondir}/%{pythonsubdir}/IceFuture.py
@@ -686,10 +680,16 @@ exit 0
 %{_mandir}/man1/slice2html.1*
 %{_bindir}/slice2java
 %{_mandir}/man1/slice2java.1*
+%{_bindir}/slice2js
+%{_mandir}/man1/slice2js.1*
+%{_bindir}/slice2objc
+%{_mandir}/man1/slice2objc.1*
 %{_bindir}/slice2php
 %{_mandir}/man1/slice2php.1*
 %{_bindir}/slice2py
 %{_mandir}/man1/slice2py.1*
+%{_bindir}/slice2rb
+%{_mandir}/man1/slice2rb.1*
 
 #
 # ice-utils package
@@ -919,6 +919,9 @@ exit 0
 %endif #x86_64
 
 %changelog
+* Fri Apr 13 2017 José Gutiérrez de la Concha <jose@zeroc.com> 3.7b0
+- Added slice2js, slice2rb and slice2obj to ice-compilers
+
 * Fri Mar 10 2017 Benoit Foucher <benoit@zeroc.com> 3.7b0
 - Added icebridge package
 
