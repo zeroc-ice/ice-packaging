@@ -919,7 +919,7 @@ exit 0
 %endif #x86_64
 
 %changelog
-* Fri Apr 13 2017 José Gutiérrez de la Concha <jose@zeroc.com> 3.7b0
+* Thu Apr 13 2017 José Gutiérrez de la Concha <jose@zeroc.com> 3.7b0
 - Added slice2js, slice2rb and slice2obj to ice-compilers
 
 * Fri Mar 10 2017 Benoit Foucher <benoit@zeroc.com> 3.7b0
