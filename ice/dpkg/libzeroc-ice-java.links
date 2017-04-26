@@ -1,28 +1,28 @@
-usr/share/java/freeze-3.6.3.jar usr/share/java/freeze.jar
-usr/share/java/freeze-3.6.3-sources.jar usr/share/java/freeze-sources.jar
+usr/share/java/freeze-3.6.4.jar usr/share/java/freeze.jar
+usr/share/java/freeze-3.6.4-sources.jar usr/share/java/freeze-sources.jar
 
-usr/share/java/glacier2-3.6.3.jar usr/share/java/glacier2.jar
-usr/share/java/glacier2-3.6.3-sources.jar usr/share/java/glacier2-sources.jar
+usr/share/java/glacier2-3.6.4.jar usr/share/java/glacier2.jar
+usr/share/java/glacier2-3.6.4-sources.jar usr/share/java/glacier2-sources.jar
 
-usr/share/java/ice-3.6.3.jar usr/share/java/ice.jar
-usr/share/java/ice-3.6.3-sources.jar usr/share/java/ice-sources.jar
+usr/share/java/ice-3.6.4.jar usr/share/java/ice.jar
+usr/share/java/ice-3.6.4-sources.jar usr/share/java/ice-sources.jar
 
-usr/share/java/icebox-3.6.3.jar usr/share/java/icebox.jar
-usr/share/java/icebox-3.6.3-sources.jar usr/share/java/icebox-sources.jar
+usr/share/java/icebox-3.6.4.jar usr/share/java/icebox.jar
+usr/share/java/icebox-3.6.4-sources.jar usr/share/java/icebox-sources.jar
 
-usr/share/java/icediscovery-3.6.3.jar usr/share/java/icediscovery.jar
-usr/share/java/icediscovery-3.6.3-sources.jar usr/share/java/icediscovery-sources.jar
+usr/share/java/icediscovery-3.6.4.jar usr/share/java/icediscovery.jar
+usr/share/java/icediscovery-3.6.4-sources.jar usr/share/java/icediscovery-sources.jar
 
-usr/share/java/icelocatordiscovery-3.6.3.jar usr/share/java/icelocatordiscovery.jar
-usr/share/java/icelocatordiscovery-3.6.3-sources.jar usr/share/java/icelocatordiscovery-sources.jar
+usr/share/java/icelocatordiscovery-3.6.4.jar usr/share/java/icelocatordiscovery.jar
+usr/share/java/icelocatordiscovery-3.6.4-sources.jar usr/share/java/icelocatordiscovery-sources.jar
 
-usr/share/java/icegrid-3.6.3.jar usr/share/java/icegrid.jar
-usr/share/java/icegrid-3.6.3-sources.jar usr/share/java/icegrid-sources.jar
+usr/share/java/icegrid-3.6.4.jar usr/share/java/icegrid.jar
+usr/share/java/icegrid-3.6.4-sources.jar usr/share/java/icegrid-sources.jar
 
-usr/share/java/icepatch2-3.6.3.jar usr/share/java/icepatch2.jar
-usr/share/java/icepatch2-3.6.3-sources.jar usr/share/java/icepatch2-sources.jar
+usr/share/java/icepatch2-3.6.4.jar usr/share/java/icepatch2.jar
+usr/share/java/icepatch2-3.6.4-sources.jar usr/share/java/icepatch2-sources.jar
 
-usr/share/java/icestorm-3.6.3.jar usr/share/java/icestorm.jar
-usr/share/java/icestorm-3.6.3-sources.jar usr/share/java/icestorm-sources.jar
+usr/share/java/icestorm-3.6.4.jar usr/share/java/icestorm.jar
+usr/share/java/icestorm-3.6.4-sources.jar usr/share/java/icestorm-sources.jar
 
 /usr/share/doc/libzeroc-ice-java-dev/copyright /usr/share/doc/libzeroc-ice-java-dev/ICE_LICENSE

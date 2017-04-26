@@ -41,7 +41,7 @@ CPP11_LIB_NAMES = 	libFreeze \
 	libIceStormService \
 	libIceUtil
 
-VERSION = 3.6.3
+VERSION = 3.6.4
 
 ARTIFACT_NAMES = freeze \
 	glacier2 \
