@@ -40,6 +40,7 @@ $INCFLAGS << ' -Iice/cpp/include/generated'
 $INCFLAGS << ' -Iice/cpp/src'
 
 $CPPFLAGS << ' -DICE_STATIC_LIBS'
+$CPPFLAGS << ' -DICE_GEM'
 
 if RUBY_PLATFORM =~ /darwin/
     $LOCAL_LIBS << ' -framework Security -framework CoreFoundation'

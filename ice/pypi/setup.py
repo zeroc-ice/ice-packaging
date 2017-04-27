@@ -46,15 +46,15 @@ package_dir={'' : 'lib', 'zeroc-ice' : 'lib/zeroc-ice'}
 package_data={'' : ['zeroc-ice.pth'], 'zeroc-ice' : ['slice/*/*']}
 
 extra_compile_args=[]
+define_macros=[('ICE_PYPI', None)]
 if use_ice:
     include_dirs=['src', 'src/ice/cpp/src']
-    define_macros=[]
 else:
     include_dirs=['src', 'src/ice/cpp/include', 'src/ice/cpp/include/generated', 'src/ice/cpp/src']
     #
     # Define ICE_STATIC_LIBS to disable _API macros
     #
-    define_macros=[('ICE_STATIC_LIBS', None)]
+    define_macros+=[('ICE_STATIC_LIBS', None)]
 
 if platform == 'darwin':
     if not 'ARCHFLAGS' in os.environ:
