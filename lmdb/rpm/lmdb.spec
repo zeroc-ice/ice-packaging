@@ -13,7 +13,7 @@ Source:         https://github.com/LMDB/lmdb/archive/LMDB_%{version}.tar.gz
 %description
 LMDB is an ultra-fast, ultra-compact key-value embedded data
 store developed by Symas for the OpenLDAP Project. By using memory-mapped files,
-it provides the read performance of a pure in-memory database while still 
+it provides the read performance of a pure in-memory database while still
 offering the persistence of standard disk-based databases, and is only limited
 to the size of the virtual address space.
 

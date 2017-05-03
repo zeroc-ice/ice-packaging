@@ -2,7 +2,7 @@
 #
 # Copyright (c) 2007-2017 ZeroC, Inc. All rights reserved.
 #
-# icegridnode   This shell script takes care of starting and 
+# icegridnode   This shell script takes care of starting and
 #                   stopping the icegridnode daemon.
 #
 
@@ -16,7 +16,7 @@
 # Description:       The IceGrid node daemon.
 #	IceGrid is the server deployment and monitoring for the Internet
 #	Communications Engine (Ice). An IceGrid domain consists of one master
-#	registry, zero or more slave registries, and zero or more IceGrid nodes.  
+#	registry, zero or more slave registries, and zero or more IceGrid nodes.
 ### END INIT INFO
 
 #
@@ -47,7 +47,7 @@ options="--daemon --pidfile $pidfile --Ice.Config=$nodeconf"
 #
 # Check for missing binaries
 #
-test -x $prog || { echo "$prog not installed"; 
+test -x $prog || { echo "$prog not installed";
 	if [ "$1" = "stop" ]; then exit 0;
 	else exit 5; fi; }
 
@@ -68,7 +68,7 @@ case "$1" in
         if [ "$user" != "root" ]
         then
             startoptions="-u $user"
-    
+
 	    if [ ! -e $pidfile ]
 	    then
 		echo 0 > $pidfile
@@ -79,7 +79,7 @@ case "$1" in
                startoptions="$startoptions -f"
 	    fi
         fi
-        startoptions="$startoptions -p $pidfile"           
+        startoptions="$startoptions -p $pidfile"
 
         startproc $startoptions $prog $options
         rc_status -v
@@ -90,7 +90,7 @@ case "$1" in
 	rc_status -v
         ;;
     try-restart)
-        ## Stop the service and if this succeeds (i.e. the 
+        ## Stop the service and if this succeeds (i.e. the
         ## service was running before), start it again.
         $0 status >/dev/null &&  $0 restart
 

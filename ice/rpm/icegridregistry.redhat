@@ -2,7 +2,7 @@
 #
 # Copyright (c) 2007-2017 ZeroC, Inc. All rights reserved.
 #
-# icegridregistry   This shell script takes care of starting and 
+# icegridregistry   This shell script takes care of starting and
 #                   stopping the icegridregistry daemon.
 #
 # chkconfig: - 60 76
@@ -54,13 +54,13 @@ start() {
         if [ "$user" != "root" ]
         then
             daemonoptions="$daemonoptions --user $user"
-    
+
             if [ ! -e $pidfile ]
             then
                 touch $pidfile
             fi
             chown $user $pidfile
-        fi           
+        fi
 
         daemon $daemonoptions $prog $options
         RETVAL=$?

@@ -3,7 +3,7 @@ Freeze
 ======================================================================
 
 The Freeze persistence service allows you to store Ice objects in Oracle
-Berkeley DB, with all the features you expect from a robust database - 
+Berkeley DB, with all the features you expect from a robust database -
 transactions, hot backups, indexing, and more.
 
 

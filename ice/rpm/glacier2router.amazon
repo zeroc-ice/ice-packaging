@@ -2,12 +2,12 @@
 #
 # Copyright (c) 2007-2017 ZeroC, Inc. All rights reserved.
 #
-# glacier2router    This shell script takes care of starting and 
+# glacier2router    This shell script takes care of starting and
 #                   stopping the glacier2router daemon.
 #
 # chkconfig: - 62 74
 # description: The Glacier2 router daemon. \
-# Glacier2 is the firewall traversal service for the Internet \ 
+# Glacier2 is the firewall traversal service for the Internet \
 # Communications Engine (Ice).
 
 #
@@ -53,13 +53,13 @@ start() {
         if [ "$user" != "root" ]
         then
             daemonoptions="$daemonoptions --user $user"
-    
+
             if [ ! -e $pidfile ]
             then
                 touch $pidfile
             fi
             chown $user $pidfile
-        fi           
+        fi
 
         daemon $daemonoptions $prog $options
         RETVAL=$?

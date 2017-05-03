@@ -105,7 +105,7 @@ To create binary RPM packages for Ice, you must first install the source RPM:
 ```
       $ rpm -i ice-3.7.0-1.src.rpm
 ```
-If you have not already done so, install the RPM prerequisites listed in `ice.spec`. 
+If you have not already done so, install the RPM prerequisites listed in `ice.spec`.
 The following additional steps are also necessary:
 
 - Install the Java Development Kit version 1.8 and verify that the `javac `command
@@ -130,5 +130,5 @@ have a GnuPG key setup.
 On Red Hat Enterprise Linux 7, your can optionally cross-compile i686 RPMs on a x86_64 host:
 ```
       $ setarch i686 rpmbuild -bb ice.spec
-```    
+```
 Upon completion, all the binary RPMs can be found in `~/rpmbuild/RPMS`.
