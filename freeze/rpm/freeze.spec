@@ -13,7 +13,7 @@
 %else
    # git_tag_version is the git tag vX.Y.Z[...] less the v prefix
    # if not defined, we default to the version provided below
-   %{!?git_tag_version:%define git_tag_version 3.7.0-beta0}
+   %{!?git_tag_version:%define git_tag_version 3.7.0}
    %define archive_tag v%{git_tag_version}
    %define archive_dir_suffix %{git_tag_version}
 %endif
@@ -44,7 +44,7 @@
 %define makeinstallopts CONFIGS="shared" OPTIMIZE=yes V=1 %{runpath} DESTDIR=%{buildroot} prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_includedir=%{_includedir} install_mandir=%{_mandir}
 
 Name: %{?nameprefix}freeze
-Version: 3.7b0
+Version: 3.7.0
 Summary: Persistent storage for Ice objects
 Release: 1%{?dist}
 %if "%{?ice_license}"
