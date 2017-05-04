@@ -14,8 +14,8 @@
 # Default-Stop:      0 1 2 6
 # Short-Description: Start the Glacier2 router daemon.
 # Description:       The Glacier2 router daemon.
-#	Glacier2 is the firewall traversal service for the Internet
-#	Communications Engine (Ice).
+#       Glacier2 is the firewall traversal service for the Internet
+#       Communications Engine (Ice).
 ### END INIT INFO
 
 #
@@ -47,15 +47,15 @@ options="--daemon --pidfile $pidfile --Ice.Config=$routerconf"
 # Check for missing binaries
 #
 test -x $prog || { echo "$prog not installed";
-	if [ "$1" = "stop" ]; then exit 0;
-	else exit 5; fi; }
+        if [ "$1" = "stop" ]; then exit 0;
+        else exit 5; fi; }
 
 #
 # Verify config file is there
 #
 test -r $routerconf || { echo "$routerconf does not exist";
-	if [ "$1" = "stop" ]; then exit 0;
-	else exit 6; fi; }
+        if [ "$1" = "stop" ]; then exit 0;
+        else exit 6; fi; }
 
 #
 # Start/stop etc.
@@ -68,15 +68,15 @@ case "$1" in
         then
             startoptions="-u $user"
 
-	    if [ ! -e $pidfile ]
-	    then
-		echo 0 > $pidfile
-	    fi
-	    chown $user $pidfile
+            if [ ! -e $pidfile ]
+            then
+                echo 0 > $pidfile
+            fi
+            chown $user $pidfile
             if [ `cat $pidfile` = "0" ]
             then
                startoptions="$startoptions -f"
-	    fi
+            fi
         fi
         startoptions="$startoptions -p $pidfile"
 
@@ -85,8 +85,8 @@ case "$1" in
         ;;
     stop)
         echo -n "Stopping $progbase"
-	killproc -p $pidfile -TERM $prog
-	rc_status -v
+        killproc -p $pidfile -TERM $prog
+        rc_status -v
         ;;
     try-restart)
         ## Stop the service and if this succeeds (i.e. the
@@ -106,7 +106,7 @@ case "$1" in
         rc_status
         ;;
     status)
-	echo -n "Checking for service $progbase "
+        echo -n "Checking for service $progbase "
         ## Check status with checkproc(8), if process is running
         ## checkproc will return with exit status 0.
 
@@ -116,13 +116,13 @@ case "$1" in
         # 2 - service dead, but /var/lock/ lock file exists
         # 3 - service not running
 
-	checkproc -p $pidfile $prog
+        checkproc -p $pidfile $prog
 
-	rc_status -v
-	;;
+        rc_status -v
+        ;;
     *)
-	echo "Usage: $0 {start|stop|status|try-restart|restart|force-reload|reload}"
-	exit 1
-	;;
+        echo "Usage: $0 {start|stop|status|try-restart|restart|force-reload|reload}"
+        exit 1
+        ;;
 esac
 rc_exit

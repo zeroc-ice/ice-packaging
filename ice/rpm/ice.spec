@@ -486,9 +486,9 @@ cp %{rpmbuildfiles}/*.conf %{buildroot}%{_sysconfdir}
 for i in icegridregistry icegridnode glacier2router
 do
     %if %{systemd}
-	install -p -D %{rpmbuildfiles}/$i.service %{buildroot}%{_unitdir}/$i.service
+        install -p -D %{rpmbuildfiles}/$i.service %{buildroot}%{_unitdir}/$i.service
     %else
-	install -p -D %{rpmbuildfiles}/$i.%{_vendor} %{buildroot}%{_initrddir}/$i
+        install -p -D %{rpmbuildfiles}/$i.%{_vendor} %{buildroot}%{_initrddir}/$i
     %endif
 done
 
