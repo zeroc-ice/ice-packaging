@@ -18,19 +18,19 @@ include /usr/share/dpkg/default.mk
 
 DESTDIR=$(CURDIR)/debian/tmp
 ifeq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-	OPTIMIZE=yes
+    OPTIMIZE=yes
 endif
 
 ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-	MAKEFLAGS += -j$(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+    MAKEFLAGS += -j$(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 else
-	PROCESSORS := $(shell cat /proc/cpuinfo | grep processor | wc -l)
-	ifneq ($(PROCESSORS),0)
-	    MAKEFLAGS += -j$(PROCESSORS)
-	endif
+    PROCESSORS := $(shell cat /proc/cpuinfo | grep processor | wc -l)
+    ifneq ($(PROCESSORS),0)
+        MAKEFLAGS += -j$(PROCESSORS)
+    endif
 endif
 
-DHARGS	= --parallel
+DHARGS  = --parallel
 
 MAKEOPTS = OPTIMIZE=$(OPTIMIZE) V=1 prefix=/usr DESTDIR=$(DESTDIR)
 
@@ -39,32 +39,32 @@ BUILDTARGET = srcs
 endif
 
 %:
-	dh $@ $(DHARGS)
+    dh $@ $(DHARGS)
 
 override_dh_auto_build-arch:
-	$(MAKE) $(MAKEOPTS) -C ice/cpp IceXML
-	$(MAKE) $(MAKEOPTS) -C cpp $(BUILDTARGET)
+    $(MAKE) $(MAKEOPTS) -C ice/cpp IceXML
+    $(MAKE) $(MAKEOPTS) -C cpp $(BUILDTARGET)
 
 override_dh_auto_install-arch:
-	$(MAKE) $(MAKEOPTS) -C cpp $(BUILDTARGET) install
+    $(MAKE) $(MAKEOPTS) -C cpp $(BUILDTARGET) install
 
 override_dh_auto_clean-arch:
-	$(MAKE) $(MAKEOPTS) -C ice/cpp distclean
-	$(MAKE) $(MAKEOPTS) -C cpp distclean
+    $(MAKE) $(MAKEOPTS) -C ice/cpp distclean
+    $(MAKE) $(MAKEOPTS) -C cpp distclean
 
 override_dh_auto_test-arch:
 ifeq ($(filter nocheck notest,$(DEB_BUILD_OPTIONS)),)
-	-$(MAKE) $(MAKEOPTS) -C cpp test
+    -$(MAKE) $(MAKEOPTS) -C cpp test
 endif
 
 override_dh_clean:
-	find . -iname "*.pyc" -exec rm -rf {} \;
-	dh_clean
+    find . -iname "*.pyc" -exec rm -rf {} \;
+    dh_clean
 
 override_dh_install:
-	@echo VERSION $(VERSION)
-	install -d -m 0755 $(DESTDIR)/usr/bin
-	dh_install --list-missing -XICE_LICENSE -XLICENSE
+    @echo VERSION $(VERSION)
+    install -d -m 0755 $(DESTDIR)/usr/bin
+    dh_install --list-missing -XICE_LICENSE -XLICENSE
 
 override_dh_installdocs:
-	dh_installdocs -A debian/README
+    dh_installdocs -A debian/README
