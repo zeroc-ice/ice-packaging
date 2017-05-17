@@ -30,7 +30,6 @@
 %define phplibdir %{_libdir}/php/modules
 %define pythonname python
 %define pythondir %{python_sitearch}
-%define pythonsubdir zeroc-ice
 
 %if "%{dist}" == ".amzn1"
    %define systemd 0
@@ -53,7 +52,7 @@
 %endif
 
 %define makebuildopts CONFIGS="shared cpp11-shared" PYTHON=%{pythonname} OPTIMIZE=yes V=1 %{runpath} %{?_smp_mflags}
-%define makeinstallopts CONFIGS="shared cpp11-shared" PYTHON=%{pythonname} OPTIMIZE=yes V=1 %{runpath} DESTDIR=%{buildroot} prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_slicedir=%{_datadir}/ice/slice install_includedir=%{_includedir} install_mandir=%{_mandir} install_configdir=%{_datadir}/ice install_javadir=%{_javadir} install_phplibdir=%{phplibdir} install_phpdir=%{phpdir} install_pythondir=%{pythondir}/%{pythonsubdir}
+%define makeinstallopts CONFIGS="shared cpp11-shared" PYTHON=%{pythonname} OPTIMIZE=yes V=1 %{runpath} DESTDIR=%{buildroot} prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_slicedir=%{_datadir}/ice/slice install_includedir=%{_includedir} install_mandir=%{_mandir} install_configdir=%{_datadir}/ice install_javadir=%{_javadir} install_phplibdir=%{phplibdir} install_phpdir=%{phpdir} install_pythondir=%{pythondir}
 
 Name: %{?nameprefix}ice
 Version: 3.7.0
@@ -463,7 +462,7 @@ rm -f %{buildroot}%{_libdir}/libGlacier2CryptPermissionsVerifier.so
 rm -f %{buildroot}%{_bindir}/slice2confluence
 
 # TODO: keep with Python >= 3.5
-rm -f %{buildroot}%{pythondir}/%{pythonsubdir}/IceFuture.py
+rm -f %{buildroot}%{pythondir}/Ice/IceFuture.py
 
 %ifarch x86_64
 
@@ -913,8 +912,7 @@ exit 0
 %license LICENSE
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
-%{pythondir}/%{pythonsubdir}
-%{pythondir}/%{pythonsubdir}.pth
+%{pythondir}/*
 
 %endif #x86_64
 

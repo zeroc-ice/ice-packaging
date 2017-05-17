@@ -34,16 +34,13 @@ sliceSrcs = ["Checksum.cpp", "FileTracker.cpp", "Grammar.cpp", "MD5.cpp",
              "PythonUtil.cpp", "Scanner.cpp", "SliceUtil.cpp", "StringLiteralUtil.cpp"]
 
 #
-# Sort out packages, package_dir and package_data from the lib dir.
+# Sort out packages, package_dir and package_data from the lib dir. We include 'slice' in the
+# package list and use package_data to ensure the Slice files are included. We also need to
+# set include_package_data=True.
 #
-# Note that packages needs to contain '' for zeroc-ice.pth to be installed by the bdist, even though it
-# causes sdist to generate a warning such as:
-#
-# WARNING: '' not a valid package name; please use only .-separated package names in setup.py
-#
-packages=['', 'zeroc-ice'] + [ 'zeroc-ice.' + p for p in [ 'IceBox', 'IceGrid', 'IceMX', 'IcePatch2', 'IceStorm']]
-package_dir={'' : 'lib', 'zeroc-ice' : 'lib/zeroc-ice'}
-package_data={'' : ['zeroc-ice.pth'], 'zeroc-ice' : ['slice/*/*']}
+packages=['Glacier2', 'Ice', 'IceBox', 'IceGrid', 'IceMX', 'IcePatch2', 'IceStorm', 'slice']
+package_dir={'' : 'lib'}
+package_data={'' : ['*.ice']}
 
 extra_compile_args=[]
 define_macros=[('ICE_PYPI', None)]
@@ -217,14 +214,14 @@ setup(
     packages = packages,
     package_dir = package_dir,
     package_data = package_data,
+    include_package_data = True,
 
     entry_points = {
         'console_scripts': ['slice2py=slice2py:main'],
     },
 
     ext_modules=[
-        # Use the zeroc-ice package prefix to force the compiled extension to be placed in the zeroc-ice subdirectory.
-        Extension('zeroc-ice.IcePy', sources,
+        Extension('IcePy', sources,
           extra_link_args=extra_link_args,
           define_macros=define_macros,
           include_dirs=include_dirs,

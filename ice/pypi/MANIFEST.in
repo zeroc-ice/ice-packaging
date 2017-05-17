@@ -1,4 +1,3 @@
 include *
-include lib/zeroc-ice.pth
-recursive-include lib/zeroc-ice/slice *
+recursive-include lib/slice *
 recursive-include src *
