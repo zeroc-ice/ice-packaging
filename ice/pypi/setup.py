@@ -215,7 +215,7 @@ setup(
     package_dir = package_dir,
     package_data = package_data,
     include_package_data = True,
-
+    py_modules = ["slice2py"],
     entry_points = {
         'console_scripts': ['slice2py=slice2py:main'],
     },
