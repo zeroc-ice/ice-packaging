@@ -170,6 +170,9 @@ make -C cpp %{makeinstallopts} install
 %{_mandir}/man1/transformdb.1*
 
 %changelog
+* Thu June 8 2017 Bernard Normier <bernard@zeroc.com> 3.7.0
+- Updated version
+
 * Tue Mar 7 2017 Benoit Foucher <benoit@zeroc.com> 3.7b0
 - Version bump
 
