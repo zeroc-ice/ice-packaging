@@ -435,7 +435,7 @@ export CXXFLAGS="%{optflags}"
 export LDFLAGS="%{?__global_ldflags}"
 
 %ifarch x86_64
-    make %{makebuildopts} PLATFORMS=x64 LANGUAGES="cpp java php python" srcs
+    make %{makebuildopts} LANGUAGES="cpp java php python" srcs
 %endif
 
 %ifarch %{ix86}
@@ -446,9 +446,9 @@ export LDFLAGS="%{?__global_ldflags}"
 
 %ifarch x86_64
     make           %{?_smp_mflags} %{makeinstallopts} install-slice
-    make -C cpp    %{?_smp_mflags} %{makeinstallopts} PLATFORMS=x64 install
-    make -C php    %{?_smp_mflags} %{makeinstallopts} PLATFORMS=x64 install
-    make -C python %{?_smp_mflags} %{makeinstallopts} PLATFORMS=x64 install
+    make -C cpp    %{?_smp_mflags} %{makeinstallopts} install
+    make -C php    %{?_smp_mflags} %{makeinstallopts} install
+    make -C python %{?_smp_mflags} %{makeinstallopts} install
     make -C java   %{?_smp_mflags} %{makeinstallopts} install-icegridgui
 %endif
 
