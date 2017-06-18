@@ -3,7 +3,7 @@ developing mission-critical networked applications. Let Ice handle all of the
 low-level details such as network connections, serialization, and concurrency so
 that you can focus on your application logic.
 
-Our Python extension makes the full Ice feature set available to Python
+The Ice Python extension makes the full Ice feature set available to Python
 developers, including:
 
 * Client and server support
@@ -17,11 +17,10 @@ program that tests whether a remote Ice object is available:
 
 ::
 
-  import Ice
-  communicator = Ice.initialize()
-  obj = communicator.stringToProxy("hello:tcp -h myhost.mydomain.com -p 10000")
-  obj.ice_ping()
-  communicator.destroy()
+  import sys, Ice
+  with Ice.initialize(sys.argv) as communicator:
+      obj = communicator.stringToProxy("hello:tcp -h myhost.mydomain.com -p 10000")
+      obj.ice_ping()
 
 With support for Python2 and Python3, you can easily add Ice to your existing
 Python infrastructure and discover how easy it is to build distributed
@@ -42,7 +41,7 @@ We recommend using ``pip`` or ``easy_install`` to install this package. If you
 install using ``python setup.py install`` instead, be aware that the Slice-to-
 Python compiler (``slice2py``) will not be available.
 
-By default, Ice is built statically with the package. On Linux and OS X, you
+By default, Ice is built statically with the package. On Linux and macOS, you
 can instead build the package with the system-installed Ice shared libraries.
 To do so, you can provide the --with-installed-ice option to setup.py install.
 With pip, you should pass the --install-option="--with-builtin-ice" option to
