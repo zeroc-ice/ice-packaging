@@ -457,7 +457,9 @@ export LDFLAGS="%{?__global_ldflags}"
 %endif
 
 # Cleanup extra files
+rm -f %{buildroot}%{_libdir}/libIceDB.so
 rm -f %{buildroot}%{_libdir}/libIceStormService.so
+rm -f %{buildroot}%{_libdir}/libIceXML.so
 rm -f %{buildroot}%{_libdir}/libGlacier2CryptPermissionsVerifier.so
 rm -f %{buildroot}%{_bindir}/slice2confluence
 
@@ -628,7 +630,6 @@ exit 0
 %{_libdir}/libIcePatch2.so
 %{_libdir}/libIceSSL.so
 %{_libdir}/libIceStorm.so
-%{_libdir}/libIceDB.so
 %{_libdir}/libGlacier2++11.so
 %{_libdir}/libIce++11.so
 %{_libdir}/libIceBox++11.so
@@ -646,7 +647,6 @@ exit 0
 %{_includedir}/IceSSL
 %{_includedir}/IceStorm
 %{_includedir}/IceUtil
-%{_libdir}/libIceXML.so
 %endif
 
 #
