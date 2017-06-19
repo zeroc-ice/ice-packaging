@@ -457,10 +457,6 @@ export LDFLAGS="%{?__global_ldflags}"
 %endif
 
 # Cleanup extra files
-rm -f %{buildroot}%{_libdir}/libIceDB.so
-rm -f %{buildroot}%{_libdir}/libIceStormService.so
-rm -f %{buildroot}%{_libdir}/libIceXML.so
-rm -f %{buildroot}%{_libdir}/libGlacier2CryptPermissionsVerifier.so
 rm -f %{buildroot}%{_bindir}/slice2confluence
 
 # TODO: keep with Python >= 3.5
