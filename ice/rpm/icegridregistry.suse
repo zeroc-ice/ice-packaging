@@ -43,7 +43,6 @@ pidfile=/var/run/$progbase.pid
 
 options="--daemon --pidfile $pidfile --Ice.Config=$registryconf"
 
-
 #
 # Check for missing binaries
 #
@@ -57,7 +56,6 @@ test -x $prog || { echo "$prog not installed";
 test -r $registryconf || { echo "$registryconf does not exist";
         if [ "$1" = "stop" ]; then exit 0;
         else exit 6; fi; }
-
 
 #
 # Start/stop etc.

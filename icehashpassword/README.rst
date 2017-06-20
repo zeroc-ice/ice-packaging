@@ -6,13 +6,11 @@ Installation
 We recommend using ``pip`` or ``easy_install`` to install this
 package.
 
-
 Home Page
 =========
 
 Visit `ZeroC's home page <https://zeroc.com>`_ for the latest news
 and information about Ice.
-
 
 Package Contents
 ================
@@ -37,7 +35,6 @@ Usage:
 
       -h, --help
           Show this message.
-
 
 Support
 =======

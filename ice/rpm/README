@@ -34,7 +34,6 @@ Feature highlights:
      communications through firewalls
    - IcePatch2, an efficient software distribution and patching service
 
-
 Getting Started with Ice on Linux
 ---------------------------------
 
@@ -49,7 +48,6 @@ Documentation
 The full documentation for Ice is available online:
 
 https://doc.zeroc.com/display/Ice37/Ice+Manual
-
 
 Source Code
 ------------

@@ -36,7 +36,6 @@ mcpp is a C/C++ preprocessor with the following features.
     * Provides comprehensive documents both in Japanese and in English.
     * Is an open source software released under BSD-style-license.
 
-
 # disable debuginfo package
 %define debug_package %{nil}
 

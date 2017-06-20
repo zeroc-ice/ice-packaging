@@ -152,7 +152,6 @@ with minimal effort. Ice takes care of all interactions with low-level
 network programming interfaces and allows you to focus your efforts on
 your application logic.
 
-
 #
 # This "meta" package includes all development kits.
 #
@@ -509,7 +508,6 @@ rm -rf %{buildroot}%{_mandir}
 rm -rf %{buildroot}%{_datadir}/ice
 
 %endif # x86_64
-
 
 %ifarch x86_64
 

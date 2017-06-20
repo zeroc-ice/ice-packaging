@@ -43,7 +43,6 @@ pidfile=/var/run/$progbase.pid
 
 options="--daemon --pidfile $pidfile --Ice.Config=$nodeconf"
 
-
 #
 # Check for missing binaries
 #

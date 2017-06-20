@@ -42,7 +42,6 @@ pidfile=/var/run/$progbase.pid
 
 options="--daemon --pidfile $pidfile --Ice.Config=$routerconf"
 
-
 #
 # Check for missing binaries
 #

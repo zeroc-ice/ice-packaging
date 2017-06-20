@@ -6,7 +6,6 @@
 
 require "mkmf"
 
-
 if RUBY_PLATFORM =~ /mswin|mingw/
     puts "MinGW is not supported with Ice for Ruby."
     exit 1
@@ -69,7 +68,6 @@ Dir["*.cpp"].each do |f|
     $objs << File.basename(f, ".*") + ".o"
     $srcs << f
 end
-
 
 def filter(f)
     #
