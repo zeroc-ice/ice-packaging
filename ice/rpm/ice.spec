@@ -892,7 +892,7 @@ exit 0
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
 %{phpdir}
-%{phplibdir}/IcePHP.so
+%{phplibdir}/ice.so
 %if "%{dist}" == ".sles12"
 %config(noreplace) %{_sysconfdir}/php5/conf.d/ice.ini
 %else
