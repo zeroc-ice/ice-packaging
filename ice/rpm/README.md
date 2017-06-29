@@ -52,18 +52,18 @@ Then add the Ice repository for your system and install the source RPM:
 * Red Hat Enterprise Linux 7:
 ```
      $ cd /etc/yum.repos.d
-     $ sudo wget https://zeroc.com/download/rpm/zeroc-ice-el7.repo
+     $ sudo wget https://zeroc.com/download/Ice/3.7/rpm/zeroc-ice-el7.repo
 ```
 
 * Amazon Linux:
 ```
      $ cd /etc/yum.repos.d
-     $ sudo wget https://zeroc.com/download/rpm/zeroc-ice-amzn1.repo
+     $ sudo wget https://zeroc.com/download/Ice/3.7/rpm/zeroc-ice-amzn1.repo
 ```
 
 * SUSE Linux Enterprise Server 12:
 ```
-     $ wget https://zeroc.com/download/rpm/zeroc-ice-sles12.repo
+     $ wget https://zeroc.com/download/Ice/3.7/rpm/zeroc-ice-sles12.repo
      $ sudo zypper addrepo zeroc-ice-sles12.repo
 ```
 
