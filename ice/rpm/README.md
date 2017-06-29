@@ -19,9 +19,9 @@ The GPG settings are only needed if you want to sign your RPMs. Replace
 
 The value for `%dist` should be one of
 ```
-    .sles12
+    .amz1
     .el7
-    .amzn1
+    .sles12
 ```
 
 These tags correspond to the Linux RPM distributions provided by ZeroC.
@@ -61,13 +61,13 @@ Then add the Ice repository for your system and install the source RPM:
      $ sudo wget https://zeroc.com/download/rpm/zeroc-ice-amzn1.repo
 ```
 
-* Suse Linux Enterprise Server 12:
+* SUSE Linux Enterprise Server 12:
 ```
      $ wget https://zeroc.com/download/rpm/zeroc-ice-sles12.repo
      $ sudo zypper addrepo zeroc-ice-sles12.repo
 ```
 
-Now download and install the source rpm:
+Now download and install the source RPM:
 ```
      $ yumdownloader --source ice
      $ rpm -i ice-3.7.0-1.el7.src.rpm
