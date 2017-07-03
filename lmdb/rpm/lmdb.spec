@@ -96,7 +96,7 @@ popd
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
-* Fri Mar 10 2017 Bernard Normier <bernard@zeroc.com> 0.9.19-3ice
+* Fri Mar 10 2017 Bernard Normier <bernard@zeroc.com> 0.9.18-3ice
 - Added pkgconfig file
 
 * Mon Feb 20 2017 Bernard Normier <bernard@zeroc.com> 0.9.18-2ice
