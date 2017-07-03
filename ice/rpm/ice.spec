@@ -724,11 +724,11 @@ exit 0
 %dir %{_datadir}/ice
 %{_datadir}/ice/templates.xml
 %if %{systemd}
-%attr(755,root,root) %{_unitdir}/icegridregistry.service
-%attr(755,root,root) %{_unitdir}/icegridnode.service
+  %{_unitdir}/icegridregistry.service
+  %{_unitdir}/icegridnode.service
 %else
-%attr(755,root,root) %{_initrddir}/icegridregistry
-%attr(755,root,root) %{_initrddir}/icegridnode
+  %attr(755,root,root) %{_initrddir}/icegridregistry
+  %attr(755,root,root) %{_initrddir}/icegridnode
 %endif
 %config(noreplace) %{_sysconfdir}/icegridregistry.conf
 %config(noreplace) %{_sysconfdir}/icegridnode.conf
@@ -802,7 +802,7 @@ exit 0
 %{_bindir}/glacier2router
 %{_mandir}/man1/glacier2router.1*
 %if %{systemd}
-  %attr(755,root,root) %{_unitdir}/glacier2router.service
+  %{_unitdir}/glacier2router.service
 %else
   %attr(755,root,root) %{_initrddir}/glacier2router
 %endif
