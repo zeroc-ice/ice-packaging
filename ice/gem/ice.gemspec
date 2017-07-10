@@ -29,7 +29,7 @@ eos
   s.email       = 'info@zeroc.com'
   s.files       = %w[ICE_LICENSE LICENSE MCPP_LICENSE BZIP2_LICENSE ice.gemspec] + Dir.glob('lib/**/*.rb') + Dir.glob("ext/*") + Dir.glob("ext/**/*") + Dir.glob("slice/**/*.ice")
   s.homepage    = 'https://zeroc.com'
-  s.license     = 'GPL v2 with exceptions'
+  s.license     = 'GPL-2.0'
   s.extensions = %w[ext/extconf.rb]
   s.rdoc_options = %w[--exclude=ext/IceRuby/.*\.o$ --exclude=IceRuby\.(bundle|so)$ --exclude=lib/slice2rb$]
   s.executables << 'slice2rb'
