@@ -3,10 +3,7 @@
 #
 
 [Unit]
-Description=The IceGrid registry daemon.\
-IceGrid is the server deployment and monitoring for the Internet\
-Communications Engine (Ice). An IceGrid domain consists of one master\
-registry, zero or more slave registries, and zero or more IceGrid nodes.
+Description=IceGrid registry daemon
 Documentation=man:icegridregistry(1)
 Documentation=https://doc.zeroc.com/display/Ice/icegridregistry
 Before=icegridnode.service

@@ -3,9 +3,7 @@
 #
 
 [Unit]
-Description=The Glacier2 router daemon.\
-Glacier2 is the firewall traversal service for the Internet\
-Communications Engine (Ice).
+Description=Glacier2 router daemon
 Documentation=man:glacier2router(1)
 Documentation=https://doc.zeroc.com/display/Ice/Getting+Started+with+Glacier2
 After=syslog.target network.target icegridregistry.service icegridnode.service
