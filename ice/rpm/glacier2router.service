@@ -6,7 +6,7 @@
 Description=Glacier2 router daemon
 Documentation=man:glacier2router(1)
 Documentation=https://doc.zeroc.com/display/Ice/Getting+Started+with+Glacier2
-After=syslog.target network.target icegridregistry.service icegridnode.service
+After=syslog.target network.target
 
 [Service]
 ExecStart=/usr/bin/glacier2router --Ice.Config=/etc/glacier2router.conf
