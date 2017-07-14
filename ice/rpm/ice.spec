@@ -110,7 +110,7 @@ your application logic.
 Summary: IceGrid GUI admin client.
 Group: Applications/System
 BuildArch: noarch
-Obsoletes: ice-utils < 3.6, ice-utils-java < 3.7
+Obsoletes: ice-utils < 3.6, %{?nameprefix}ice-utils-java < 3.7
 Requires: java
 %description -n %{?nameprefix}icegridgui
 The IceGrid service helps you locate, deploy and manage Ice servers.
@@ -258,7 +258,7 @@ your application logic.
 %package -n %{?nameprefix}ice-compilers
 Summary: Slice compilers for developing Ice applications
 Group: Development/Tools
-Obsoletes: libice-java < 3.7, php-ice-devel < 3.7, ice-util < 3.7
+Obsoletes: %{?nameprefix}libice-java < 3.7, %{?nameprefix}php-ice-devel < 3.7, %{?nameprefix}ice-utils < 3.7
 Requires: %{?nameprefix}ice-slice = %{version}-%{release}
 %description -n %{?nameprefix}ice-compilers
 This package contains Slice compilers for developing Ice applications.
@@ -456,6 +456,9 @@ export LDFLAGS="%{?__global_ldflags}"
     make -C cpp    %{?_smp_mflags} %{makeinstallopts} PLATFORMS=x86 install
 %endif
 
+# The slice symlinks cause problems for upgrades. We'll create these manually in %post.
+rm -rf %{buildroot}%{_datadir}/slice
+
 # Cleanup extra files
 rm -f %{buildroot}%{_bindir}/slice2confluence
 
@@ -522,7 +525,23 @@ rm -rf %{buildroot}%{_datadir}/ice
 %doc %{rpmbuildfiles}/README
 %dir %{_datadir}/ice
 %{_datadir}/ice/slice
-%{_datadir}/slice
+
+%post -n %{?nameprefix}ice-slice
+if [ "$1" = "1" ]; then
+    # New install - fail if /usr/share/slice already exists
+    test ! -e %{_datadir}/slice
+elif [ "$1" = "2" ]; then
+    # Upgrade - create /usr/share/slice and populate it with symlinks to /usr/share/ice/slice/*
+    rm -rf %{_datadir}/slice
+    mkdir -p %{_datadir}/slice
+    for i in %{_datadir}/ice/slice/*
+    do
+        ln -sf $i %{_datadir}/slice
+    done
+fi
+
+%postun -n %{?nameprefix}ice-slice
+rm -rf %{_datadir}/slice
 
 %files -n %{?nameprefix}icegridgui
 %license LICENSE
