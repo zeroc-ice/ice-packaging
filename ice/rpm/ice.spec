@@ -259,6 +259,7 @@ your application logic.
 Summary: Slice compilers for developing Ice applications
 Group: Development/Tools
 Obsoletes: %{?nameprefix}libice-java < 3.7, %{?nameprefix}php-ice-devel < 3.7, %{?nameprefix}ice-utils < 3.7
+Obsoletes: ice-php-devel < 3.6, ice-python-devel < 3.6, ice-java-devel < 3.6, ice-ruby-devel < 3.6
 Requires: %{?nameprefix}ice-slice = %{version}-%{release}
 %description -n %{?nameprefix}ice-compilers
 This package contains Slice compilers for developing Ice applications.
