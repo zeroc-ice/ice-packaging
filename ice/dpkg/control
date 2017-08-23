@@ -8,7 +8,7 @@ Build-Depends: debhelper (>= 9.0.0),
  libssl-dev,
  libdb5.3++-dev (>=5.3.28),
  libdb5.3-java (>=5.3.28),
- oracle-java7-installer,
+ oracle-java8-installer,
  php5-dev <!nophp5>,
  php5-cli <!nophp5>,
  javahelper (>= 0.45),
@@ -100,7 +100,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  zeroc-ice-slice (=${binary:Version}),
  libzeroc-ice3.6 (=${binary:Version}),
  libdb5.3-java (>=5.3.28),
- openjdk-7-jdk | openjdk-8-jdk | oracle-java7-installer | oracle-java8-installer
+ openjdk-7-jdk | openjdk-8-jdk | oracle-java8-installer
 Description: Tools for developing Ice applications in Java
  Tools for developing Ice applications in Java.
 
@@ -202,6 +202,6 @@ Section: admin
 Replaces:ice-utils, icegrid-gui
 Depends: ${java:Depends}, ${misc:Depends}
  zeroc-ice-utils (=${binary:Version}),
- openjdk-7-jdk | openjdk-8-jdk | oracle-java7-installer | oracle-java8-installer |
+ openjdk-7-jdk | openjdk-8-jdk | oracle-java8-installer |
  openjdk-7-jre | openjdk-8-jre
 Description: IceGrid Admin graphical client for IceGrid
