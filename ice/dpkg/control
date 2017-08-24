@@ -1,7 +1,6 @@
 Source: zeroc-ice3.6
 Priority: extra
 Maintainer: ZeroC, Inc. <support@zeroc.com>
-Build-Depends-Indep: default-jdk
 Build-Depends: debhelper (>= 9.0.0),
  libmcpp-dev (>=2.7.2),
  libbz2-dev,
@@ -9,6 +8,7 @@ Build-Depends: debhelper (>= 9.0.0),
  libssl-dev,
  libdb5.3++-dev (>=5.3.28),
  libdb5.3-java (>=5.3.28),
+ oracle-java8-installer,
  dh-php5 <!nophp5>,
  php5-dev <!nophp5>,
  php5-cli <!nophp5>,
