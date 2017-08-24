@@ -1,8 +1,7 @@
 Source: zeroc-ice3.6
 Priority: extra
 Maintainer: ZeroC, Inc. <support@zeroc.com>
-Build-Depends-Indep: default-jdk,
-                     openjfx
+Build-Depends-Indep: default-jdk
 Build-Depends: debhelper (>= 9.0.0),
  libmcpp-dev (>=2.7.2),
  libbz2-dev,
