@@ -57,8 +57,14 @@ if RUBY_PLATFORM =~ /mswin|mingw/
 	# you get error 6 when using the socket library.
 	$LOCAL_LIBS << ' -lShlwapi -lrpcrt4  -ladvapi32 -lIphlpapi -lsecur32 -lcrypt32 -lws2_32'
 
-	# statically link the C and C++ runtimes.
-	$LDFLAGS << ' -static-libgcc -static-libstdc++'
+	if RUBY_PLATFORM =~ /mingw32/
+		# Statically link with libstdc++ but not libgcc because the ruby 2.4 executable links
+		# dynamically with libgcc (because of Dwarf2 EH)
+		$LDFLAGS << ' -static-libstdc++'
+	else
+		# Statically link with libstdc++ and libgcc for ming64
+		$LDFLAGS << ' -static-libstdc++ -static-libgcc'
+	end
 elsif RUBY_PLATFORM =~ /darwin/
 	$LOCAL_LIBS << ' -framework Security -framework CoreFoundation'
 elsif RUBY_PLATFORM =~ /linux/
