@@ -49,7 +49,7 @@ if RUBY_PLATFORM =~ /mswin|mingw/
 
 	# -lws2_32 must be in LOCAL_LIBS even though mkmk puts it at the end of the LIBS, otherwise
 	# you get error 6 when using the socket library.
-	$LOCAL_LIBS << ' -lShlwapi -lrpcrt4  -ladvapi32 -lIphlpapi -lsecur32 -lcrypt32 -lws2_32'
+	$LOCAL_LIBS << ' -lbz2 -lShlwapi -lrpcrt4  -ladvapi32 -lIphlpapi -lsecur32 -lcrypt32 -lws2_32'
 
 elsif RUBY_PLATFORM =~ /darwin/
 	$LOCAL_LIBS << ' -framework Security -framework CoreFoundation'
