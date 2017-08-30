@@ -36,5 +36,5 @@ eos
   s.license     = 'GPL v2 with exceptions'
   s.rdoc_options = %w[--exclude=IceRuby.so$ --exclude=lib/slice2rb$]
   s.executables << 'slice2rb'
-  s.required_ruby_version = '~> 2.1'
+  s.required_ruby_version = '~> 2.4'
 end
