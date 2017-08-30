@@ -9,8 +9,10 @@
 
 require "mkmf"
 
-if not have_header("bzlib.h") then
-    exit 1
+if ! (RUBY_PLATFORM =~ /mswin|mingw/)
+        if not have_header("bzlib.h") then
+            exit 1
+        end
 end
 
 if RUBY_PLATFORM =~ /linux/
