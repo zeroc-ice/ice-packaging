@@ -9,22 +9,16 @@
 
 require "mkmf"
 
-if ! (RUBY_PLATFORM =~ /mswin|mingw/)
+if not have_header("bzlib.h") then
+    exit 1
+end
+
+if RUBY_PLATFORM =~ /linux/
 	#
-	# On OSX & Linux bzlib.h is required.
+	# On Linux openssl is required for IceSSL.
 	#
-	if not have_header("bzlib.h") then
+	if not have_header("openssl/ssl.h") then
 	    exit 1
-	end
-
-
-	if RUBY_PLATFORM =~ /linux/
-		#
-		# On Linux openssl is required for IceSSL.
-		#
-		if not have_header("openssl/ssl.h") then
-		    exit 1
-		end
 	end
 end
 
@@ -51,20 +45,10 @@ if RUBY_PLATFORM =~ /mswin|mingw/
 	$CPPFLAGS << ' -DICE_BUILDING_ICESSL'
 	$CPPFLAGS << ' -mthreads'
 
-	$INCFLAGS << ' -Iice/bzip2'
-
 	# -lws2_32 must be in LOCAL_LIBS even though mkmk puts it at the end of the LIBS, otherwise
 	# you get error 6 when using the socket library.
 	$LOCAL_LIBS << ' -lShlwapi -lrpcrt4  -ladvapi32 -lIphlpapi -lsecur32 -lcrypt32 -lws2_32'
 
-	if RUBY_PLATFORM =~ /mingw32/
-		# Statically link with libstdc++ but not libgcc because the ruby 2.4 executable links
-		# dynamically with libgcc (because of Dwarf2 EH)
-		$LDFLAGS << ' -static-libstdc++'
-	else
-		# Statically link with libstdc++ and libgcc for ming64
-		$LDFLAGS << ' -static-libstdc++ -static-libgcc'
-	end
 elsif RUBY_PLATFORM =~ /darwin/
 	$LOCAL_LIBS << ' -framework Security -framework CoreFoundation'
 elsif RUBY_PLATFORM =~ /linux/
@@ -110,17 +94,6 @@ Dir["ice/mcpp/*.c"].each do |f|
 	dir = "ice/mcpp"
 	$objs << File.join(dir, File.basename(f, ".*") + ".o")
 	$srcs << File.join(dir, f)
-end
-
-#
-# Add bzip2 source under Windows.
-#
-if RUBY_PLATFORM =~ /mswin|mingw/
-	['blocksort.c', 'bzlib.c', 'compress.c','crctable.c','decompress.c','huffman.c','randtable.c'].each do |f|
-		dir = "ice/bzip2"
-		$objs << File.join(dir, File.basename(f, ".*") + ".o")
-		$srcs << File.join(dir, f)
-	end
 end
 
 create_makefile "IceRuby"

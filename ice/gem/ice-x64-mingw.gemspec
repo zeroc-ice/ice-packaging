@@ -37,5 +37,5 @@ eos
   s.rdoc_options = %w[--exclude=IceRuby.so$ --exclude=lib/slice2rb$]
   s.executables << 'slice2rb'
   s.required_ruby_version = '~> 2.4'
-  s.metadata['msys2_mingw_dependencies'] = 'libwinpthread-git'
+  s.metadata['msys2_mingw_dependencies'] = 'gcc-libs bzip2'
 end

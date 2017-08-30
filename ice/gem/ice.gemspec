@@ -36,4 +36,6 @@ eos
   s.extensions = %w[ext/extconf.rb]
   s.rdoc_options = %w[--exclude=ext/IceRuby/.*\.o$ --exclude=IceRuby\.(bundle|so)$ --exclude=lib/slice2rb$]
   s.executables << 'slice2rb'
+  s.metadata['msys2_dependencies'] = 'make'
+  s.metadata['msys2_mingw_dependencies'] = 'gcc'
 end
