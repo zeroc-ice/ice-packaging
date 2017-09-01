@@ -31,7 +31,7 @@ Join us on our user forums if you have questions about Ice.
 eos
   s.authors     = ["ZeroC, Inc."]
   s.email       = 'info@zeroc.com'
-  s.files       = %w[ICE_LICENSE LICENSE MCPP_LICENSE BZIP2_LICENSE ice-x86-mingw.gemspec] + Dir.glob('lib/**/*.rb') + Dir.glob('lib/*.so') + Dir.glob("slice/**/*.ice")
+  s.files       = %w[ICE_LICENSE LICENSE MCPP_LICENSE ice-x86-mingw.gemspec] + Dir.glob('lib/**/*.rb') + Dir.glob('lib/*.so') + Dir.glob("slice/**/*.ice")
   s.homepage    = 'https://zeroc.com'
   s.license     = 'GPL v2 with exceptions'
   s.rdoc_options = %w[--exclude=IceRuby.so$ --exclude=lib/slice2rb$]
