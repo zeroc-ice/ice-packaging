@@ -76,8 +76,10 @@ elif platform == 'win32':
     define_macros.append(('_WIN32_WINNT', '0x601'))
     include_dirs.append('src/ice/bzip2')
     extra_compile_args.append('/EHsc')
+    extra_compile_args.append('/wd4244')
     extra_compile_args.append('/wd4250')
     extra_compile_args.append('/wd4251')
+    extra_compile_args.append('/wd4267')
     extra_compile_args.append('/wd4275')
     extra_compile_args.append('/wd4996')
     libraries=['dbghelp', 'Shlwapi', 'rpcrt4','advapi32','Iphlpapi','secur32','crypt32','ws2_32']
