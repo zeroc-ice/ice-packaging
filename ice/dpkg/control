@@ -20,17 +20,7 @@ Homepage: https://zeroc.com
 Package: zeroc-ice-all-runtime
 Architecture: all
 Section: web
-Depends: zeroc-ice-slice (=${binary:Version}),
- libzeroc-ice3.6 (=${binary:Version}),
- libzeroc-freeze3.6 (=${binary:Version}),
- php5-zeroc-ice (=${binary:Version}) <!nophp5>,
- zeroc-glacier2 (=${binary:Version}),
- zeroc-icebox (=${binary:Version}),
- zeroc-icegrid (=${binary:Version}),
- libzeroc-icestorm3.6 (=${binary:Version}),
- zeroc-icepatch2 (=${binary:Version}),
- zeroc-ice-utils (=${binary:Version}),
- zeroc-ice-utils-java (=${binary:Version})
+Depends: ${dist:AllRuntimeDepends}
 Description: Ice (Internet Communications Engine)
  Ice is a comprehensive RPC framework that helps you build distributed
  applications with minimal effort using familiar object-oriented idioms.
@@ -44,9 +34,7 @@ Description: Ice (Internet Communications Engine)
 Package: zeroc-ice-all-dev
 Architecture: all
 Section: devel
-Depends: libzeroc-ice-dev (=${binary:Version}),
- libzeroc-ice-java (=${binary:Version}),
- php5-zeroc-ice-dev (=${binary:Version}) <!nophp5>
+Depends: ${dist:AllDevDepends}
 Replaces: libzeroc-ice-java (<=3.5.1)
 Description: Ice development packages
  Ice development packages.

@@ -12,9 +12,7 @@ export CLASSPATH=/usr/share/java/proguard.jar
 export GRADLE_HOME=$(HOME)/.gradle
 export GRADLE = ./gradlew -g $(GRADLE_HOME)
 
-PACKAGE_NAMES = zeroc-ice-all-runtime \
-	zeroc-ice-all-dev \
-	zeroc-ice-slice \
+RUNTIME_PACKAGE_NAMES = zeroc-ice-slice \
 	libzeroc-ice3.6 \
 	libzeroc-freeze3.6 \
 	zeroc-glacier2 \
@@ -23,8 +21,9 @@ PACKAGE_NAMES = zeroc-ice-all-runtime \
 	libzeroc-icestorm3.6 \
 	zeroc-icepatch2 \
 	zeroc-ice-utils \
-	zeroc-ice-utils-java \
-	libzeroc-ice-dev \
+	zeroc-ice-utils-java
+
+DEV_PACKAGE_NAMES = libzeroc-ice-dev \
 	libzeroc-ice-java
 
 CPP11_DESTDIR = $(CURDIR)/debian/tmp-cpp11
@@ -41,7 +40,8 @@ CPP11_LIB_NAMES = 	libFreeze \
 	libIceStormService \
 	libIceUtil
 
-VERSION = 3.6.4
+DEB_VERSION := $(shell dpkg-parsechangelog | egrep '^Version:' | cut -f 2 -d ' ')
+VERSION := $(shell echo $(DEB_VERSION) | sed 's/-.*//g')
 
 ARTIFACT_NAMES = freeze \
 	glacier2 \
@@ -75,16 +75,28 @@ endif
 
 
 DHARGS	= --parallel --with javahelper --with systemd
-
 #
 # Check if nophp5 build profile is active
 #
 ifeq (,$(filter nophp5,$(DEB_BUILD_PROFILES)))
 	PHP5=yes
 	DHARGS += --with php5
-	PACKAGE_NAMES += php5-zeroc-ice php5-zeroc-ice-dev
+	RUNTIME_PACKAGE_NAMES += php5-zeroc-ice
+	DEV_PACKAGE_NAMES += php5-zeroc-ice-dev
 endif
 
+PACKAGE_NAMES = zeroc-ice-all-runtime \
+	zeroc-ice-all-dev \
+	$(RUNTIME_PACKAGE_NAMES) \
+	$(DEV_PACKAGE_NAMES)
+
+space := $(null) #
+comma := ,
+dep-dependencies = $(subst $(space), (=$(DEB_VERSION))$(comma) ,$(strip $1)) (=$(DEB_VERSION))
+
+override_dh_gencontrol:
+	dh_gencontrol -- -Vdist:AllRuntimeDepends="$(call dep-dependencies,$(RUNTIME_PACKAGE_NAMES))" \
+			 -Vdist:AllDevDepends="$(call dep-dependencies,$(DEV_PACKAGE_NAMES))"
 
 prefix = /usr
 MAKEOPTS = prefix=$(prefix) OPTIMIZE=$(OPTIMIZE)
