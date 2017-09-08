@@ -74,6 +74,7 @@ elif platform == 'win32':
     define_macros.append(('_WIN32_WINNT', '0x601'))
     include_dirs.append('src/ice/bzip2')
     extra_compile_args.append('/EHsc')
+    extra_compile_args.append('/wd4018')
     extra_compile_args.append('/wd4146')
     extra_compile_args.append('/wd4244')
     extra_compile_args.append('/wd4250')
