@@ -1,11 +1,11 @@
-zeroc-ice (3.7b0-1) UNRELEASED; urgency=medium
+zeroc-ice (3.7.1-1) UNRELEASED; urgency=medium
 
-  * Version bump
+  * Update to version 3.7.1
 
- -- Benoit Foucher <benoit@zeroc.com>  Tue, 7 Mar 2017 14:20:00 +0000
+ -- José Gutiérrez de la Concha <jose@zeroc.com>  Thu, 14 Dec 2017 21:34:46 +0000
 
-zeroc-freeze (3.7a4-1) UNRELEASED; urgency=medium
+zeroc-freeze (3.7.0-1) unstable; urgency=medium
 
-  * Updates to support Ice 3.7
+  * Freeze 3.7.0 release
 
- -- José Gutiérrez de la Concha <jose@zeroc.com>  Mon, 12 Sep 2016 15:58:00 +0000
+ -- José Gutiérrez de la Concha <jose@zeroc.com>  Wed, 2 Aug 2017 15:51:19 +0000
