@@ -34,7 +34,6 @@ ExcludeArch: %{ix86}
   %define shadow shadow-utils
 %endif
 %if "%{dist}" == ".amzn1"
-  %define cpp11 1
   %define shadow shadow-utils
 %endif
 %if "%{dist}" == ".sles11"
@@ -172,7 +171,7 @@ Ice is a comprehensive RPC framework that helps you network your software
 with minimal effort. Ice takes care of all interactions with low-level
 network programming interfaces and allows you to focus your efforts on
 your application logic.
- 
+
 %package -n %{?nameprefix}ice-utils-java
 Summary:  IceGrid Admin graphical client.
 Group: Applications/System
@@ -274,7 +273,7 @@ This package contains the C++ run-time libraries for the Freeze persistence
 service.
 
 The Freeze persistence service allows you to store Ice objects in Oracle
-Berkeley DB, with all the features you expect from a robust database - 
+Berkeley DB, with all the features you expect from a robust database -
 transactions, hot backups, indexing, and more.
 
 Ice is a comprehensive RPC framework that helps you network your software
