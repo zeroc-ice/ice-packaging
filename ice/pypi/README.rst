@@ -44,7 +44,7 @@ Python compiler (``slice2py``) will not be available.
 By default, Ice is built statically with the package. On Linux and macOS, you
 can instead build the package with the system-installed Ice shared libraries.
 To do so, you can provide the --with-installed-ice option to setup.py install.
-With pip, you should pass the --install-option="--with-builtin-ice" option to
+With pip, you should pass the --install-option="--with-installed-ice" option to
 pip install.
 
 Home Page
