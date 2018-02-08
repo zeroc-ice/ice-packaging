@@ -676,6 +676,7 @@ exit 0
 %{_mandir}/man1/slice2java.1*
 %{_bindir}/slice2js
 %{_mandir}/man1/slice2js.1*
+%{_bindir}/slice2matlab
 %{_bindir}/slice2objc
 %{_mandir}/man1/slice2objc.1*
 %{_bindir}/slice2php
