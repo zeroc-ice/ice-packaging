@@ -10,7 +10,10 @@ Before=icegridnode.service
 After=syslog.target network.target
 
 [Service]
-ExecStart=/usr/bin/icegridregistry --Ice.Config=/etc/icegridregistry.conf
+ExecStart=/usr/bin/icegridregistry --daemon --pidfile /run/icegridregistry/icegridregistry.pid --Ice.Config=/etc/icegridregistry.conf
+Type=forking
+RuntimeDirectory=icegridregistry
+PIDFile=/run/icegridregistry/icegridregistry.pid
 KillMode=process
 User=ice
 

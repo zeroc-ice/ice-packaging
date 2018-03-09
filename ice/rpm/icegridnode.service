@@ -9,7 +9,10 @@ Documentation=https://doc.zeroc.com/display/Ice/icegridnode
 After=syslog.target network.target icegridregistry.service
 
 [Service]
-ExecStart=/usr/bin/icegridnode --Ice.Config=/etc/icegridnode.conf
+ExecStart=/usr/bin/icegridnode --daemon --pidfile /run/icegridnode/icegridnode.pid --Ice.Config=/etc/icegridnode.conf
+Type=forking
+RuntimeDirectory=icegridnode
+PIDFile=/run/icegridnode/icegridnode.pid
 KillMode=process
 User=ice
 

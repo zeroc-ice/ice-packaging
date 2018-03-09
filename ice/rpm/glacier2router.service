@@ -9,7 +9,10 @@ Documentation=https://doc.zeroc.com/display/Ice/Getting+Started+with+Glacier2
 After=syslog.target network.target
 
 [Service]
-ExecStart=/usr/bin/glacier2router --Ice.Config=/etc/glacier2router.conf
+ExecStart=/usr/bin/glacier2router --daemon --pidfile /run/glacier2router/glacier2router.pid --Ice.Config=/etc/glacier2router.conf
+Type=forking
+RuntimeDirectory=glacier2router
+PIDFile=/run/glacier2router/glacier2router.pid
 KillMode=process
 User=ice
 
