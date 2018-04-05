@@ -219,6 +219,7 @@ setup(
     package_dir = package_dir,
     package_data = package_data,
     include_package_data = True,
+    exclude_package_data={'slice': ['IceDiscovery/*.ice', 'IceLocatorDiscovery/*.ice']},
     py_modules = ["slice2py"],
     entry_points = {
         'console_scripts': ['slice2py=slice2py:main'],
