@@ -460,9 +460,6 @@ export LDFLAGS="%{?__global_ldflags}"
 # Cleanup extra files
 rm -f %{buildroot}%{_bindir}/slice2confluence
 
-# TODO: keep with Python >= 3.5
-rm -f %{buildroot}%{pythondir}/Ice/IceFuture.py
-
 %ifarch x86_64
 
 #
