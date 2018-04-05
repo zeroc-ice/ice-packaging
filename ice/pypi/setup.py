@@ -39,6 +39,8 @@ sliceSrcs = ["Checksum.cpp", "FileTracker.cpp", "Grammar.cpp", "MD5.cpp",
 # set include_package_data=True.
 #
 packages=['Glacier2', 'Ice', 'IceBox', 'IceGrid', 'IceMX', 'IcePatch2', 'IceStorm', 'slice']
+if sys.version_info[:2] >= (3, 5):
+    packages += ['Ice.Py3']
 package_dir={'' : 'lib'}
 package_data={'' : ['*.ice']}
 
