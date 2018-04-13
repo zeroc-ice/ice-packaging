@@ -911,6 +911,9 @@ exit 0
 %endif #x86_64
 
 %changelog
+* Fri Apr 13 2018 Bernard Normier <bernard@zeroc.com> 3.7.1
+- Updates for the 3.7.1 release, see ice/CHANGELOG-3.7.md.
+
 * Fri Jul 21 2017 Bernard Normier <bernard@zeroc.com> 3.7.0
 - Updates for the 3.7.0 release, see ice/CHANGELOG-3.7.md.
 
