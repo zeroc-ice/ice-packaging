@@ -2,8 +2,8 @@
 %global archive_path libraries/lib%{name}
 
 Name:           lmdb
-Version:        0.9.18
-Release:        3ice%{?dist}
+Version:        0.9.22
+Release:        1ice%{?dist}
 Summary:        Memory-mapped key-value database
 
 License:        OpenLDAP
@@ -96,6 +96,9 @@ popd
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Wed Sep 5 2018 Benoit Foucher <benoit@zeroc.com> 0.9.22-1ice
+- Update to 0.9.22
+
 * Fri Mar 10 2017 Bernard Normier <bernard@zeroc.com> 0.9.18-3ice
 - Added pkgconfig file
 
