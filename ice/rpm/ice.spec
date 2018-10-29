@@ -22,6 +22,7 @@
 
 %define systemd 1
 %define systemdpkg systemd
+%define systemddevel systemd-devel
 %define shadow shadow-utils
 %define javapackagestools javapackages-tools
 %define phpdevel php-devel
@@ -72,7 +73,7 @@ BuildRequires: pkgconfig(expat), pkgconfig(lmdb), pkgconfig(mcpp), pkgconfig(ope
 %ifarch x86_64
 BuildRequires: pkgconfig(python-2.7), %{phpdevel}, %{javapackagestools}
 %if %{systemd}
-BuildRequires: %{systemdpkg}
+BuildRequires: %{systemddevel}
 %endif
 %endif
 
@@ -477,12 +478,13 @@ rm -f %{buildroot}%{_bindir}/slice2confluence
 # initrd files (for servers)
 #
 mkdir -p %{buildroot}%{_sysconfdir}
-cp %{rpmbuildfiles}/*.conf %{buildroot}%{_sysconfdir}
 for i in icegridregistry icegridnode glacier2router
 do
     %if %{systemd}
+        cp %{rpmbuildfiles}/$i.conf %{buildroot}%{_sysconfdir}
         install -p -D %{rpmbuildfiles}/$i.service %{buildroot}%{_unitdir}/$i.service
     %else
+        cp %{rpmbuildfiles}/$i.%{_vendor}.conf %{buildroot}%{_sysconfdir}/$i.conf
         install -p -D %{rpmbuildfiles}/$i.%{_vendor} %{buildroot}%{_initrddir}/$i
     %endif
 done
