@@ -70,11 +70,11 @@ Source0: https://github.com/zeroc-ice/ice/archive/%{archive_tag}/%{name}-%{versi
 Source1: https://github.com/zeroc-ice/ice-packaging/archive/%{archive_tag}/%{name}-packaging-%{version}.tar.gz
 
 BuildRequires: pkgconfig(expat), pkgconfig(lmdb), pkgconfig(mcpp), pkgconfig(openssl), %{bzip2devel}
-%ifarch x86_64
-BuildRequires: pkgconfig(python-2.7), %{phpdevel}, %{javapackagestools}
 %if %{systemd}
 BuildRequires: %{systemddevel}
 %endif
+%ifarch x86_64
+BuildRequires: pkgconfig(python-2.7), %{phpdevel}, %{javapackagestools}
 %endif
 
 %description
