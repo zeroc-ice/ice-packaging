@@ -29,6 +29,7 @@
 %define bzip2devel bzip2-devel
 %define phpdir %{_datadir}/php
 %define phplibdir %{_libdir}/php/modules
+%define phpcommon php-common
 %define pythonname python
 %define pythondir %{python_sitearch}
 
@@ -43,6 +44,7 @@
    %define bzip2devel libbz2-devel
    %define shadow shadow
    %define phpdir %{_datadir}/php5
+   %define phpcommon php5
    %define phplibdir %{_libdir}/php5/extensions
 %endif
 
@@ -387,18 +389,12 @@ Summary: PHP extension for Ice.
 Group: System Environment/Libraries
 Obsoletes: ice-php < 3.6
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
-%if "%{dist}" == ".sles12"
-Requires: php5%{?_isa}
-%endif
-%if "%{dist}" == ".el6"
-Requires: php-common%{?_isa}
-%endif
-%if "%{dist}" == ".el7"
-Requires: php-common%{?_isa}
-%endif
 %if "%{dist}" == ".amzn1"
 Requires: php-common%{?_isa} < 5.4
+%else
+Requires: %{phpcommon}%{?_isa}
 %endif
+
 %description -n php-%{?nameprefix}ice
 This package contains a PHP extension for communicating with Ice.
 
@@ -494,9 +490,6 @@ done
 #
 mkdir -p %{buildroot}%{_bindir}
 cp -p %{rpmbuildfiles}/icegridgui %{buildroot}%{_bindir}/icegridgui
-if [ -n "$JARSIGNER_KEYSTORE" ]; then
-    jarsigner -keystore $JARSIGNER_KEYSTORE -storepass "$JARSIGNER_KEYSTORE_PASSWORD" %{buildroot}%{_javadir}/icegridgui.jar $JARSIGNER_KEYSTORE_ALIAS -tsa http://timestamp.digicert.com
-fi
 
 %else
 
