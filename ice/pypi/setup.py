@@ -84,6 +84,9 @@ elif platform == 'win32':
     extra_compile_args.append('/wd4267')
     extra_compile_args.append('/wd4275')
     extra_compile_args.append('/wd4996')
+    extra_compile_args.append('/Zi')
+    extra_link_args.append('/DEBUG')
+    extra_link_args.append('/PDB:IcePy.pdb')
     libraries=['dbghelp', 'Shlwapi', 'rpcrt4','advapi32','Iphlpapi','secur32','crypt32','ws2_32']
 else:
     #
