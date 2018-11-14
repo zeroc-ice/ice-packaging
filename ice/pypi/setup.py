@@ -11,6 +11,8 @@ except ImportError:
     from distutils.core import setup
 
 from distutils.extension import Extension
+from distutils.command.build_ext import build_ext
+
 import sys, os, shutil, fnmatch
 
 platform = sys.platform
@@ -85,8 +87,10 @@ elif platform == 'win32':
     extra_compile_args.append('/wd4275')
     extra_compile_args.append('/wd4996')
     extra_compile_args.append('/Zi')
-    extra_link_args.append('/DEBUG')
-    extra_link_args.append('/PDB:IcePy.pdb')
+    if sys.version_info[:2] >= (3, 6):
+        extra_link_args.append('/DEBUG:FULL')
+    else:
+        extra_link_args.append('/DEBUG')
     libraries=['dbghelp', 'Shlwapi', 'rpcrt4','advapi32','Iphlpapi','secur32','crypt32','ws2_32']
 else:
     #
@@ -168,6 +172,13 @@ for root, dirnames, filenames in os.walk('src'):
 with open('README.rst') as file:
     long_description = file.read()
 
+class BuildExt(build_ext):
+    def build_extensions(self):
+        if platform == "win32":
+            for e in self.extensions:
+                e.extra_link_args.append('/PDB:{0}'.format(os.path.join(self.build_lib, "IcePy.pdb")))
+        build_ext.build_extensions(self)
+
 setup(
     name='zeroc-ice',
 
@@ -226,6 +237,7 @@ setup(
     include_package_data = True,
     exclude_package_data={'slice': ['IceDiscovery/*.ice', 'IceLocatorDiscovery/*.ice']},
     py_modules = ["slice2py"],
+    cmdclass = {'build_ext': BuildExt },
     entry_points = {
         'console_scripts': ['slice2py=slice2py:main'],
     },
