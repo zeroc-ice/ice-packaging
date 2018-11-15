@@ -176,7 +176,7 @@ class BuildExt(build_ext):
     def build_extensions(self):
         if platform == "win32":
             for e in self.extensions:
-                e.extra_link_args.append('/PDB:{0}'.format(os.path.join(self.build_lib, "IcePy.pdb")))
+                e.extra_link_args.append('/PDB:{0}'.format(os.path.join(self.build_temp, "IcePy.pdb")))
         build_ext.build_extensions(self)
 
 setup(
