@@ -40,11 +40,6 @@
 %define pythonname python
 %define pythondir %{python_sitearch}
 
-%if "%{dist}" == ".amzn2"
-   %define python3name python3
-   %define python3dir /usr/lib64/python3.7/site-packages
-%endif
-
 %if "%{dist}" == ".amzn1"
    %define systemd 0
    %define pythonname python27
