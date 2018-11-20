@@ -18,6 +18,13 @@
    %define archive_dir_suffix %{git_tag_version}
 %endif
 
+#
+# SLES12 does not define %{dist}
+#
+%if 0%{?suse_version} == 1315
+%global dist                  .sles12
+%endif
+
 %define rpmbuildfiles ice-packaging-%{archive_dir_suffix}/ice/rpm
 
 %define systemd 1
@@ -43,6 +50,7 @@
    %define pythonname python27
    %define pythondir %{python27_sitearch}
 %endif
+
 %if "%{dist}" == ".sles12"
    %define systemdpkg systemd-rpm-macros
    %define phpdevel php5-devel
@@ -83,7 +91,7 @@ BuildRequires: %{systemddevel}
 %ifarch x86_64
 BuildRequires: pkgconfig(python-2.7), %{phpdevel}, %{javapackagestools}
 %if "%{dist}" == ".amzn2"
-BuildRequires: pkgconfig(python-3.7)
+BuildRequires: pkgconfig(python-3.7), python3-rpm-macros
 %endif
 %endif
 
@@ -152,6 +160,9 @@ Requires: %{?nameprefix}icepatch2%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icebridge%{?_isa} = %{version}-%{release}
 Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
 Requires: %{pythonname}-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
+%if "%{dist}" == ".amzn2"
+Requires: python3-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
+%endif
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icegridgui = %{version}-%{release}
 %endif # x86_64
@@ -432,12 +443,12 @@ your application logic.
 #
 # python37-ice package
 #
-%package -n %{python3name}-%{?nameprefix}ice
+%package -n python3-%{?nameprefix}ice
 Summary: Python extension for Ice.
 Group: System Environment/Libraries
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
-Requires: %{python3name}
-%description -n %{python3name}-%{?nameprefix}ice
+Requires: python3
+%description -n python3-%{?nameprefix}ice
 This package contains a Python extension for communicating with Ice.
 
 Ice is a comprehensive RPC framework that helps you network your software
@@ -450,6 +461,7 @@ your application logic.
 
 %prep
 %setup -q -n ice-%{archive_dir_suffix} -a 1
+cp %{_builddir}/ice-%{archive_dir_suffix}/python %{_builddir}/ice-%{archive_dir_suffix}/python3 -rf
 
 %build
 #
@@ -461,8 +473,7 @@ export LDFLAGS="%{?__global_ldflags}"
 %ifarch x86_64
     make %{makebuildopts} PYTHON=%{pythonname} LANGUAGES="cpp java php python" srcs
     %if "%{dist}" == ".amzn2"
-        rsync -av python/ python3 --exclude *.o --exclude build --exclude *.so
-        make V=1 PYTHON=python3 -C python3 srcs
+        make %{makebuildopts} PYTHON=python3 -C python3 srcs
     %endif
 %endif
 
@@ -478,7 +489,7 @@ export LDFLAGS="%{?__global_ldflags}"
     make -C php    %{?_smp_mflags} %{makeinstallopts} install
     make -C python %{?_smp_mflags} %{makeinstallopts} PYTHON=%{pythonname} install_pythondir=%{pythondir} install
     %if "%{dist}" == ".amzn2"
-        make PYTHON=python3 -C python3 %{?_smp_mflags} %{makeinstallopts} install_pythondir=%{python3dir} install
+        make -C python3 %{?_smp_mflags} %{makeinstallopts} PYTHON=python3 install_pythondir=%{python3_sitearch} install
     %endif
     make -C java   %{?_smp_mflags} %{makeinstallopts} install-icegridgui
 %endif
@@ -940,11 +951,11 @@ exit 0
 #
 # python3-ice package
 #
-%files -n %{python3name}-%{?nameprefix}ice
+%files -n python3-%{?nameprefix}ice
 %license LICENSE
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
-%{python3dir}/*
+%{python3_sitearch}/*
 %endif
 
 %endif #x86_64
