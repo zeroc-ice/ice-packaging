@@ -5,7 +5,7 @@ as a regular (non-root) user on your Linux system.
 
 ## The .rpmmacros File
 
-If building RPMs for Amazon Linux AMI or SuSE 12, you need to create a file
+If building RPMs for Amazon Linux AMI or SLES 12, you need to create a file
 named `.rpmmacros` in your home directory with the following content:
 ```
     %dist .amzn1
