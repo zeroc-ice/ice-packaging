@@ -18,6 +18,13 @@
    %define archive_dir_suffix %{git_tag_version}
 %endif
 
+#
+# SLES12 does not define %{dist}
+#
+%if 0%{?suse_version} == 1315
+%global dist                  .sles12
+%endif
+
 %define rpmbuildfiles ice-packaging-%{archive_dir_suffix}/ice/rpm
 
 %define systemd 1
@@ -38,6 +45,7 @@
    %define pythonname python27
    %define pythondir %{python27_sitearch}
 %endif
+
 %if "%{dist}" == ".sles12"
    %define systemdpkg systemd-rpm-macros
    %define phpdevel php5-devel
@@ -54,8 +62,8 @@
    %define runpath embedded_runpath_prefix=%{_prefix}
 %endif
 
-%define makebuildopts CONFIGS="shared cpp11-shared" PYTHON=%{pythonname} OPTIMIZE=yes V=1 %{runpath} %{?_smp_mflags}
-%define makeinstallopts CONFIGS="shared cpp11-shared" PYTHON=%{pythonname} OPTIMIZE=yes V=1 %{runpath} DESTDIR=%{buildroot} prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_slicedir=%{_datadir}/ice/slice install_includedir=%{_includedir} install_mandir=%{_mandir} install_configdir=%{_datadir}/ice install_javadir=%{_javadir} install_phplibdir=%{phplibdir} install_phpdir=%{phpdir} install_pythondir=%{pythondir}
+%define makebuildopts CONFIGS="shared cpp11-shared" OPTIMIZE=yes V=1 %{runpath} %{?_smp_mflags}
+%define makeinstallopts CONFIGS="shared cpp11-shared" OPTIMIZE=yes V=1 %{runpath} DESTDIR=%{buildroot} prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_slicedir=%{_datadir}/ice/slice install_includedir=%{_includedir} install_mandir=%{_mandir} install_configdir=%{_datadir}/ice install_javadir=%{_javadir} install_phplibdir=%{phplibdir} install_phpdir=%{phpdir}
 
 Name: %{?nameprefix}ice
 Version: 3.7.2
@@ -77,6 +85,9 @@ BuildRequires: %{systemddevel}
 %endif
 %ifarch x86_64
 BuildRequires: pkgconfig(python-2.7), %{phpdevel}, %{javapackagestools}
+%if "%{dist}" == ".amzn2"
+BuildRequires: pkgconfig(python-3.7), python3-rpm-macros
+%endif
 %endif
 
 %description
@@ -144,6 +155,9 @@ Requires: %{?nameprefix}icepatch2%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icebridge%{?_isa} = %{version}-%{release}
 Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
 Requires: %{pythonname}-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
+%if "%{dist}" == ".amzn2"
+Requires: python3-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
+%endif
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icegridgui = %{version}-%{release}
 %endif # x86_64
@@ -420,10 +434,29 @@ with minimal effort. Ice takes care of all interactions with low-level
 network programming interfaces and allows you to focus your efforts on
 your application logic.
 
+%if "%{dist}" == ".amzn2"
+#
+# python37-ice package
+#
+%package -n python3-%{?nameprefix}ice
+Summary: Python extension for Ice.
+Group: System Environment/Libraries
+Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
+Requires: python3
+%description -n python3-%{?nameprefix}ice
+This package contains a Python extension for communicating with Ice.
+
+Ice is a comprehensive RPC framework that helps you network your software
+with minimal effort. Ice takes care of all interactions with low-level
+network programming interfaces and allows you to focus your efforts on
+your application logic.
+%endif
+
 %endif #x86_64
 
 %prep
 %setup -q -n ice-%{archive_dir_suffix} -a 1
+cp %{_builddir}/ice-%{archive_dir_suffix}/python %{_builddir}/ice-%{archive_dir_suffix}/python3 -rf
 
 %build
 #
@@ -433,7 +466,10 @@ export CXXFLAGS="%{optflags}"
 export LDFLAGS="%{?__global_ldflags}"
 
 %ifarch x86_64
-    make %{makebuildopts} LANGUAGES="cpp java php python" srcs
+    make %{makebuildopts} PYTHON=%{pythonname} LANGUAGES="cpp java php python" srcs
+    %if "%{dist}" == ".amzn2"
+        make %{makebuildopts} PYTHON=python3 -C python3 srcs
+    %endif
 %endif
 
 %ifarch %{ix86}
@@ -446,7 +482,10 @@ export LDFLAGS="%{?__global_ldflags}"
     make           %{?_smp_mflags} %{makeinstallopts} install-slice
     make -C cpp    %{?_smp_mflags} %{makeinstallopts} install
     make -C php    %{?_smp_mflags} %{makeinstallopts} install
-    make -C python %{?_smp_mflags} %{makeinstallopts} install
+    make -C python %{?_smp_mflags} %{makeinstallopts} PYTHON=%{pythonname} install_pythondir=%{pythondir} install
+    %if "%{dist}" == ".amzn2"
+        make -C python3 %{?_smp_mflags} %{makeinstallopts} PYTHON=python3 install_pythondir=%{python3_sitearch} install
+    %endif
     make -C java   %{?_smp_mflags} %{makeinstallopts} install-icegridgui
 %endif
 
@@ -902,6 +941,17 @@ exit 0
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
 %{pythondir}/*
+
+%if "%{dist}" == ".amzn2"
+#
+# python3-ice package
+#
+%files -n python3-%{?nameprefix}ice
+%license LICENSE
+%license ICE_LICENSE
+%doc %{rpmbuildfiles}/README
+%{python3_sitearch}/*
+%endif
 
 %endif #x86_64
 
