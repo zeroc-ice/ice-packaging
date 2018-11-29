@@ -256,7 +256,13 @@ Summary: Libraries and headers for developing Ice applications in C++.
 Group: Development/Tools
 Obsoletes: ice-c++-devel < 3.6
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
+%ifarch %{_host_cpu}
+Requires: %{?nameprefix}ice-compilers%{?_isa} = %{version}-%{release}
+%else
+    %ifarch %{ix86}
 Requires: %{?nameprefix}ice-compilers(x86-64) = %{version}-%{release}
+    %endif
+%endif
 Requires: glibc-devel%{?_isa}
 %description -n lib%{?nameprefix}ice-c++-devel
 This package contains the libraries and headers needed for developing
@@ -632,10 +638,10 @@ exit 0
 %{_bindir}/icebox++11
 %{_mandir}/man1/icebox.1*
 %else
-%ifarch %{ix86}
+    %ifarch %{ix86}
 %{_bindir}/icebox32
 %{_bindir}/icebox32++11
-%endif
+    %endif
 %endif
 %post -n %{?nameprefix}icebox -p /sbin/ldconfig
 %postun -n %{?nameprefix}icebox
