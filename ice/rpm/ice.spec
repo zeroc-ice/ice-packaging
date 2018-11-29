@@ -83,7 +83,7 @@ BuildRequires: pkgconfig(expat), pkgconfig(lmdb), pkgconfig(mcpp), pkgconfig(ope
 %if %{systemd}
 BuildRequires: %{systemddevel}
 %endif
-%ifarch x86_64
+%ifarch %{_host_cpu}
 BuildRequires: pkgconfig(python-2.7), %{phpdevel}, %{javapackagestools}
 %if "%{dist}" == ".amzn2"
 BuildRequires: pkgconfig(python-3.7), python3-rpm-macros
@@ -100,7 +100,7 @@ Not used
 %debug_package
 %endif
 
-%ifarch x86_64 # We build noarch packages only on x86_64
+%ifarch %{_host_cpu} # We build noarch packages only on %{_host_cpu}
 
 #
 # ice-slice package
@@ -148,7 +148,7 @@ Summary: Ice run-time packages (meta package).
 Group: System Environment/Libraries
 Requires: %{?nameprefix}icebox%{?_isa} = %{version}-%{release}
 Requires: lib%{?nameprefix}icestorm3.7%{?_isa} = %{version}-%{release}
-%ifarch x86_64
+%ifarch %{_host_cpu}
 Requires: %{?nameprefix}glacier2%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icegrid%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icepatch2%{?_isa} = %{version}-%{release}
@@ -160,7 +160,7 @@ Requires: python3-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
 %endif
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icegridgui = %{version}-%{release}
-%endif # x86_64
+%endif # %{_host_cpu}
 %description -n %{?nameprefix}ice-all-runtime
 This is a meta package that depends on all run-time packages for Ice.
 
@@ -267,7 +267,7 @@ with minimal effort. Ice takes care of all interactions with low-level
 network programming interfaces and allows you to focus your efforts on
 your application logic.
 
-%ifarch x86_64
+%ifarch %{_host_cpu}
 
 #
 # ice-compilers package
@@ -452,7 +452,7 @@ network programming interfaces and allows you to focus your efforts on
 your application logic.
 %endif
 
-%endif #x86_64
+%endif #%{_host_cpu}
 
 %prep
 %setup -q -n ice-%{archive_dir_suffix} -a 1
@@ -465,20 +465,20 @@ cp %{_builddir}/ice-%{archive_dir_suffix}/python %{_builddir}/ice-%{archive_dir_
 export CXXFLAGS="%{optflags}"
 export LDFLAGS="%{?__global_ldflags}"
 
-%ifarch x86_64
+%ifarch %{_host_cpu}
     make %{makebuildopts} PYTHON=python LANGUAGES="cpp java php python" srcs
     %if "%{dist}" == ".amzn2"
         make %{makebuildopts} PYTHON=python3 -C python3 srcs
     %endif
-%endif
-
-%ifarch %{ix86}
-    make %{makebuildopts} PLATFORMS=x86 LANGUAGES="cpp" srcs
+%else
+    %ifarch %{ix86}
+        make %{makebuildopts} PLATFORMS=x86 LANGUAGES="cpp" srcs
+    %endif
 %endif
 
 %install
 
-%ifarch x86_64
+%ifarch %{_host_cpu}
     make           %{?_smp_mflags} %{makeinstallopts} install-slice
     make -C cpp    %{?_smp_mflags} %{makeinstallopts} install
     make -C php    %{?_smp_mflags} %{makeinstallopts} install
@@ -487,16 +487,16 @@ export LDFLAGS="%{?__global_ldflags}"
         make -C python3 %{?_smp_mflags} %{makeinstallopts} PYTHON=python3 install_pythondir=%{python3_sitearch} install
     %endif
     make -C java   %{?_smp_mflags} %{makeinstallopts} install-icegridgui
-%endif
-
-%ifarch %{ix86}
-    make -C cpp    %{?_smp_mflags} %{makeinstallopts} PLATFORMS=x86 install
+%else
+    %ifarch %{ix86}
+        make -C cpp    %{?_smp_mflags} %{makeinstallopts} PLATFORMS=x86 install
+    %endif
 %endif
 
 # Cleanup extra files
 rm -f %{buildroot}%{_bindir}/slice2confluence
 
-%ifarch x86_64
+%ifarch %{_host_cpu}
 
 #
 # php ice.ini
@@ -540,9 +540,9 @@ rm -rf %{buildroot}%{_includedir}
 rm -rf %{buildroot}%{_mandir}
 rm -rf %{buildroot}%{_datadir}/ice
 
-%endif # x86_64
+%endif # %{_host_cpu}
 
-%ifarch x86_64
+%ifarch %{_host_cpu}
 
 #
 # noarch file packages
@@ -563,7 +563,7 @@ rm -rf %{buildroot}%{_datadir}/ice
 %attr(755,root,root) %{_bindir}/icegridgui
 %{_javadir}/icegridgui.jar
 
-%endif # x86_64
+%endif # %{_host_cpu}
 
 #
 # arch-specific packages
@@ -611,7 +611,7 @@ rm -rf %{buildroot}%{_datadir}/ice
 %{_libdir}/libIceLocatorDiscovery++11.so.*
 %{_libdir}/libIceSSL++11.so.*
 %{_libdir}/libIceStorm++11.so.*
-%ifarch x86_64
+%ifarch %{_host_cpu}
 %{_libdir}/libGlacier2CryptPermissionsVerifier.so.*
 %{_libdir}/libIceXML.so.*
 %endif
@@ -627,13 +627,15 @@ exit 0
 %license LICENSE
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
-%ifarch %{ix86}
-%{_bindir}/icebox32
-%{_bindir}/icebox32++11
-%else
+%ifarch %{_host_cpu}
 %{_bindir}/icebox
 %{_bindir}/icebox++11
 %{_mandir}/man1/icebox.1*
+%else
+%ifarch %{ix86}
+%{_bindir}/icebox32
+%{_bindir}/icebox32++11
+%endif
 %endif
 %post -n %{?nameprefix}icebox -p /sbin/ldconfig
 %postun -n %{?nameprefix}icebox
@@ -664,7 +666,7 @@ exit 0
 %{_libdir}/libIceLocatorDiscovery++11.so
 %{_libdir}/libIceSSL++11.so
 %{_libdir}/libIceStorm++11.so
-%ifarch x86_64
+%ifarch %{_host_cpu}
 %{_includedir}/Glacier2
 %{_includedir}/Ice
 %{_includedir}/IceBox
@@ -688,7 +690,7 @@ exit 0
 /sbin/ldconfig
 exit 0
 
-%ifarch x86_64
+%ifarch %{_host_cpu}
 
 #
 # ice-compilers package
@@ -953,9 +955,12 @@ exit 0
 %{python3_sitearch}/*
 %endif
 
-%endif #x86_64
+%endif #%{_host_cpu}
 
 %changelog
+* Thu Nov 29 2018 Bernard Normier <bernard@zeroc.com> 3.7.2
+- Updates for the 3.7.2 release, see ice/CHANGELOG-3.7.md.
+
 * Fri Apr 13 2018 Bernard Normier <bernard@zeroc.com> 3.7.1
 - Updates for the 3.7.1 release, see ice/CHANGELOG-3.7.md.
 
