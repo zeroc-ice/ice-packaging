@@ -1,6 +1,13 @@
 # The files themselves are in several subdirectories and need to be prefixed wit this.
 %global archive_path libraries/lib%{name}
 
+#
+# SLES12 does not define %{dist}
+#
+%if 0%{?suse_version} == 1315
+%global dist                  .sles12
+%endif
+
 Name:           lmdb
 Version:        0.9.22
 Release:        1ice%{?dist}

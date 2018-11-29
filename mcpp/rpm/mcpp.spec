@@ -5,6 +5,13 @@
 # the github version tag without v prefix
 %define git_tag_version 2.7.2.12
 
+#
+# SLES12 does not define %{dist}
+#
+%if 0%{?suse_version} == 1315
+%global dist                  .sles12
+%endif
+
 Summary: mcpp, a portable C/C++ preprocessor
 Name: mcpp-devel
 Version: 2.7.2
