@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008-2017 ZeroC, Inc. All rights reserved.
+# Copyright (c) 2008-present ZeroC, Inc. All rights reserved.
 #
 
 # the github version tag without v prefix
