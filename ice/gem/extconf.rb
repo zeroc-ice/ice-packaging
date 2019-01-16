@@ -5,6 +5,7 @@
 # **********************************************************************
 
 require "mkmf"
+require "rbconfig"
 
 if RUBY_PLATFORM =~ /mswin|mingw/
     puts "MinGW is not supported with Ice for Ruby."
@@ -32,6 +33,9 @@ end
 #
 if RUBY_PLATFORM =~ /darwin/
     $ARCH_FLAG = "-arch x86_64"
+    # Make sure to use the SDK from Xcode (required for Sierra where old system headers can be used otherwise)
+    RbConfig::MAKEFILE_CONFIG['CC'] = 'xcrun -sdk macosx clang'
+    RbConfig::MAKEFILE_CONFIG['CXX'] = 'xcrun -sdk macosx clang++'
 end
 
 $INCFLAGS << ' -Iice/cpp/include'
