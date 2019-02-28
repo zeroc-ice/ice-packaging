@@ -27,4 +27,6 @@ install -pm 644 %{SOURCE0} %{buildroot}%{_sysconfdir}/yum.repos.d
 %defattr(-,root,root,-)
 %config(noreplace) /etc/yum.repos.d/*
 
-
+%changelog
+* Thu Feb 28 2019 Bernard Normier <bernard@zeroc.com> - 3.7-1
+- Initial package
