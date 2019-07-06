@@ -47,7 +47,7 @@ make CC=xlc_r AR="ar -X32" ILIBS=liblmdb.a W="-qhalt=i" THREADS= OPT= XCFLAGS="%
 popd
 
 pushd %{archive_path}-64
-# build 64-bit static libraries and exes  
+# build 64-bit static libraries and exes
 make CC=xlc_r AR="ar -X64" ILIBS=liblmdb.a W="-qhalt=i" THREADS= OPT= XCFLAGS="%{optflags} -qpic -q64 -qmaxmem=-1 -DMDB_USE_ROBUST=0" %{?_smp_mflags}
 popd
 
@@ -62,26 +62,39 @@ popd
 pushd %{archive_path}-64
 # 64-bit additions
 ar -X64 rs %{buildroot}%{_libdir}/liblmdb.a mdb.o midl.o
-for f in mdb_copy mdb_dump mdb_load mdb_stat; do cp $f %{buildroot}%{_prefix}/bin/"$f"_64; done 
+for f in mdb_copy mdb_dump mdb_load mdb_stat
+do
+   cp $f %{buildroot}%{_prefix}/bin/"$f"_64
+done
 popd
 
 # strip exes
 strip -X32_64 %{buildroot}%{_prefix}/bin/mdb_*
+
+# create symlinks for _64 exes
+for f in mdb_copy mdb_dump mdb_load mdb_stat
+do
+    ln -s "$f"_64 %{buildroot}%{_prefix}/bin/$f
+done
+
+# create symlinks for /usr/include and /usr/lib
+mkdir -m 0755 -p %{buildroot}/usr{/include,/lib}
+ln -s %{_includedir}/lmdb.h %{buildroot}/usr/include/lmdb.h
+ln -s %{_libdir}/liblmdb.a %{buildroot}/usr/lib/liblmdb.a
 
 # create pkgconfig file
 mkdir -m 0755 -p %{buildroot}%{_libdir}/pkgconfig
 cat << "EOF" > %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
 prefix=%{_prefix}
 exec_prefix=%{_prefix}
-libdir=%{_libdir}
-includedir=${prefix}/include
+libdir=/usr/lib
+includedir=/usr/include
 
 Name: %{name}
 Version: %{version}
 Description: LMDB embedded data store
 URL: %{url}
-Libs: -L${libdir} -l%{name}
-Cflags: -I${includedir}
+Libs: -l%{name}
 EOF
 
 %check
@@ -102,7 +115,9 @@ popd
 %doc %{archive_path}/CHANGES
 %license %{archive_path}/LICENSE
 %{_includedir}/*
+/usr/include/*
 %{_libdir}/*.a
+/usr/lib/*.a
 %{_libdir}/pkgconfig/*.pc
 
 %changelog

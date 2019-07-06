@@ -52,27 +52,30 @@ make CC=xlc_r AR="ar -X32" CFLAGS="%{optflags} -qpic -q32 -D_LARGE_FILES"
 # Remove 32-bit object files and add 64-bit objects
 rm -f *.o
 make CC=xlc_r AR="ar -X64" CFLAGS="%{optflags} -qpic -q64"
-    
+
 %install
 make PREFIX=%{buildroot}%{_prefix} install
+mkdir -p %{buildroot}/usr/lib
+ln -s %{_libdir}/libmcpp.a %{buildroot}/usr/lib/libmcpp.a
 
 # create pkgconfig file
 mkdir %{buildroot}%{_libdir}/pkgconfig
 cat << "EOF" > %{buildroot}%{_libdir}/pkgconfig/mcpp.pc
 prefix=%{_prefix}
 exec_prefix=%{_prefix}
-libdir=%{_libdir}
+libdir=/usr/lib
 
 Name: mcpp
 Version: %{version}
 Description: %{summary}
 URL: %{url}
-Libs: -L${libdir} -lmcpp
+Libs: -lmcpp
 EOF
 
 %files -n mcpp-devel
 %doc LICENSE
 %{_libdir}/libmcpp.a
+/usr/lib/libmcpp.a
 %{_libdir}/pkgconfig/mcpp.pc
 
 %changelog
