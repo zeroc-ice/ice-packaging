@@ -17,7 +17,7 @@
 %endif
 
 #
-# SLES12 does not define %{dist}
+# SLES12 does not define the dist macro
 #
 %if 0%{?suse_version} == 1315
 %global dist                  .sles12
