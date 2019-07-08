@@ -54,6 +54,10 @@
    %define phplibdir %{_libdir}/php5/extensions
 %endif
 
+%if "%{dist}" == ".el8"
+   %define pythonname python2
+%endif
+
 %if "%{_prefix}" == "/usr"
    %define runpath embedded_runpath=no
 %else
@@ -85,6 +89,9 @@ BuildRequires: %{systemddevel}
 BuildRequires: pkgconfig(python-2.7), %{phpdevel}, %{javapackagestools}
 %if "%{dist}" == ".amzn2"
 BuildRequires: pkgconfig(python-3.7), python3-rpm-macros
+%endif
+%if "%{dist}" == ".el8"
+BuildRequires: pkgconfig(python3), python3-rpm-macros
 %endif
 %endif
 
@@ -153,7 +160,7 @@ Requires: %{?nameprefix}icepatch2%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icebridge%{?_isa} = %{version}-%{release}
 Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
 Requires: %{pythonname}-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
-%if "%{dist}" == ".amzn2"
+%if "%{dist}" == ".amzn2" || "%{dist}" == ".el8"
 Requires: python3-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
 %endif
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
@@ -438,7 +445,7 @@ with minimal effort. Ice takes care of all interactions with low-level
 network programming interfaces and allows you to focus your efforts on
 your application logic.
 
-%if "%{dist}" == ".amzn2"
+%if "%{dist}" == ".amzn2" || "%{dist}" == ".el8"
 #
 # python37-ice package
 #
@@ -470,8 +477,12 @@ export CXXFLAGS="%{optflags}"
 export LDFLAGS="%{?__global_ldflags}"
 
 %ifarch %{_host_cpu}
-    make %{makebuildopts} PYTHON=python LANGUAGES="cpp java php python" srcs
-    %if "%{dist}" == ".amzn2"
+    %if "%{dist}" == ".amzn1"
+       make %{makebuildopts} PYTHON=python LANGUAGES="cpp java php python" srcs
+    %else
+       make %{makebuildopts} PYTHON=%{pythonname} LANGUAGES="cpp java php python" srcs
+    %endif
+    %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8"
         make %{makebuildopts} PYTHON=python3 -C python3 srcs
     %endif
 %else
@@ -486,8 +497,12 @@ export LDFLAGS="%{?__global_ldflags}"
     make           %{?_smp_mflags} %{makeinstallopts} install-slice
     make -C cpp    %{?_smp_mflags} %{makeinstallopts} install
     make -C php    %{?_smp_mflags} %{makeinstallopts} install
-    make -C python %{?_smp_mflags} %{makeinstallopts} PYTHON=python install_pythondir=%{pythondir} install
-    %if "%{dist}" == ".amzn2"
+    %if "%{dist}" == ".amzn1"
+       make -C python %{?_smp_mflags} %{makeinstallopts} PYTHON=python install_pythondir=%{pythondir} install
+    %else
+       make -C python %{?_smp_mflags} %{makeinstallopts} PYTHON=%{pythonname} install_pythondir=%{pythondir} install
+    %endif
+    %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8"
         make -C python3 %{?_smp_mflags} %{makeinstallopts} PYTHON=python3 install_pythondir=%{python3_sitearch} install
     %endif
     make -C java   %{?_smp_mflags} %{makeinstallopts} install-icegridgui
@@ -948,7 +963,7 @@ exit 0
 %doc %{rpmbuildfiles}/README
 %{pythondir}/*
 
-%if "%{dist}" == ".amzn2"
+%if "%{dist}" == ".amzn2" || "%{dist}" == ".el8"
 #
 # python3-ice package
 #
