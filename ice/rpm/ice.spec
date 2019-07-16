@@ -31,6 +31,7 @@
 %define shadow shadow-utils
 %define javapackagestools javapackages-tools
 %define phpdevel php-devel
+# Unfortunately bzip2-devel does not provide pkgconfig(bzip2) as of EL7
 %define bzip2devel bzip2-devel
 %define phpdir %{_datadir}/php
 %define phplibdir %{_libdir}/php/modules
@@ -195,7 +196,6 @@ your application logic.
 %package -n lib%{?nameprefix}ice3.7-c++
 Summary: Ice for C++ run-time libraries.
 Group: System Environment/Libraries
-Requires: bzip2
 %description -n lib%{?nameprefix}ice3.7-c++
 This package contains the C++ run-time libraries for the Ice framework.
 
@@ -210,6 +210,7 @@ your application logic.
 %package -n %{?nameprefix}icebox
 Summary: IceBox server, a framework for Ice application services.
 Group: System Environment/Daemons
+Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}ice-utils = %{version}-%{release}
 Obsoletes: ice-servers < 3.6
 %description -n %{?nameprefix}icebox
@@ -227,6 +228,7 @@ your application logic.
 %package -n lib%{?nameprefix}icestorm3.7
 Summary: IceStorm publish-subscribe event distribution service.
 Group: System Environment/Libraries
+Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
 %description -n lib%{?nameprefix}icestorm3.7
 This package contains the IceStorm publish-subscribe event distribution
 service.
@@ -291,6 +293,7 @@ your application logic.
 %package -n %{?nameprefix}ice-utils
 Summary: Ice utilities and admin tools.
 Group: Applications/System
+Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
 %description -n %{?nameprefix}ice-utils
 This package contains Ice utilities and admin tools.
 
@@ -306,6 +309,7 @@ your application logic.
 Summary: Locate, deploy, and manage Ice servers.
 Group: System Environment/Daemons
 Obsoletes: ice-servers < 3.6
+Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}ice-utils = %{version}-%{release}
 # Requirements for the users
 Requires(pre): %{shadow}
@@ -335,6 +339,7 @@ your application logic.
 Summary: Glacier2 router.
 Group: System Environment/Daemons
 Obsoletes: ice-servers < 3.6
+Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
 # Requirements for the users
 Requires(pre): %{shadow}
 %if %{systemd}
@@ -365,6 +370,7 @@ your application logic.
 %package -n %{?nameprefix}icebridge
 Summary: Ice bridge.
 Group: System Environment/Daemons
+Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
 %description -n %{?nameprefix}icebridge
 This package contains the Ice bridge. The Ice bridge allows you to bridge
 connections securely between one or multiple clients and a server. It
@@ -383,7 +389,8 @@ your application logic.
 Summary: File distribution and patching.
 Group: System Environment/Daemons
 Obsoletes: ice-servers < 3.6
-Requires: %{?nameprefix}ice-utils%{?_isa} = %{version}-%{release}
+Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
+Requires: %{?nameprefix}ice-utils = %{version}-%{release}
 %description -n %{?nameprefix}icepatch2
 This package contains the IcePatch2 service. With IcePatch2, you can easily
 distribute a large set of files to many clients and keep these files
