@@ -38,7 +38,7 @@ export PATH=/opt/freeware/bin:$PATH
 %build
 cp -rp %{archive_path} %{archive_path}-64
 
-LDFLAGS="%{?__global_ldflags}"
+LDFLAGS=-Wl,-blibpath:/usr/lib:/lib
 export LDFLAGS
 
 pushd %{archive_path}
