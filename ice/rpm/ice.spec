@@ -212,18 +212,6 @@ Summary: IceBox server, a framework for Ice application services.
 Group: System Environment/Daemons
 Requires: %{?nameprefix}ice-utils = %{version}-%{release}
 Obsoletes: ice-servers < 3.6
-# Requirements for the users
-Requires(pre): %{shadow}
-%if %{systemd}
-Requires(post):   %{systemdpkg}
-Requires(preun):  %{systemdpkg}
-Requires(postun): %{systemdpkg}
-%else
-# Requirements for the init.d services
-Requires(post): /sbin/chkconfig
-Requires(preun): /sbin/chkconfig
-Requires(preun): /sbin/service
-%endif
 %description -n %{?nameprefix}icebox
 This package contains the IceBox server, an easy-to-use framework for
 developing and deploying Ice application services.
