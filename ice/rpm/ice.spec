@@ -25,9 +25,6 @@
 
 %define rpmbuildfiles ice-packaging-%{archive_dir_suffix}/ice/rpm
 
-%define systemd 1
-%define systemdpkg systemd
-%define systemddevel systemd-devel
 %define shadow shadow-utils
 %define javapackagestools javapackages-tools
 %define phpdevel php-devel
@@ -39,14 +36,7 @@
 %define pythonname python
 %define pythondir %{python_sitearch}
 
-%if "%{dist}" == ".amzn1"
-   %define systemd 0
-   %define pythonname python27
-   %define pythondir %{python27_sitearch}
-%endif
-
 %if "%{dist}" == ".sles12"
-   %define systemdpkg systemd-rpm-macros
    %define phpdevel php5-devel
    %define bzip2devel libbz2-devel
    %define shadow shadow
@@ -83,17 +73,15 @@ Source0: https://github.com/zeroc-ice/ice/archive/%{archive_tag}/%{name}-%{versi
 Source1: https://github.com/zeroc-ice/ice-packaging/archive/%{archive_tag}/%{name}-packaging-%{version}.tar.gz
 
 BuildRequires: pkgconfig(expat), pkgconfig(lmdb), pkgconfig(mcpp), pkgconfig(openssl), %{bzip2devel}
-%if %{systemd}
-BuildRequires: %{systemddevel}
-%endif
+BuildRequires: pkgconfig(libsystemd)
 %ifarch %{_host_cpu}
 BuildRequires: pkgconfig(python-2.7), %{phpdevel}, %{javapackagestools}
-%if "%{dist}" == ".amzn2"
+   %if "%{dist}" == ".amzn2"
 BuildRequires: pkgconfig(python-3.7), python3-rpm-macros
-%endif
-%if "%{dist}" == ".el8"
+   %endif
+   %if "%{dist}" == ".el8"
 BuildRequires: pkgconfig(python3), python3-rpm-macros
-%endif
+   %endif
 %endif
 
 %description
@@ -161,9 +149,9 @@ Requires: %{?nameprefix}icepatch2%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icebridge%{?_isa} = %{version}-%{release}
 Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
 Requires: %{pythonname}-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
-%if "%{dist}" == ".amzn2" || "%{dist}" == ".el8"
+   %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8"
 Requires: python3-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
-%endif
+   %endif
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icegridgui = %{version}-%{release}
 %endif # %{_host_cpu}
@@ -313,16 +301,7 @@ Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}ice-utils = %{version}-%{release}
 # Requirements for the users
 Requires(pre): %{shadow}
-%if %{systemd}
-Requires(post):   %{systemdpkg}
-Requires(preun):  %{systemdpkg}
-Requires(postun): %{systemdpkg}
-%else
-# Requirements for the init.d services
-Requires(post): /sbin/chkconfig
-Requires(preun): /sbin/chkconfig
-Requires(preun): /sbin/service
-%endif
+%{?systemd_requires: %systemd_requires}
 %description -n %{?nameprefix}icegrid
 This package contains the IceGrid service. IceGrid helps you locate,
 deploy and manage Ice servers.
@@ -340,18 +319,8 @@ Summary: Glacier2 router.
 Group: System Environment/Daemons
 Obsoletes: ice-servers < 3.6
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
-# Requirements for the users
 Requires(pre): %{shadow}
-%if %{systemd}
-Requires(post):   %{systemdpkg}
-Requires(preun):  %{systemdpkg}
-Requires(postun): %{systemdpkg}
-%else
-# Requirements for the init.d services
-Requires(post): /sbin/chkconfig
-Requires(preun): /sbin/chkconfig
-Requires(preun): /sbin/service
-%endif
+%{?systemd_requires: %systemd_requires}
 %description -n %{?nameprefix}glacier2
 This package contains the Glacier2 router. A Glacier2 router allows you to
 securely route Ice communications across networks, such as the public Internet
@@ -409,11 +378,7 @@ Summary: PHP extension for Ice.
 Group: System Environment/Libraries
 Obsoletes: ice-php < 3.6
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
-%if "%{dist}" == ".amzn1"
-Requires: php-common%{?_isa} < 5.4
-%else
 Requires: %{phpcommon}%{?_isa}
-%endif
 
 %description -n php-%{?nameprefix}ice
 This package contains a PHP extension for communicating with Ice.
@@ -472,11 +437,7 @@ export CXXFLAGS="%{optflags}"
 export LDFLAGS="%{?__global_ldflags}"
 
 %ifarch %{_host_cpu}
-    %if "%{dist}" == ".amzn1"
-       make %{makebuildopts} PYTHON=python LANGUAGES="cpp java php python" srcs
-    %else
-       make %{makebuildopts} PYTHON=%{pythonname} LANGUAGES="cpp java php python" srcs
-    %endif
+    make %{makebuildopts} PYTHON=%{pythonname} LANGUAGES="cpp java php python" srcs
     %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8"
         make %{makebuildopts} PYTHON=python3 -C python3 srcs
     %endif
@@ -492,11 +453,7 @@ export LDFLAGS="%{?__global_ldflags}"
     make           %{?_smp_mflags} %{makeinstallopts} install-slice
     make -C cpp    %{?_smp_mflags} %{makeinstallopts} install
     make -C php    %{?_smp_mflags} %{makeinstallopts} install
-    %if "%{dist}" == ".amzn1"
-       make -C python %{?_smp_mflags} %{makeinstallopts} PYTHON=python install_pythondir=%{pythondir} install
-    %else
-       make -C python %{?_smp_mflags} %{makeinstallopts} PYTHON=%{pythonname} install_pythondir=%{pythondir} install
-    %endif
+    make -C python %{?_smp_mflags} %{makeinstallopts} PYTHON=%{pythonname} install_pythondir=%{pythondir} install
     %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8"
         make -C python3 %{?_smp_mflags} %{makeinstallopts} PYTHON=python3 install_pythondir=%{python3_sitearch} install
     %endif
@@ -524,18 +481,13 @@ rm -f %{buildroot}%{_bindir}/slice2confluence
 %endif
 
 #
-# initrd files (for servers)
+# systemd files (for servers)
 #
 mkdir -p %{buildroot}%{_sysconfdir}
 for i in icegridregistry icegridnode glacier2router
 do
-    %if %{systemd}
-        cp %{rpmbuildfiles}/$i.conf %{buildroot}%{_sysconfdir}
-        install -p -D %{rpmbuildfiles}/$i.service %{buildroot}%{_unitdir}/$i.service
-    %else
-        cp %{rpmbuildfiles}/$i.%{_vendor}.conf %{buildroot}%{_sysconfdir}/$i.conf
-        install -p -D %{rpmbuildfiles}/$i.%{_vendor} %{buildroot}%{_initrddir}/$i
-    %endif
+    cp %{rpmbuildfiles}/$i.conf %{buildroot}%{_sysconfdir}
+    install -p -D %{rpmbuildfiles}/$i.service %{buildroot}%{_unitdir}/$i.service
 done
 
 #
@@ -773,13 +725,8 @@ exit 0
 %{_mandir}/man1/icegridregistry.1*
 %dir %{_datadir}/ice
 %{_datadir}/ice/templates.xml
-%if %{systemd}
-  %attr(644,root,root) %{_unitdir}/icegridregistry.service
-  %attr(644,root,root) %{_unitdir}/icegridnode.service
-%else
-  %attr(755,root,root) %{_initrddir}/icegridregistry
-  %attr(755,root,root) %{_initrddir}/icegridnode
-%endif
+%attr(644,root,root) %{_unitdir}/icegridregistry.service
+%attr(644,root,root) %{_unitdir}/icegridnode.service
 %config(noreplace) %{_sysconfdir}/icegridregistry.conf
 %config(noreplace) %{_sysconfdir}/icegridnode.conf
 
@@ -798,46 +745,20 @@ exit 0
 %post -n %{?nameprefix}icegrid
 /sbin/ldconfig
 %if "%{_prefix}" == "/usr"
-  %if %{systemd}
-    /bin/systemctl daemon-reload >/dev/null 2>&1  || :
-  %else
-    /sbin/chkconfig --add icegridregistry
-    /sbin/chkconfig --add icegridnode
-  %endif
+  %systemd_post icegridregistry.service
+  %systemd_post icegridnode.service
 %endif
 
 %preun -n %{?nameprefix}icegrid
 %if "%{_prefix}" == "/usr"
-  if [ $1 = 0 ]; then
-  %if %{systemd}
-    /bin/systemctl --no-reload disable icegridnode.service >/dev/null 2>&1 || :
-    /bin/systemctl stop icegridnode.service >/dev/null 2>&1 || :
-
-    /bin/systemctl --no-reload disable icegridregistry.service >/dev/null 2>&1 || :
-    /bin/systemctl stop icegridregistry.service >/dev/null 2>&1 || :
-  %else
-    /sbin/service icegridnode stop >/dev/null 2>&1 || :
-    /sbin/chkconfig --del icegridnode
-    /sbin/service icegridregistry stop >/dev/null 2>&1 || :
-    /sbin/chkconfig --del icegridregistry
-  %endif
-  fi
+  %systemd_preun icegridnode.service
+  %systemd_preun icegridregistry.service
 %endif
 
 %postun -n %{?nameprefix}icegrid
 %if "%{_prefix}" == "/usr"
-  %if %{systemd}
-    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
-    if [ "$1" -ge "1" ]; then
-      /bin/systemctl try-restart icegridnode.service >/dev/null 2>&1 || :
-      /bin/systemctl try-restart icegridregistry.service >/dev/null 2>&1 || :
-    fi
-  %else
-    if [ "$1" -ge "1" ]; then
-      /sbin/service icegridnode condrestart >/dev/null 2>&1 || :
-      /sbin/service icegridregistry condrestart >/dev/null 2>&1 || :
-    fi
-  %endif
+  %systemd_postun_with_restart icegridnode.service
+  %systemd_postun_with_restart icegriregistry.service
 %endif
 /sbin/ldconfig
 exit 0
@@ -851,11 +772,7 @@ exit 0
 %doc %{rpmbuildfiles}/README
 %{_bindir}/glacier2router
 %{_mandir}/man1/glacier2router.1*
-%if %{systemd}
-  %attr(644,root,root) %{_unitdir}/glacier2router.service
-%else
-  %attr(755,root,root) %{_initrddir}/glacier2router
-%endif
+%attr(644,root,root) %{_unitdir}/glacier2router.service
 %config(noreplace) %{_sysconfdir}/glacier2router.conf
 
 %pre -n %{?nameprefix}glacier2
@@ -870,38 +787,17 @@ exit 0
 %post -n %{?nameprefix}glacier2
 /sbin/ldconfig
 %if "%{_prefix}" == "/usr"
-  %if %{systemd}
-    /bin/systemctl daemon-reload >/dev/null 2>&1  || :
-  %else
-    /sbin/chkconfig --add glacier2router
-  %endif
+  %systemd_post glacier2router.service
 %endif
 
 %preun -n %{?nameprefix}glacier2
 %if "%{_prefix}" == "/usr"
-  if [ $1 = 0 ]; then
-  %if %{systemd}
-    /bin/systemctl --no-reload disable glacier2router.service >/dev/null 2>&1 || :
-    /bin/systemctl stop glacier2router.service >/dev/null 2>&1 || :
-  %else
-    /sbin/service glacier2router stop >/dev/null 2>&1 || :
-    /sbin/chkconfig --del glacier2router
-  %endif
-  fi
+  %systemd_preun glacier2router.service
 %endif
 
 %postun -n %{?nameprefix}glacier2
 %if "%{_prefix}" == "/usr"
-  %if %{systemd}
-    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
-    if [ "$1" -ge "1" ]; then
-      /bin/systemctl try-restart glacier2router.service >/dev/null 2>&1 || :
-    fi
-  %else
-    if [ "$1" -ge "1" ]; then
-      /sbin/service glacier2router condrestart >/dev/null 2>&1 || :
-    fi
-  %endif
+  %systemd_postun_with_restart glacier2router.service
 %endif
 /sbin/ldconfig
 exit 0
@@ -972,6 +868,9 @@ exit 0
 %endif #%{_host_cpu}
 
 %changelog
+* Wed Jul 17 2019 Bernard Normier <bernard@zeroc.com> 3.7.3
+- Updates for the 3.7.3 release.
+
 * Thu Nov 29 2018 Bernard Normier <bernard@zeroc.com> 3.7.2
 - Updates for the 3.7.2 release, see ice/CHANGELOG-3.7.md.
 
