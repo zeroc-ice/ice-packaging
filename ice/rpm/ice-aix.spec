@@ -439,6 +439,8 @@ rm -f %{buildroot}%{_bindir}/slice2confluence
 %{_mandir}/man1/slice2py.1*
 %{_bindir}/slice2rb
 %{_mandir}/man1/slice2rb.1*
+%{_bindir}/slice2swift
+%{_mandir}/man1/slice2swift.1*
 
 #
 # ice-utils package
