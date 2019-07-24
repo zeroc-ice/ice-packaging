@@ -43,12 +43,12 @@ export LDFLAGS
 
 pushd %{archive_path}
 # build 32-bit static libraries and exes
-make CC=xlc_r AR="ar -X32" ILIBS=liblmdb.a W="-qhalt=i" THREADS= OPT= XCFLAGS="%{optflags} -qpic -q32 -qmaxmem=-1 -D_LARGE_FILES -DMDB_USE_ROBUST=0" %{?_smp_mflags}
+gmake CC=xlc_r AR="ar -X32" ILIBS=liblmdb.a W="-qhalt=i" THREADS= OPT= XCFLAGS="%{optflags} -qpic -q32 -qmaxmem=-1 -D_LARGE_FILES -DMDB_USE_ROBUST=0" %{?_smp_mflags}
 popd
 
 pushd %{archive_path}-64
 # build 64-bit static libraries and exes
-make CC=xlc_r AR="ar -X64" ILIBS=liblmdb.a W="-qhalt=i" THREADS= OPT= XCFLAGS="%{optflags} -qpic -q64 -qmaxmem=-1 -DMDB_USE_ROBUST=0" %{?_smp_mflags}
+gmake CC=xlc_r AR="ar -X64" ILIBS=liblmdb.a W="-qhalt=i" THREADS= OPT= XCFLAGS="%{optflags} -qpic -q64 -qmaxmem=-1 -DMDB_USE_ROBUST=0" %{?_smp_mflags}
 popd
 
 %install
@@ -56,7 +56,7 @@ pushd %{archive_path}
 # make install expects existing directory tree
 mkdir -m 0755 -p %{buildroot}%{_prefix}{/bin,/include}
 mkdir -m 0755 -p %{buildroot}{%{_libdir},%{_mandir}/man1}
-make ILIBS=liblmdb.a DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} mandir=%{_mandir} install
+gmake ILIBS=liblmdb.a DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} mandir=%{_mandir} install
 for f in %{buildroot}%{_prefix}/bin/mdb_* ; do mv $f "$f"_32; done
 popd
 pushd %{archive_path}-64
@@ -100,7 +100,7 @@ EOF
 %check
 pushd %{archive_path}
 rm -rf testdb
-make ILIBS=liblmdb.a test
+gmake ILIBS=liblmdb.a test
 popd
 
 %files

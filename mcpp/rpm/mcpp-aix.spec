@@ -47,14 +47,15 @@ export PATH=/opt/freeware/bin:$PATH
 
 %build
 # 32-bit first
-make CC=xlc_r AR="ar -X32" CFLAGS="%{optflags} -qpic -q32 -D_LARGE_FILES"
+gmake CC=xlc_r AR="ar -X32" CFLAGS="%{optflags} -qpic -q32 -D_LARGE_FILES"
 
 # Remove 32-bit object files and add 64-bit objects
 rm -f *.o
-make CC=xlc_r AR="ar -X64" CFLAGS="%{optflags} -qpic -q64"
+gmake CC=xlc_r AR="ar -X64" CFLAGS="%{optflags} -qpic -q64"
 
 %install
-make PREFIX=%{buildroot}%{_prefix} install
+export PATH=/opt/freeware/bin:$PATH
+gmake PREFIX=%{buildroot}%{_prefix} install
 mkdir -p %{buildroot}/usr/lib
 ln -s %{_libdir}/libmcpp.a %{buildroot}/usr/lib/libmcpp.a
 
