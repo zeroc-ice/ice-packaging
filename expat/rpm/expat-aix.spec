@@ -2,16 +2,16 @@
 %{!?dotests:%define DO_TESTS 1}
 %{?dotests:%define DO_TESTS 0}
 
+%define releasetag R_2_2_6
 
 Summary: An XML parser library
 Name: expat
 Version: 2.2.6
 Release: 2ice
 Group: System Environment/Libraries
-Source: https://github.com/libexpat/libexpat/archive/expat-%{version}.tar.gz
+Source: https://github.com/libexpat/libexpat/releases/download/%{releasetag}/expat-%{version}.tar.bz2
 URL: http://www.libexpat.org/
 License: MIT
-BuildRoot: /var/tmp/%{name}-%{version}-%{release}-root
 
 %define _libdir64 %{_prefix}/lib64
 
@@ -27,6 +27,7 @@ The library is available as 32-bit and 64-bit.
 
 %package static-devel
 Summary: Libraries and header files to develop applications using expat
+Provides: libexpat-static = %{version}-%{release}
 Group: Development/Libraries
 
 %description static-devel
