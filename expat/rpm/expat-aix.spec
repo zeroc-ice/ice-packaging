@@ -27,6 +27,7 @@ The library is available as 32-bit and 64-bit.
 
 %package static-devel
 Summary: Libraries and header files to develop applications using expat
+Obsoletes: %{name}-devel
 Provides: libexpat-static = %{version}-%{release}
 Group: Development/Libraries
 
@@ -82,7 +83,6 @@ then
 #    /usr/sbin/slibclean
 fi
 
-
 # now build the 32-bit version
 cd ../32bit
 export OBJECT_MODE=32
@@ -103,7 +103,6 @@ then
 #    /usr/sbin/slibclean
 fi
 
-
 %install
 [ "${RPM_BUILD_ROOT}" != "/" ] && rm -rf ${RPM_BUILD_ROOT}
 
@@ -112,9 +111,7 @@ export AR="/usr/bin/ar -X32_64"
 export NM="/usr/bin/nm -X32_64"
 export RM="/usr/bin/rm -f"
 
-
 # install 64-bit version
-
 export OBJECT_MODE=64
 cd 64bit
 gmake V=0 DESTDIR=${RPM_BUILD_ROOT} install
@@ -161,19 +158,9 @@ chmod 644 COPYING Changes doc/* examples/*
   done
 )
 
-
 %clean
 [ "${RPM_BUILD_ROOT}" != "/" ] && rm -rf ${RPM_BUILD_ROOT}
 #echo ${RPM_BUILD_ROOT}
-
-
-#%files
-#%defattr(-,root,system)
-#%doc 32bit/COPYING
-#%{_bindir}/*
-#%{_datadir}/man/man?/*
-#/usr/bin/*
-
 
 %files static-devel
 %defattr(-,root,system)
@@ -182,7 +169,6 @@ chmod 644 COPYING Changes doc/* examples/*
 %{_includedir}/*.h
 /usr/include/*
 /usr/lib/*.a
-
 
 %changelog
 * Wed Jul 24 2019 Bernard Normier <bernard@zeroc.com> 2.2.6-2ice
