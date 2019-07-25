@@ -16,24 +16,35 @@
    %define archive_dir_suffix %{git_tag_version}
 %endif
 
+# By default, build with xlC_r (C++98 only, no Python)
+%{!?cppcompiler:%global cppcompiler xlC_r}
+
+%define _libdir32 %{_prefix}/lib32
+
 %define rpmbuildfiles ice-packaging-%{archive_dir_suffix}/ice/rpm
 
 %define pythonname python3
 %define pythondir /opt/freeware/lib/python3.7/site-packages
 
-%if "%{_prefix}" == "%{_usr}"
+%if "%{_prefix}" == "%{_usr}" && "%{cppcompiler}" == "g++"
    %define runpath embedded_runpath=no
 %else
    %define runpath embedded_runpath_prefix=%{_prefix}
 %endif
 
-%define makebuildopts COMPILER=g++ CONFIGS="shared cpp11-shared" OPTIMIZE=yes V=1 %{runpath} -j3
-%define makeinstallopts COMPILER=g++ CONFIGS="shared cpp11-shared" OPTIMIZE=yes V=1 %{runpath} DESTDIR=%{buildroot} prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_slicedir=%{_datadir}/ice/slice install_includedir=%{_includedir} install_mandir=%{_mandir} install_configdir=%{_datadir}/ice
+%if "%{cppcompiler}" == "xlC_r"
+   %define configs shared
+%else
+   %define configs shared cpp11-shared
+%endif
+
+%define makebuildopts COMPILER=%{cppcompiler} CONFIGS="%{configs}" OPTIMIZE=yes V=1 %{runpath} -j3
+%define makeinstallopts COMPILER=%{cppcompiler} CONFIGS="%{configs}" OPTIMIZE=yes V=1 %{runpath} DESTDIR=%{buildroot} prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_slicedir=%{_datadir}/ice/slice install_includedir=%{_includedir} install_mandir=%{_mandir} install_configdir=%{_datadir}/ice
 
 Name: %{?nameprefix}ice
 Version: 3.7.3
 Summary: Comprehensive RPC framework with support for C++, Java, JavaScript, Python and more.
-Release: 1%{?dist}
+Release: 0%{?dist}
 %if "%{?ice_license}"
 License: %{ice_license}
 %else
@@ -44,7 +55,7 @@ URL: https://zeroc.com/
 Source0: https://github.com/zeroc-ice/ice/archive/%{archive_tag}/%{name}-%{version}.tar.gz
 Source1: https://github.com/zeroc-ice/ice-packaging/archive/%{archive_tag}/%{name}-packaging-%{version}.tar.gz
 
-BuildRequires: bzip2-devel, expat-devel, lmdb-devel, mcpp-devel
+BuildRequires: bzip2-devel, expat-static-devel, lmdb-devel, mcpp-devel
 
 %description
 Not used
@@ -76,8 +87,10 @@ Requires: %{?nameprefix}glacier2 = %{version}-%{release}
 Requires: %{?nameprefix}icegrid = %{version}-%{release}
 Requires: %{?nameprefix}icepatch2 = %{version}-%{release}
 Requires: %{?nameprefix}icebridge = %{version}-%{release}
-Requires: %{pythonname}-%{?nameprefix}ice = %{version}-%{release}
 Requires: lib%{?nameprefix}ice3.7-c++ = %{version}-%{release}
+%if "%{cppcompiler}" == "g++"
+Requires: %{pythonname}-%{?nameprefix}ice = %{version}-%{release}
+%endif
 %description -n %{?nameprefix}ice-all-runtime
 This is a meta package that depends on all run-time packages for Ice.
 
@@ -107,7 +120,6 @@ your application logic.
 %package -n lib%{?nameprefix}ice3.7-c++
 Summary: Ice for C++ run-time libraries.
 Group: System Environment/Libraries
-Requires: bzip2, expat, libstdc++
 %description -n lib%{?nameprefix}ice3.7-c++
 This package contains the C++ run-time libraries for the Ice framework.
 
@@ -164,7 +176,6 @@ Group: Development/Tools
 Obsoletes: ice-c++-devel < 3.6
 Requires: lib%{?nameprefix}ice3.7-c++ = %{version}-%{release}
 Requires: %{?nameprefix}ice-compilers = %{version}-%{release}
-Requires: libstdc++-devel
 %description -n lib%{?nameprefix}ice-c++-devel
 This package contains the libraries and headers needed for developing
 Ice applications in C++.
@@ -183,7 +194,6 @@ Group: Development/Tools
 Obsoletes: %{?nameprefix}libice-java < 3.7, %{?nameprefix}php-ice-devel < 3.7, %{?nameprefix}ice-utils < 3.7
 Obsoletes: ice-php-devel < 3.6, ice-python-devel < 3.6, ice-java-devel < 3.6, ice-ruby-devel < 3.6
 Requires: %{?nameprefix}ice-slice = %{version}-%{release}
-Requires: libstdc++
 %description -n %{?nameprefix}ice-compilers
 This package contains Slice compilers for developing Ice applications.
 
@@ -282,6 +292,9 @@ with minimal effort. Ice takes care of all interactions with low-level
 network programming interfaces and allows you to focus your efforts on
 your application logic.
 
+
+
+%if "%{cppcompiler}" == "g++"
 #
 # python-ice package
 #
@@ -298,6 +311,7 @@ Ice is a comprehensive RPC framework that helps you network your software
 with minimal effort. Ice takes care of all interactions with low-level
 network programming interfaces and allows you to focus your efforts on
 your application logic.
+%endif
 
 %prep
 export PATH=/opt/freeware/bin:$PATH
@@ -305,16 +319,35 @@ export PATH=/opt/freeware/bin:$PATH
 
 %build
 export PATH=/opt/freeware/bin:$PATH
-make %{makebuildopts} PYTHON=%{pythonname} LANGUAGES="cpp python" srcs
+make %{makebuildopts} PLATFORMS="ppc64 ppc" LANGUAGES="cpp" srcs
+%if "%{cppcompiler}" == "g++"
+   make %{makebuildopts} PYTHON=%{pythonname} LANGUAGES="python" srcs
+%endif
 
 %install
 export PATH=/opt/freeware/bin:$PATH
 make           %{makeinstallopts} install-slice
-make -C cpp    %{makeinstallopts} install
-make -C python %{makeinstallopts} PYTHON=%{pythonname} install_pythondir=%{pythondir} install
+make -C cpp    %{makeinstallopts} PLATFORMS="ppc64 ppc" install
+%if "%{cppcompiler}" == "g++"
+   make -C python %{makeinstallopts} PYTHON=%{pythonname} install_pythondir=%{pythondir} install
+%endif
+
+# Put lib32 content into main lib
+(
+    cd %{buildroot}%{_libdir32}
+    for i in lib*.a
+    do
+        /usr/bin/ar -X32 -x $i
+        /usr/bin/ar -X32 -qs %{buildroot}%{_libdir}/$i lib*.so.*
+        rm -f lib*.so.*
+    done
+)
 
 # Cleanup extra files
 rm -f %{buildroot}%{_bindir}/slice2confluence
+mv %{buildroot}%{_bindir}/icebox_32 %{buildroot}%{_bindir}/icebox32
+rm -f %{buildroot}%{_bindir}/*_32
+mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 
 #
 # noarch file packages
@@ -365,6 +398,9 @@ rm -f %{buildroot}%{_bindir}/slice2confluence
 %{_libdir}/libIceSSL.a
 %{_libdir}/libIceStorm.a
 %{_libdir}/libIceDB.a
+%{_libdir}/libGlacier2CryptPermissionsVerifier.a
+%{_libdir}/libIceXML.a
+%if "%{cppcompiler}" != "xlC_r"
 %{_libdir}/libGlacier2++11.a
 %{_libdir}/libIce++11.a
 %{_libdir}/libIceBox++11.a
@@ -373,8 +409,7 @@ rm -f %{buildroot}%{_bindir}/slice2confluence
 %{_libdir}/libIceLocatorDiscovery++11.a
 %{_libdir}/libIceSSL++11.a
 %{_libdir}/libIceStorm++11.a
-%{_libdir}/libGlacier2CryptPermissionsVerifier.a
-%{_libdir}/libIceXML.a
+%endif
 
 #
 # icebox package
@@ -384,7 +419,7 @@ rm -f %{buildroot}%{_bindir}/slice2confluence
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
 %{_bindir}/icebox
-%{_bindir}/icebox++11
+%{_bindir}/icebox_32
 %{_mandir}/man1/icebox.1*
 
 #
@@ -507,6 +542,7 @@ rm -f %{buildroot}%{_bindir}/slice2confluence
 %{_bindir}/icepatch2server
 %{_mandir}/man1/icepatch2server.1*
 
+%if "%{cppcompiler}" == "g++"
 #
 # python-ice package
 #
@@ -515,6 +551,7 @@ rm -f %{buildroot}%{_bindir}/slice2confluence
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
 %{pythondir}/*
+%endif
 
 %changelog
 * Tue Jul 16 2019 Bernard Normier <bernard@zeroc.com> 3.7.3
