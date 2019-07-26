@@ -1,3 +1,9 @@
+zeroc-ice3.6 (3.6.5-1000) trusty, xenial; urgency=medium
+
+  * 3.6.5 release
+
+ -- Jose <jose@zeroc.com>  Fri, 26 Jul 2019 17:10:29 +0000
+
 zeroc-ice3.6 (3.6.4-1000) trusty vivid wily; urgency=low
 
   * 3.6.4 release
