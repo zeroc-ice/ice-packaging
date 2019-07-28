@@ -43,12 +43,12 @@ export LDFLAGS
 
 pushd %{archive_path}
 # build 32-bit static libraries and exes
-gmake CC=xlc_r AR="ar -X32" ILIBS=liblmdb.a W="-qhalt=i" THREADS= OPT= XCFLAGS="%{optflags} -qpic -q32 -qmaxmem=-1 -D_LARGE_FILES -DMDB_USE_ROBUST=0" %{?_smp_mflags}
+gmake CC=xlc_r AR="ar -X32" ILIBS=liblmdb.a W="-qhalt=i" THREADS= OPT= XCFLAGS="-O2 -qpic -q32 -qmaxmem=-1 -D_LARGE_FILES -qfuncsect -DMDB_USE_ROBUST=0" %{?_smp_mflags}
 popd
 
 pushd %{archive_path}-64
 # build 64-bit static libraries and exes
-gmake CC=xlc_r AR="ar -X64" ILIBS=liblmdb.a W="-qhalt=i" THREADS= OPT= XCFLAGS="%{optflags} -qpic -q64 -qmaxmem=-1 -DMDB_USE_ROBUST=0" %{?_smp_mflags}
+gmake CC=xlc_r AR="ar -X64" ILIBS=liblmdb.a W="-qhalt=i" THREADS= OPT= XCFLAGS="-O2 -qpic -q64 -qmaxmem=-1 -qfuncsect -DMDB_USE_ROBUST=0" %{?_smp_mflags}
 popd
 
 %install

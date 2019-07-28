@@ -67,8 +67,8 @@ export NM="/usr/bin/nm -X32_64"
 # first build the 64-bit version
 cd 64bit
 export OBJECT_MODE=64
-export CC="/opt/IBM/xlC/16.1.0/bin/xlc_r -q64 -qpic -O2"
-export CXX="/opt/IBM/xlC/16.1.0/bin/xlC_r -q64 -qpic -O2"
+export CC="/opt/IBM/xlC/16.1.0/bin/xlc_r -q64 -qpic -O2 -qfuncsect"
+export CXX="/opt/IBM/xlC/16.1.0/bin/xlC_r -q64 -qpic -O2 -qfuncsect"
 
 ./configure \
     --prefix=%{_prefix} \
@@ -86,8 +86,8 @@ fi
 # now build the 32-bit version
 cd ../32bit
 export OBJECT_MODE=32
-export CC="/opt/IBM/xlC/16.1.0/bin/xlc_r -q32 -qpic -O2 -D_LARGE_FILES"
-export CXX="/opt/IBM/xlC/16.1.0/bin/xlC_r -q32 -qpic -O2 -D_LARGE_FILES"
+export CC="/opt/IBM/xlC/16.1.0/bin/xlc_r -q32 -qpic -O2 -D_LARGE_FILES -qfuncsect"
+export CXX="/opt/IBM/xlC/16.1.0/bin/xlC_r -q32 -qpic -O2 -D_LARGE_FILES -qfuncsect"
 export LDFLAGS="-Wl,-bmaxdata:0x80000000"
 
 ./configure \

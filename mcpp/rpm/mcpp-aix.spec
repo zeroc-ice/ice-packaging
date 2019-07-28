@@ -47,11 +47,11 @@ export PATH=/opt/freeware/bin:$PATH
 
 %build
 # 32-bit first
-gmake CC=xlc_r AR="ar -X32" CFLAGS="%{optflags} -qpic -q32 -D_LARGE_FILES"
+gmake CC=xlc_r AR="ar -X32" CFLAGS="-O2 -qpic -q32 -D_LARGE_FILES -qfuncsect"
 
 # Remove 32-bit object files and add 64-bit objects
 rm -f *.o
-gmake CC=xlc_r AR="ar -X64" CFLAGS="%{optflags} -qpic -q64"
+gmake CC=xlc_r AR="ar -X64" CFLAGS="-O2 -qpic -q64 -qfuncsect"
 
 %install
 export PATH=/opt/freeware/bin:$PATH
