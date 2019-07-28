@@ -349,6 +349,13 @@ mv %{buildroot}%{_bindir}/icebox_32 %{buildroot}%{_bindir}/icebox32
 rm -f %{buildroot}%{_bindir}/*_32
 mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 
+# Create symlink to /usr/bin
+(
+    mkdir -p %{buildroot}/usr/bin
+    cd %{buildroot}%{_bindir}
+    for i in *; do ln -s %{_bindir}/$i %{buildroot}/usr/bin/$i; done
+)
+
 #
 # noarch file packages
 #
@@ -420,6 +427,8 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %doc %{rpmbuildfiles}/README
 %{_bindir}/icebox
 %{_bindir}/icebox_32
+/usr/bin/icebox
+/usr/bin/icebox_32
 %{_mandir}/man1/icebox.1*
 
 #
@@ -455,26 +464,37 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
 %{_bindir}/slice2cpp
+/usr/bin/slice2cpp
 %{_mandir}/man1/slice2cpp.1*
 %{_bindir}/slice2cs
+/usr/bin/slice2cs
 %{_mandir}/man1/slice2cs.1*
 %{_bindir}/slice2html
+/usr/bin/slice2html
 %{_mandir}/man1/slice2html.1*
 %{_bindir}/slice2java
+/usr/bin/slice2java
 %{_mandir}/man1/slice2java.1*
 %{_bindir}/slice2js
+/usr/bin/slice2js
 %{_mandir}/man1/slice2js.1*
 %{_bindir}/slice2matlab
+/usr/bin/slice2matlab
 %{_mandir}/man1/slice2matlab.1*
 %{_bindir}/slice2objc
+/usr/bin/slice2objc
 %{_mandir}/man1/slice2objc.1*
 %{_bindir}/slice2php
+/usr/bin/slice2php
 %{_mandir}/man1/slice2php.1*
 %{_bindir}/slice2py
+/usr/bin/slice2py
 %{_mandir}/man1/slice2py.1*
 %{_bindir}/slice2rb
+/usr/bin/slice2rb
 %{_mandir}/man1/slice2rb.1*
 %{_bindir}/slice2swift
+/usr/bin/slice2swift
 %{_mandir}/man1/slice2swift.1*
 
 #
@@ -485,18 +505,25 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
 %{_bindir}/iceboxadmin
+/usr/bin/iceboxadmin
 %{_mandir}/man1/iceboxadmin.1*
 %{_bindir}/icepatch2calc
+/usr/bin/icepatch2calc
 %{_mandir}/man1/icepatch2calc.1*
 %{_bindir}/icepatch2client
+/usr/bin/icepatch2client
 %{_mandir}/man1/icepatch2client.1*
 %{_bindir}/icestormadmin
+/usr/bin/icestormadmin
 %{_mandir}/man1/icestormadmin.1*
 %{_bindir}/icestormdb
+/usr/bin/icestormdb
 %{_mandir}/man1/icestormdb.1*
 %{_bindir}/icegridadmin
+/usr/bin/icegridadmin
 %{_mandir}/man1/icegridadmin.1*
 %{_bindir}/icegriddb
+/usr/bin/icegriddb
 %{_mandir}/man1/icegriddb.1*
 
 #
@@ -507,8 +534,10 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
 %{_bindir}/icegridnode
+/usr/bin/icegridnode
 %{_mandir}/man1/icegridnode.1*
 %{_bindir}/icegridregistry
+/usr/bin/icegridregistry
 %{_mandir}/man1/icegridregistry.1*
 %dir %{_datadir}/ice
 %{_datadir}/ice/templates.xml
@@ -520,6 +549,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
 %{_bindir}/glacier2router
+/usr/bin/glacier2router
 %{_mandir}/man1/glacier2router.1*
 
 #
@@ -530,6 +560,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
 %{_bindir}/icebridge
+/usr/bin/icebridge
 %{_mandir}/man1/icebridge.1*
 
 #
@@ -540,6 +571,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
 %{_bindir}/icepatch2server
+/usr/bin/icepatch2server
 %{_mandir}/man1/icepatch2server.1*
 
 %if "%{cppcompiler}" == "g++"
