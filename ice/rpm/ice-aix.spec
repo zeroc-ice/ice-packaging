@@ -292,8 +292,6 @@ with minimal effort. Ice takes care of all interactions with low-level
 network programming interfaces and allows you to focus your efforts on
 your application logic.
 
-
-
 %if "%{cppcompiler}" == "g++"
 #
 # python-ice package
