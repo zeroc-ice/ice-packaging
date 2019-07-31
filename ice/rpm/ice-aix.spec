@@ -347,25 +347,11 @@ mv %{buildroot}%{_bindir}/icebox_32 %{buildroot}%{_bindir}/icebox32
 rm -f %{buildroot}%{_bindir}/*_32
 mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 
-# Create symlinks in /usr/bin
+# Create symlink to /usr/bin
 (
     mkdir -p %{buildroot}/usr/bin
     cd %{buildroot}%{_bindir}
     for i in *; do ln -s %{_bindir}/$i %{buildroot}/usr/bin/$i; done
-)
-
-# Create symlinks in /usr/include
-(
-    mkdir -p %{buildroot}/usr/include
-    cd %{buildroot}%{_includedir}
-    for i in *; do ln -s %{_includedir}/$i %{buildroot}/usr/include/$i; done
-)
-
-# Create symlinks in /usr/lib
-(
-    mkdir -p %{buildroot}/usr/lib
-    cd %{buildroot}%{_libdir}
-    for i in *; do ln -s %{_libdir}/$i %{buildroot}/usr/lib/$i; done
 )
 
 #
@@ -419,18 +405,6 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %{_libdir}/libIceDB.a
 %{_libdir}/libGlacier2CryptPermissionsVerifier.a
 %{_libdir}/libIceXML.a
-/usr/lib/libGlacier2.a
-/usr/lib/libIce.a
-/usr/lib/libIceBox.a
-/usr/lib/libIceDiscovery.a
-/usr/lib/libIceGrid.a
-/usr/lib/libIceLocatorDiscovery.a
-/usr/lib/libIcePatch2.a
-/usr/lib/libIceSSL.a
-/usr/lib/libIceStorm.a
-/usr/lib/libIceDB.a
-/usr/lib/libGlacier2CryptPermissionsVerifier.a
-/usr/lib/libIceXML.a
 %if "%{cppcompiler}" != "xlC_r"
 %{_libdir}/libGlacier2++11.a
 %{_libdir}/libIce++11.a
@@ -440,14 +414,6 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %{_libdir}/libIceLocatorDiscovery++11.a
 %{_libdir}/libIceSSL++11.a
 %{_libdir}/libIceStorm++11.a
-/usr/lib/libGlacier2++11.a
-/usr/lib/libIce++11.a
-/usr/lib/libIceBox++11.a
-/usr/lib/libIceDiscovery++11.a
-/usr/lib/libIceGrid++11.a
-/usr/lib/libIceLocatorDiscovery++11.a
-/usr/lib/libIceSSL++11.a
-/usr/lib/libIceStorm++11.a
 %endif
 
 #
@@ -478,14 +444,6 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %{_includedir}/IceSSL
 %{_includedir}/IceStorm
 %{_includedir}/IceUtil
-/usr/include/Glacier2
-/usr/include/Ice
-/usr/include/IceBox
-/usr/include/IceGrid
-/usr/include/IcePatch2
-/usr/include/IceSSL
-/usr/include/IceStorm
-/usr/include/IceUtil
 
 #
 # libicestorm-Mm package
@@ -495,7 +453,6 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
 %{_libdir}/libIceStormService.a
-/usr/lib/libIceStormService.a
 
 #
 # ice-compilers package
