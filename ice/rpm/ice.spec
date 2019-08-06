@@ -1,6 +1,6 @@
 # **********************************************************************
 #
-# Copyright (c) 2003-2017 ZeroC, Inc. All rights reserved.
+# Copyright (c) 2003-2019 ZeroC, Inc. All rights reserved.
 #
 # This copy of Ice is licensed to you under the terms described in the
 # ICE_LICENSE file included in this distribution.
@@ -599,9 +599,7 @@ make dist
 
 %endif
 
-
 %install
-
 rm -rf $RPM_BUILD_ROOT
 
 #
@@ -933,11 +931,6 @@ rm -rf $RPM_BUILD_ROOT
 # arch-specific packages
 #
 %ifarch %{core_arches}
-
-#
-# Empty list for main "ice" package
-#
-%files
 
 #
 # Generate "ice-all-runtime" meta package as arch-specific
