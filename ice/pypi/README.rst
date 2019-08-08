@@ -61,11 +61,11 @@ Documentation
 -------------
 
 We provide extensive `online documentation
-<https://doc.zeroc.com/display/Ice36>`_ for Ice, the Python extension, and the
+<https://doc.zeroc.com/ice/3.6/introduction>`_ for Ice, the Python extension, and the
 other Ice language mappings and services.
 
 Support
 -------
 
-Join us on our `user forums <https://zeroc.com/forums/forum.php>`_ if you have
+Join us on our `user forums <https://forums.zeroc.com/>`_ if you have
 questions about Ice.
