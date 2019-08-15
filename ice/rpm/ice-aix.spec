@@ -44,7 +44,7 @@
 Name: %{?nameprefix}ice
 Version: 3.7.3
 Summary: Comprehensive RPC framework with support for C++, Java, JavaScript, Python and more.
-Release: 0%{?dist}
+Release: 1%{?dist}
 %if "%{?ice_license}"
 License: %{ice_license}
 %else
@@ -391,6 +391,8 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %files -n lib%{?nameprefix}ice3.7-c++
 %license LICENSE
 %license ICE_LICENSE
+%license %{rpmbuildfiles}/EXPAT_LICENSE
+%license %{rpmbuildfiles}/LMDB_LICENSE
 %license %{rpmbuildfiles}/MCPP_LICENSE
 %doc %{rpmbuildfiles}/README
 %{_libdir}/libGlacier2.a
@@ -460,6 +462,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %files -n %{?nameprefix}ice-compilers
 %license LICENSE
 %license ICE_LICENSE
+%license %{rpmbuildfiles}/MCPP_LICENSE
 %doc %{rpmbuildfiles}/README
 %{_bindir}/slice2cpp
 /usr/bin/slice2cpp
@@ -539,6 +542,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %{_mandir}/man1/icegridregistry.1*
 %dir %{_datadir}/ice
 %{_datadir}/ice/templates.xml
+
 #
 # glacier2 package
 #

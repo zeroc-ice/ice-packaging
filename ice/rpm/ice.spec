@@ -557,6 +557,7 @@ rm -rf %{buildroot}%{_datadir}/ice
 %files -n lib%{?nameprefix}ice3.7-c++
 %license LICENSE
 %license ICE_LICENSE
+%license %{rpmbuildfiles}/LMDB_LICENSE
 %license %{rpmbuildfiles}/MCPP_LICENSE
 %doc %{rpmbuildfiles}/README
 %{_libdir}/libGlacier2.so.*
@@ -664,6 +665,7 @@ exit 0
 %files -n %{?nameprefix}ice-compilers
 %license LICENSE
 %license ICE_LICENSE
+%license %{rpmbuildfiles}/MCPP_LICENSE
 %doc %{rpmbuildfiles}/README
 %{_bindir}/slice2cpp
 %{_mandir}/man1/slice2cpp.1*
