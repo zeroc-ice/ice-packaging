@@ -3,7 +3,7 @@
 #
 
 # the github version tag without v prefix
-%define git_tag_version 2.7.2.12
+%define git_tag_version 2.7.2.14
 
 #
 # SLES12 does not define %{dist}
@@ -15,7 +15,7 @@
 Summary: mcpp, a portable C/C++ preprocessor
 Name: mcpp-devel
 Version: 2.7.2
-Release: 6ice%{?dist}
+Release: 14ice%{?dist}
 Source: https://github.com/zeroc-ice/mcpp/archive/v%{git_tag_version}/mcpp-%{version}.tar.gz
 URL: http://mcpp.sourceforge.net/
 License: BSD
@@ -75,6 +75,9 @@ EOF
 %{_libdir}/pkgconfig/mcpp.pc
 
 %changelog
+* Thu Aug 22 2019 Bernard Normier <bernard@zeroc.com> 2.7.2-14ice
+- Upgrade to 2.7.2.14
+
 * Fri Mar 10 2017 Bernard Normier <bernard@zeroc.com> 2.7.2-6ice
 - Added pkgconfig file
 
