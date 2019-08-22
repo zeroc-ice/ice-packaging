@@ -1,8 +1,8 @@
-# The files themselves are in several subdirectories and need to be prefixed wit this.
+# The files themselves are in several subdirectories and need to be prefixed with this.
 %global archive_path libraries/lib%{name}
 
 Name:           lmdb
-Version:        0.9.22
+Version:        0.9.24
 Release:        1ice%{?dist}
 Summary:        Memory-mapped key-value database
 
@@ -121,6 +121,9 @@ popd
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Aug 22 2019 Bernard Normier <bernard@zeroc.com> 0.9.24-1ice
+- Upgrade to 0.9.24
+
 * Tue Jul 02 2019 Bernard Normier <bernard@zeroc.com> 0.9.22-1ice
 - AIX fork
 

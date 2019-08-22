@@ -1,13 +1,12 @@
-# rpm -ba --define 'dotests 0' expat-2.1.1-1.spec ...
 %{!?dotests:%define DO_TESTS 1}
 %{?dotests:%define DO_TESTS 0}
 
-%define releasetag R_2_2_6
+%define releasetag R_2_2_7
 
 Summary: An XML parser library
 Name: expat
-Version: 2.2.6
-Release: 2ice
+Version: 2.2.7
+Release: 1ice
 Group: System Environment/Libraries
 Source: https://github.com/libexpat/libexpat/releases/download/%{releasetag}/expat-%{version}.tar.bz2
 URL: http://www.libexpat.org/
@@ -171,6 +170,9 @@ chmod 644 COPYING Changes doc/* examples/*
 /usr/lib/*.a
 
 %changelog
+* Thu Aug 22 2019 Bernard Normier <bernard@zeroc.com> 2.2.7-1ice
+- Upgrade to 2.2.7
+
 * Wed Jul 24 2019 Bernard Normier <bernard@zeroc.com> 2.2.6-2ice
 - Fork to create a static library with xlc_r
 

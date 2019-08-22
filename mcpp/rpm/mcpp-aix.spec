@@ -3,16 +3,13 @@
 #
 
 # the github version tag without v prefix
-# TODO replace with line below once tagged
-# %define git_tag_version 2.7.2.13
-%define git_tag_version master
+%define git_tag_version 2.7.2.14
 
 Summary: mcpp, a portable C/C++ preprocessor
 Name: mcpp-devel
 Version: 2.7.2
-Release: 7ice%{?dist}
-#Source: https://github.com/zeroc-ice/mcpp/archive/v%{git_tag_version}/mcpp-%{version}.tar.gz
-Source: https://github.com/zeroc-ice/mcpp/archive/master/mcpp-%{version}.tar.gz
+Release: 14ice%{?dist}
+Source: https://github.com/zeroc-ice/mcpp/archive/v%{git_tag_version}/mcpp-%{version}.tar.gz
 URL: http://mcpp.sourceforge.net/
 License: BSD
 Group: System Environment/Libraries
@@ -80,7 +77,7 @@ EOF
 %{_libdir}/pkgconfig/mcpp.pc
 
 %changelog
-* Tue Jul 02 2019 Bernard Normier <bernard@zeroc.com> 2.7.2-7ice
+* Thu Aug 22 2019 Bernard Normier <bernard@zeroc.com> 2.7.2-14ice
 - AIX fork of Linux spec file.
 
 * Fri Mar 10 2017 Bernard Normier <bernard@zeroc.com> 2.7.2-6ice
