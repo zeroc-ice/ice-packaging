@@ -9,7 +9,7 @@
 %endif
 
 Name:           lmdb
-Version:        0.9.22
+Version:        0.9.24
 Release:        1ice%{?dist}
 Summary:        Memory-mapped key-value database
 
@@ -103,6 +103,9 @@ popd
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Wed Sep 4 2019 José Gutiérrez de la Concha <jose@zeroc.com> 0.9.24-1ice
+- Update to 0.9.24
+
 * Wed Sep 5 2018 Benoit Foucher <benoit@zeroc.com> 0.9.22-1ice
 - Update to 0.9.22
 
