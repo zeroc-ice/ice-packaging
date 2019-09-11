@@ -8,7 +8,7 @@ Summary: Yum repo configuration for ZeroC Ice
 Release: 1%{?dist}
 License: GPLv2 with exceptions
 Vendor: ZeroC, Inc.
-URL: https://zeroc.com
+URL: https://zeroc.com/
 Source0: https://zeroc.com/download/ice/%{version}/%{suffix:%{dist}}/zeroc-ice3.7.repo
 Group: System Environment/Base
 BuildArch: noarch
