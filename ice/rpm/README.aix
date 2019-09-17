@@ -31,10 +31,10 @@ Feature highlights:
      communications through firewalls
    - IcePatch2, an efficient software distribution and patching service
 
-Getting Started with Ice on Linux
----------------------------------
+Getting Started with Ice on AIX
+-------------------------------
 
-Please visit the 'Using the Linux Binary Distributions' section in the
+Please visit the 'Using the AIX Binary Distribution' section in the
 Ice 3.7.3 release notes:
 
 https://doc.zeroc.com/rel/ice-releases/ice-3-7/ice-3-7-3-release-notes

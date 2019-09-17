@@ -361,7 +361,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %files -n %{?nameprefix}ice-slice
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README
+%doc %{rpmbuildfiles}/README.aix
 %dir %{_datadir}/ice
 %{_datadir}/ice/slice
 
@@ -375,7 +375,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %files -n %{?nameprefix}ice-all-runtime
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README
+%doc %{rpmbuildfiles}/README.aix
 
 #
 # Generate "ice-all-devel" meta package as arch-specific
@@ -383,7 +383,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %files -n %{?nameprefix}ice-all-devel
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README
+%doc %{rpmbuildfiles}/README.aix
 
 #
 # libice-Mm-c++ package
@@ -394,7 +394,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %license %{rpmbuildfiles}/EXPAT_LICENSE
 %license %{rpmbuildfiles}/LMDB_LICENSE
 %license %{rpmbuildfiles}/MCPP_LICENSE
-%doc %{rpmbuildfiles}/README
+%doc %{rpmbuildfiles}/README.aix
 %{_libdir}/libGlacier2.a
 %{_libdir}/libIce.a
 %{_libdir}/libIceBox.a
@@ -424,7 +424,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %files -n %{?nameprefix}icebox
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README
+%doc %{rpmbuildfiles}/README.aix
 %{_bindir}/icebox
 %{_bindir}/icebox_32
 /usr/bin/icebox
@@ -437,7 +437,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %files -n lib%{?nameprefix}ice-c++-devel
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README
+%doc %{rpmbuildfiles}/README.aix
 %{_includedir}/Glacier2
 %{_includedir}/Ice
 %{_includedir}/IceBox
@@ -453,7 +453,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %files -n lib%{?nameprefix}icestorm3.7
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README
+%doc %{rpmbuildfiles}/README.aix
 %{_libdir}/libIceStormService.a
 
 #
@@ -463,7 +463,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %license LICENSE
 %license ICE_LICENSE
 %license %{rpmbuildfiles}/MCPP_LICENSE
-%doc %{rpmbuildfiles}/README
+%doc %{rpmbuildfiles}/README.aix
 %{_bindir}/slice2cpp
 /usr/bin/slice2cpp
 %{_mandir}/man1/slice2cpp.1*
@@ -504,7 +504,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %files -n %{?nameprefix}ice-utils
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README
+%doc %{rpmbuildfiles}/README.aix
 %{_bindir}/iceboxadmin
 /usr/bin/iceboxadmin
 %{_mandir}/man1/iceboxadmin.1*
@@ -533,7 +533,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %files -n %{?nameprefix}icegrid
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README
+%doc %{rpmbuildfiles}/README.aix
 %{_bindir}/icegridnode
 /usr/bin/icegridnode
 %{_mandir}/man1/icegridnode.1*
@@ -549,7 +549,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %files -n %{?nameprefix}glacier2
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README
+%doc %{rpmbuildfiles}/README.aix
 %{_bindir}/glacier2router
 /usr/bin/glacier2router
 %{_mandir}/man1/glacier2router.1*
@@ -560,7 +560,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %files -n %{?nameprefix}icebridge
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README
+%doc %{rpmbuildfiles}/README.aix
 %{_bindir}/icebridge
 /usr/bin/icebridge
 %{_mandir}/man1/icebridge.1*
@@ -571,7 +571,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %files -n %{?nameprefix}icepatch2
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README
+%doc %{rpmbuildfiles}/README.aix
 %{_bindir}/icepatch2server
 /usr/bin/icepatch2server
 %{_mandir}/man1/icepatch2server.1*
@@ -583,7 +583,7 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %files -n %{pythonname}-%{?nameprefix}ice
 %license LICENSE
 %license ICE_LICENSE
-%doc %{rpmbuildfiles}/README
+%doc %{rpmbuildfiles}/README.aix
 %{pythondir}/*
 %endif
 
