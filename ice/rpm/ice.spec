@@ -47,6 +47,7 @@
 
 %if "%{dist}" == ".el8"
    %define pythonname python2
+   %define pythondir %{python2_sitearch}
 %endif
 
 %if "%{_prefix}" == "/usr"
