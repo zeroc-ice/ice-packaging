@@ -43,9 +43,9 @@ Python compiler (``slice2py``) will not be available.
 
 By default, Ice is built statically with the package. On Linux and macOS, you
 can instead build the package with the system-installed Ice shared libraries.
-To do so, you can provide the --with-installed-ice option to setup.py install.
-With pip, you should pass the --install-option="--with-installed-ice" option to
-pip install.
+To do so, you can provide the ```--with-installed-ice``` option to
+```setup.py``` install. With ```pip```, you should pass the
+```--install-option="--with-installed-ice"``` option to pip install.
 
 Home Page
 ---------
@@ -57,7 +57,7 @@ Documentation
 -------------
 
 We provide extensive `online documentation
-<https://doc.zeroc.com/display/Ice37>`_ for Ice, the Python extension, and the
+<https://doc.zeroc.com/ice/3.7>`_ for Ice, the Python extension, and the
 other Ice language mappings and services.
 
 Support
