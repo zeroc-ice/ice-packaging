@@ -22,6 +22,8 @@ License: BSD
 Group: System Environment/Libraries
 Requires: pkgconfig
 
+BuildRequires: glibc-devel
+
 %description
 mcpp is a C/C++ preprocessor with the following features.
 

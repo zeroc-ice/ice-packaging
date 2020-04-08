@@ -17,6 +17,8 @@ License:        OpenLDAP
 URL:            http://symas.com/mdb/
 Source:         https://github.com/LMDB/lmdb/archive/LMDB_%{version}.tar.gz
 
+BuildRequires: glibc-devel
+
 %description
 LMDB is an ultra-fast, ultra-compact key-value embedded data
 store developed by Symas for the OpenLDAP Project. By using memory-mapped files,
