@@ -15,7 +15,7 @@
 Summary: mcpp, a portable C/C++ preprocessor
 Name: mcpp-devel
 Version: 2.7.2
-Release: 14ice%{?dist}
+Release: 15ice%{?dist}
 Source: https://github.com/zeroc-ice/mcpp/archive/v%{git_tag_version}/mcpp-%{version}.tar.gz
 URL: http://mcpp.sourceforge.net/
 License: BSD
@@ -75,6 +75,9 @@ EOF
 %{_libdir}/pkgconfig/mcpp.pc
 
 %changelog
+* Wed Apr 8 2020 Benoit Foucher <benoit@zeroc.com> 2.7.2-15ice
+- x86 multilib build for EL8 platforms
+
 * Thu Aug 22 2019 Bernard Normier <bernard@zeroc.com> 2.7.2-14ice
 - Upgrade to 2.7.2.14
 

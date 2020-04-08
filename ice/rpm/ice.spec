@@ -62,7 +62,7 @@
 Name: %{?nameprefix}ice
 Version: 3.7.3
 Summary: Comprehensive RPC framework with support for C++, Java, JavaScript, Python and more.
-Release: 1%{?dist}
+Release: 2%{?dist}
 %if "%{?ice_license}"
 License: %{ice_license}
 %else
@@ -73,6 +73,9 @@ URL: https://zeroc.com/
 Source0: https://github.com/zeroc-ice/ice/archive/%{archive_tag}/%{name}-%{version}.tar.gz
 Source1: https://github.com/zeroc-ice/ice-packaging/archive/%{archive_tag}/%{name}-packaging-%{version}.tar.gz
 
+# It's necessary to specify glibc-devel and libstdc++-devel here because gcc/gcc-c++ no longer install
+# the 32-bits versions by default on Rhel8 (see https://bugzilla.redhat.com/show_bug.cgi?id=1779597)
+BuildRequires: glibc-devel, libstdc++-devel
 BuildRequires: pkgconfig(expat), pkgconfig(lmdb), pkgconfig(mcpp), pkgconfig(openssl), %{bzip2devel}
 BuildRequires: pkgconfig(libsystemd)
 %ifarch %{_host_cpu}
@@ -873,6 +876,9 @@ exit 0
 %endif #%{_host_cpu}
 
 %changelog
+* Wed Apr 8 2020 Benoit Foucher <benoit@zeroc.com> 3.7.3-2
+- Support for x86 multilib build on EL8 platforms
+
 * Wed Jul 17 2019 Bernard Normier <bernard@zeroc.com> 3.7.3
 - Updates for the 3.7.3 release.
 

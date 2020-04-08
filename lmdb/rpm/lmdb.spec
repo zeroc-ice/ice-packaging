@@ -10,7 +10,7 @@
 
 Name:           lmdb
 Version:        0.9.24
-Release:        1ice%{?dist}
+Release:        2ice%{?dist}
 Summary:        Memory-mapped key-value database
 
 License:        OpenLDAP
@@ -103,6 +103,9 @@ popd
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Wed Apr 8 2020 Benoit Foucher <benoit@zeroc.com> 0.9.24-2ice
+- x86 multilib build for EL8 platforms
+
 * Wed Sep 4 2019 José Gutiérrez de la Concha <jose@zeroc.com> 0.9.24-1ice
 - Update to 0.9.24
 
