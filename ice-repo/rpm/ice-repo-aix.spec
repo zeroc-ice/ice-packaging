@@ -20,8 +20,8 @@ This package installs the yum repo file for the ZeroC Ice RPC framework.
 %setup -q -T -c
 
 %install
-/opt/freeware/bin/install -dm 755 %{buildroot}%{_sysconfdir}/yum.repos.d
-/opt/freeware/bin/install -pm 644 %{SOURCE0} %{buildroot}%{_sysconfdir}/yum.repos.d
+/opt/freeware/bin/install -dm 755 %{buildroot}%{_sysconfdir}/yum/repos.d
+/opt/freeware/bin/install -pm 644 %{SOURCE0} %{buildroot}%{_sysconfdir}/yum/repos.d
 
 %files
 %defattr(-,root,root,-)
