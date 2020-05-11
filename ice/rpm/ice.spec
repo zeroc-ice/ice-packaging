@@ -62,7 +62,7 @@
 Name: %{?nameprefix}ice
 Version: 3.7.4
 Summary: Comprehensive RPC framework with support for C++, Java, JavaScript, Python and more.
-Release: 2%{?dist}
+Release: 1%{?dist}
 %if "%{?ice_license}"
 License: %{ice_license}
 %else
@@ -876,6 +876,9 @@ exit 0
 %endif #%{_host_cpu}
 
 %changelog
+*  Tue Apr 21 2020 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.4
+- 3.7.4 release
+
 * Wed Apr 8 2020 Benoit Foucher <benoit@zeroc.com> 3.7.3-2
 - Support for x86 multilib build on EL8 platforms
 
