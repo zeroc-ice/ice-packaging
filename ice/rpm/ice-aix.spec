@@ -38,7 +38,7 @@
    %define configs shared cpp11-shared
 %endif
 
-%define makebuildopts COMPILER=%{cppcompiler} CONFIGS="%{configs}" OPTIMIZE=yes V=1 %{runpath} -j5
+%define makebuildopts COMPILER=%{cppcompiler} CONFIGS="%{configs}" OPTIMIZE=yes V=1 %{runpath} -j10
 %define makeinstallopts COMPILER=%{cppcompiler} CONFIGS="%{configs}" OPTIMIZE=yes V=1 %{runpath} DESTDIR=%{buildroot} prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_slicedir=%{_datadir}/ice/slice install_includedir=%{_includedir} install_mandir=%{_mandir} install_configdir=%{_datadir}/ice
 
 Name: %{?nameprefix}ice
