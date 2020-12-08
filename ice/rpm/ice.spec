@@ -477,8 +477,8 @@ rm -f %{buildroot}%{_bindir}/slice2confluence
 # php ice.ini
 #
 %if "%{dist}" == ".sles12"
-    mkdir -p %{buildroot}%{_sysconfdir}/php5/conf.d
-    cp -p %{rpmbuildfiles}/ice.ini %{buildroot}%{_sysconfdir}/php5/conf.d
+    mkdir -p %{buildroot}%{_sysconfdir}/php7/conf.d
+    cp -p %{rpmbuildfiles}/ice.ini %{buildroot}%{_sysconfdir}/php7/conf.d
 %else
     mkdir -p %{buildroot}%{_sysconfdir}/php.d
     cp -p %{rpmbuildfiles}/ice.ini %{buildroot}%{_sysconfdir}/php.d
@@ -848,7 +848,7 @@ exit 0
 %{phpdir}
 %{phplibdir}/ice.so
 %if "%{dist}" == ".sles12"
-%config(noreplace) %{_sysconfdir}/php5/conf.d/ice.ini
+%config(noreplace) %{_sysconfdir}/php7/conf.d/ice.ini
 %else
 %config(noreplace) %{_sysconfdir}/php.d/ice.ini
 %endif
