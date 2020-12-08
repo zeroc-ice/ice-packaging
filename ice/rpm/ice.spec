@@ -37,12 +37,12 @@
 %define pythondir %{python_sitearch}
 
 %if "%{dist}" == ".sles12"
-   %define phpdevel php5-devel
+   %define phpdevel php7-devel
    %define bzip2devel libbz2-devel
    %define shadow shadow
-   %define phpdir %{_datadir}/php5
-   %define phpcommon php5
-   %define phplibdir %{_libdir}/php5/extensions
+   %define phpdir %{_datadir}/php7
+   %define phpcommon php7
+   %define phplibdir %{_libdir}/php7/extensions
 %endif
 
 %if "%{dist}" == ".el8"
