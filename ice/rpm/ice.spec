@@ -37,12 +37,12 @@
 %define pythondir %{python_sitearch}
 
 %if "%{dist}" == ".sles12"
-   %define phpdevel php7-devel
+   %define phpdevel php74-devel
    %define bzip2devel libbz2-devel
    %define shadow shadow
-   %define phpdir %{_datadir}/php7
-   %define phpcommon php7
-   %define phplibdir %{_libdir}/php7/extensions
+   %define phpdir %{_datadir}/php74
+   %define phpcommon php74
+   %define phplibdir %{_libdir}/php74/extensions
 %endif
 
 %if "%{dist}" == ".el8"
@@ -477,8 +477,8 @@ rm -f %{buildroot}%{_bindir}/slice2confluence
 # php ice.ini
 #
 %if "%{dist}" == ".sles12"
-    mkdir -p %{buildroot}%{_sysconfdir}/php7/conf.d
-    cp -p %{rpmbuildfiles}/ice.ini %{buildroot}%{_sysconfdir}/php7/conf.d
+    mkdir -p %{buildroot}%{_sysconfdir}/php74/conf.d
+    cp -p %{rpmbuildfiles}/ice.ini %{buildroot}%{_sysconfdir}/php74/conf.d
 %else
     mkdir -p %{buildroot}%{_sysconfdir}/php.d
     cp -p %{rpmbuildfiles}/ice.ini %{buildroot}%{_sysconfdir}/php.d
@@ -848,7 +848,7 @@ exit 0
 %{phpdir}
 %{phplibdir}/ice.so
 %if "%{dist}" == ".sles12"
-%config(noreplace) %{_sysconfdir}/php7/conf.d/ice.ini
+%config(noreplace) %{_sysconfdir}/php74/conf.d/ice.ini
 %else
 %config(noreplace) %{_sysconfdir}/php.d/ice.ini
 %endif
