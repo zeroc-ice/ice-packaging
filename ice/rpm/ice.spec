@@ -40,7 +40,7 @@
    %define phpdevel php74-devel
    %define bzip2devel libbz2-devel
    %define shadow shadow
-   %define phpdir %{_datadir}/php74
+   %define phpdir %{_datadir}/php7
    %define phpcommon php74
    %define phplibdir %{_libdir}/php74/extensions
 %endif
