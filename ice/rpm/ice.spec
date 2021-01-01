@@ -76,7 +76,7 @@ Source1: https://github.com/zeroc-ice/ice-packaging/archive/%{archive_tag}/%{nam
 # It's necessary to specify glibc-devel and libstdc++-devel here because gcc/gcc-c++ no longer install
 # the 32-bits versions by default on Rhel8 (see https://bugzilla.redhat.com/show_bug.cgi?id=1779597)
 BuildRequires: glibc-devel, libstdc++-devel
-BuildRequires: pkgconfig(expat), pkgconfig(lmdb), pkgconfig(mcpp), pkgconfig(openssl), %{bzip2devel}
+BuildRequires: pkgconfig(expat), pkgconfig(libedit), pkgconfig(lmdb), pkgconfig(mcpp), pkgconfig(openssl), %{bzip2devel}
 BuildRequires: pkgconfig(libsystemd)
 %ifarch %{_host_cpu}
 BuildRequires: pkgconfig(python-2.7), %{phpdevel}, %{javapackagestools}
