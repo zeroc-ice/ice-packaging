@@ -55,7 +55,7 @@ URL: https://zeroc.com/
 Source0: https://github.com/zeroc-ice/ice/archive/%{archive_tag}/%{name}-%{version}.tar.gz
 Source1: https://github.com/zeroc-ice/ice-packaging/archive/%{archive_tag}/%{name}-packaging-%{version}.tar.gz
 
-BuildRequires: bzip2-devel, expat-static-devel, lmdb-devel, mcpp-devel
+BuildRequires: bzip2-devel, expat-static-devel, lmdb-devel, mcpp-devel, coreutils
 
 %description
 Not used
