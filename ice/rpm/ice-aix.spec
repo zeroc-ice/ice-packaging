@@ -11,7 +11,7 @@
 %else
    # git_tag_version is the git tag vX.Y.Z[...] less the v prefix
    # if not defined, we default to the version provided below
-   %{!?git_tag_version:%define git_tag_version 3.7.6}
+   %{!?git_tag_version:%define git_tag_version 3.7.7}
    %define archive_tag v%{git_tag_version}
    %define archive_dir_suffix %{git_tag_version}
 %endif
@@ -42,7 +42,7 @@
 %define makeinstallopts COMPILER=%{cppcompiler} CONFIGS="%{configs}" OPTIMIZE=yes V=1 %{runpath} DESTDIR=%{buildroot} prefix=%{_prefix} install_bindir=%{_bindir} install_libdir=%{_libdir} install_slicedir=%{_datadir}/ice/slice install_includedir=%{_includedir} install_mandir=%{_mandir} install_configdir=%{_datadir}/ice
 
 Name: %{?nameprefix}ice
-Version: 3.7.6
+Version: 3.7.7
 Summary: Comprehensive RPC framework with support for C++, Java, JavaScript, Python and more.
 Release: 1%{?dist}
 %if "%{?ice_license}"
