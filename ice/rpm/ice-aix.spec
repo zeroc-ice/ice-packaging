@@ -588,6 +588,18 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %endif
 
 %changelog
+* Tue Nov 30 2021 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.7
+- 3.7.7 release
+
+* Thu May 20 2021 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.6
+- 3.7.6 release
+
+* Fri Jan 1 2021 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.5
+- 3.7.5 release
+
+* Tue Apr 21 2020 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.4
+- 3.7.4 release
+
 * Tue Jul 16 2019 Bernard Normier <bernard@zeroc.com> 3.7.3
 - AIX fork.
 

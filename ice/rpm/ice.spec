@@ -876,7 +876,7 @@ exit 0
 %endif #%{_host_cpu}
 
 %changelog
-* Thu Nov 30 2021 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.7
+* Tue Nov 30 2021 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.7
 - 3.7.7 release
 
 * Thu May 20 2021 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.6
@@ -885,7 +885,7 @@ exit 0
 * Fri Jan 1 2021 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.5
 - 3.7.5 release
 
-*  Tue Apr 21 2020 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.4
+* Tue Apr 21 2020 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.4
 - 3.7.4 release
 
 * Wed Apr 8 2020 Benoit Foucher <benoit@zeroc.com> 3.7.3-2
