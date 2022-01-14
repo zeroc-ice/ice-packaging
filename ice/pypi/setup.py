@@ -109,7 +109,7 @@ else:
         libraries = ["IceSSL", "IceLocatorDiscovery", "IceDiscovery", "Ice"]
     else:
         libraries=['ssl', 'crypto', 'bz2', 'rt']
-        if platform is not 'freebsd':
+        if platform != 'freebsd':
             libraries.append('dl')
 
 def filterName(path):
