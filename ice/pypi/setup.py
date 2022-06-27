@@ -183,7 +183,7 @@ class BuildExt(build_ext):
 setup(
     name='zeroc-ice',
 
-    version='3.7.7',
+    version='3.7.8',
 
     description="Ice is a comprehensive RPC framework with support for Python, C++, .NET, Java, JavaScript and more.",
 
