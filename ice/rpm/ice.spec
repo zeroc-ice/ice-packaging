@@ -37,7 +37,7 @@
 %if "%{dist}" == ".el9"
 %define pythonname python
 %define pythondir %{python_sitearch}
-%
+%endif
 
 %if "%{dist}" == ".sles12"
    %define phpdevel php74-devel
