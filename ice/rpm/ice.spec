@@ -34,7 +34,7 @@
 %define phplibdir %{_libdir}/php/modules
 %define phpcommon php-common
 
-%if "%{dist}" == ".el9"
+%if "%{dist}" != ".el9"
 %define pythonname python
 %define pythondir %{python_sitearch}
 %endif
@@ -155,7 +155,9 @@ Requires: %{?nameprefix}icegrid%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icepatch2%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icebridge%{?_isa} = %{version}-%{release}
 Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
+   %if "%{dist}" != ".el9"
 Requires: %{pythonname}-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
+   %endif
    %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8"
 Requires: python3-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
    %endif
@@ -395,6 +397,7 @@ with minimal effort. Ice takes care of all interactions with low-level
 network programming interfaces and allows you to focus your efforts on
 your application logic.
 
+%if "%{dist}" != ".el9"
 #
 # python-ice package
 #
@@ -411,10 +414,11 @@ Ice is a comprehensive RPC framework that helps you network your software
 with minimal effort. Ice takes care of all interactions with low-level
 network programming interfaces and allows you to focus your efforts on
 your application logic.
+%endif
 
-%if "%{dist}" == ".amzn2" || "%{dist}" == ".el8"
+%if "%{dist}" == ".amzn2" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
 #
-# python37-ice package
+# python3-ice package
 #
 %package -n python3-%{?nameprefix}ice
 Summary: Python extension for Ice.
@@ -444,8 +448,11 @@ export CXXFLAGS="%{optflags}"
 export LDFLAGS="%{?__global_ldflags}"
 
 %ifarch %{_host_cpu}
-    make %{makebuildopts} PYTHON=%{pythonname} LANGUAGES="cpp java php python" srcs
-    %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8"
+    make %{makebuildopts} LANGUAGES="cpp java php" srcs
+    %if "%{dist}" != ".el9"
+        make %{makebuildopts} PYTHON=%{pythonname} -C python srcs
+    %endif
+    %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
         make %{makebuildopts} PYTHON=python3 -C python3 srcs
     %endif
 %else
@@ -460,8 +467,10 @@ export LDFLAGS="%{?__global_ldflags}"
     make           %{?_smp_mflags} %{makeinstallopts} install-slice
     make -C cpp    %{?_smp_mflags} %{makeinstallopts} install
     make -C php    %{?_smp_mflags} %{makeinstallopts} install
+    %if "%{dist}" != ".el9"
     make -C python %{?_smp_mflags} %{makeinstallopts} PYTHON=%{pythonname} install_pythondir=%{pythondir} install
-    %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8"
+    %endif
+    %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
         make -C python3 %{?_smp_mflags} %{makeinstallopts} PYTHON=python3 install_pythondir=%{python3_sitearch} install
     %endif
     make -C java   %{?_smp_mflags} %{makeinstallopts} install-icegridgui
