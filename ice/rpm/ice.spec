@@ -81,6 +81,10 @@ Source1: https://github.com/zeroc-ice/ice-packaging/archive/%{archive_tag}/%{nam
 BuildRequires: glibc-devel, libstdc++-devel
 BuildRequires: pkgconfig(expat), pkgconfig(libedit), pkgconfig(lmdb), pkgconfig(mcpp), pkgconfig(openssl), %{bzip2devel}
 BuildRequires: pkgconfig(libsystemd)
+%if "%{dist}" == ".el9"
+BuildRequires: java-11-openjdk-devel
+%endif
+
 %ifarch %{_host_cpu}
 BuildRequires: %{phpdevel}, %{javapackagestools}
    %if "%{dist}" != ".el9"
