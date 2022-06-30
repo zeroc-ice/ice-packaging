@@ -33,8 +33,11 @@
 %define phpdir %{_datadir}/php
 %define phplibdir %{_libdir}/php/modules
 %define phpcommon php-common
+
+%if "%{dist}" == ".el9"
 %define pythonname python
 %define pythondir %{python_sitearch}
+%
 
 %if "%{dist}" == ".sles12"
    %define phpdevel php74-devel
@@ -83,7 +86,7 @@ BuildRequires: pkgconfig(python-2.7), %{phpdevel}, %{javapackagestools}
    %if "%{dist}" == ".amzn2"
 BuildRequires: pkgconfig(python-3.7), python3-rpm-macros
    %endif
-   %if "%{dist}" == ".el8"
+   %if "%{dist}" == ".el8" || "%{dist}" == ".el9"
 BuildRequires: pkgconfig(python3), python3-rpm-macros
    %endif
 %endif
@@ -853,6 +856,7 @@ exit 0
 %config(noreplace) %{_sysconfdir}/php.d/ice.ini
 %endif
 
+%if "%{dist}" != ".el9"
 #
 # python-ice package
 #
@@ -862,7 +866,9 @@ exit 0
 %doc %{rpmbuildfiles}/README
 %{pythondir}/*
 
-%if "%{dist}" == ".amzn2" || "%{dist}" == ".el8"
+%endif
+
+%if "%{dist}" == ".amzn2" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
 #
 # python3-ice package
 #
