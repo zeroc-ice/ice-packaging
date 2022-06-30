@@ -82,7 +82,10 @@ BuildRequires: glibc-devel, libstdc++-devel
 BuildRequires: pkgconfig(expat), pkgconfig(libedit), pkgconfig(lmdb), pkgconfig(mcpp), pkgconfig(openssl), %{bzip2devel}
 BuildRequires: pkgconfig(libsystemd)
 %ifarch %{_host_cpu}
-BuildRequires: pkgconfig(python-2.7), %{phpdevel}, %{javapackagestools}
+BuildRequires: %{phpdevel}, %{javapackagestools}
+   %if "%{dist}" != ".el9"
+BuildRequires: pkgconfig(python-2.7)
+   %endif
    %if "%{dist}" == ".amzn2"
 BuildRequires: pkgconfig(python-3.7), python3-rpm-macros
    %endif
