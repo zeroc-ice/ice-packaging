@@ -37,7 +37,7 @@ The RPM package build directory is usually `~/rpmbuild`.
 
 First install ZeroC's key to avoid warnings with unsigned packages:
 ```
-    $ wget https://zeroc.com/download/GPG-KEY-zeroc-release
+    $ wget https://download.zeroc.com/GPG-KEY-zeroc-release
     $ sudo rpm --import GPG-KEY-zeroc-release
 ```
 
@@ -46,24 +46,24 @@ Then add the Ice repository for your system and install the source RPM:
 * Red Hat Enterprise Linux 7:
 ```
      $ cd /etc/yum.repos.d
-     $ sudo wget https://zeroc.com/download/ice/3.7/el7/zeroc-ice3.7.repo
+     $ sudo wget https://download.zeroc.com/ice/3.7/el7/zeroc-ice3.7.repo
 ```
 
 * Amazon Linux AMI:
 ```
      $ cd /etc/yum.repos.d
-     $ sudo wget https://zeroc.com/download/ice/3.7/amzn1/zeroc-ice3.7.repo
+     $ sudo wget https://download.zeroc.com/ice/3.7/amzn1/zeroc-ice3.7.repo
 ```
 
 * Amazon Linux 2:
 ```
      $ cd /etc/yum.repos.d
-     $ sudo wget https://zeroc.com/download/ice/3.7/amzn2/zeroc-ice3.7.repo
+     $ sudo wget https://download.zeroc.com/ice/3.7/amzn2/zeroc-ice3.7.repo
 ```
 
 * SUSE Linux Enterprise Server 12:
 ```
-     $ wget https://zeroc.com/download/ice/3.7/sles12/zeroc-ice3.7.repo
+     $ wget https://download.zeroc.com/ice/3.7/sles12/zeroc-ice3.7.repo
      $ sudo zypper addrepo zeroc-ice3.7.repo
 ```
 
