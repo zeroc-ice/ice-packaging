@@ -34,11 +34,30 @@ sliceSrcs = ["Checksum.cpp", "FileTracker.cpp", "Grammar.cpp", "MD5.cpp",
              "PythonUtil.cpp", "Scanner.cpp", "SliceUtil.cpp", "StringLiteralUtil.cpp"]
 
 #
-# Sort out packages, package_dir and package_data from the lib dir. We include 'slice' in the
-# package list and use package_data to ensure the Slice files are included. We also need to
-# set include_package_data=True.
+# Sort out packages, package_dir and package_data from the lib dir. We include 'slice' and all its sub-folders in the
+# package list and use package_data to ensure the Slice files are included. We also need to set
+# include_package_data=True.
 #
-packages=['Glacier2', 'Ice', 'IceBox', 'IceGrid', 'IceMX', 'IcePatch2', 'IceStorm', 'slice']
+packages=[
+    'Glacier2',
+    'Ice',
+    'IceBox',
+    'IceGrid',
+    'IceMX',
+    'IcePatch2',
+    'IceStorm',
+    'slice',
+    'slice.Glacier2',
+    'slice.Ice',
+    'slice.IceBT',
+    'slice.IceBox',
+    'slice.IceDiscovery',
+    'slice.IceGrid',
+    'slice.IceIAP',
+    'slice.IceLocatorDiscovery',
+    'slice.IcePatch2',
+    'slice.IceSSL',
+    'slice.IceStorm']
 if sys.version_info[:2] >= (3, 5):
     packages += ['Ice.Py3']
 package_dir={'' : 'lib'}
