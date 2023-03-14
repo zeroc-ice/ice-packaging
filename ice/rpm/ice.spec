@@ -899,6 +899,9 @@ exit 0
 %endif #%{_host_cpu}
 
 %changelog
+* Mon March 14 2023 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.9
+- 3.7.9 release
+
 * Mon Jun 27 2022 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.8
 - 3.7.8 release
 

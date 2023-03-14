@@ -588,7 +588,10 @@ mv %{buildroot}%{_bindir}/icebox32 %{buildroot}%{_bindir}/icebox_32
 %endif
 
 %changelog
-* Mon Jun 27 2022 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.8
+* Tue March 14 2023 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.9
+- 3.7.9 release
+
+* Tue Jun 27 2022 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.8
 - 3.7.8 release
 
 * Tue Nov 30 2021 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.7
