@@ -75,9 +75,6 @@ else:
     define_macros+=[('ICE_STATIC_LIBS', None)]
 
 if platform == 'darwin':
-    # Make sure to use the SDK from Xcode (required for Sierra where old system headers can be used otherwise)
-    os.environ['CC'] = 'xcrun -sdk macosx clang'
-    os.environ['CXX'] = 'xcrun -sdk macosx clang++'
     extra_compile_args.append('-w')
     if use_ice:
         libraries = ["IceSSL", "IceLocatorDiscovery", "IceDiscovery", "Ice"]
