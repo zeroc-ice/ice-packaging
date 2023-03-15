@@ -14,6 +14,7 @@ end
 # On OSX & Linux bzlib.h is required.
 #
 if not have_header("bzlib.h") then
+    puts "Bzip2 header files are missing."
     exit 1
 end
 
@@ -22,14 +23,9 @@ if RUBY_PLATFORM =~ /linux/
     # On Linux openssl is required for IceSSL.
     #
     if not have_header("openssl/ssl.h") then
+        puts "OpenSSL header files are missing."
         exit 1
     end
-end
-
-if RUBY_PLATFORM =~ /darwin/
-    # Make sure to use the SDK from Xcode (required for Sierra where old system headers can be used otherwise)
-    RbConfig::MAKEFILE_CONFIG['CC'] = 'xcrun -sdk macosx clang'
-    RbConfig::MAKEFILE_CONFIG['CXX'] = 'xcrun -sdk macosx clang++'
 end
 
 $INCFLAGS << ' -Iice/cpp/include'
@@ -40,7 +36,7 @@ $CPPFLAGS << ' -DICE_STATIC_LIBS'
 $CPPFLAGS << ' -DICE_GEM'
 
 if RUBY_PLATFORM =~ /darwin/
-    $LOCAL_LIBS << ' -framework Security -framework CoreFoundation'
+    $LOCAL_LIBS << ' -lbz2 -liconv -framework Security -framework CoreFoundation'
 elsif RUBY_PLATFORM =~ /linux/
     $LOCAL_LIBS << ' -lssl -lcrypto -lbz2 -lrt'
         if RUBY_VERSION =~ /1.8/
