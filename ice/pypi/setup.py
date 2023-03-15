@@ -75,8 +75,6 @@ else:
     define_macros+=[('ICE_STATIC_LIBS', None)]
 
 if platform == 'darwin':
-    if not 'ARCHFLAGS' in os.environ:
-        os.environ['ARCHFLAGS'] = '-arch x86_64'
     # Make sure to use the SDK from Xcode (required for Sierra where old system headers can be used otherwise)
     os.environ['CC'] = 'xcrun -sdk macosx clang'
     os.environ['CXX'] = 'xcrun -sdk macosx clang++'
