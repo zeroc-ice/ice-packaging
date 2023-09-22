@@ -70,7 +70,7 @@ Then add the Ice repository for your system and install the source RPM:
 Now download and install the source RPM:
 ```
      $ yumdownloader --source ice
-     $ rpm -i ice-3.7.9-1.el7.src.rpm
+     $ rpm -i ice-3.7.10-1.el7.src.rpm
 ```
 
 You can find the `ice.spec` file in the `~/rpmbuild/SPECS` directory, while the
@@ -100,7 +100,7 @@ The source RPM is created in `~rpmbuild/SRPMS`.
 
 To create binary RPM packages for Ice, you must first install the source RPM:
 ```
-      $ rpm -i ice-3.7.9-1.src.rpm
+      $ rpm -i ice-3.7.10-1.src.rpm
 ```
 If you have not already done so, install the RPM prerequisites listed in `ice.spec`.
 The following additional steps are also necessary:
