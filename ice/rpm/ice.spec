@@ -166,7 +166,7 @@ Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
    %if "%{dist}" != ".el9"
 Requires: %{pythonname}-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
    %endif
-   %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8"
+   %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
 Requires: python3-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
    %endif
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
