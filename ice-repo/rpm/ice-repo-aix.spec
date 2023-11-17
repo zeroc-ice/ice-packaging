@@ -4,8 +4,8 @@
 
 Name: ice-repo
 Version: 3.7
-Summary: Yum repo configuration for ZeroC Ice
-Release: 1%{?dist}
+Summary: Dnf / yum repo configuration for ZeroC Ice
+Release: 2%{?dist}
 License: GPLv2 with exceptions
 Vendor: ZeroC, Inc.
 URL: https://zeroc.com/
@@ -14,7 +14,7 @@ Group: System Environment/Base
 BuildArch: noarch
 
 %description
-This package installs the yum repo file for the ZeroC Ice RPC framework.
+This package installs the dnf / yum repo file for the ZeroC Ice RPC framework.
 
 %prep
 %setup -q -T -c
@@ -28,6 +28,8 @@ This package installs the yum repo file for the ZeroC Ice RPC framework.
 %config(noreplace) %{_sysconfdir}/yum/repos.d/*
 
 %changelog
+* Fri Nov 17 2023 Bernard Normier <bernard@zeroc.com> - 3.7-2
+- Update repo file and description.
 * Thu Sep 5 2019 Bernard Normier <bernard@zeroc.com> - 3.7-1
 - AIX fork
 * Thu Feb 28 2019 Bernard Normier <bernard@zeroc.com> - 3.7-1
