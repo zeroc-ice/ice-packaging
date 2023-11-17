@@ -37,8 +37,8 @@ The RPM package build directory is usually `~/rpmbuild`.
 
 First install ZeroC's key to avoid warnings with unsigned packages:
 ```
-    $ wget https://download.zeroc.com/GPG-KEY-zeroc-release
-    $ sudo rpm --import GPG-KEY-zeroc-release
+    $ wget https://download.zeroc.com/GPG-KEY-zeroc-release-B6391CB2CFBA643D
+    $ sudo rpm --import GPG-KEY-zeroc-release-B6391CB2CFBA643D
 ```
 
 Then add the Ice repository for your system and install the source RPM:
