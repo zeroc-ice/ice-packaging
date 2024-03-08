@@ -1,0 +1,40 @@
+From 88081ab291a46a49fa48b2c1990949c790a0e1e4 Mon Sep 17 00:00:00 2001
+From: Jose <pepone@users.noreply.github.com>
+Date: Thu, 7 Mar 2024 21:30:02 +0100
+Subject: [PATCH] Remove workaround for old proguard version (#1913)
+
+---
+ java/src/IceGridGUI/build.gradle        | 3 +--
+ java/src/IceGridGUI/proguard-jar.gradle | 2 +-
+ 2 files changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/java/src/IceGridGUI/build.gradle b/java/src/IceGridGUI/build.gradle
+index 7e7b259..2da5076 100644
+--- a/java/src/IceGridGUI/build.gradle
++++ b/java/src/IceGridGUI/build.gradle
+@@ -88,8 +88,7 @@ jar {
+ 
+ project.ext.libJars = []
+ 
+-project.ext.jarBuilder = icegridguiProguard.toBoolean() && JavaVersion.current() > JavaVersion.VERSION_1_8 ?
+-    "proguard-jar.gradle" : "plain-jar.gradle"
++project.ext.jarBuilder = icegridguiProguard.toBoolean() ? "proguard-jar.gradle" : "plain-jar.gradle"
+ 
+ apply from: jarBuilder
+ 
+diff --git a/java/src/IceGridGUI/proguard-jar.gradle b/java/src/IceGridGUI/proguard-jar.gradle
+index f2c8b08..d72f05da 100644
+--- a/java/src/IceGridGUI/proguard-jar.gradle
++++ b/java/src/IceGridGUI/proguard-jar.gradle
+@@ -8,7 +8,7 @@ buildscript {
+     }
+ 
+     dependencies {
+-        classpath "com.guardsquare:proguard-gradle:7.4.0-beta02"
++        classpath "com.guardsquare:proguard-gradle:7.4.2"
+     }
+ }
+ 
+-- 
+1.8.3.1
+
