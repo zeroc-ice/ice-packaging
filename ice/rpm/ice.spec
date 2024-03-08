@@ -75,7 +75,9 @@ Vendor: ZeroC, Inc.
 URL: https://zeroc.com/
 Source0: https://github.com/zeroc-ice/ice/archive/%{archive_tag}/%{name}-%{version}.tar.gz
 Source1: https://github.com/zeroc-ice/ice-packaging/archive/%{archive_tag}/%{name}-packaging-%{version}.tar.gz
-Patch0: https://raw.githubusercontent.com/zeroc-ice/ice-packaging/3.7.10-2/ice/rpm/0001-Remove-workaround-for-old-proguard-version-1913.patch
+Source2: https://raw.githubusercontent.com/zeroc-ice/ice-packaging/3.7.10-2/ice/rpm/0001-Remove-workaround-for-old-proguard-version-1913.patch
+
+Patch0: 0001-Remove-workaround-for-old-proguard-version-1913.patch
 
 # It's necessary to specify glibc-devel and libstdc++-devel here because gcc/gcc-c++ no longer install
 # the 32-bits versions by default on Rhel8 (see https://bugzilla.redhat.com/show_bug.cgi?id=1779597)
@@ -447,6 +449,7 @@ your application logic.
 
 %prep
 %setup -q -n ice-%{archive_dir_suffix} -a 1
+%patch0 -p0
 cp %{_builddir}/ice-%{archive_dir_suffix}/python %{_builddir}/ice-%{archive_dir_suffix}/python3 -rf
 
 %build
