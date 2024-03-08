@@ -75,7 +75,7 @@ Vendor: ZeroC, Inc.
 URL: https://zeroc.com/
 Source0: https://github.com/zeroc-ice/ice/archive/%{archive_tag}/%{name}-%{version}.tar.gz
 Source1: https://github.com/zeroc-ice/ice-packaging/archive/%{archive_tag}/%{name}-packaging-%{version}.tar.gz
-Source2: https://raw.githubusercontent.com/zeroc-ice/ice-packaging/3.7.10-2/ice/rpm/0001-Remove-workaround-for-old-proguard-version-1913.patch
+Source2: https://raw.githubusercontent.com/zeroc-ice/ice-packaging/v3.7.10-2/ice/rpm/0001-Remove-workaround-for-old-proguard-version-1913.patch
 
 Patch0: 0001-Remove-workaround-for-old-proguard-version-1913.patch
 
