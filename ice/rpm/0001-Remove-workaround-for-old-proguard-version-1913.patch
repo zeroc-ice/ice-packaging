@@ -1,5 +1,5 @@
 From 88081ab291a46a49fa48b2c1990949c790a0e1e4 Mon Sep 17 00:00:00 2001
-From: Jose <pepone@users.noreply.github.com>
+From: Jose <jose@zeroc.com>
 Date: Thu, 7 Mar 2024 21:30:02 +0100
 Subject: [PATCH] Remove workaround for old proguard version (#1913)
 
