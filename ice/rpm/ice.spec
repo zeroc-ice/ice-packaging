@@ -903,6 +903,9 @@ exit 0
 %endif #%{_host_cpu}
 
 %changelog
+* Thu Nov 21 2024 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.10-3
+- Fix RHEL 9 x86 builds https://github.com/zeroc-ice/ice/issues/3168
+
 * Fri Mar 8 2024 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.10-2
 - Fix IceGridGUI JDK 8 builds https://github.com/zeroc-ice/ice/pull/1913
 
