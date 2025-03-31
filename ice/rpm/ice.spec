@@ -91,7 +91,7 @@ BuildRequires: java-11-openjdk-devel java-11-openjdk-jmods
 
 %ifarch %{_host_cpu}
 BuildRequires: %{phpdevel}, %{javapackagestools}
-   %if "%{dist}" != ".el9" || "%{dist}" != ".amzn2023"
+   %if "%{dist}" != ".el9" && "%{dist}" != ".amzn2023"
 BuildRequires: pkgconfig(python-2.7)
    %endif
    %if "%{dist}" == ".amzn2"
