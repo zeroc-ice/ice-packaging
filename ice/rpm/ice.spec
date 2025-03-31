@@ -94,7 +94,7 @@ BuildRequires: %{phpdevel}, %{javapackagestools}
    %if "%{dist}" != ".el9" && "%{dist}" != ".amzn2023"
 BuildRequires: pkgconfig(python-2.7)
    %endif
-   %if "%{dist}" == ".amzn2"
+   %if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023"
 BuildRequires: pkgconfig(python-3.7), python3-rpm-macros
    %endif
    %if "%{dist}" == ".el8" || "%{dist}" == ".el9"
@@ -169,7 +169,7 @@ Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
    %if "%{dist}" != ".el9"
 Requires: %{pythonname}-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
    %endif
-   %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
+   %if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023"  || "%{dist}" == ".el8" || "%{dist}" == ".el9"
 Requires: python3-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
    %endif
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
@@ -427,7 +427,7 @@ network programming interfaces and allows you to focus your efforts on
 your application logic.
 %endif
 
-%if "%{dist}" == ".amzn2" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
+%if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
 #
 # python3-ice package
 #
@@ -464,7 +464,7 @@ export LDFLAGS="%{?__global_ldflags}"
     %if "%{dist}" != ".el9"
         make %{makebuildopts} PYTHON=%{pythonname} -C python srcs
     %endif
-    %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
+    %if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
         make %{makebuildopts} PYTHON=python3 -C python3 srcs
     %endif
 %else
@@ -482,7 +482,7 @@ export LDFLAGS="%{?__global_ldflags}"
     %if "%{dist}" != ".el9"
     make -C python %{?_smp_mflags} %{makeinstallopts} PYTHON=%{pythonname} install_pythondir=%{pythondir} install
     %endif
-    %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
+    %if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
         make -C python3 %{?_smp_mflags} %{makeinstallopts} PYTHON=python3 install_pythondir=%{python3_sitearch} install
     %endif
     make -C java   %{?_smp_mflags} %{makeinstallopts} install-icegridgui
@@ -889,7 +889,7 @@ exit 0
 
 %endif
 
-%if "%{dist}" == ".amzn2" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
+%if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
 #
 # python3-ice package
 #
