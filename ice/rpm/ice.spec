@@ -97,7 +97,7 @@ BuildRequires: pkgconfig(python-2.7)
    %if "%{dist}" == ".amzn2"
 BuildRequires: pkgconfig(python-3.7), python3-rpm-macros
    %endif
-  %if "%{dist}" == ".amzn2023"
+   %if "%{dist}" == ".amzn2023"
 BuildRequires: pkgconfig(python-3.9), python3-rpm-macros
    %endif
    %if "%{dist}" == ".el8" || "%{dist}" == ".el9"
@@ -172,7 +172,7 @@ Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
    %if "%{dist}" != ".el9"
 Requires: %{pythonname}-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
    %endif
-   %if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023"  || "%{dist}" == ".el8" || "%{dist}" == ".el9"
+   %if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
 Requires: python3-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
    %endif
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
