@@ -94,8 +94,11 @@ BuildRequires: %{phpdevel}, %{javapackagestools}
    %if "%{dist}" != ".el9" && "%{dist}" != ".amzn2023"
 BuildRequires: pkgconfig(python-2.7)
    %endif
-   %if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023"
+   %if "%{dist}" == ".amzn2"
 BuildRequires: pkgconfig(python-3.7), python3-rpm-macros
+   %endif
+  %if "%{dist}" == ".amzn2023"
+BuildRequires: pkgconfig(python-3.9), python3-rpm-macros
    %endif
    %if "%{dist}" == ".el8" || "%{dist}" == ".el9"
 BuildRequires: pkgconfig(python3), python3-rpm-macros
