@@ -82,8 +82,15 @@ Patch0: 0001-Remove-workaround-for-old-proguard-version-1913.patch
 # It's necessary to specify glibc-devel and libstdc++-devel here because gcc/gcc-c++ no longer install
 # the 32-bits versions by default on Rhel8 (see https://bugzilla.redhat.com/show_bug.cgi?id=1779597)
 BuildRequires: glibc-devel, libstdc++-devel
-BuildRequires: pkgconfig(expat), pkgconfig(libedit), pkgconfig(lmdb), pkgconfig(mcpp), pkgconfig(openssl), %{bzip2devel}
+BuildRequires: pkgconfig(expat), pkgconfig(libedit), pkgconfig(lmdb), pkgconfig(openssl), %{bzip2devel}
 BuildRequires: pkgconfig(libsystemd)
+
+# Amazon Linux 2023 does not provide pkgconfig(mcpp)
+%if "%{dist}" == ".amzn2023"
+BuildRequires: libmcpp-devel
+%else
+BuildRequires: pkgconfig(mcpp)
+%endif
 
 %if "%{dist}" == ".el9"
 BuildRequires: java-11-openjdk-devel java-11-openjdk-jmods
