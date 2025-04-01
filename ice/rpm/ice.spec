@@ -34,7 +34,7 @@
 %define phplibdir %{_libdir}/php/modules
 %define phpcommon php-common
 
-%if "%{dist}" != ".el9"
+%if "%{dist}" != ".el9" && "%{dist}" != ".amzn2"
 %define pythonname python
 %define pythondir %{python_sitearch}
 %endif
@@ -169,7 +169,7 @@ Requires: %{?nameprefix}icegrid%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icepatch2%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icebridge%{?_isa} = %{version}-%{release}
 Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
-   %if "%{dist}" != ".el9"
+   %if "%{dist}" != ".el9" && "%{dist}" != ".amzn2023"
 Requires: %{pythonname}-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
    %endif
    %if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
@@ -411,7 +411,7 @@ with minimal effort. Ice takes care of all interactions with low-level
 network programming interfaces and allows you to focus your efforts on
 your application logic.
 
-%if "%{dist}" != ".el9"
+%if "%{dist}" != ".el9" && "%{dist}" != ".amzn2023"
 #
 # python-ice package
 #
@@ -464,7 +464,7 @@ export LDFLAGS="%{?__global_ldflags}"
 
 %ifarch %{_host_cpu}
     make %{makebuildopts} LANGUAGES="cpp java php" srcs
-    %if "%{dist}" != ".el9"
+    %if "%{dist}" != ".el9" && "%{dist}" != ".amzn2023"
         make %{makebuildopts} PYTHON=%{pythonname} -C python srcs
     %endif
     %if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
@@ -482,7 +482,7 @@ export LDFLAGS="%{?__global_ldflags}"
     make           %{?_smp_mflags} %{makeinstallopts} install-slice
     make -C cpp    %{?_smp_mflags} %{makeinstallopts} install
     make -C php    %{?_smp_mflags} %{makeinstallopts} install
-    %if "%{dist}" != ".el9"
+    %if "%{dist}" != ".el9" && "%{dist}" != ".amzn2023"
     make -C python %{?_smp_mflags} %{makeinstallopts} PYTHON=%{pythonname} install_pythondir=%{pythondir} install
     %endif
     %if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
@@ -880,7 +880,7 @@ exit 0
 %config(noreplace) %{_sysconfdir}/php.d/ice.ini
 %endif
 
-%if "%{dist}" != ".el9"
+%if "%{dist}" != ".el9" && "%{dist}" != ".amzn2023"
 #
 # python-ice package
 #
