@@ -65,7 +65,7 @@
 Name: %{?nameprefix}ice
 Version: 3.7.10
 Summary: Comprehensive RPC framework with support for C++, Java, JavaScript, Python and more.
-Release: 3%{?dist}
+Release: 4%{?dist}
 %if "%{?ice_license}"
 License: %{ice_license}
 %else
@@ -913,6 +913,9 @@ exit 0
 %endif #%{_host_cpu}
 
 %changelog
+* Wed Apr 2 2025 Joe George <joe@zeroc.com> 3.7.10-4
+- Support for Amazon Linux 2023
+
 * Thu Nov 21 2024 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.10-3
 - Fix RHEL 9 x86 builds https://github.com/zeroc-ice/ice/issues/3168
 
