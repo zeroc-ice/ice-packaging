@@ -30,13 +30,21 @@
 %define phpdevel php-devel
 # Unfortunately bzip2-devel does not provide pkgconfig(bzip2) as of EL7
 %define bzip2devel bzip2-devel
+%define phpname php
 %define phpdir %{_datadir}/php
-%define phplibdir %{_libdir}/php/modules
+# Macros are lazily evaluated we can can modify phpname later
+%define phplibdir %{_libdir}/%{phpname}/modules
 %define phpcommon php-common
 
-%if "%{dist}" != ".el9"
+%if "%{dist}" != ".el9" && "%{dist}" != ".amzn2"
 %define pythonname python
 %define pythondir %{python_sitearch}
+%endif
+
+%if "%{dist}" == ".amzn2023"
+# We only build for php8.4 on Amazon Linux 2023
+%define phpname php8.4
+%define phpcommon %{phpname}
 %endif
 
 %if "%{dist}" == ".sles12"
@@ -65,7 +73,7 @@
 Name: %{?nameprefix}ice
 Version: 3.7.10
 Summary: Comprehensive RPC framework with support for C++, Java, JavaScript, Python and more.
-Release: 3%{?dist}
+Release: 4%{?dist}
 %if "%{?ice_license}"
 License: %{ice_license}
 %else
@@ -82,8 +90,15 @@ Patch0: 0001-Remove-workaround-for-old-proguard-version-1913.patch
 # It's necessary to specify glibc-devel and libstdc++-devel here because gcc/gcc-c++ no longer install
 # the 32-bits versions by default on Rhel8 (see https://bugzilla.redhat.com/show_bug.cgi?id=1779597)
 BuildRequires: glibc-devel, libstdc++-devel
-BuildRequires: pkgconfig(expat), pkgconfig(libedit), pkgconfig(lmdb), pkgconfig(mcpp), pkgconfig(openssl), %{bzip2devel}
+BuildRequires: pkgconfig(expat), pkgconfig(libedit), pkgconfig(lmdb), pkgconfig(openssl), %{bzip2devel}
 BuildRequires: pkgconfig(libsystemd)
+
+# Amazon Linux 2023 does not provide pkgconfig(mcpp)
+%if "%{dist}" == ".amzn2023"
+BuildRequires: libmcpp-devel
+%else
+BuildRequires: pkgconfig(mcpp)
+%endif
 
 %if "%{dist}" == ".el9"
 BuildRequires: java-11-openjdk-devel java-11-openjdk-jmods
@@ -91,11 +106,14 @@ BuildRequires: java-11-openjdk-devel java-11-openjdk-jmods
 
 %ifarch %{_host_cpu}
 BuildRequires: %{phpdevel}, %{javapackagestools}
-   %if "%{dist}" != ".el9"
+   %if "%{dist}" != ".el9" && "%{dist}" != ".amzn2023"
 BuildRequires: pkgconfig(python-2.7)
    %endif
    %if "%{dist}" == ".amzn2"
 BuildRequires: pkgconfig(python-3.7), python3-rpm-macros
+   %endif
+   %if "%{dist}" == ".amzn2023"
+BuildRequires: pkgconfig(python-3.9), python3-rpm-macros
    %endif
    %if "%{dist}" == ".el8" || "%{dist}" == ".el9"
 BuildRequires: pkgconfig(python3), python3-rpm-macros
@@ -165,11 +183,11 @@ Requires: %{?nameprefix}glacier2%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icegrid%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icepatch2%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icebridge%{?_isa} = %{version}-%{release}
-Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
-   %if "%{dist}" != ".el9"
+Requires: %{phpname}-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
+   %if "%{dist}" != ".el9" && "%{dist}" != ".amzn2023"
 Requires: %{pythonname}-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
    %endif
-   %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
+   %if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
 Requires: python3-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
    %endif
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
@@ -393,14 +411,14 @@ your application logic.
 #
 # php-ice package
 #
-%package -n php-%{?nameprefix}ice
+%package -n %{phpname}-%{?nameprefix}ice
 Summary: PHP extension for Ice.
 Group: System Environment/Libraries
 Obsoletes: ice-php < 3.6
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
 Requires: %{phpcommon}%{?_isa}
 
-%description -n php-%{?nameprefix}ice
+%description -n %{phpname}-%{?nameprefix}ice
 This package contains a PHP extension for communicating with Ice.
 
 Ice is a comprehensive RPC framework that helps you network your software
@@ -408,7 +426,7 @@ with minimal effort. Ice takes care of all interactions with low-level
 network programming interfaces and allows you to focus your efforts on
 your application logic.
 
-%if "%{dist}" != ".el9"
+%if "%{dist}" != ".el9" && "%{dist}" != ".amzn2023"
 #
 # python-ice package
 #
@@ -427,7 +445,7 @@ network programming interfaces and allows you to focus your efforts on
 your application logic.
 %endif
 
-%if "%{dist}" == ".amzn2" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
+%if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
 #
 # python3-ice package
 #
@@ -461,10 +479,10 @@ export LDFLAGS="%{?__global_ldflags}"
 
 %ifarch %{_host_cpu}
     make %{makebuildopts} LANGUAGES="cpp java php" srcs
-    %if "%{dist}" != ".el9"
+    %if "%{dist}" != ".el9" && "%{dist}" != ".amzn2023"
         make %{makebuildopts} PYTHON=%{pythonname} -C python srcs
     %endif
-    %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
+    %if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
         make %{makebuildopts} PYTHON=python3 -C python3 srcs
     %endif
 %else
@@ -479,10 +497,10 @@ export LDFLAGS="%{?__global_ldflags}"
     make           %{?_smp_mflags} %{makeinstallopts} install-slice
     make -C cpp    %{?_smp_mflags} %{makeinstallopts} install
     make -C php    %{?_smp_mflags} %{makeinstallopts} install
-    %if "%{dist}" != ".el9"
+    %if "%{dist}" != ".el9" && "%{dist}" != ".amzn2023"
     make -C python %{?_smp_mflags} %{makeinstallopts} PYTHON=%{pythonname} install_pythondir=%{pythondir} install
     %endif
-    %if "%{dist}" == ".amzn2" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
+    %if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
         make -C python3 %{?_smp_mflags} %{makeinstallopts} PYTHON=python3 install_pythondir=%{python3_sitearch} install
     %endif
     make -C java   %{?_smp_mflags} %{makeinstallopts} install-icegridgui
@@ -865,7 +883,7 @@ exit 0
 #
 # php-ice package
 #
-%files -n php-%{?nameprefix}ice
+%files -n %{phpname}-%{?nameprefix}ice
 %license LICENSE
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
@@ -877,7 +895,7 @@ exit 0
 %config(noreplace) %{_sysconfdir}/php.d/ice.ini
 %endif
 
-%if "%{dist}" != ".el9"
+%if "%{dist}" != ".el9" && "%{dist}" != ".amzn2023"
 #
 # python-ice package
 #
@@ -889,7 +907,7 @@ exit 0
 
 %endif
 
-%if "%{dist}" == ".amzn2" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
+%if "%{dist}" == ".amzn2" || "%{dist}" == ".amzn2023" || "%{dist}" == ".el8" || "%{dist}" == ".el9"
 #
 # python3-ice package
 #
@@ -903,6 +921,9 @@ exit 0
 %endif #%{_host_cpu}
 
 %changelog
+* Wed Apr 2 2025 Joe George <joe@zeroc.com> 3.7.10-4
+- Support for Amazon Linux 2023
+
 * Thu Nov 21 2024 José Gutiérrez de la Concha <jose@zeroc.com> 3.7.10-3
 - Fix RHEL 9 x86 builds https://github.com/zeroc-ice/ice/issues/3168
 

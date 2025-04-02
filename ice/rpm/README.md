@@ -61,6 +61,12 @@ Then add the Ice repository for your system and install the source RPM:
      $ sudo wget https://download.zeroc.com/ice/3.7/amzn2/zeroc-ice3.7.repo
 ```
 
+* Amazon Linux 2023:
+```
+     $ cd /etc/yum.repos.d
+     $ sudo wget https://download.zeroc.com/ice/3.7/amzn2023/zeroc-ice3.7.repo
+```
+
 * SUSE Linux Enterprise Server 12:
 ```
      $ wget https://download.zeroc.com/ice/3.7/sles12/zeroc-ice3.7.repo
