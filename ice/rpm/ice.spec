@@ -31,8 +31,9 @@
 # Unfortunately bzip2-devel does not provide pkgconfig(bzip2) as of EL7
 %define bzip2devel bzip2-devel
 %define phpname php
-%define phpdir %{_datadir}/%{php}
-%define phplibdir %{_libdir}/php/modules
+%define phpdir %{_datadir}/php
+# Macoros are lazily evaluated we can can modify phpname later
+%define phplibdir %{_libdir}/%{phpname}/modules
 %define phpcommon php-common
 
 %if "%{dist}" != ".el9" && "%{dist}" != ".amzn2"
