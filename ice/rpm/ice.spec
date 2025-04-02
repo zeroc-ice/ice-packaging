@@ -30,13 +30,20 @@
 %define phpdevel php-devel
 # Unfortunately bzip2-devel does not provide pkgconfig(bzip2) as of EL7
 %define bzip2devel bzip2-devel
-%define phpdir %{_datadir}/php
+%define phpname php
+%define phpdir %{_datadir}/%{php}
 %define phplibdir %{_libdir}/php/modules
 %define phpcommon php-common
 
 %if "%{dist}" != ".el9" && "%{dist}" != ".amzn2"
 %define pythonname python
 %define pythondir %{python_sitearch}
+%endif
+
+%if "%{dist}" == ".amzn2023"
+# We only build for php8.4 on Amazon Linux 2023
+%define phpname php8.4
+%define phpcommon %{phpname}
 %endif
 
 %if "%{dist}" == ".sles12"
@@ -175,7 +182,7 @@ Requires: %{?nameprefix}glacier2%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icegrid%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icepatch2%{?_isa} = %{version}-%{release}
 Requires: %{?nameprefix}icebridge%{?_isa} = %{version}-%{release}
-Requires: php-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
+Requires: %{phpname}-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
    %if "%{dist}" != ".el9" && "%{dist}" != ".amzn2023"
 Requires: %{pythonname}-%{?nameprefix}ice%{?_isa} = %{version}-%{release}
    %endif
@@ -403,7 +410,7 @@ your application logic.
 #
 # php-ice package
 #
-%package -n php-%{?nameprefix}ice
+%package -n %{phpname}-%{?nameprefix}ice
 Summary: PHP extension for Ice.
 Group: System Environment/Libraries
 Obsoletes: ice-php < 3.6
