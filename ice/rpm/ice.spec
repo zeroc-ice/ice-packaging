@@ -417,7 +417,7 @@ Obsoletes: ice-php < 3.6
 Requires: lib%{?nameprefix}ice3.7-c++%{?_isa} = %{version}-%{release}
 Requires: %{phpcommon}%{?_isa}
 
-%description -n php-%{?nameprefix}ice
+%description -n %{phpname}-%{?nameprefix}ice
 This package contains a PHP extension for communicating with Ice.
 
 Ice is a comprehensive RPC framework that helps you network your software
