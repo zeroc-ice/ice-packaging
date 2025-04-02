@@ -32,7 +32,7 @@
 %define bzip2devel bzip2-devel
 %define phpname php
 %define phpdir %{_datadir}/php
-# Macoros are lazily evaluated we can can modify phpname later
+# Macros are lazily evaluated we can can modify phpname later
 %define phplibdir %{_libdir}/%{phpname}/modules
 %define phpcommon php-common
 
