@@ -882,7 +882,7 @@ exit 0
 #
 # php-ice package
 #
-%files -n php-%{?nameprefix}ice
+%files -n %{phpname}-%{?nameprefix}ice
 %license LICENSE
 %license ICE_LICENSE
 %doc %{rpmbuildfiles}/README
